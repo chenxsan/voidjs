@@ -30,7 +30,12 @@ const rules = [
   },
   {
     test: /\.(png|svg|jpg|gif)$/i,
-    use: ['file-loader']
+    use: [
+      'file-loader',
+      {
+        loader: 'image-webpack-loader'
+      }
+    ]
   }
 ]
 const plugins = [
