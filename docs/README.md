@@ -15,3 +15,7 @@ HTMLgaga would love to tackle the problem :)
 HTMLgaga manages your html templates & their static assets with [Webpack](https://webpack.js.org/) and React server side render.
 
 Yes, it is crazy if you don't write React at all. Actually I would suggest you sticking to your current tech stack in that case.
+
+## License
+
+Copyright © 2020-present Sam Chen
