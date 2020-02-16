@@ -18,4 +18,6 @@ Yes, it is crazy if you don't write React at all. Actually I would suggest you s
 
 ## License
 
+GPL-3.0
+
 Copyright © 2020-present Sam Chen
