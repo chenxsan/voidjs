@@ -48,7 +48,15 @@ const plugins = [
 
 const extensions = ['.tsx', '.ts', '.js', '.jsx']
 
+const logger = require('pino')({
+  prettyPrint: {
+    translateTime: true,
+    ignore: 'pid,hostname'
+  }
+})
+
 exports.rules = rules
 exports.plugins = plugins
 exports.extensions = extensions
 exports.dev = dev
+exports.logger = logger
