@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const { rules, extensions, plugins } = require('./config')
+const { rules, extensions, plugins, alias } = require('./config')
 
 module.exports = {
   mode: 'development',
@@ -12,7 +12,8 @@ module.exports = {
     rules
   },
   resolve: {
-    extensions
+    extensions,
+    alias
   },
   plugins: [
     ...plugins,

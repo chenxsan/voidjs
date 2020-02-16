@@ -1,3 +1,5 @@
+const path = require('path')
+
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
@@ -55,8 +57,12 @@ const logger = require('pino')({
   }
 })
 
+const alias = {
+  img: path.resolve(__dirname, 'static/img')
+}
 exports.rules = rules
 exports.plugins = plugins
 exports.extensions = extensions
 exports.dev = dev
 exports.logger = logger
+exports.alias = alias

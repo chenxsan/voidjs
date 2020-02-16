@@ -1,4 +1,4 @@
-import logo from '../../static/img/logo@3x.svg'
+import logo from 'img/logo@3x.svg'
 export default function Signin() {
   return (
     <div>

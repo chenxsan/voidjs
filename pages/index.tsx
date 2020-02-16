@@ -4,7 +4,7 @@ import '../static/css/tailwind.css'
 // one is part of the template
 // we should just import it
 // so webpack could manage for us
-import logo from '../static/img/logo@3x.svg'
+import logo from 'img/logo@3x.svg'
 
 export default function IndexPage() {
   return (
