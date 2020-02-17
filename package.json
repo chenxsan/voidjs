@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "export": "NODE_ENV=production node export.js",
+    "export": "NODE_ENV=production node lib/export",
     "test": "jest",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
