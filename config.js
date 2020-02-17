@@ -58,7 +58,8 @@ const logger = require('pino')({
 })
 
 const alias = {
-  img: path.resolve(__dirname, 'static/img')
+  img: path.resolve(__dirname, 'static/img'),
+  css: path.resolve(__dirname, 'static/css')
 }
 exports.rules = rules
 exports.plugins = plugins

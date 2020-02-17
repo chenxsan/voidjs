@@ -1,4 +1,4 @@
-import '../static/css/tailwind.css'
+import 'css/tailwind.css'
 
 // there're two types of image
 // one is part of the template
