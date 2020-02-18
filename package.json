@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node lib/cli.js dev",
     "test": "jest",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
