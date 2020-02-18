@@ -5,7 +5,7 @@ module.exports = {
     node: true,
     jest: true
   },
-  extends: ['plugin:react/recommended'],
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly'
@@ -17,8 +17,6 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module'
   },
-  plugins: ['react', 'prettier'],
-  rules: {
-    'react/react-in-jsx-scope': 'off'
-  }
+  plugins: ['react'],
+  rules: {}
 }
