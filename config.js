@@ -7,7 +7,7 @@ const dev = process.env.NODE_ENV !== 'production'
 
 const rules = [
   {
-    test: /\.(js|jsx|ts|tsx)$/i,
+    test: /\.(js|jsx)$/i,
     exclude: /node_modules/,
     loader: 'babel-loader'
   },
@@ -48,7 +48,7 @@ const plugins = [
   new CleanWebpackPlugin()
 ]
 
-const extensions = ['.tsx', '.ts', '.js', '.jsx']
+const extensions = ['.js', '.jsx']
 
 const logger = require('pino')({
   prettyPrint: {
