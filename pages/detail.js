@@ -1,3 +1,4 @@
+import 'css/tailwind.css'
 export default function DetailPage() {
-  return <div>this is detail</div>
+  return <div className="flex">this is detail</div>
 }
