@@ -23,7 +23,10 @@ export default function IndexPage() {
         src="../placeholder/cat.jpg"
         alt="cat"
         id="cover"
-        className="transition duration-300 max-w-6xl block mx-auto origin-top w-full select-none"
+        className="transform transition duration-300 max-w-6xl block mx-auto origin-top w-full select-none"
+        style={{
+          willChange: 'transform'
+        }}
       />
     </div>
   )
