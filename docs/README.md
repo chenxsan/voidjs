@@ -5,7 +5,7 @@ Manage your html templates & their static assets better for any server-side lang
 ## Who
 
 :::tip
-If you're full stack developer, you could skip HTMLgaga since most server side frameworks provide built-in tools like Assets Pipeline to manage assets.
+If you're full stack developer, you could skip HTMLgaga since most server side frameworks provide built-in tools like [webpacker](https://github.com/rails/webpacker) to manage assets.
 :::
 
 Say you are a front end developer creating HTML pages with JavaScript/CSS from prototype and design, after you finish your job, QA or product manager might want to double check your HTML pages before transfering them to back end developer. HTMLgaga is built for you then.
