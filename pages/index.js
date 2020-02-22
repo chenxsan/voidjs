@@ -6,7 +6,7 @@ import 'css/tailwind.css'
 // so webpack could manage for us
 import logo from 'img/logo@3x.svg'
 
-export default function IndexPage() {
+export default function Page() {
   return (
     <div className="">
       <h1 className="flex items-center text-2xl leading-none justify-center py-10 lg:text-4xl">
@@ -30,4 +30,9 @@ export default function IndexPage() {
       />
     </div>
   )
+}
+if (process.env.NODE_ENV === 'development') {
+  if (typeof document !== 'undefined') {
+    require('react-dom').render(<Page />, document.querySelector('#app'))
+  }
 }
