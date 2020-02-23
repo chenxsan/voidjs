@@ -7,6 +7,3 @@ export default function Page() {
     </div>
   )
 }
-if (process.env.NODE_ENV === 'development') {
-  require('react-dom').render(<Page />, document.querySelector('#app'))
-}
