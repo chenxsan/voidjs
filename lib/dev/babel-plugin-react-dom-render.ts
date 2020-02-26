@@ -1,27 +1,27 @@
-module.exports = function(babel) {
-  const { types: t } = babel
+export default function(babel) {
+  const { types: t } = babel;
   return {
     visitor: {
       Program: {
         enter(path) {
           if (path.scope.hasBinding('ReactDOM')) {
-            return
+            return;
           }
 
           // import ReactDOM from 'react-dom' if not imported yet
-          const identifier = t.identifier('ReactDOM')
-          const importDefaultSpecifier = t.importDefaultSpecifier(identifier)
+          const identifier = t.identifier('ReactDOM');
+          const importDefaultSpecifier = t.importDefaultSpecifier(identifier);
           const importDeclaration = t.importDeclaration(
             [importDefaultSpecifier],
             t.stringLiteral('react-dom')
-          )
-          path.unshiftContainer('body', importDeclaration)
+          );
+          path.unshiftContainer('body', importDeclaration);
         }
       },
       ExportDefaultDeclaration: {
-        enter(path, { opts: { root = 'app', hydrate = false } }) {
+        enter(path, { opts: { root = 'app', hydrate = false } }): void {
           // Only render function component
-          if (path.node.declaration.type !== 'FunctionDeclaration') return
+          if (path.node.declaration.type !== 'FunctionDeclaration') return;
 
           // ReactDOM.render(<DefaultExport />, document.getElementById('rootElementId'))
           // ReactDOM.hydrate
@@ -48,9 +48,9 @@ module.exports = function(babel) {
                 )
               ]
             )
-          )
+          );
         }
       }
     }
-  }
+  };
 }

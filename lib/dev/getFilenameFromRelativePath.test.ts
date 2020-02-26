@@ -1,4 +1,4 @@
-const fn = require('./getFilenameFromRelativePath')
+import fn from './getFilenameFromRelativePath'
 test('should return index.html', () => {
   expect(fn('/root/pages', '/root/pages/index.js')).toBe('index.html')
 })

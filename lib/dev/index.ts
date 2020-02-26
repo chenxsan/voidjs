@@ -1,33 +1,45 @@
-const webpack = require('webpack')
-const WebpackDevServer = require('webpack-dev-server')
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const collectPages = require('../collectPages')
-const getEntryKeyFromRelativePath = require('./getEntryKeyFromRelativePath')
-const getFilenameFromRelativePath = require('./getFilenameFromRelativePath')
-const { cwd, extensions, alias } = require('../config')
+import webpack = require('webpack');
+import * as path from 'path';
+import * as fs from 'fs';
+import WebpackDevServer = require('webpack-dev-server');
+import HtmlWebpackPlugin = require('html-webpack-plugin');
+import collectPages from '../collectPages';
+import getEntryKeyFromRelativePath from './getEntryKeyFromRelativePath';
+import getFilenameFromRelativePath from './getFilenameFromRelativePath';
+import { cwd, extensions, alias, logger } from '../config';
 
-module.exports = async function(pagesDir) {
-  const pages = await collectPages(pagesDir)
+class DevServer {
+  private pagesDir: string;
+  private pages: string[];
 
-  const clientJs = path.resolve(cwd, 'public/js/index')
+  constructor(pagesDir: string) {
+    this.pagesDir = pagesDir;
+  }
 
-  function createWebpackConfig(pages) {
+  private createWebpackConfig(): any {
+    const hasClientJs = fs.existsSync(path.join(cwd, 'public/js/index.js'));
+
     // generate entries for pages
-    const entries = pages.reduce((acc, page) => {
-      acc[getEntryKeyFromRelativePath(pagesDir, page)] = [page, clientJs]
-      return acc
-    }, {})
+    const entries = this.pages.reduce((acc, page) => {
+      const entryKey = getEntryKeyFromRelativePath(this.pagesDir, page);
+      acc[entryKey] = [page];
+      return acc;
+    }, {});
+
+    if (hasClientJs) {
+      entries['client'] = path.resolve(cwd, 'public/js/index');
+    }
     // generate htmlwebpackplugins for pages
-    const htmlPlugins = pages.map(page => {
-      const filename = getFilenameFromRelativePath(pagesDir, page)
+    const htmlPlugins = this.pages.map(page => {
+      const filename = getFilenameFromRelativePath(this.pagesDir, page);
+      const entryKey = getEntryKeyFromRelativePath(this.pagesDir, page);
       return new HtmlWebpackPlugin({
         template: path.resolve(__dirname, '../templates/dev.js'),
-        chunks: [getEntryKeyFromRelativePath(pagesDir, page)],
+        chunks: hasClientJs ? [entryKey, 'client'] : [entryKey],
         filename,
         title: `htmlgaga - ${filename}`
-      })
-    })
+      });
+    });
     return {
       mode: 'development',
       entry: entries,
@@ -61,7 +73,8 @@ module.exports = async function(pagesDir) {
                     [
                       require('./babel-plugin-react-dom-render'),
                       {
-                        hydrate: false
+                        hydrate: false,
+                        root: 'htmlgaga'
                       }
                     ],
                     'react-require'
@@ -100,13 +113,22 @@ module.exports = async function(pagesDir) {
           'process.env.NODE_ENV': '"development"'
         })
       ]
-    }
+    };
   }
-  const webpackConfig = createWebpackConfig(pages)
+  async start(): Promise<any> {
+    const pages = await collectPages(this.pagesDir);
+    this.pages = pages;
+    if (pages.length === 0) {
+      return logger.warn('No pages found under `pages`');
+    }
 
-  const compiler = webpack(webpackConfig)
-  const devServerOptions = Object.assign({}, webpackConfig.devServer, {
-    stats: 'minimal'
-  })
-  return new WebpackDevServer(compiler, devServerOptions)
+    const webpackConfig = this.createWebpackConfig();
+
+    const compiler = webpack(webpackConfig);
+
+    return new WebpackDevServer(compiler, {
+      stats: 'minimal'
+    });
+  }
 }
+export default DevServer;

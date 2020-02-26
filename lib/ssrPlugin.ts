@@ -16,74 +16,76 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-const React = require('react')
-const ReactDOMServer = require('react-dom/server')
-const prettier = require('prettier')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { htmlTagObjectToString } = require('html-webpack-plugin/lib/html-tags')
-const path = require('path')
-function requireFromString(src, filename) {
-  var Module = module.constructor
-  var m = new Module()
-  m._compile(src, filename)
-  return m.exports
+import * as React from 'react';
+import ReactDOMServer = require('react-dom/server');
+import prettier = require('prettier');
+import * as path from 'path';
+import HtmlWebpackPlugin = require('html-webpack-plugin');
+const { htmlTagObjectToString } = require('html-webpack-plugin/lib/html-tags');
+
+function requireFromString(src: string, filename: string): any {
+  const Module = module.constructor;
+  const m = new Module();
+  m._compile(src, filename);
+  return m.exports;
 }
 
 class SsrPlugin {
   constructor(options) {
-    this.options = options
+    this.options = options;
   }
   apply(compiler) {
     compiler.hooks.compilation.tap('SsrPlugin', compilation => {
       HtmlWebpackPlugin.getHooks(compilation).beforeAssetTagGeneration.tapAsync(
         'SsrPlugin',
         (htmlPluginData, next) => {
-          this.assets = htmlPluginData.assets
-          next(null, htmlPluginData)
+          this.assets = htmlPluginData.assets;
+          next(null, htmlPluginData);
         }
-      )
+      );
       HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tapAsync(
         'SsrPlugin',
         (htmlPluginData, next) => {
           // save for later use
-          this.headTags = htmlPluginData.headTags
-          this.bodyTags = htmlPluginData.bodyTags
-          next(null, htmlPluginData)
+          this.headTags = htmlPluginData.headTags;
+          this.bodyTags = htmlPluginData.bodyTags;
+          next(null, htmlPluginData);
         }
-      )
-    })
+      );
+    });
     compiler.hooks.emit.tapAsync('SsrPlugin', (compilation, next) => {
-      const htmls = Object.keys(this.options.outputMapInput)
+      const htmls = Object.keys(this.options.outputMapInput);
 
       for (let filename in compilation.assets) {
         // throw html htmlwebpackplugin created
         // we would rather create it ourself
         if (htmls.indexOf(filename) !== -1) {
-          const entryJs = this.options.outputMapInput[filename]
+          const entryJs = this.options.outputMapInput[filename];
           const Page = requireFromString(
             compilation.assets[entryJs].source(),
             entryJs
-          ).default
+          ).default;
           const ssr = ReactDOMServer.renderToStaticMarkup(
             React.createElement(Page)
-          )
+          );
           const hd = (this.headTags || [])
             .map(tag => htmlTagObjectToString(tag, true))
-            .join('')
+            .join('');
           const bd = (this.bodyTags || [])
             .filter(tag => {
               return !(
                 (tag.tagName === 'script' && tag.attributes.src === 'index.js') // exclude entryJs from bodyTags
-              )
+              );
             })
             .map(tag => htmlTagObjectToString(tag, true))
-            .join('')
+            .join('');
           // format html with prettier
           const body = prettier.format(
             `<!DOCTYPE html>
             <html lang="en">
               <head>
                 ${hd}
+                <title></title>
               </head>
               <body>
                 ${ssr}
@@ -94,19 +96,19 @@ class SsrPlugin {
             {
               parser: 'html'
             }
-          )
-          delete compilation.assets[filename]
+          );
+          delete compilation.assets[filename];
           compilation.assets[filename.split(path.sep).join('-')] = {
             source: () => body,
             size: () => body.length
-          }
+          };
           // remove entryJs
-          delete compilation.assets[entryJs]
+          delete compilation.assets[entryJs];
         }
       }
 
-      next()
-    })
+      next();
+    });
   }
 }
-module.exports = SsrPlugin
+export default SsrPlugin;

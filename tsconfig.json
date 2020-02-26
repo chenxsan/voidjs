@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "strict": false,
+    "module": "CommonJS",
+    "target": "ES2018", // <- Node 10
+    "jsx": "react",
+    "outDir": "dist"
+  },
+  "exclude": ["dist", "node_modules"],
+  "include": ["lib/**/*.ts"]
+}

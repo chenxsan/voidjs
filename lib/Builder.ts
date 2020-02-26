@@ -1,37 +1,37 @@
-const webpack = require('webpack')
-const path = require('path')
-const fs = require('fs')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const TerserJSPlugin = require('terser-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CssoWebpackPlugin = require('csso-webpack-plugin').default
-const getHtmlFilenameFromRelativePath = require('./dev/getFilenameFromRelativePath')
-const AssetsPlugin = require('assets-webpack-plugin')
-
-const {
+import webpack = require('webpack');
+import * as path from 'path';
+import * as fs from 'fs';
+import HtmlWebpackPlugin = require('html-webpack-plugin');
+import TerserJSPlugin = require('terser-webpack-plugin');
+import MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import CssoWebpackPlugin from 'csso-webpack-plugin';
+import AssetsPlugin = require('assets-webpack-plugin');
+import getHtmlFilenameFromRelativePath from './dev/getFilenameFromRelativePath';
+import {
   extensions,
   alias,
   logger,
   cwd,
   performance,
   PerformanceObserver
-} = require('./config')
-const collectPages = require('./collectPages')
+} from './config';
 
-const SsrPlugin = require('./ssrPlugin')
+import collectPages from './collectPages';
+
+import SsrPlugin from './ssrPlugin';
 
 class Builder {
-  pagesDir
-  outputPath
-  constructor(pagesDir, outputPath) {
-    this.pagesDir = pagesDir
-    this.outputPath = outputPath
+  pagesDir: string;
+  outputPath: string;
+  constructor(pagesDir: string, outputPath: string) {
+    this.pagesDir = pagesDir;
+    this.outputPath = outputPath;
   }
-  normalizedPageEntry(pageEntry) {
+  normalizedPageEntry(pageEntry): string {
     return path
       .relative(this.pagesDir, pageEntry)
       .split(path.sep)
-      .join('-')
+      .join('-');
   }
   createWebpackConfig(pages) {
     // {[outputHtml]: input}
@@ -40,18 +40,18 @@ class Builder {
       const outputHtml = getHtmlFilenameFromRelativePath(
         this.pagesDir,
         pageEntry
-      )
-      acc[outputHtml] = this.normalizedPageEntry(pageEntry)
-      return acc
-    }, {})
+      );
+      acc[outputHtml] = this.normalizedPageEntry(pageEntry);
+      return acc;
+    }, {});
 
     const entries = pages.reduce((acc, page) => {
-      acc[this.normalizedPageEntry(page)] = page
-      return acc
-    }, {})
+      acc[this.normalizedPageEntry(page)] = page;
+      return acc;
+    }, {});
 
     const htmlPlugins = pages.map(page => {
-      const filename = getHtmlFilenameFromRelativePath(this.pagesDir, page)
+      const filename = getHtmlFilenameFromRelativePath(this.pagesDir, page);
       return new HtmlWebpackPlugin({
         chunks: [this.normalizedPageEntry(page), 'client'], // <- needs to exclude [name].js later
         filename,
@@ -65,13 +65,13 @@ class Builder {
         inject: false,
         cache: false,
         showErrors: false
-      })
-    })
+      });
+    });
 
-    let webpackEntry = { ...entries }
-    const clientJs = path.resolve(cwd, 'public/js/index.js')
+    let webpackEntry = { ...entries };
+    const clientJs = path.resolve(cwd, 'public/js/index.js');
     if (fs.existsSync(clientJs)) {
-      webpackEntry = { ...webpackEntry, client: clientJs }
+      webpackEntry = { ...webpackEntry, client: clientJs };
     }
 
     return {
@@ -90,13 +90,13 @@ class Builder {
         path: path.resolve(this.outputPath),
         libraryTarget: 'umd',
         globalObject: 'this',
-        filename: chunkData => {
+        filename: (chunkData): string => {
           if (entries[chunkData.chunk.name]) {
             // do not include contenthash for those entry pages
             // since we only use it for server side render
-            return '[name]'
+            return '[name]';
           }
-          return '[name].[contenthash].js'
+          return '[name].[contenthash].js';
         }
       },
       module: {
@@ -169,42 +169,42 @@ class Builder {
           filename: '[contenthash].css'
         })
       ]
-    }
+    };
   }
-  async run() {
-    performance.mark('begin')
-    logger.info('Collecting pages...')
-    const pages = await collectPages(this.pagesDir)
-    logger.info(`${pages.length} pages collected`)
+  async run(): Promise<void> {
+    performance.mark('begin');
+    logger.info('Collecting pages...');
+    const pages = await collectPages(this.pagesDir);
+    logger.info(`${pages.length} pages collected`);
 
-    logger.info('Building now, please wait...')
+    logger.info('Building now, please wait...');
 
-    const compiler = webpack(this.createWebpackConfig(pages))
+    const compiler = webpack(this.createWebpackConfig(pages));
 
     compiler.run((err, stats) => {
       if (err) {
         if (err.details) {
-          logger.error(err.details)
+          logger.error(err.details);
         }
-        return
+        return;
       }
       if (stats.hasErrors()) {
-        return stats.toJson().errors.forEach(err => logger.error(err))
+        return stats.toJson().errors.forEach(err => logger.error(err));
       }
-      performance.mark('end')
-      performance.measure('begin to end', 'begin', 'end')
+      performance.mark('end');
+      performance.measure('begin to end', 'begin', 'end');
       const obs = new PerformanceObserver((list, observer) => {
         logger.info(
           `All ${pages.length} pages built in ${(
             list.getEntries()[0].duration / 1000
           ).toFixed(2)}s!`
-        )
+        );
 
-        observer.disconnect()
-      })
-      obs.observe({ entryTypes: ['measure'] })
-      performance.measure('Build time', 'begin', 'end')
-    })
+        observer.disconnect();
+      });
+      obs.observe({ entryTypes: ['measure'] });
+      performance.measure('Build time', 'begin', 'end');
+    });
   }
 }
-module.exports = Builder
+export default Builder;

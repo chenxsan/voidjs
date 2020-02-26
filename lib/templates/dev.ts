@@ -1,4 +1,4 @@
-module.exports = `<!DOCTYPE html>
+export default `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,9 +7,9 @@ module.exports = `<!DOCTYPE html>
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <title></title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="htmlgaga"></div>
   </body>
-</html>`
+</html>`;

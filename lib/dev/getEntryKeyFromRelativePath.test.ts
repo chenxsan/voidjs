@@ -1,5 +1,5 @@
-const path = require('path')
-const fn = require('./getEntryKeyFromRelativePath')
+import * as path from 'path'
+import fn from './getEntryKeyFromRelativePath'
 test('should remove file ext from index', () => {
   expect(fn('/root/pages', '/root/pages/index.js')).toBe(
     ['index', 'index'].join(path.sep)
