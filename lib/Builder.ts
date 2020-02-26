@@ -5,7 +5,7 @@ import HtmlWebpackPlugin = require('html-webpack-plugin');
 import TerserJSPlugin = require('terser-webpack-plugin');
 import MiniCssExtractPlugin = require('mini-css-extract-plugin');
 import CssoWebpackPlugin from 'csso-webpack-plugin';
-import AssetsPlugin = require('assets-webpack-plugin');
+import WebpackAssetsManifest = require('webpack-assets-manifest');
 import getHtmlFilenameFromRelativePath from './dev/getFilenameFromRelativePath';
 import {
   extensions,
@@ -153,10 +153,8 @@ class Builder {
         alias
       },
       plugins: [
-        new AssetsPlugin({
-          filename: 'assets.json',
-          prettyPrint: true,
-          path: this.outputPath
+        new WebpackAssetsManifest({
+          output: 'assets.json'
         }),
         new CssoWebpackPlugin({
           restructure: false
