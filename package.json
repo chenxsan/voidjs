@@ -11,7 +11,7 @@
     "tsc:w": "tsc -w"
   },
   "bin": {
-    "htmlgaga": "lib/cli.js"
+    "htmlgaga": "dist/cli.js"
   },
   "keywords": [],
   "author": "Sam Chen",

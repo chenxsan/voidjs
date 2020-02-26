@@ -7,5 +7,5 @@
     "outDir": "dist"
   },
   "exclude": ["dist", "node_modules"],
-  "include": ["lib/**/*.ts"]
+  "include": ["src/**/*.ts"]
 }
