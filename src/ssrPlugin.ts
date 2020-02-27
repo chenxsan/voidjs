@@ -22,7 +22,7 @@ import prettier = require('prettier');
 import * as path from 'path';
 import HtmlWebpackPlugin = require('html-webpack-plugin');
 import HtmlTags = require('html-webpack-plugin/lib/html-tags');
-const { htmlTagObjectToString } = HtmlTags
+const { htmlTagObjectToString } = HtmlTags;
 
 function requireFromString(src: string, filename: string) {
   const Module = module.constructor;
@@ -75,7 +75,12 @@ class SsrPlugin {
           const bd = (this.bodyTags || [])
             .filter(tag => {
               return !(
-                (tag.tagName === 'script' && tag.attributes.src === 'index.js') // exclude entryJs from bodyTags
+                (
+                  tag.tagName === 'script' &&
+                  Object.values(this.options.outputMapInput).indexOf(
+                    tag.attributes.src
+                  ) !== -1
+                ) // exclude entryJs from bodyTags
               );
             })
             .map(tag => htmlTagObjectToString(tag, true))
