@@ -1,5 +1,5 @@
 /**
- * htmlgaga - Manage your html templates & their static assets better for any server-side languages.
+ * htmlgaga - Manage multiple non-SPA pages with webpack and React.js.
  * 
     Copyright (C) 2020-present  Sam Chen
 

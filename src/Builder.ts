@@ -59,7 +59,8 @@ class Builder {
           'utf-8': {
             charset: 'utf-8'
           },
-          viewport: 'width=device-width, initial-scale=1.0, viewport-fit=cover'
+          viewport: 'width=device-width, initial-scale=1.0, viewport-fit=cover',
+          generator: 'htmlgaga'
         },
         minify: false,
         inject: false,
