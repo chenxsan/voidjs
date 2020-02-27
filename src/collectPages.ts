@@ -2,8 +2,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { cwd } from './config';
 
-const emptyArr: string[] = [];
-
 interface FilterFunc {
   (path: string): boolean;
 }
@@ -14,7 +12,7 @@ const doNotFilter = (): boolean => true;
 async function collect(
   root: string = cwd,
   filter: FilterFunc = doNotFilter,
-  acc = emptyArr
+  acc = []
 ): Promise<string[]> {
   const files = await fs.promises.readdir(root);
   for (const file of files) {

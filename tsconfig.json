@@ -4,7 +4,8 @@
     "module": "CommonJS",
     "allowJs": true,
     "target": "ES2018", // <- Node 10
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "strictNullChecks": true
   },
   "include": ["./src/**/*"]
 }

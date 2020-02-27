@@ -21,9 +21,10 @@ import ReactDOMServer = require('react-dom/server');
 import prettier = require('prettier');
 import * as path from 'path';
 import HtmlWebpackPlugin = require('html-webpack-plugin');
-const { htmlTagObjectToString } = require('html-webpack-plugin/lib/html-tags');
+import HtmlTags = require('html-webpack-plugin/lib/html-tags');
+const { htmlTagObjectToString } = HtmlTags
 
-function requireFromString(src: string, filename: string): any {
+function requireFromString(src: string, filename: string) {
   const Module = module.constructor;
   const m = new Module();
   m._compile(src, filename);
@@ -34,7 +35,7 @@ class SsrPlugin {
   constructor(options) {
     this.options = options;
   }
-  apply(compiler) {
+  apply(compiler): void {
     compiler.hooks.compilation.tap('SsrPlugin', compilation => {
       HtmlWebpackPlugin.getHooks(compilation).beforeAssetTagGeneration.tapAsync(
         'SsrPlugin',
@@ -99,8 +100,8 @@ class SsrPlugin {
           );
           delete compilation.assets[filename];
           compilation.assets[filename.split(path.sep).join('-')] = {
-            source: () => body,
-            size: () => body.length
+            source: (): string => body,
+            size: (): number => body.length
           };
           // remove entryJs
           delete compilation.assets[entryJs];
