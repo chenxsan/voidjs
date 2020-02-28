@@ -18,7 +18,7 @@ import {
 
 import collectPages from './collectPages';
 
-import SsrPlugin from './ssrPlugin';
+import SsrPlugin from './ServerSideRenderingPlugin';
 
 class Builder {
   pagesDir: string;
