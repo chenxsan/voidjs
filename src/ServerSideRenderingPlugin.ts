@@ -23,13 +23,7 @@ import * as path from 'path';
 import HtmlWebpackPlugin = require('html-webpack-plugin');
 import HtmlTags = require('html-webpack-plugin/lib/html-tags');
 const { htmlTagObjectToString } = HtmlTags;
-
-function requireFromString(src: string, filename: string) {
-  const Module = module.constructor;
-  const m = new Module();
-  m._compile(src, filename);
-  return m.exports;
-}
+import requireFromString from './requireFromString';
 
 class SsrPlugin {
   constructor(options) {
