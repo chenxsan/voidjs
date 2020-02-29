@@ -7,7 +7,6 @@ import collectPages from '../collectPages';
 import getEntryKeyFromRelativePath from './getEntryKeyFromRelativePath';
 import getFilenameFromRelativePath from './getFilenameFromRelativePath';
 import { cwd, extensions, alias, logger } from '../config';
-
 class DevServer {
   private pagesDir: string;
   private pages: string[];
@@ -50,34 +49,26 @@ class DevServer {
         rules: [
           {
             test: /\.(js|jsx|ts|tsx|mjs)$/i,
-            exclude: [/node_modules/, path.resolve(cwd, 'pages')],
+            exclude: [/node_modules/],
             use: [
               {
                 loader: 'babel-loader',
                 options: {
                   presets: ['@babel/preset-env', '@babel/preset-react'],
-                  plugins: ['react-require']
-                }
-              }
-            ]
-          },
-          {
-            test: /\.(js|jsx|ts|tsx|mjs)$/i,
-            include: path.resolve(cwd, 'pages'),
-            use: [
-              {
-                loader: 'babel-loader',
-                options: {
-                  presets: ['@babel/preset-env', '@babel/preset-react'],
-                  plugins: [
-                    [
-                      require('./babel-plugin-react-dom-render'),
-                      {
-                        hydrate: false,
-                        root: 'htmlgaga'
-                      }
-                    ],
-                    'react-require'
+                  plugins: ['react-require'],
+                  overrides: [
+                    {
+                      include: path.resolve(cwd, 'pages'),
+                      plugins: [
+                        [
+                          'react-dom-render',
+                          {
+                            hydrate: false,
+                            root: 'htmlgaga'
+                          }
+                        ]
+                      ]
+                    }
                   ]
                 }
               }
