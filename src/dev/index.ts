@@ -11,46 +11,72 @@ import express = require('express');
 import devMiddleware from 'webpack-dev-middleware';
 import hotMiddleware = require('webpack-hot-middleware');
 
+import MultiEntryPlugin = require('webpack/lib/MultiEntryPlugin');
+
+import isHtmlRequest from './isHtmlRequest';
+
+const BUILT = Symbol('built');
+
 // always reload
 const hotClient = 'webpack-hot-middleware/client?reload=true';
 class DevServer {
   private pagesDir: string;
   private pages: string[];
+  private entries: {
+    [propName: string]: any;
+  };
+  private hasClientJs: boolean;
+  private host: string;
+  private port: number;
 
-  constructor(pagesDir: string) {
+  constructor(pagesDir: string, { host, port }) {
     this.pagesDir = pagesDir;
+    this.hasClientJs = fs.existsSync(path.join(cwd, 'public/js/index.js'));
+
+    this.host = host;
+    this.port = port;
   }
 
-  private createWebpackConfig(): any {
-    const hasClientJs = fs.existsSync(path.join(cwd, 'public/js/index.js'));
+  private htmlPlugin(page: string): HtmlWebpackPlugin {
+    const filename = getFilenameFromRelativePath(this.pagesDir, page);
+    const entryKey = getEntryKeyFromRelativePath(this.pagesDir, page);
+    return new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, '../templates/dev.js'),
+      chunks: this.hasClientJs ? [entryKey, 'client'] : [entryKey],
+      chunksSortMode: 'manual',
+      filename,
+      title: `htmlgaga - ${filename}`
+    });
+  }
 
+  private createEntry(
+    page: string
+  ): {
+    [propName: string]: string[];
+  } {
+    const entryKey = getEntryKeyFromRelativePath(this.pagesDir, page);
+    return {
+      [entryKey]: [page, hotClient]
+    };
+  }
+
+  private initWebpackConfig(page: string): webpack.Configuration {
     // generate entries for pages
-    const entries = this.pages.reduce((acc, page) => {
-      const entryKey = getEntryKeyFromRelativePath(this.pagesDir, page);
-      acc[entryKey] = [page, hotClient];
-      return acc;
-    }, {});
+    const entries = {
+      ...this.createEntry(page)
+    };
 
-    if (hasClientJs) {
+    if (this.hasClientJs) {
       entries['client'] = [path.resolve(cwd, 'public/js/index'), hotClient];
     }
-    // generate htmlwebpackplugins for pages
-    const htmlPlugins = this.pages.map(page => {
-      const filename = getFilenameFromRelativePath(this.pagesDir, page);
-      const entryKey = getEntryKeyFromRelativePath(this.pagesDir, page);
-      return new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, '../templates/dev.js'),
-        chunks: hasClientJs ? [entryKey, 'client'] : [entryKey],
-        filename,
-        title: `htmlgaga - ${filename}`
-      });
-    });
+
     return {
       mode: 'development',
       entry: entries,
       output: {
         publicPath: '/'
       },
+      stats: 'minimal',
       module: {
         rules: [
           {
@@ -105,7 +131,7 @@ class DevServer {
         alias
       },
       plugins: [
-        ...htmlPlugins,
+        this.htmlPlugin(page),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': '"development"'
         }),
@@ -114,24 +140,101 @@ class DevServer {
       ]
     };
   }
+
+  private findSrcPage(url: string): string {
+    if (url.endsWith('/')) url = url + '/index.html';
+    const target = path.join(this.pagesDir, url.replace(/\.html$/, '') + '.js');
+    if (fs.existsSync(target)) {
+      return target;
+    }
+    return '';
+  }
+
   async start(): Promise<any> {
-    const pages: string[] = await collectPages(this.pagesDir);
-    this.pages = pages;
-    if (pages.length === 0) {
+    // collect all pages
+    this.pages = await collectPages(this.pagesDir);
+
+    if (this.pages.length === 0) {
       return logger.warn('No pages found under `pages`');
     }
 
     const app = express();
 
-    const webpackConfig = this.createWebpackConfig();
+    const entryKey = getEntryKeyFromRelativePath(this.pagesDir, this.pages[0]);
+
+    const webpackConfig = this.initWebpackConfig(this.pages[0]);
+
+    this.entries = {
+      [entryKey]: {
+        status: BUILT
+      }
+    };
 
     const compiler = webpack(webpackConfig);
 
-    app.use(devMiddleware(compiler));
+    const middleware = devMiddleware(compiler);
+
+    app.use((req, res, next) => {
+      if (isHtmlRequest(req.url)) {
+        // check if page does exit
+        const page = this.findSrcPage(req.url);
+        const entryKey = getEntryKeyFromRelativePath(this.pagesDir, page);
+
+        if (page !== '') {
+          // if entry not added to webpack
+          if (!this.entries[entryKey]) {
+            new MultiEntryPlugin(cwd, [page, hotClient], entryKey).apply(
+              compiler
+            );
+
+            this.htmlPlugin(page).apply(compiler);
+            middleware.invalidate();
+
+            // save to this.entries
+            this.entries = {
+              ...this.entries,
+              [entryKey]: {
+                status: BUILT
+              }
+            };
+          }
+        } else {
+          // page not exist now
+          if (this.entries[entryKey]) {
+            delete this.entries[entryKey];
+          }
+          res.status(404).end('Page Not Found');
+        }
+      }
+      next();
+    });
+
+    app.use(middleware);
 
     app.use(hotMiddleware(compiler));
 
-    app.use(express.static(cwd)); // serve statics from placeholder
+    app.use(express.static(cwd)); // serve statics from ../fixture
+
+    app
+      .listen(this.port, this.host, err => {
+        if (err) {
+          return logger.error(err);
+        }
+
+        const server = `http://${this.host}:${this.port}`;
+        logger.info(`Starting server on ${server}`);
+
+        logger.info(
+          `${server}/${getFilenameFromRelativePath(
+            this.pagesDir,
+            this.pages[0]
+          )} is ready`
+        );
+      })
+      .on('error', err => {
+        logger.info('You might run server on another port with option --port');
+        throw err;
+      });
 
     return app;
   }

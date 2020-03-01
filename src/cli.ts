@@ -27,21 +27,8 @@ yargs
     async function(argv) {
       const { host, port } = argv;
       const pagesDir = path.resolve(cwd, 'pages');
-      const server = new DevServer(pagesDir);
-      const app = await server.start();
-      app
-        .listen(port, host, err => {
-          if (err) {
-            return logger.error(err);
-          }
-          logger.info(`Starting server on http://${host}:${port}`);
-        })
-        .on('error', err => {
-          logger.info(
-            'You might run server on another port with option --port'
-          );
-          throw err;
-        });
+      const server = new DevServer(pagesDir, { host, port });
+      server.start();
     }
   )
   .command(
