@@ -61,7 +61,6 @@
     "@types/rimraf": "^2.0.3",
     "@types/terser-webpack-plugin": "^2.2.0",
     "@types/webpack": "^4.41.6",
-    "@types/webpack-dev-middleware": "^3.7.0",
     "@types/webpack-dev-server": "^3.10.0",
     "@types/yargs": "^15.0.3",
     "@typescript-eslint/eslint-plugin": "^2.21.0",
