@@ -20,7 +20,7 @@ export default function Home() {
       {/* image for placeholder purpose, don't import it */}
       {/* or webpack would build it */}
       <img
-        src="../placeholder/cat.jpg"
+        src="../fixture/cat.jpg"
         alt="cat"
         id="cover"
         className="transform transition duration-300 max-w-6xl block mx-auto origin-top w-full select-none"
