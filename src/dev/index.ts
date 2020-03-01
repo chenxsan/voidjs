@@ -8,7 +8,7 @@ import getFilenameFromRelativePath from './getFilenameFromRelativePath';
 import { cwd, extensions, alias, logger } from '../config';
 
 import express = require('express');
-import devMiddleware = require('webpack-dev-middleware');
+import devMiddleware from 'webpack-dev-middleware';
 import hotMiddleware = require('webpack-hot-middleware');
 
 // always reload
@@ -116,7 +116,7 @@ class DevServer {
   }
   async start(): Promise<any> {
     const pages: string[] = await collectPages(this.pagesDir);
-    this.pages = pages.slice(0, 1);
+    this.pages = pages;
     if (pages.length === 0) {
       return logger.warn('No pages found under `pages`');
     }
@@ -127,11 +127,7 @@ class DevServer {
 
     const compiler = webpack(webpackConfig);
 
-    app.use(
-      devMiddleware(compiler, {
-        stats: 'minimal'
-      })
-    );
+    app.use(devMiddleware(compiler));
 
     app.use(hotMiddleware(compiler));
 
