@@ -14,6 +14,7 @@ import hotMiddleware = require('webpack-hot-middleware');
 import MultiEntryPlugin = require('webpack/lib/MultiEntryPlugin');
 
 import isHtmlRequest from './isHtmlRequest';
+import findFirstPage from './findFirstPage';
 
 const BUILT = Symbol('built');
 
@@ -160,7 +161,9 @@ class DevServer {
 
     const app = express();
 
-    const entryKey = getEntryKeyFromRelativePath(this.pagesDir, this.pages[0]);
+    const firstPage = findFirstPage(this.pages);
+
+    const entryKey = getEntryKeyFromRelativePath(this.pagesDir, firstPage);
 
     const webpackConfig = this.initWebpackConfig(this.pages[0]);
 
