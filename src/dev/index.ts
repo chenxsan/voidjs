@@ -1,12 +1,18 @@
 import webpack = require('webpack');
 import * as path from 'path';
 import * as fs from 'fs';
-import WebpackDevServer = require('webpack-dev-server');
 import HtmlWebpackPlugin = require('html-webpack-plugin');
 import collectPages from '../collectPages';
 import getEntryKeyFromRelativePath from './getEntryKeyFromRelativePath';
 import getFilenameFromRelativePath from './getFilenameFromRelativePath';
 import { cwd, extensions, alias, logger } from '../config';
+
+import express = require('express');
+import devMiddleware = require('webpack-dev-middleware');
+import hotMiddleware = require('webpack-hot-middleware');
+
+// always reload
+const hotClient = 'webpack-hot-middleware/client?reload=true';
 class DevServer {
   private pagesDir: string;
   private pages: string[];
@@ -21,12 +27,12 @@ class DevServer {
     // generate entries for pages
     const entries = this.pages.reduce((acc, page) => {
       const entryKey = getEntryKeyFromRelativePath(this.pagesDir, page);
-      acc[entryKey] = [page];
+      acc[entryKey] = [page, hotClient];
       return acc;
     }, {});
 
     if (hasClientJs) {
-      entries['client'] = path.resolve(cwd, 'public/js/index');
+      entries['client'] = [path.resolve(cwd, 'public/js/index'), hotClient];
     }
     // generate htmlwebpackplugins for pages
     const htmlPlugins = this.pages.map(page => {
@@ -102,24 +108,36 @@ class DevServer {
         ...htmlPlugins,
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': '"development"'
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
       ]
     };
   }
   async start(): Promise<any> {
-    const pages = await collectPages(this.pagesDir);
-    this.pages = pages;
+    const pages: string[] = await collectPages(this.pagesDir);
+    this.pages = pages.slice(0, 1);
     if (pages.length === 0) {
       return logger.warn('No pages found under `pages`');
     }
+
+    const app = express();
 
     const webpackConfig = this.createWebpackConfig();
 
     const compiler = webpack(webpackConfig);
 
-    return new WebpackDevServer(compiler, {
-      stats: 'minimal'
-    });
+    app.use(
+      devMiddleware(compiler, {
+        stats: 'minimal'
+      })
+    );
+
+    app.use(hotMiddleware(compiler));
+
+    app.use(express.static(cwd)); // serve statics from placeholder
+
+    return app;
   }
 }
 export default DevServer;
