@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "",
   "main": "dist/cli.js",
+  "type": "commonjs",
   "scripts": {
     "test": "jest",
     "docs:dev": "vuepress dev docs",
