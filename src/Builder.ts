@@ -84,7 +84,16 @@ class Builder {
             terserOptions: {},
             extractComments: false
           })
-        ]
+        ],
+        splitChunks: {
+          cacheGroups: {
+            vendors: {
+              test: /[\\/]node_modules[\\/]/,
+              chunks: 'all',
+              priority: -10
+            }
+          }
+        }
       },
       entry: webpackEntry,
       output: {
@@ -98,7 +107,8 @@ class Builder {
             return '[name]';
           }
           return '[name].[contenthash].js';
-        }
+        },
+        chunkFilename: '[name]-[id].[contenthash].js'
       },
       module: {
         rules: [
