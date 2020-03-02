@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "",
   "main": "dist/cli.js",
+  "exports": false,
   "type": "commonjs",
   "scripts": {
     "test": "jest",
