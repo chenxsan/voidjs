@@ -23,17 +23,22 @@ import SsrPlugin from './ServerSideRenderingPlugin';
 class Builder {
   pagesDir: string;
   outputPath: string;
+
   constructor(pagesDir: string, outputPath: string) {
     this.pagesDir = pagesDir;
     this.outputPath = outputPath;
   }
-  normalizedPageEntry(pageEntry): string {
+
+  // /path/to/pages/index.js -> index
+  normalizedPageEntry(pageEntry: string): string {
     return path
       .relative(this.pagesDir, pageEntry)
       .split(path.sep)
-      .join('-');
+      .join('-')
+      .replace(new RegExp(`\\${path.extname(pageEntry)}$`), '');
   }
-  createWebpackConfig(pages) {
+
+  createWebpackConfig(pages: string[]): webpack.Configuration {
     // {[outputHtml]: input}
     // ssrPlugin needs it
     const outputMapInput = pages.reduce((acc, pageEntry) => {
@@ -46,6 +51,7 @@ class Builder {
     }, {});
 
     const entries = pages.reduce((acc, page) => {
+      // acc['index'] = '/path/to/page.js'
       acc[this.normalizedPageEntry(page)] = page;
       return acc;
     }, {});
@@ -180,12 +186,14 @@ class Builder {
       ]
     };
   }
+
   async run(): Promise<void> {
     performance.mark('begin');
+
     logger.info('Collecting pages...');
     const pages = await collectPages(this.pagesDir);
-    logger.info(`${pages.length} pages collected`);
 
+    logger.info(`${pages.length} pages collected`);
     logger.info('Building now, please wait...');
 
     const compiler = webpack(this.createWebpackConfig(pages));
@@ -216,4 +224,5 @@ class Builder {
     });
   }
 }
+
 export default Builder;
