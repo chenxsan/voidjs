@@ -28,13 +28,14 @@ import requireFromString from './requireFromString';
 class SsrPlugin {
   constructor(options) {
     this.options = options;
+    this.headTags = {};
+    this.bodyTags = {};
   }
   apply(compiler): void {
     compiler.hooks.compilation.tap('SsrPlugin', compilation => {
       HtmlWebpackPlugin.getHooks(compilation).beforeAssetTagGeneration.tapAsync(
         'SsrPlugin',
         (htmlPluginData, next) => {
-          this.assets = htmlPluginData.assets;
           next(null, htmlPluginData);
         }
       );
@@ -42,8 +43,8 @@ class SsrPlugin {
         'SsrPlugin',
         (htmlPluginData, next) => {
           // save for later use
-          this.headTags = htmlPluginData.headTags;
-          this.bodyTags = htmlPluginData.bodyTags;
+          this.headTags[htmlPluginData.outputName] = htmlPluginData.headTags;
+          this.bodyTags[htmlPluginData.outputName] = htmlPluginData.bodyTags;
           next(null, htmlPluginData);
         }
       );
@@ -51,7 +52,7 @@ class SsrPlugin {
     compiler.hooks.emit.tapAsync('SsrPlugin', (compilation, next) => {
       const htmls = Object.keys(this.options.outputMapInput);
 
-      for (let filename in compilation.assets) {
+      for (const filename in compilation.assets) {
         // throw html htmlwebpackplugin created
         // we would rather create it ourself
         if (htmls.indexOf(filename) !== -1) {
@@ -63,10 +64,10 @@ class SsrPlugin {
           const ssr = ReactDOMServer.renderToStaticMarkup(
             React.createElement(Page)
           );
-          const hd = (this.headTags || [])
+          const hd = this.headTags[filename]
             .map(tag => htmlTagObjectToString(tag, true))
             .join('');
-          const bd = (this.bodyTags || [])
+          const bd = this.bodyTags[filename]
             .filter(tag => {
               return !(
                 (

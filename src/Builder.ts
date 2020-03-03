@@ -181,7 +181,7 @@ class Builder {
           outputMapInput: outputMapInput
         }),
         new MiniCssExtractPlugin({
-          filename: '[contenthash].css'
+          filename: '[name].[contenthash].css'
         })
       ]
     };
