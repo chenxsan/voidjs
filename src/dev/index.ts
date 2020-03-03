@@ -11,7 +11,7 @@ import express = require('express');
 import devMiddleware from 'webpack-dev-middleware';
 import hotMiddleware = require('webpack-hot-middleware');
 
-import MultiEntryPlugin = require('webpack/lib/MultiEntryPlugin');
+import DynamicEntryPlugin = require('webpack/lib/DynamicEntryPlugin');
 
 import isHtmlRequest from './isHtmlRequest';
 import findFirstPage from './findFirstPage';
@@ -78,10 +78,6 @@ class DevServer {
         publicPath: '/'
       },
       stats: 'minimal',
-      node: {
-        Buffer: false,
-        process: false
-      },
       module: {
         rules: [
           {
@@ -190,9 +186,9 @@ class DevServer {
         if (page !== '') {
           // if entry not added to webpack
           if (!this.entries[entryKey]) {
-            new MultiEntryPlugin(cwd, [page, hotClient], entryKey).apply(
-              compiler
-            );
+            new DynamicEntryPlugin(cwd, () => ({
+              [entryKey]: [page, hotClient]
+            })).apply(compiler);
 
             this.htmlPlugin(page).apply(compiler);
             middleware.invalidate();
