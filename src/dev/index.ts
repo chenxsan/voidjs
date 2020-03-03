@@ -78,6 +78,10 @@ class DevServer {
         publicPath: '/'
       },
       stats: 'minimal',
+      node: {
+        Buffer: false,
+        process: false
+      },
       module: {
         rules: [
           {

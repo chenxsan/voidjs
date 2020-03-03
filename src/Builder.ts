@@ -83,6 +83,10 @@ class Builder {
 
     return {
       mode: 'production',
+      node: {
+        Buffer: false,
+        process: false
+      },
       optimization: {
         minimize: true,
         minimizer: [
