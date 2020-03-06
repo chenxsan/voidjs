@@ -25,6 +25,8 @@ import HtmlTags = require('html-webpack-plugin/lib/html-tags');
 const { htmlTagObjectToString } = HtmlTags;
 import requireFromString from './requireFromString';
 
+const PLUGIN_NAME = 'SsrPlugin';
+
 class SsrPlugin {
   constructor(options) {
     this.options = options;
@@ -32,15 +34,15 @@ class SsrPlugin {
     this.bodyTags = {};
   }
   apply(compiler): void {
-    compiler.hooks.compilation.tap('SsrPlugin', compilation => {
+    compiler.hooks.compilation.tap(PLUGIN_NAME, compilation => {
       HtmlWebpackPlugin.getHooks(compilation).beforeAssetTagGeneration.tapAsync(
-        'SsrPlugin',
+        PLUGIN_NAME,
         (htmlPluginData, next) => {
           next(null, htmlPluginData);
         }
       );
       HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tapAsync(
-        'SsrPlugin',
+        PLUGIN_NAME,
         (htmlPluginData, next) => {
           // save for later use
           this.headTags[htmlPluginData.outputName] = htmlPluginData.headTags;
@@ -49,7 +51,7 @@ class SsrPlugin {
         }
       );
     });
-    compiler.hooks.emit.tapAsync('SsrPlugin', (compilation, next) => {
+    compiler.hooks.emit.tapAsync(PLUGIN_NAME, (compilation, next) => {
       const htmls = Object.keys(this.options.outputMapInput);
 
       for (const filename in compilation.assets) {
