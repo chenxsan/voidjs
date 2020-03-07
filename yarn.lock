@@ -6000,6 +6000,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-config-prettier@npm:^6.10.0":
+  version: 6.10.0
+  resolution: "eslint-config-prettier@npm:6.10.0"
+  dependencies:
+    get-stdin: ^6.0.0
+  peerDependencies:
+    eslint: ">=3.14.1"
+  bin:
+    eslint-config-prettier-check: bin/cli.js
+  checksum: 2/799269efb8d80c9223c0a4ae089de7f0bc543c4930cbf32187e6500251d6fe5b01770989079c9425ee6174f86c75662afefdf2740e2c73dd738040c1d140c808
+  languageName: node
+  linkType: hard
+
 "eslint-scope@npm:^4.0.3":
   version: 4.0.3
   resolution: "eslint-scope@npm:4.0.3"
@@ -7087,6 +7100,13 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
+"get-stdin@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "get-stdin@npm:6.0.0"
+  checksum: 2/b51d664838aef7f8353dc57371ce59cea54d8d584fec015a9d89d24561e95b97806d5b5ba120bc81574c9ed63cb3e210176ffa0ff9263c7e7ba4d56d0fe54913
+  languageName: node
+  linkType: hard
+
 "get-stream@npm:3.0.0, get-stream@npm:^3.0.0":
   version: 3.0.0
   resolution: "get-stream@npm:3.0.0"
@@ -7806,6 +7826,7 @@ fsevents@^2.1.2:
     "@typescript-eslint/parser": ^2.22.0
     "@yarnpkg/pnpify": ^2.0.0-rc.18
     eslint: ^6.8.0
+    eslint-config-prettier: ^6.10.0
     jest: ^25.1.0
     prettier: ^1.19.1
     ts-jest: ^25.2.1
