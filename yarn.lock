@@ -329,7 +329,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.7.5, @babel/parser@npm:^7.8.6, @babel/parser@npm:^7.8.7":
+"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.7.0, @babel/parser@npm:^7.7.5, @babel/parser@npm:^7.8.6, @babel/parser@npm:^7.8.7":
   version: 7.8.7
   resolution: "@babel/parser@npm:7.8.7"
   bin:
@@ -1134,7 +1134,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/traverse@npm:^7.1.0, @babel/traverse@npm:^7.7.4, @babel/traverse@npm:^7.8.3, @babel/traverse@npm:^7.8.4, @babel/traverse@npm:^7.8.6":
+"@babel/traverse@npm:^7.1.0, @babel/traverse@npm:^7.7.0, @babel/traverse@npm:^7.7.4, @babel/traverse@npm:^7.8.3, @babel/traverse@npm:^7.8.4, @babel/traverse@npm:^7.8.6":
   version: 7.8.6
   resolution: "@babel/traverse@npm:7.8.6"
   dependencies:
@@ -1151,7 +1151,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.0.0, @babel/types@npm:^7.3.0, @babel/types@npm:^7.8.3, @babel/types@npm:^7.8.6, @babel/types@npm:^7.8.7":
+"@babel/types@npm:^7.0.0, @babel/types@npm:^7.3.0, @babel/types@npm:^7.7.0, @babel/types@npm:^7.8.3, @babel/types@npm:^7.8.6, @babel/types@npm:^7.8.7":
   version: 7.8.7
   resolution: "@babel/types@npm:7.8.7"
   dependencies:
@@ -2814,6 +2814,22 @@ __metadata:
   version: 1.9.1
   resolution: "aws4@npm:1.9.1"
   checksum: 2/d59822631844f9da1caf966cfab90ffafa22cc6c50835f9f5ebff83acdbcffc24eca44fa50d4aa191a6cee81747df38b9880547cc1df8a1380c80dd507b8e6ce
+  languageName: node
+  linkType: hard
+
+"babel-eslint@npm:^10.1.0":
+  version: 10.1.0
+  resolution: "babel-eslint@npm:10.1.0"
+  dependencies:
+    "@babel/code-frame": ^7.0.0
+    "@babel/parser": ^7.7.0
+    "@babel/traverse": ^7.7.0
+    "@babel/types": ^7.7.0
+    eslint-visitor-keys: ^1.0.0
+    resolve: ^1.12.0
+  peerDependencies:
+    eslint: ">= 4.12.1"
+  checksum: 2/c872bb9476e62557918b1f4ddfe864b1477cc5b0b31aa6049af5ffa94feae133c7e9d3e9b1d09eb516a811e9cf569b9f9eb2bc7b980d47d3960857a51ffe7b41
   languageName: node
   linkType: hard
 
@@ -5027,7 +5043,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-visitor-keys@npm:^1.1.0":
+"eslint-visitor-keys@npm:^1.0.0, eslint-visitor-keys@npm:^1.1.0":
   version: 1.1.0
   resolution: "eslint-visitor-keys@npm:1.1.0"
   checksum: 2/4bcd3d91e6b15ea771a0eb4a56631b384ce649145f43d23e865a695b07e197c276019098823d744d454d4e5e406a6eb7995c26310ee5d6ed3fe8d189f944440c
@@ -6510,6 +6526,7 @@ fsevents@^2.1.2:
     "@typescript-eslint/eslint-plugin": ^2.22.0
     "@typescript-eslint/parser": ^2.22.0
     "@yarnpkg/pnpify": ^2.0.0-rc.18
+    babel-eslint: ^10.1.0
     eslint: ^6.8.0
     eslint-config-prettier: ^6.10.0
     eslint-plugin-react: ^7.19.0
