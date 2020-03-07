@@ -7828,6 +7828,7 @@ fsevents@^2.1.2:
     eslint: ^6.8.0
     eslint-config-prettier: ^6.10.0
     jest: ^25.1.0
+    memfs: ^3.1.1
     prettier: ^1.19.1
     ts-jest: ^25.2.1
     typescript: ^3.8.3
@@ -7864,7 +7865,6 @@ fsevents@^2.1.2:
     file-loader: ^5.1.0
     html-webpack-plugin: ^4.0.0-beta.11
     image-webpack-loader: ^6.0.0
-    metro-memory-fs: ^0.58.0
     mini-css-extract-plugin: ^0.9.0
     pino: ^5.17.0
     pino-pretty: ^3.6.0
@@ -10492,13 +10492,6 @@ fsevents@^2.1.2:
   version: 1.1.2
   resolution: "methods@npm:1.1.2"
   checksum: 2/450e4ea0fd4a0f3de8c0593d753c7d6c8f2ee49766f5ef35c68cc2ac41699d5e295b7d6330fc2b7271b8569a07857e3eb0b5df0599a353c5808265b4b5066168
-  languageName: node
-  linkType: hard
-
-"metro-memory-fs@npm:^0.58.0":
-  version: 0.58.0
-  resolution: "metro-memory-fs@npm:0.58.0"
-  checksum: 2/016ee870595cd3f5f36fe04d11d9d341c4782316d6f20669a8353fe5d7f3486f547d0a4443b23780499f53040d45585d8aa3c49ece17feeeedc2575d78fc9936
   languageName: node
   linkType: hard
 
