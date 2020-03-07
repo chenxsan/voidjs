@@ -226,7 +226,6 @@ class DevServer {
         }
 
         const server = `http://${this.host}:${this.port}`
-        logger.info(`Starting server on ${server}`)
 
         logger.info(
           `${server}/${getFilenameFromRelativePath(
