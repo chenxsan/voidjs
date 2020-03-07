@@ -1,9 +1,6 @@
 import 'css/tailwind.css'
 
-// there're two types of image
-// one is part of the template
-// we should just import it
-// so webpack could manage for us
+// images imported will be built by webpack
 import logo from 'img/logo@3x.svg'
 
 export default function Home() {

@@ -9,6 +9,7 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
+    'plugin:react/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint'
@@ -24,5 +25,8 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module'
   },
-  plugins: ['@typescript-eslint']
-};
+  plugins: ['@typescript-eslint', 'react'],
+  rules: {
+    'react/react-in-jsx-scope': 'off'
+  }
+}
