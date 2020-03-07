@@ -173,6 +173,9 @@ class Builder {
         new WebpackAssetsManifest({
           output: 'assets.json'
         }),
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': '"production"'
+        }),
         new CssoWebpackPlugin({
           restructure: false
         }),
