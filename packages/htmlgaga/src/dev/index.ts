@@ -23,7 +23,7 @@ class DevServer {
   private pagesDir: string
   private pages: string[]
   private entries: {
-    [propName: string]: string[]
+    [propName: string]: any
   }
   private hasClientJs: boolean
   private host: string
