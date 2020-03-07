@@ -1,6 +1,4 @@
-import * as path from 'path'
 import collectPages from './collectPages'
-import * as fs from 'fs'
 import { vol } from 'memfs'
 jest.mock('fs')
 describe('collectPages', () => {
