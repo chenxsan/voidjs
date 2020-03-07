@@ -2,10 +2,11 @@
   "compilerOptions": {
     "strict": false,
     "module": "CommonJS",
+    "noEmit": true,
     "allowJs": true,
-    "target": "ES2018", // <- Node 10
-    "outDir": "./dist",
-    "strictNullChecks": true
-  },
-  "include": ["./src/**/*"]
+    "target": "es2017", // <- Node 10
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node"
+  }
 }

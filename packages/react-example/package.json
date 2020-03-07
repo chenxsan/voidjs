@@ -1,0 +1,10 @@
+{
+  "name": "react-example",
+  "scripts": {
+    "dev": "htmlgaga dev",
+    "build": "htmlgaga build"
+  },
+  "dependencies": {
+    "htmlgaga": "workspace:packages/htmlgaga"
+  }
+}
