@@ -6,7 +6,7 @@ import TerserJSPlugin from 'terser-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CssoWebpackPlugin from 'csso-webpack-plugin';
 import WebpackAssetsManifest from 'webpack-assets-manifest';
-import getHtmlFilenameFromRelativePath from './dev/getFilenameFromRelativePath';
+import getHtmlFilenameFromRelativePath from './DevServer/getFilenameFromRelativePath';
 import {
   extensions,
   alias,

@@ -3,7 +3,7 @@ import rimraf from 'rimraf';
 import { existsSync } from 'fs';
 import * as path from 'path';
 import { logger, cwd } from './config';
-import DevServer from './dev';
+import DevServer from './DevServer';
 import Builder from './Builder';
 
 yargs
