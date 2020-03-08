@@ -228,10 +228,13 @@ class DevServer {
         const server = `http://${this.host}:${this.port}`
 
         logger.info(
-          `${server}/${getFilenameFromRelativePath(
+          `${getFilenameFromRelativePath(
             this.pagesDir,
             firstPage
-          )} is ready`
+          )} is ready on ${server}/${getFilenameFromRelativePath(
+            this.pagesDir,
+            firstPage
+          )}`
         )
       })
       .on('error', err => {
