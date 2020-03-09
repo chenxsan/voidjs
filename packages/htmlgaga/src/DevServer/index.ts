@@ -123,7 +123,7 @@ class DevServer {
             ]
           },
           {
-            test: /\.(sa|sc|c)ss$/i, // wtf? it break tailwindcss?
+            test: /\.(sa|sc|c)ss$/i,
             use: [
               'style-loader',
               'css-loader',
