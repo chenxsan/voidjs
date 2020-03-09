@@ -28,8 +28,7 @@
   "scripts": {
     "test": "jest",
     "postinstall": "preconstruct dev",
-    "build": "preconstruct build",
-    "publish": "yarn build && npm publish"
+    "build": "preconstruct build"
   },
   "preconstruct": {
     "packages": [
