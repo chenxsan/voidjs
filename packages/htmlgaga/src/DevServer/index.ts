@@ -123,7 +123,7 @@ class DevServer {
             ]
           },
           {
-            test: /\.css$/i,
+            test: /\.(sa|sc|c)ss$/i, // wtf? it break tailwindcss?
             use: [
               'style-loader',
               'css-loader',
@@ -133,7 +133,8 @@ class DevServer {
                   ident: 'postcss',
                   plugins: [require('tailwindcss'), require('autoprefixer')]
                 }
-              }
+              },
+              'sass-loader'
             ]
           }
         ]

@@ -165,7 +165,7 @@ class Builder {
             ]
           },
           {
-            test: /\.css$/i,
+            test: /\.(sa|sc|c)ss$/i,
             use: [
               {
                 loader: MiniCssExtractPlugin.loader
@@ -177,7 +177,8 @@ class Builder {
                   ident: 'postcss',
                   plugins: [require('tailwindcss'), require('autoprefixer')]
                 }
-              }
+              },
+              'sass-loader'
             ]
           }
         ]
