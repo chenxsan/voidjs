@@ -94,7 +94,12 @@ class Builder {
         splitChunks: {
           cacheGroups: {
             vendors: {
-              test: /[\\/]node_modules[\\/]/,
+              test: (module, chunks) => {
+                return (
+                  /[\\/]node_modules[\\/]/.test(module.resource) &&
+                  module.type === 'javascript/auto'
+                )
+              },
               chunks: 'all',
               priority: -10
             }
@@ -144,6 +149,18 @@ class Builder {
               },
               {
                 loader: 'image-webpack-loader'
+              }
+            ]
+          },
+          {
+            test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+            use: [
+              {
+                loader: 'file-loader',
+                options: {
+                  name: '[name].[ext]',
+                  outputPath: 'fonts/'
+                }
               }
             ]
           },
