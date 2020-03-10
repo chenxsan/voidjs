@@ -7,6 +7,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
 import getHtmlFilenameFromRelativePath from './DevServer/getFilenameFromRelativePath'
+import merge from 'deepmerge'
 import {
   extensions,
   alias,
@@ -24,6 +25,10 @@ interface HtmlgagaConfig {
   html: {
     lang: string
     pretty: boolean
+    preload: {
+      script: boolean
+      style: boolean
+    }
   }
 }
 
@@ -41,11 +46,16 @@ class Builder {
     this.config = {
       html: {
         lang: 'en',
-        pretty: true
+        pretty: true,
+        preload: {
+          style: true,
+          script: true
+        }
       }
     }
     if (fs.existsSync(configName)) {
-      this.config = require(configName)
+      const config = require(configName)
+      this.config = merge(this.config, config)
     }
   }
 

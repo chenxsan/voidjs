@@ -31,6 +31,10 @@ interface Options {
   html: {
     lang: string
     pretty: boolean
+    preload: {
+      script: boolean
+      style: boolean
+    }
   }
 }
 
@@ -74,14 +78,18 @@ class SsrPlugin {
             React.createElement(Page)
           )
 
-          const preloadStyles = this.headTags[filename]
-            .filter(tag => tag.tagName === 'link')
-            .map(tag => {
-              return `<link rel="preload" href="${tag.attributes.href}" as="${
-                tag.attributes.rel === 'stylesheet' ? 'style' : ''
-              }" />`
-            })
-            .join('')
+          let preloadStyles = ''
+
+          if (this.options.html.preload.style) {
+            preloadStyles = this.headTags[filename]
+              .filter(tag => tag.tagName === 'link')
+              .map(tag => {
+                return `<link rel="preload" href="${tag.attributes.href}" as="${
+                  tag.attributes.rel === 'stylesheet' ? 'style' : ''
+                }" />`
+              })
+              .join('')
+          }
 
           const hd = this.headTags[filename]
             .map(tag => htmlTagObjectToString(tag, true))
@@ -100,12 +108,16 @@ class SsrPlugin {
             }
           )
 
-          const preloadScripts = bodyTags
-            .filter(tag => tag.tagName === 'script')
-            .map(tag => {
-              return `<link rel="preload" href="${tag.attributes.src}" as="script" />`
-            })
-            .join('')
+          let preloadScripts = ''
+
+          if (this.options.html.preload.script) {
+            preloadScripts = bodyTags
+              .filter(tag => tag.tagName === 'script')
+              .map(tag => {
+                return `<link rel="preload" href="${tag.attributes.src}" as="script" />`
+              })
+              .join('')
+          }
 
           const bd = bodyTags
             .map(tag => htmlTagObjectToString(tag, true))
