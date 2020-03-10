@@ -1188,6 +1188,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@htmlgaga/dev-template@workspace:packages/dev-template":
+  version: 0.0.0-use.local
+  resolution: "@htmlgaga/dev-template@workspace:packages/dev-template"
+  languageName: unknown
+  linkType: soft
+
 "@istanbuljs/load-nyc-config@npm:^1.0.0":
   version: 1.0.0
   resolution: "@istanbuljs/load-nyc-config@npm:1.0.0"
@@ -6582,6 +6588,7 @@ fsevents@^1.2.7:
     "@babel/core": ^7.8.6
     "@babel/preset-env": ^7.8.6
     "@babel/preset-react": ^7.8.3
+    "@htmlgaga/dev-template": "workspace:packages/dev-template"
     "@types/assets-webpack-plugin": ^3.9.0
     "@types/html-webpack-plugin": ^3.2.2
     "@types/mini-css-extract-plugin": ^0.9.1

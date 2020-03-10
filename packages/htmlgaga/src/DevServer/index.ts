@@ -41,7 +41,7 @@ class DevServer {
     const filename = getFilenameFromRelativePath(this.pagesDir, page)
     const entryKey = getEntryKeyFromRelativePath(this.pagesDir, page)
     return new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../templates/dev'),
+      template: require.resolve('@htmlgaga/dev-template'),
       chunks: this.hasClientJs ? [entryKey, 'client'] : [entryKey],
       chunksSortMode: 'manual',
       filename,

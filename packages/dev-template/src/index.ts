@@ -12,4 +12,4 @@ export default `<!DOCTYPE html>
   <body>
     <div id="htmlgaga"></div>
   </body>
-</html>`;
+</html>`

@@ -32,7 +32,8 @@
   },
   "preconstruct": {
     "packages": [
-      "packages/htmlgaga"
+      "packages/htmlgaga",
+      "packages/dev-template"
     ]
   },
   "prettier": {
