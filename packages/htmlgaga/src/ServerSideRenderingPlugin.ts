@@ -52,7 +52,6 @@ class SsrPlugin {
         PLUGIN_NAME,
         (htmlPluginData, next) => {
           // save for later use
-          console.log(htmlPluginData.headTags)
           this.headTags[htmlPluginData.outputName] = htmlPluginData.headTags
           this.bodyTags[htmlPluginData.outputName] = htmlPluginData.bodyTags
           next(null, htmlPluginData)
@@ -74,6 +73,16 @@ class SsrPlugin {
           const ssr = ReactDOMServer.renderToStaticMarkup(
             React.createElement(Page)
           )
+
+          const preloadStyles = this.headTags[filename]
+            .filter(tag => tag.tagName === 'link')
+            .map(tag => {
+              return `<link rel="preload" href="${tag.attributes.href}" as="${
+                tag.attributes.rel === 'stylesheet' ? 'style' : ''
+              }" />`
+            })
+            .join('')
+
           const hd = this.headTags[filename]
             .map(tag => htmlTagObjectToString(tag, true))
             .join('')
@@ -91,7 +100,7 @@ class SsrPlugin {
             .map(tag => htmlTagObjectToString(tag, true))
             .join('')
 
-          let body = `<!DOCTYPE html><html lang="${this.options.html.lang}"><head>${hd}<title></title></head><body>${ssr}${bd}</body></html>
+          let body = `<!DOCTYPE html><html lang="${this.options.html.lang}"><head>${preloadStyles}${hd}<title></title></head><body>${ssr}${bd}</body></html>
           `
           // format html with prettier
           if (this.options.html.pretty) {
