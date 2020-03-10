@@ -5,6 +5,6 @@
     "build": "htmlgaga build"
   },
   "dependencies": {
-    "htmlgaga": "^0.2.0"
+    "htmlgaga": "^0.2.2"
   }
 }

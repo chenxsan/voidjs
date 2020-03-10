@@ -6581,7 +6581,7 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"htmlgaga@^0.2.0, htmlgaga@workspace:packages/htmlgaga":
+"htmlgaga@^0.2.2, htmlgaga@workspace:packages/htmlgaga":
   version: 0.0.0-use.local
   resolution: "htmlgaga@workspace:packages/htmlgaga"
   dependencies:
@@ -10822,7 +10822,7 @@ fsevents@^1.2.7:
   version: 0.0.0-use.local
   resolution: "react-example@workspace:packages/react-example"
   dependencies:
-    htmlgaga: ^0.2.0
+    htmlgaga: ^0.2.2
   languageName: unknown
   linkType: soft
 
