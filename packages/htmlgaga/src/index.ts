@@ -1,10 +1,19 @@
-import yargs from 'yargs';
-import rimraf from 'rimraf';
-import { existsSync } from 'fs';
-import * as path from 'path';
-import { logger, cwd } from './config';
-import DevServer from './DevServer';
-import Builder from './Builder';
+import yargs from 'yargs'
+import rimraf from 'rimraf'
+import { existsSync } from 'fs'
+import * as path from 'path'
+import { logger, cwd } from './config'
+import DevServer from './DevServer'
+import Builder from './Builder'
+
+interface DevCmdArgs {
+  host: string
+  port: number
+}
+
+interface BuildCmdArgs {
+  dest: string
+}
 
 yargs
   .scriptName('htmlgaga')
@@ -22,11 +31,11 @@ yargs
         description: 'Port to run server'
       }
     },
-    async function(argv) {
-      const { host, port } = argv;
-      const pagesDir = path.resolve(cwd, 'pages');
-      const server = new DevServer(pagesDir, { host, port });
-      server.start();
+    async function(argv: DevCmdArgs) {
+      const { host, port } = argv
+      const pagesDir = path.resolve(cwd, 'pages')
+      const server = new DevServer(pagesDir, { host, port })
+      server.start()
     }
   )
   .command(
@@ -38,22 +47,23 @@ yargs
         description: 'The output directory'
       }
     },
-    function(argv) {
-      const pagesDir = path.resolve(cwd, 'pages');
+    function(argv: BuildCmdArgs) {
+      const pagesDir = path.resolve(cwd, 'pages')
       if (!existsSync(pagesDir)) {
         throw new Error(
           "Couldn't find a `pages` directory. Make sure you have it under the project root"
-        );
+        )
       }
 
-      const { dest } = argv;
-      const outDir = path.resolve(cwd, dest);
+      const { dest } = argv
+      const outDir = path.resolve(cwd, dest)
+
       // Clean outDir first
-      rimraf(outDir, err => {
-        if (err) return logger.error(err);
-        const builder = new Builder(pagesDir, outDir);
-        builder.run();
-      });
+      rimraf(outDir, async err => {
+        if (err) return logger.error(err)
+        const builder = new Builder(pagesDir, outDir)
+        await builder.run()
+      })
     }
   )
-  .help().argv;
+  .help().argv
