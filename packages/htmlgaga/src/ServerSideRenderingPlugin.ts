@@ -45,12 +45,6 @@ class SsrPlugin {
   }
   apply(compiler): void {
     compiler.hooks.compilation.tap(PLUGIN_NAME, compilation => {
-      HtmlWebpackPlugin.getHooks(compilation).beforeAssetTagGeneration.tapAsync(
-        PLUGIN_NAME,
-        (htmlPluginData, next) => {
-          next(null, htmlPluginData)
-        }
-      )
       HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tapAsync(
         PLUGIN_NAME,
         (htmlPluginData, next) => {

@@ -1194,6 +1194,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@htmlgaga/doc@workspace:packages/doc":
+  version: 0.0.0-use.local
+  resolution: "@htmlgaga/doc@workspace:packages/doc"
+  dependencies:
+    htmlgaga: ^0.2.2
+  languageName: unknown
+  linkType: soft
+
 "@istanbuljs/load-nyc-config@npm:^1.0.0":
   version: 1.0.0
   resolution: "@istanbuljs/load-nyc-config@npm:1.0.0"
@@ -10817,14 +10825,6 @@ fsevents@^1.2.7:
   checksum: 2/fbb80029738cc3149f88a49960e27acc92f1ce5605a6ad454ed3b4ad58c8501a8ab4048e7ff88730f44d5e0e9f3a4fad564c7e54449175be036d6a724fc0ae98
   languageName: node
   linkType: hard
-
-"react-example@workspace:packages/react-example":
-  version: 0.0.0-use.local
-  resolution: "react-example@workspace:packages/react-example"
-  dependencies:
-    htmlgaga: ^0.2.2
-  languageName: unknown
-  linkType: soft
 
 "react-is@npm:^16.12.0, react-is@npm:^16.8.1":
   version: 16.13.0

@@ -1,5 +1,6 @@
 {
-  "name": "react-example",
+  "name": "@htmlgaga/doc",
+  "private": true,
   "scripts": {
     "dev": "htmlgaga dev",
     "build": "htmlgaga build"
