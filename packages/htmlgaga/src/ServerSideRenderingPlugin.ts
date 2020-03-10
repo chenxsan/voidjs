@@ -16,59 +16,69 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-import * as React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import prettier from 'prettier';
-import * as path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import HtmlTags from 'html-webpack-plugin/lib/html-tags';
-const { htmlTagObjectToString } = HtmlTags;
-import requireFromString from './requireFromString';
+import * as React from 'react'
+import ReactDOMServer from 'react-dom/server'
+import prettier from 'prettier'
+import * as path from 'path'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import HtmlTags from 'html-webpack-plugin/lib/html-tags'
+const { htmlTagObjectToString } = HtmlTags
+import requireFromString from './requireFromString'
 
-const PLUGIN_NAME = 'SsrPlugin';
+const PLUGIN_NAME = 'SsrPlugin'
+
+interface Options {
+  html: {
+    lang: string
+    pretty: boolean
+  }
+}
 
 class SsrPlugin {
+  options: Options
+  headTags
+  bodyTags
   constructor(options) {
-    this.options = options;
-    this.headTags = {};
-    this.bodyTags = {};
+    this.options = options
+    this.headTags = {}
+    this.bodyTags = {}
   }
   apply(compiler): void {
     compiler.hooks.compilation.tap(PLUGIN_NAME, compilation => {
       HtmlWebpackPlugin.getHooks(compilation).beforeAssetTagGeneration.tapAsync(
         PLUGIN_NAME,
         (htmlPluginData, next) => {
-          next(null, htmlPluginData);
+          next(null, htmlPluginData)
         }
-      );
+      )
       HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tapAsync(
         PLUGIN_NAME,
         (htmlPluginData, next) => {
           // save for later use
-          this.headTags[htmlPluginData.outputName] = htmlPluginData.headTags;
-          this.bodyTags[htmlPluginData.outputName] = htmlPluginData.bodyTags;
-          next(null, htmlPluginData);
+          this.headTags[htmlPluginData.outputName] = htmlPluginData.headTags
+          this.bodyTags[htmlPluginData.outputName] = htmlPluginData.bodyTags
+          next(null, htmlPluginData)
         }
-      );
-    });
+      )
+    })
     compiler.hooks.emit.tapAsync(PLUGIN_NAME, (compilation, next) => {
-      const htmls = Object.keys(this.options.outputMapInput);
+      const htmls = Object.keys(this.options.outputMapInput)
 
       for (const filename in compilation.assets) {
         // throw html htmlwebpackplugin created
         // we would rather create it ourself
         if (htmls.indexOf(filename) !== -1) {
-          const entryJs = this.options.outputMapInput[filename];
+          const entryJs = this.options.outputMapInput[filename]
           const Page = requireFromString(
             compilation.assets[entryJs].source(),
             entryJs
-          ).default;
+          ).default
           const ssr = ReactDOMServer.renderToStaticMarkup(
             React.createElement(Page)
-          );
+          )
           const hd = this.headTags[filename]
             .map(tag => htmlTagObjectToString(tag, true))
-            .join('');
+            .join('')
           const bd = this.bodyTags[filename]
             .filter(tag => {
               return !(
@@ -78,40 +88,31 @@ class SsrPlugin {
                     tag.attributes.src
                   ) !== -1
                 ) // exclude entryJs from bodyTags
-              );
+              )
             })
             .map(tag => htmlTagObjectToString(tag, true))
-            .join('');
+            .join('')
+
+          let body = `<!DOCTYPE html><html lang="${this.options.html.lang}"><head>${hd}<title></title></head><body>${ssr}${bd}</body></html>
+          `
           // format html with prettier
-          const body = prettier.format(
-            `<!DOCTYPE html>
-            <html lang="en">
-              <head>
-                ${hd}
-                <title></title>
-              </head>
-              <body>
-                ${ssr}
-                ${bd}
-              </body>
-            </html>
-            `,
-            {
+          if (this.options.html.pretty) {
+            body = prettier.format(body, {
               parser: 'html'
-            }
-          );
-          delete compilation.assets[filename];
+            })
+          }
+          delete compilation.assets[filename]
           compilation.assets[filename.split(path.sep).join('-')] = {
             source: (): string => body,
             size: (): number => body.length
-          };
+          }
           // remove entryJs
-          delete compilation.assets[entryJs];
+          delete compilation.assets[entryJs]
         }
       }
 
-      next();
-    });
+      next()
+    })
   }
 }
-export default SsrPlugin;
+export default SsrPlugin

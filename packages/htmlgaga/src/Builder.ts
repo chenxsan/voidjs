@@ -20,13 +20,33 @@ import collectPages from './collectPages'
 
 import SsrPlugin from './ServerSideRenderingPlugin'
 
+interface HtmlgagaConfig {
+  html: {
+    lang: string
+    pretty: boolean
+  }
+}
+
+const configName = path.resolve(cwd, 'htmlgaga.config.js')
+
 class Builder {
   pagesDir: string
   outputPath: string
+  config: HtmlgagaConfig
 
   constructor(pagesDir: string, outputPath: string) {
     this.pagesDir = pagesDir
     this.outputPath = outputPath
+
+    this.config = {
+      html: {
+        lang: 'en',
+        pretty: true
+      }
+    }
+    if (fs.existsSync(configName)) {
+      this.config = require(configName)
+    }
   }
 
   // /path/to/pages/index.js -> index
@@ -199,7 +219,8 @@ class Builder {
         }),
         ...htmlPlugins,
         new SsrPlugin({
-          outputMapInput: outputMapInput
+          outputMapInput: outputMapInput,
+          html: this.config.html
         }),
         new MiniCssExtractPlugin({
           filename: '[name].[contenthash].css'
