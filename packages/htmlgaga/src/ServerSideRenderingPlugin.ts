@@ -86,8 +86,9 @@ class SsrPlugin {
           const hd = this.headTags[filename]
             .map(tag => htmlTagObjectToString(tag, true))
             .join('')
-          const bd = this.bodyTags[filename]
-            .filter(tag => {
+
+          const bodyTags: HtmlTagObject[] = this.bodyTags[filename].filter(
+            tag => {
               return !(
                 (
                   tag.tagName === 'script' &&
@@ -96,11 +97,21 @@ class SsrPlugin {
                   ) !== -1
                 ) // exclude entryJs from bodyTags
               )
+            }
+          )
+
+          const preloadScripts = bodyTags
+            .filter(tag => tag.tagName === 'script')
+            .map(tag => {
+              return `<link rel="preload" href="${tag.attributes.src}" as="script" />`
             })
+            .join('')
+
+          const bd = bodyTags
             .map(tag => htmlTagObjectToString(tag, true))
             .join('')
 
-          let body = `<!DOCTYPE html><html lang="${this.options.html.lang}"><head>${preloadStyles}${hd}<title></title></head><body>${ssr}${bd}</body></html>
+          let body = `<!DOCTYPE html><html lang="${this.options.html.lang}"><head>${preloadStyles}${preloadScripts}${hd}<title></title></head><body>${ssr}${bd}</body></html>
           `
           // format html with prettier
           if (this.options.html.pretty) {
