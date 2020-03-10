@@ -20,7 +20,7 @@ import * as React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import prettier from 'prettier'
 import * as path from 'path'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
+import HtmlWebpackPlugin, { HtmlTagObject } from 'html-webpack-plugin'
 import HtmlTags from 'html-webpack-plugin/lib/html-tags'
 const { htmlTagObjectToString } = HtmlTags
 import requireFromString from './requireFromString'
@@ -34,14 +34,17 @@ interface Options {
   }
 }
 
+interface Tags {
+  [propName: string]: HtmlTagObject[]
+}
 class SsrPlugin {
   options: Options
-  headTags
-  bodyTags
-  constructor(options) {
+  headTags: Tags
+  bodyTags: Tags
+  constructor(options: Options) {
     this.options = options
-    this.headTags = {}
-    this.bodyTags = {}
+    this.headTags = {} as Tags
+    this.bodyTags = {} as Tags
   }
   apply(compiler): void {
     compiler.hooks.compilation.tap(PLUGIN_NAME, compilation => {
@@ -49,6 +52,7 @@ class SsrPlugin {
         PLUGIN_NAME,
         (htmlPluginData, next) => {
           // save for later use
+          console.log(htmlPluginData.headTags)
           this.headTags[htmlPluginData.outputName] = htmlPluginData.headTags
           this.bodyTags[htmlPluginData.outputName] = htmlPluginData.bodyTags
           next(null, htmlPluginData)
