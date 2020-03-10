@@ -1188,7 +1188,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@htmlgaga/dev-template@workspace:packages/dev-template":
+"@htmlgaga/dev-template@^0.2.0, @htmlgaga/dev-template@workspace:packages/dev-template":
   version: 0.0.0-use.local
   resolution: "@htmlgaga/dev-template@workspace:packages/dev-template"
   languageName: unknown
@@ -6581,14 +6581,14 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"htmlgaga@workspace:packages/htmlgaga":
+"htmlgaga@^0.2.0, htmlgaga@workspace:packages/htmlgaga":
   version: 0.0.0-use.local
   resolution: "htmlgaga@workspace:packages/htmlgaga"
   dependencies:
     "@babel/core": ^7.8.6
     "@babel/preset-env": ^7.8.6
     "@babel/preset-react": ^7.8.3
-    "@htmlgaga/dev-template": "workspace:packages/dev-template"
+    "@htmlgaga/dev-template": ^0.2.0
     "@types/assets-webpack-plugin": ^3.9.0
     "@types/html-webpack-plugin": ^3.2.2
     "@types/mini-css-extract-plugin": ^0.9.1
@@ -10822,7 +10822,7 @@ fsevents@^1.2.7:
   version: 0.0.0-use.local
   resolution: "react-example@workspace:packages/react-example"
   dependencies:
-    htmlgaga: "workspace:packages/htmlgaga"
+    htmlgaga: ^0.2.0
   languageName: unknown
   linkType: soft
 

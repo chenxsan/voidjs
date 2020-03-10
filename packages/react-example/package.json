@@ -5,6 +5,6 @@
     "build": "htmlgaga build"
   },
   "dependencies": {
-    "htmlgaga": "workspace:packages/htmlgaga"
+    "htmlgaga": "^0.2.0"
   }
 }
