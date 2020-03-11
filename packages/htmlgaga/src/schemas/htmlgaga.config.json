@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "html": {
+      "type": "object",
+      "properties": {
+        "lang": {
+          "type": "string"
+        },
+        "pretty": {
+          "type": "boolean"
+        },
+        "preload": {
+          "type": "object",
+          "properties": {
+            "style": {
+              "type": "boolean"
+            },
+            "script": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

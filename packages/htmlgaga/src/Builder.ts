@@ -21,6 +21,10 @@ import collectPages from './collectPages'
 
 import SsrPlugin from './ServerSideRenderingPlugin'
 
+import validateSchema from 'schema-utils'
+import schema from './schemas/htmlgaga.config.json'
+import { JSONSchema7 } from 'schema-utils/declarations/validate'
+
 interface HtmlgagaConfig {
   html: {
     lang: string
@@ -54,12 +58,18 @@ class Builder {
       }
     }
     if (fs.existsSync(configName)) {
-      this.resolveConfig()
+      this.resolveConfig().catch(err => {
+        logger.error(err)
+        process.exit(1)
+      })
     }
   }
 
   async resolveConfig(): Promise<void> {
     const config = await import(configName)
+    validateSchema(schema as JSONSchema7, config.default, {
+      name: 'htmlgaga.config.js'
+    })
     this.config = merge(this.config, config)
   }
 
