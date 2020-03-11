@@ -54,9 +54,13 @@ class Builder {
       }
     }
     if (fs.existsSync(configName)) {
-      const config = require(configName)
-      this.config = merge(this.config, config)
+      this.resolveConfig()
     }
+  }
+
+  async resolveConfig(): Promise<void> {
+    const config = await import(configName)
+    this.config = merge(this.config, config)
   }
 
   // /path/to/pages/index.js -> index
