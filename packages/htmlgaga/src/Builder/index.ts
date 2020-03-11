@@ -6,7 +6,7 @@ import TerserJSPlugin from 'terser-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
-import getHtmlFilenameFromRelativePath from './DevServer/getFilenameFromRelativePath'
+import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativePath'
 import merge from 'deepmerge'
 import {
   extensions,
@@ -15,14 +15,14 @@ import {
   cwd,
   performance,
   PerformanceObserver
-} from './config'
+} from '../config'
 
-import collectPages from './collectPages'
+import collectPages from '../collectPages'
 
 import SsrPlugin from './ServerSideRenderingPlugin'
 
 import validateSchema from 'schema-utils'
-import schema from './schemas/htmlgaga.config.json'
+import schema from '../schemas/htmlgaga.config.json'
 import { JSONSchema7 } from 'schema-utils/declarations/validate'
 
 interface HtmlgagaConfig {
