@@ -1831,6 +1831,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/memory-fs@npm:*":
+  version: 0.3.2
+  resolution: "@types/memory-fs@npm:0.3.2"
+  dependencies:
+    "@types/node": "*"
+  checksum: 2/27b987543ad090a91ea31a18ee2b236c2ef985f9b47aaa8d483e2bc45d3ae9c5e46e1c6eae80851c0810ba2c0df3119e9a83e22bc43a7d9b4d5b8724e6bb0355
+  languageName: node
+  linkType: hard
+
 "@types/mime@npm:*":
   version: 2.0.1
   resolution: "@types/mime@npm:2.0.1"
@@ -2011,6 +2020,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/webpack-dev-middleware@npm:^3.7.0":
+  version: 3.7.0
+  resolution: "@types/webpack-dev-middleware@npm:3.7.0"
+  dependencies:
+    "@types/connect": "*"
+    "@types/memory-fs": "*"
+    "@types/webpack": "*"
+    loglevel: ^1.6.2
+  checksum: 2/b861ddc32e42a80ce00f7a8a6a59ac8e33d5dcf32d9df1e6189a5fccd16aacdfc36e233df74846ed2783a2b0d023c304d4a5ae1d8be28a20e42b28e6cfeb4fdb
+  languageName: node
+  linkType: hard
+
 "@types/webpack-dev-server@npm:^3.10.0":
   version: 3.10.0
   resolution: "@types/webpack-dev-server@npm:3.10.0"
@@ -2021,6 +2042,16 @@ __metadata:
     "@types/serve-static": "*"
     "@types/webpack": "*"
   checksum: 2/750dad1ddde65f528dc14c7703dd2ec14fd04861e82a8ced66e2ab9702c3e113364856a01e6000043efc109d08930799e2a04f091cfa6db7fa554eac00fece3a
+  languageName: node
+  linkType: hard
+
+"@types/webpack-hot-middleware@npm:^2.25.0":
+  version: 2.25.0
+  resolution: "@types/webpack-hot-middleware@npm:2.25.0"
+  dependencies:
+    "@types/connect": "*"
+    "@types/webpack": "*"
+  checksum: 2/6b64be2ebc98f2d521f7bcb9c0beff859126960133e3b921888293484068bc41e144212e0ae53175654a655895630f0bfe7fb3aca802d71b15d669137cece1f5
   languageName: node
   linkType: hard
 
@@ -6615,7 +6646,9 @@ fsevents@^1.2.7:
     "@types/rimraf": ^2.0.3
     "@types/terser-webpack-plugin": ^2.2.0
     "@types/webpack": ^4.41.7
+    "@types/webpack-dev-middleware": ^3.7.0
     "@types/webpack-dev-server": ^3.10.0
+    "@types/webpack-hot-middleware": ^2.25.0
     "@types/yargs": ^15.0.4
     autoprefixer: ^9.7.4
     babel-loader: ^8.0.6
@@ -8495,6 +8528,13 @@ fsevents@^1.2.7:
     figures: ^1.3.5
     squeak: ^1.0.0
   checksum: 2/7597da3329df574b8bf680abcdbed3e24d150810ceb940f35fdfb8dd8ccc07dacb5a01c702c0a11c3e41b232d05c8af804aa7d80a4eab8b0f8f9e08ba8d08522
+  languageName: node
+  linkType: hard
+
+"loglevel@npm:^1.6.2":
+  version: 1.6.7
+  resolution: "loglevel@npm:1.6.7"
+  checksum: 2/8e8d869a711b345872de1b12863a53c2c298d79b705070e21f224948e05ac7ccb17b10d0a3e404cc862ec7d8a3422ec81837047314431f3c9295f7e82bab6c2e
   languageName: node
   linkType: hard
 
