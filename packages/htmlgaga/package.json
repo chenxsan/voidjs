@@ -24,7 +24,7 @@
     "@babel/core": "^7.8.6",
     "@babel/preset-env": "^7.8.6",
     "@babel/preset-react": "^7.8.3",
-    "@htmlgaga/dev-template": "^0.2.1",
+    "@htmlgaga/dev-template": "workspace:*",
     "autoprefixer": "^9.7.4",
     "babel-loader": "^8.0.6",
     "babel-plugin-react-dom-render": "^1.0.0",

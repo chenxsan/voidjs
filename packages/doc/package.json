@@ -5,7 +5,7 @@
     "dev": "htmlgaga dev",
     "build": "htmlgaga build"
   },
-  "dependencies": {
-    "htmlgaga": "^0.2.3"
+  "devDependencies": {
+    "htmlgaga": "workspace:*"
   }
 }
