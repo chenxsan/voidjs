@@ -1198,7 +1198,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@htmlgaga/doc@workspace:packages/doc"
   dependencies:
-    htmlgaga: ^0.2.2
+    htmlgaga: ^0.2.3
   languageName: unknown
   linkType: soft
 
@@ -6627,7 +6627,7 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"htmlgaga@^0.2.2, htmlgaga@workspace:packages/htmlgaga":
+"htmlgaga@^0.2.3, htmlgaga@workspace:packages/htmlgaga":
   version: 0.0.0-use.local
   resolution: "htmlgaga@workspace:packages/htmlgaga"
   dependencies:
