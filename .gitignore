@@ -5,5 +5,4 @@ out
 .yarn/*
 !.yarn/releases
 !.yarn/plugins
-!.yarn/versions
 .pnp.*
