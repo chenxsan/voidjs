@@ -4,6 +4,7 @@ import validate from 'validate-npm-package-name'
 import chalk from 'chalk'
 import createApp from './createApp'
 import packageJson from '../package.json'
+import checkForUpdate from 'update-check'
 
 let projectName = ''
 
@@ -23,6 +24,19 @@ const program = new commander.Command(packageJson.name)
   .parse(process.argv)
 
 async function run(): Promise<void> {
+  let update = null
+  try {
+    update = await checkForUpdate(packageJson)
+  } catch (err) {
+    console.error(warning(`Checking for updates failed`))
+  }
+
+  if (update) {
+    console.log(
+      chalk.yellow.bold('A new version of `create-htmlgaga` is available!')
+    )
+  }
+
   if (projectName === '') {
     // ask user to input projectName
     const response = await prompts({
