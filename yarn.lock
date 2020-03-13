@@ -1679,6 +1679,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cross-spawn@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "@types/cross-spawn@npm:6.0.1"
+  dependencies:
+    "@types/node": "*"
+  checksum: 2/85dbccbf3b528ac6273c1a75f90d55c195dfe4ae5f6a313eb5b23569d1a71514ba572eb38e6246ef14ee1cfeba80abf256e67c95d8d7ce192f82d5d6d1c042bf
+  languageName: node
+  linkType: hard
+
 "@types/emscripten@npm:^1.38.0":
   version: 1.39.2
   resolution: "@types/emscripten@npm:1.39.2"
@@ -1732,6 +1741,15 @@ __metadata:
     "@types/express-serve-static-core": "*"
     "@types/serve-static": "*"
   checksum: 2/aeb57af48f97f334e8611b9b2f87a993e3de267b7836b15774575fc75ff6be424b61435076927ed34007c713792d632625b83a3b556e4b2d928f990d2a77f3fe
+  languageName: node
+  linkType: hard
+
+"@types/fs-extra@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "@types/fs-extra@npm:8.1.0"
+  dependencies:
+    "@types/node": "*"
+  checksum: 2/53b1daf72ab73b2d4cb9801e5d73a3fd2d3f8758b52815a6eca6ccfa18d307c17fe7a361865264dc96f5de5a905672cd999d8ac68ef49690266e3e6a10ab3cff
   languageName: node
   linkType: hard
 
@@ -1895,6 +1913,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/prompts@npm:^2.0.5":
+  version: 2.4.0
+  resolution: "@types/prompts@npm:2.4.0"
+  checksum: 2/9d5b490dbad2a89ed17b6bf5ef4430b045d61677ccd75e2d18b119cee97a2aa0329f573925032c22fe5d1b2a95b32f318156cb74b60ff8b36b488c36c4ee36b4
+  languageName: node
+  linkType: hard
+
 "@types/prop-types@npm:*":
   version: 15.7.3
   resolution: "@types/prop-types@npm:15.7.3"
@@ -2017,6 +2042,13 @@ __metadata:
   dependencies:
     source-map: ^0.6.1
   checksum: 2/078bccbb6d0310392c8ee43a3d722c36b3991979d8498882f011946c73dbcaa01036ae8f42b3f0b697dc9220a4ad59c21956c552cdedc86b377f9d84c2c2d5c1
+  languageName: node
+  linkType: hard
+
+"@types/validate-npm-package-name@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@types/validate-npm-package-name@npm:3.0.0"
+  checksum: 2/08792f773efbf99feef81034f7a1ff77bfa41810cab6f7da3f1c2e17e5646ccecb4d5d04ab8821ac7c2d5002b3839072ceadf12509400c11d777f4b63f4774c2
   languageName: node
   linkType: hard
 
@@ -3385,6 +3417,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"builtins@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "builtins@npm:1.0.3"
+  checksum: 2/36aa0f11effcc9ab1637e69240752c70aab8ed1f9ed88baae94dd989fa3e34fc332a41f851062c24a888572f31343130e5cd7055344b9743c9d6bcbdc449eaf1
+  languageName: node
+  linkType: hard
+
 "bytes@npm:3.1.0, bytes@npm:^3.0.0":
   version: 3.1.0
   resolution: "bytes@npm:3.1.0"
@@ -4130,6 +4169,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"create-htmlgaga@workspace:packages/create-htmlgaga":
+  version: 0.0.0-use.local
+  resolution: "create-htmlgaga@workspace:packages/create-htmlgaga"
+  dependencies:
+    "@types/cross-spawn": ^6.0.1
+    "@types/fs-extra": ^8.1.0
+    "@types/prompts": ^2.0.5
+    "@types/validate-npm-package-name": ^3.0.0
+    chalk: ^3.0.0
+    commander: ^4.1.1
+    cross-spawn: ^7.0.1
+    fs-extra: ^8.1.0
+    prompts: ^2.3.1
+    validate-npm-package-name: ^3.0.0
+  bin:
+    create-htmlgaga: ./index.js
+  languageName: unknown
+  linkType: soft
+
 "cross-spawn@npm:6.0.5, cross-spawn@npm:^6.0.0, cross-spawn@npm:^6.0.5":
   version: 6.0.5
   resolution: "cross-spawn@npm:6.0.5"
@@ -4154,7 +4212,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.0":
+"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.1":
   version: 7.0.1
   resolution: "cross-spawn@npm:7.0.1"
   dependencies:
@@ -10607,7 +10665,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"prompts@npm:^2.0.1":
+"prompts@npm:^2.0.1, prompts@npm:^2.3.1":
   version: 2.3.1
   resolution: "prompts@npm:2.3.1"
   dependencies:
@@ -13231,6 +13289,15 @@ typescript@^3.8.3:
     spdx-correct: ^3.0.0
     spdx-expression-parse: ^3.0.0
   checksum: 2/940899bd4eacfa012ceecb10a5814ba0e8103da5243aa74d0d62f1f8a405efcd23e034fb7193e2d05b392870c53aabcb1f66439b062075cdcb28bc5d562a8ff6
+  languageName: node
+  linkType: hard
+
+"validate-npm-package-name@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "validate-npm-package-name@npm:3.0.0"
+  dependencies:
+    builtins: ^1.0.3
+  checksum: 2/3c5a5b154a32d141a8fff660e4cdfcbd359bfafb1fc544772d50fb04377bea2eb7073bd49d914309c21c1fd19af68849e8022791573b88fc6413560a8dcf5016
   languageName: node
   linkType: hard
 

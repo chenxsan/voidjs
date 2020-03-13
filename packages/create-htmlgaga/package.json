@@ -1,0 +1,36 @@
+{
+  "name": "create-htmlgaga",
+  "version": "0.0.0",
+  "description": "Create htmlgaga project",
+  "main": "dist/create-htmlgaga.cjs.js",
+  "module": "dist/create-htmlgaga.esm.js",
+  "bin": "./index.js",
+  "keywords": [
+    "htmlgaga",
+    "webpack",
+    "react",
+    "html"
+  ],
+  "author": "Sam Chen",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "commander": "^4.1.1",
+    "cross-spawn": "^7.0.1",
+    "fs-extra": "^8.1.0",
+    "prompts": "^2.3.1",
+    "validate-npm-package-name": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/cross-spawn": "^6.0.1",
+    "@types/fs-extra": "^8.1.0",
+    "@types/prompts": "^2.0.5",
+    "@types/validate-npm-package-name": "^3.0.0"
+  },
+  "files": [
+    "./cli.js",
+    "./templates",
+    "./dist",
+    "!**/*.d.ts"
+  ]
+}
