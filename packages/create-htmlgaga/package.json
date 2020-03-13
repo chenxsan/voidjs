@@ -1,12 +1,10 @@
 {
   "name": "create-htmlgaga",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Create htmlgaga project",
   "main": "dist/create-htmlgaga.cjs.js",
   "module": "dist/create-htmlgaga.esm.js",
-  "bin": {
-    "create-htmlgaga": "./cli.js"
-  },
+  "bin": "./cli.js",
   "keywords": [
     "htmlgaga",
     "webpack",
