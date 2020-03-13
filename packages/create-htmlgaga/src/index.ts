@@ -28,7 +28,7 @@ async function run(): Promise<void> {
   try {
     update = await checkForUpdate(packageJson)
   } catch (err) {
-    console.error(warning(`Checking for updates failed`))
+    //
   }
 
   if (update) {
