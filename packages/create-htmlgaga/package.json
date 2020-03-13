@@ -4,7 +4,7 @@
   "description": "Create htmlgaga project",
   "main": "dist/create-htmlgaga.cjs.js",
   "module": "dist/create-htmlgaga.esm.js",
-  "bin": "./index.js",
+  "bin": "./cli.js",
   "keywords": [
     "htmlgaga",
     "webpack",
