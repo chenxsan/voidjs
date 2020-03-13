@@ -41,9 +41,20 @@ async function createApp(
 
   process.chdir(root)
   const useYarn = useNpm ? false : shouldUseYarn()
+  const cmd = useYarn ? 'yarn' : 'npm'
   await install(root, ['htmlgaga'], { useYarn })
   console.log()
 
   fs.copySync(path.resolve(__dirname, '..', 'templates', 'default'), root)
+
+  console.log(`${chalk.green('Success!')} Created ${appName} at ${root}`)
+  console.log('Inside that directory, you can run several commands:')
+  console.log()
+  console.log(chalk.cyan(`  ${cmd} ${useYarn ? '' : 'run '}dev`))
+  console.log('    Starts the development server.')
+  console.log()
+  console.log(chalk.cyan(`  ${cmd} ${useYarn ? '' : 'run '}build`))
+  console.log('    Builds the app for production.')
+  console.log()
 }
 export default createApp
