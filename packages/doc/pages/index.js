@@ -12,6 +12,15 @@ export default function Home() {
         Manage multiple non-SPA pages with webpack and React.js
       </h2>
       <section className="pt-8 px-0 sm:px-2">
+        <h2 className="font-medium text-2xl">System requirements</h2>
+        <ol>
+          <li className="list-disc list-inside">Node.js 10 or later</li>
+          <li className="list-disc list-inside">
+            MacOS, Windows and Linux are supported
+          </li>
+        </ol>
+      </section>
+      <section className="pt-8 px-0 sm:px-2">
         <h2 className="font-medium text-2xl">Get started</h2>
         <P>To create a new htmlgaga project, run command:</P>
         <Pre>
