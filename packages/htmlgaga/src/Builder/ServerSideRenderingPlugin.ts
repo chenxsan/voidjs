@@ -70,10 +70,12 @@ class SsrPlugin {
         // we would rather create it ourself
         if (htmls.indexOf(filename) !== -1) {
           const entryJs = this.options.outputMapInput[filename]
-          const Page = requireFromString(
+          const mod = requireFromString(
             compilation.assets[entryJs].source(),
             entryJs
-          ).default
+          )
+          const Page = mod.default
+          const PageTitle = mod.title ?? ''
           const ssr = ReactDOMServer.renderToStaticMarkup(
             React.createElement(Page)
           )
@@ -123,7 +125,7 @@ class SsrPlugin {
             .map(tag => htmlTagObjectToString(tag, true))
             .join('')
 
-          let body = `<!DOCTYPE html><html lang="${this.options.html.lang}"><head>${preloadStyles}${preloadScripts}${hd}<title></title></head><body>${ssr}${bd}</body></html>
+          let body = `<!DOCTYPE html><html lang="${this.options.html.lang}"><head>${preloadStyles}${preloadScripts}${hd}<title>${PageTitle}</title></head><body>${ssr}${bd}</body></html>
           `
           // format html with prettier
           if (this.options.html.pretty) {
