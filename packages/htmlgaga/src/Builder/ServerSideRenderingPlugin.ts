@@ -166,7 +166,7 @@ class SsrPlugin {
             .map(tag => htmlTagObjectToString(tag, true))
             .join('')
 
-          let body = `<!DOCTYPE html><html lang="${this.options.html.lang}"><head>${hd}<title>${pageTitle}</title>${meta}${preloadStyles}${preloadScripts}</head><body>${ssr}${bd}</body></html>
+          let body = `<!DOCTYPE html><html lang="${this.options.html.lang}"><head><title>${pageTitle}</title>${meta}${preloadStyles}${preloadScripts}${hd}</head><body>${ssr}${bd}</body></html>
           `
           // format html with prettier
           if (this.options.html.pretty) {
