@@ -39,4 +39,9 @@ export default function Home() {
     </div>
   )
 }
-export const title = 'htmlgaga'
+export const head = {
+  title: 'htmlgaga',
+  meta: {
+    description: 'Manage multiple non-SPA pages with webpack and React.js'
+  }
+}
