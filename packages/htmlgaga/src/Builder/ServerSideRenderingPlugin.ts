@@ -24,6 +24,7 @@ import HtmlWebpackPlugin, { HtmlTagObject } from 'html-webpack-plugin'
 import HtmlTags from 'html-webpack-plugin/lib/html-tags'
 const { htmlTagObjectToString } = HtmlTags
 import requireFromString from './requireFromString'
+import merge from 'deepmerge'
 
 const PLUGIN_NAME = 'SsrPlugin'
 
@@ -41,6 +42,34 @@ interface Options {
 interface Tags {
   [propName: string]: HtmlTagObject[]
 }
+
+function getMetaTags(meta) {
+  const metaTagAttributeObjects = Object.keys(meta)
+    .map(metaName => {
+      const metaTagContent = meta[metaName]
+      return Object.prototype.toString
+        .call(metaTagContent)
+        .slice(8, -1)
+        .toLowerCase() === 'string'
+        ? {
+            name: metaName,
+            content: metaTagContent
+          }
+        : metaTagContent
+    })
+    .filter(attribute => attribute !== false)
+  return metaTagAttributeObjects.map(metaTagAttributes => {
+    if (metaTagAttributes === false) {
+      throw new Error('Invalid meta tag')
+    }
+    return {
+      tagName: 'meta',
+      voidTag: true,
+      attributes: metaTagAttributes
+    }
+  })
+}
+
 class SsrPlugin {
   options: Options
   headTags: Tags
@@ -75,7 +104,19 @@ class SsrPlugin {
             entryJs
           )
           const Page = mod.default
-          const PageTitle = mod.title ?? ''
+          const pageTitle = mod.head?.title ?? ''
+          const defaultMeta = {
+            'utf-8': {
+              charset: 'utf-8'
+            },
+            viewport:
+              'width=device-width, initial-scale=1.0, viewport-fit=cover',
+            generator: 'htmlgaga'
+          }
+          const pageMeta = merge(defaultMeta, mod.head?.meta ?? {})
+
+          const meta = getMetaTags(pageMeta).map(tag => htmlTagObjectToString(tag, true)).join('')
+
           const ssr = ReactDOMServer.renderToStaticMarkup(
             React.createElement(Page)
           )
@@ -125,7 +166,7 @@ class SsrPlugin {
             .map(tag => htmlTagObjectToString(tag, true))
             .join('')
 
-          let body = `<!DOCTYPE html><html lang="${this.options.html.lang}"><head>${preloadStyles}${preloadScripts}${hd}<title>${PageTitle}</title></head><body>${ssr}${bd}</body></html>
+          let body = `<!DOCTYPE html><html lang="${this.options.html.lang}"><head>${hd}<title>${pageTitle}</title>${meta}${preloadStyles}${preloadScripts}</head><body>${ssr}${bd}</body></html>
           `
           // format html with prettier
           if (this.options.html.pretty) {

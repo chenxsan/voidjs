@@ -105,17 +105,11 @@ class Builder {
       return new HtmlWebpackPlugin({
         chunks: [this.normalizedPageEntry(page), 'client'], // <- needs to exclude [name].js later
         filename,
-        meta: {
-          'utf-8': {
-            charset: 'utf-8'
-          },
-          viewport: 'width=device-width, initial-scale=1.0, viewport-fit=cover',
-          generator: 'htmlgaga'
-        },
         minify: false,
         inject: false,
         cache: false,
-        showErrors: false
+        showErrors: false,
+        meta: false
       })
     })
 
