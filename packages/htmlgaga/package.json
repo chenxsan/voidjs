@@ -85,5 +85,9 @@
     "@types/yargs": "^15.0.4",
     "react": "^16.13.0",
     "react-dom": "^16.13.0"
+  },
+  "peerDependencies": {
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
   }
 }

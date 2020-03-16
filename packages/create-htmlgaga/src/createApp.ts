@@ -36,13 +36,17 @@ async function createApp(
     JSON.stringify(packageJson, null, 2) + os.EOL
   )
 
-  console.log(`Installing ${chalk.cyan('htmlgaga')}...`)
+  console.log(
+    `Installing ${chalk.cyan('htmlgaga')}, ${chalk.cyan(
+      'react'
+    )} and ${chalk.cyan('react-dom')}...`
+  )
   console.log()
 
   process.chdir(root)
   const useYarn = useNpm ? false : shouldUseYarn()
   const cmd = useYarn ? 'yarn' : 'npm'
-  await install(root, ['htmlgaga'], { useYarn })
+  await install(root, ['htmlgaga', 'react', 'react-dom'], { useYarn })
   console.log()
 
   fs.copySync(path.resolve(__dirname, '..', 'templates', 'default'), root)
