@@ -46,7 +46,7 @@ async function createApp(
   process.chdir(root)
   const useYarn = useNpm ? false : shouldUseYarn()
   const cmd = useYarn ? 'yarn' : 'npm'
-  await install(root, ['htmlgaga', 'react', 'react-dom'], { useYarn })
+  await install(root, ['react', 'react-dom', 'htmlgaga'], { useYarn })
   console.log()
 
   fs.copySync(path.resolve(__dirname, '..', 'templates', 'default'), root)
