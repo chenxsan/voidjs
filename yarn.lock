@@ -6741,8 +6741,8 @@ fsevents@^1.2.7:
     webpack-hot-middleware: ^2.25.0
     yargs: ^15.1.0
   peerDependencies:
-    react: ^16.13.0
-    react-dom: ^16.13.0
+    react: ">=16.4.2"
+    react-dom: ">=16.4.2"
   bin:
     htmlgaga: ./cli.js
   languageName: unknown
