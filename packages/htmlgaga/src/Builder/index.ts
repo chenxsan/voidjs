@@ -48,6 +48,67 @@ const configName = path.resolve(cwd, 'htmlgaga.config.js')
 const BEGIN = 'begin'
 const END = 'end'
 
+const rules = [
+  {
+    test: /\.(js|jsx|ts|tsx|mjs)$/i,
+    exclude: /node_modules/,
+    use: [
+      {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react'],
+          plugins: ['react-require'],
+          cacheDirectory: true,
+          cacheCompression: false
+        }
+      }
+    ]
+  },
+  {
+    test: /\.(png|svg|jpg|gif)$/i,
+    use: [
+      {
+        loader: 'file-loader',
+        options: {
+          name: '[name].[contenthash].[ext]'
+        }
+      },
+      {
+        loader: 'image-webpack-loader'
+      }
+    ]
+  },
+  {
+    test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+    use: [
+      {
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'fonts/'
+        }
+      }
+    ]
+  },
+  {
+    test: /\.(sa|sc|c)ss$/i,
+    use: [
+      {
+        loader: MiniCssExtractPlugin.loader
+      },
+      'css-loader',
+      {
+        loader: 'postcss-loader',
+        options: {
+          ident: 'postcss',
+          plugins: [require('tailwindcss'), require('autoprefixer')]
+        }
+      },
+      'sass-loader'
+    ]
+  }
+]
+
 class Builder {
   pages: string[]
   pagesDir: string
@@ -144,66 +205,7 @@ class Builder {
         chunkFilename: '[name]-[id].[contenthash].js'
       },
       module: {
-        rules: [
-          {
-            test: /\.(js|jsx|ts|tsx|mjs)$/i,
-            exclude: /node_modules/,
-            use: [
-              {
-                loader: 'babel-loader',
-                options: {
-                  presets: ['@babel/preset-env', '@babel/preset-react'],
-                  plugins: ['react-require'],
-                  cacheDirectory: true,
-                  cacheCompression: false
-                }
-              }
-            ]
-          },
-          {
-            test: /\.(png|svg|jpg|gif)$/i,
-            use: [
-              {
-                loader: 'file-loader',
-                options: {
-                  name: '[name].[contenthash].[ext]'
-                }
-              },
-              {
-                loader: 'image-webpack-loader'
-              }
-            ]
-          },
-          {
-            test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-            use: [
-              {
-                loader: 'file-loader',
-                options: {
-                  name: '[name].[ext]',
-                  outputPath: 'fonts/'
-                }
-              }
-            ]
-          },
-          {
-            test: /\.(sa|sc|c)ss$/i,
-            use: [
-              {
-                loader: MiniCssExtractPlugin.loader
-              },
-              'css-loader',
-              {
-                loader: 'postcss-loader',
-                options: {
-                  ident: 'postcss',
-                  plugins: [require('tailwindcss'), require('autoprefixer')]
-                }
-              },
-              'sass-loader'
-            ]
-          }
-        ]
+        rules
       },
       resolve: {
         extensions,
@@ -267,23 +269,11 @@ class Builder {
         chunkFilename: '[name]-[id].[contenthash].js'
       },
       module: {
-        rules: [
-          {
-            test: /\.(js|jsx|ts|tsx|mjs)$/i,
-            exclude: /node_modules/,
-            use: [
-              {
-                loader: 'babel-loader',
-                options: {
-                  presets: ['@babel/preset-env', '@babel/preset-react'],
-                  plugins: ['react-require'],
-                  cacheDirectory: true,
-                  cacheCompression: false
-                }
-              }
-            ]
-          }
-        ]
+        rules
+      },
+      resolve: {
+        extensions,
+        alias
       },
       plugins: [
         new HtmlWebpackPlugin({
