@@ -286,7 +286,24 @@ class Builder {
         new WebpackAssetsManifest({
           output: 'client-assets.json'
         }),
-        new Inspector({ name: 'client' })
+        new Inspector({ name: 'client' }),
+        new webpack.NamedChunksPlugin(chunk => {
+          // https://github.com/webpack/webpack/issues/1315#issuecomment-386267369
+          // TODO remove for webpack 5
+          if (chunk.name) {
+            return chunk.name
+          }
+
+          return [...chunk._modules]
+            .map(m =>
+              path.relative(
+                m.context,
+                m.userRequest.substring(0, m.userRequest.lastIndexOf('.'))
+              )
+            )
+            .join('_')
+        }),
+        new webpack.HashedModuleIdsPlugin()
       ]
     }
     return webpack(config)
