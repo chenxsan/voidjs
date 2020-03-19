@@ -8,6 +8,13 @@ import CssoWebpackPlugin from 'csso-webpack-plugin'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
 import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativePath'
 import merge from 'deepmerge'
+
+import Inspector from './Inspector'
+
+interface WebpackError extends Error {
+  details?: any
+}
+
 import {
   extensions,
   alias,
@@ -38,10 +45,15 @@ interface HtmlgagaConfig {
 
 const configName = path.resolve(cwd, 'htmlgaga.config.js')
 
+const BEGIN = 'begin'
+const END = 'end'
+
 class Builder {
+  pages: string[]
   pagesDir: string
   outputPath: string
   config: HtmlgagaConfig
+  spinner
 
   constructor(pagesDir: string, outputPath: string) {
     this.pagesDir = pagesDir
@@ -103,7 +115,7 @@ class Builder {
     const htmlPlugins = pages.map(page => {
       const filename = getHtmlFilenameFromRelativePath(this.pagesDir, page)
       return new HtmlWebpackPlugin({
-        chunks: [this.normalizedPageEntry(page), 'client'], // <- needs to exclude [name].js later
+        chunks: [this.normalizedPageEntry(page)],
         filename,
         minify: false,
         inject: false,
@@ -113,43 +125,15 @@ class Builder {
       })
     })
 
-    let webpackEntry = { ...entries }
-    const clientJs = path.resolve(cwd, 'public/js/index.js')
-    if (fs.existsSync(clientJs)) {
-      webpackEntry = { ...webpackEntry, client: clientJs }
-    }
-
     return {
       mode: 'production',
-      optimization: {
-        minimize: true,
-        minimizer: [
-          new TerserJSPlugin({
-            terserOptions: {},
-            extractComments: false
-          })
-        ],
-        splitChunks: {
-          cacheGroups: {
-            vendors: {
-              test: (module, chunks) => {
-                return (
-                  /[\\/]node_modules[\\/]/.test(module.resource) &&
-                  module.type === 'javascript/auto'
-                )
-              },
-              chunks: 'all',
-              priority: -10
-            }
-          }
-        }
+      entry: {
+        ...entries
       },
-      entry: webpackEntry,
       output: {
         path: path.resolve(this.outputPath),
-        libraryTarget: 'umd',
-        globalObject: 'this',
-        filename: (chunkData): string => {
+        libraryTarget: 'commonjs2',
+        filename: (chunkData: webpack.ChunkData): string => {
           if (entries[chunkData.chunk.name]) {
             // do not include contenthash for those entry pages
             // since we only use it for server side render
@@ -242,46 +226,156 @@ class Builder {
         }),
         new MiniCssExtractPlugin({
           filename: '[name].[contenthash].css'
-        })
+        }),
+        new Inspector({ name: 'server' })
       ]
     }
   }
 
-  async run(): Promise<void> {
-    performance.mark('begin')
-
-    logger.info('Collecting pages...')
-    const pages = await collectPages(this.pagesDir)
-
-    logger.info(`${pages.length} pages collected`)
-    logger.info('Building now, please wait...')
-
-    const compiler = webpack(this.createWebpackConfig(pages))
-
-    compiler.run((err, stats) => {
-      if (err) {
-        if (err.details) {
-          logger.error(err.details)
+  private clientJsCompiler(entry: {
+    [propName: string]: string
+  }): webpack.Compiler {
+    const config: webpack.Configuration = {
+      mode: 'production',
+      optimization: {
+        minimize: true,
+        minimizer: [
+          new TerserJSPlugin({
+            terserOptions: {},
+            extractComments: false
+          })
+        ],
+        splitChunks: {
+          cacheGroups: {
+            vendors: {
+              test: (module): boolean => {
+                return (
+                  /[\\/]node_modules[\\/]/.test(module.resource) &&
+                  module.type === 'javascript/auto'
+                )
+              },
+              chunks: 'all',
+              priority: -10
+            }
+          }
         }
-        return
+      },
+      entry,
+      output: {
+        path: path.resolve(this.outputPath),
+        filename: '[name].[contenthash].js',
+        chunkFilename: '[name]-[id].[contenthash].js'
+      },
+      module: {
+        rules: [
+          {
+            test: /\.(js|mjs)$/i,
+            exclude: /node_modules/,
+            use: [
+              {
+                loader: 'babel-loader',
+                options: {
+                  presets: ['@babel/preset-env'],
+                  cacheDirectory: true,
+                  cacheCompression: false
+                }
+              }
+            ]
+          }
+        ]
+      },
+      plugins: [
+        new HtmlWebpackPlugin({
+          minify: false,
+          inject: false,
+          cache: false,
+          showErrors: false,
+          meta: false
+        }),
+        new WebpackAssetsManifest({
+          output: 'client-assets.json'
+        }),
+        new Inspector({ name: 'client' })
+      ]
+    }
+    return webpack(config)
+  }
+  private runCallback(err: WebpackError, stats: webpack.Stats): void {
+    if (err) {
+      if (err.stack) {
+        logger.error(err.stack)
+      } else {
+        logger.error(err)
       }
-      if (stats.hasErrors()) {
-        return stats.toJson().errors.forEach(err => logger.error(err))
+      if (err.details) {
+        logger.error(err.details)
       }
-      performance.mark('end')
-      performance.measure('begin to end', 'begin', 'end')
-      const obs = new PerformanceObserver((list, observer) => {
-        logger.info(
-          `All ${pages.length} pages built in ${(
-            list.getEntries()[0].duration / 1000
-          ).toFixed(2)}s!`
-        )
+      return
+    }
 
-        observer.disconnect()
+    const info = stats.toJson()
+    if (stats.hasErrors()) {
+      info.errors.forEach(err => logger.error(err))
+    }
+    if (stats.hasWarnings()) {
+      logger.warn('\n' + info.warnings.join('\n'))
+    }
+  }
+  // measure end
+  private markEnd(): void {
+    performance.mark(END)
+    performance.measure(`${BEGIN} to ${END}`, BEGIN, END)
+    const observerCallback: PerformanceObserverCallback = (list, observer) => {
+      logger.info(
+        `All ${this.pageOrPages(this.pages.length)} built in ${(
+          list.getEntries()[0].duration / 1000
+        ).toFixed(2)}s!`
+      )
+
+      observer.disconnect()
+    }
+    const obs = new PerformanceObserver(observerCallback)
+    obs.observe({ entryTypes: ['measure'] })
+    performance.measure('Build time', BEGIN, END)
+  }
+  // measure begin
+  private markBegin(): void {
+    performance.mark(BEGIN)
+  }
+
+  private pageOrPages(len: number): string {
+    return len < 2 ? len + ' page' : len + ' pages'
+  }
+
+  async run(): Promise<void> {
+    this.markBegin()
+    logger.info('Collecting pages...')
+    this.pages = await collectPages(this.pagesDir)
+
+    logger.info(`${this.pageOrPages(this.pages.length)} collected`)
+
+    const compiler = webpack(this.createWebpackConfig(this.pages))
+
+    const clientJs = path.resolve(cwd, 'public/js/index.js')
+
+    if (fs.existsSync(clientJs)) {
+      const clientJsCompiler = this.clientJsCompiler({
+        client: clientJs
       })
-      obs.observe({ entryTypes: ['measure'] })
-      performance.measure('Build time', 'begin', 'end')
-    })
+      logger.info('Building client js...')
+
+      // run compilers sequentially
+      clientJsCompiler.run((err: Error, stats: webpack.Stats) => {
+        this.runCallback(err, stats)
+        logger.info('Building pages...')
+        compiler.run((err, stats) => {
+          this.runCallback(err, stats)
+          this.markEnd()
+        })
+      })
+    } else {
+      compiler.run(this.runCallback.bind(this))
+    }
   }
 }
 

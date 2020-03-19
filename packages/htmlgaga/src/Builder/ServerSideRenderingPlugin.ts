@@ -25,6 +25,8 @@ import HtmlTags from 'html-webpack-plugin/lib/html-tags'
 const { htmlTagObjectToString } = HtmlTags
 import requireFromString from './requireFromString'
 import merge from 'deepmerge'
+import Inspector from './Inspector'
+import webpack from 'webpack'
 
 const PLUGIN_NAME = 'SsrPlugin'
 
@@ -36,6 +38,9 @@ interface Options {
       script: boolean
       style: boolean
     }
+  }
+  outputMapInput: {
+    [propName: string]: string
   }
 }
 
@@ -79,7 +84,7 @@ class SsrPlugin {
     this.headTags = {} as Tags
     this.bodyTags = {} as Tags
   }
-  apply(compiler): void {
+  apply(compiler: webpack.Compiler): void {
     compiler.hooks.compilation.tap(PLUGIN_NAME, compilation => {
       HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tapAsync(
         PLUGIN_NAME,
@@ -93,6 +98,8 @@ class SsrPlugin {
     })
     compiler.hooks.emit.tapAsync(PLUGIN_NAME, (compilation, next) => {
       const htmls = Object.keys(this.options.outputMapInput)
+
+      // console.log('ssr', Inspector.data)
 
       for (const filename in compilation.assets) {
         // throw html htmlwebpackplugin created
@@ -115,7 +122,9 @@ class SsrPlugin {
           }
           const pageMeta = merge(defaultMeta, mod.head?.meta ?? {})
 
-          const meta = getMetaTags(pageMeta).map(tag => htmlTagObjectToString(tag, true)).join('')
+          const meta = getMetaTags(pageMeta)
+            .map(tag => htmlTagObjectToString(tag, true))
+            .join('')
 
           const ssr = ReactDOMServer.renderToStaticMarkup(
             React.createElement(Page)
@@ -138,8 +147,9 @@ class SsrPlugin {
             .map(tag => htmlTagObjectToString(tag, true))
             .join('')
 
-          const bodyTags: HtmlTagObject[] = this.bodyTags[filename].filter(
-            tag => {
+          const bodyTags: HtmlTagObject[] = this.bodyTags[filename]
+            .concat(Inspector.data)
+            .filter(tag => {
               return !(
                 (
                   tag.tagName === 'script' &&
@@ -148,8 +158,7 @@ class SsrPlugin {
                   ) !== -1
                 ) // exclude entryJs from bodyTags
               )
-            }
-          )
+            })
 
           let preloadScripts = ''
 
