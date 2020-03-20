@@ -7,7 +7,6 @@ export default `<!DOCTYPE html>
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title></title>
   </head>
   <body>
     <div id="htmlgaga"></div>
