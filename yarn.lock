@@ -1392,14 +1392,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@htmlgaga/doc@workspace:packages/doc":
-  version: 0.0.0-use.local
-  resolution: "@htmlgaga/doc@workspace:packages/doc"
-  dependencies:
-    htmlgaga: "workspace:*"
-  languageName: unknown
-  linkType: soft
-
 "@istanbuljs/load-nyc-config@npm:^1.0.0":
   version: 1.0.0
   resolution: "@istanbuljs/load-nyc-config@npm:1.0.0"
@@ -6877,7 +6869,7 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"htmlgaga@workspace:*, htmlgaga@workspace:packages/htmlgaga":
+"htmlgaga@workspace:packages/htmlgaga":
   version: 0.0.0-use.local
   resolution: "htmlgaga@workspace:packages/htmlgaga"
   dependencies:
