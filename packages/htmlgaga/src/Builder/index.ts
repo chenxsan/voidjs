@@ -288,6 +288,12 @@ class Builder {
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': '"production"'
         }),
+        new CssoWebpackPlugin({
+          restructure: false
+        }),
+        new MiniCssExtractPlugin({
+          filename: '[name].[contenthash].css'
+        }),
         new WebpackAssetsManifest({
           output: 'client-assets.json'
         }),

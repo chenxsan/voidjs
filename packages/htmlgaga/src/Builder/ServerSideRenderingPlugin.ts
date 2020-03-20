@@ -144,11 +144,12 @@ class SsrPlugin {
           }
 
           const hd = this.headTags[filename]
+            .concat(Inspector.headTags)
             .map(tag => htmlTagObjectToString(tag, true))
             .join('')
 
           const bodyTags: HtmlTagObject[] = this.bodyTags[filename]
-            .concat(Inspector.data)
+            .concat(Inspector.bodyTags)
             .filter(tag => {
               return !(
                 (

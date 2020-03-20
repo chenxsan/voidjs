@@ -2,7 +2,8 @@ import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { clientHtmlFilename } from '../config'
 export default class Inspector {
-  static data
+  static bodyTags
+  static headTags
   options
   constructor(options) {
     this.options = options
@@ -13,7 +14,8 @@ export default class Inspector {
         HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tapAsync(
           'Inspector',
           (htmlPluginData, callback) => {
-            Inspector.data = htmlPluginData.bodyTags // save for next
+            Inspector.headTags = htmlPluginData.headTags // save for next
+            Inspector.bodyTags = htmlPluginData.bodyTags // save for next
             callback(null, htmlPluginData)
           }
         )
