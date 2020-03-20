@@ -3951,6 +3951,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "commander@npm:5.0.0"
+  checksum: 2/2d86041c5d959936c05b02a42cba28dee1ff117f3275aef3737ceb89fd8de23aafd19c1508ab3598d0736f7aae9a0ddb75d7f52c7d6ea1e8fb6efa7cc61571c3
+  languageName: node
+  linkType: hard
+
 "commander@npm:~2.8.1":
   version: 2.8.1
   resolution: "commander@npm:2.8.1"
@@ -4185,7 +4192,7 @@ __metadata:
     "@types/prompts": ^2.0.5
     "@types/validate-npm-package-name": ^3.0.0
     chalk: ^3.0.0
-    commander: ^4.1.1
+    commander: ^5.0.0
     cross-spawn: ^7.0.1
     fs-extra: ^9.0.0
     prompts: ^2.3.1
