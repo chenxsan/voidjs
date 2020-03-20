@@ -1,5 +1,6 @@
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import { clientHtmlFilename } from '../config'
 export default class Inspector {
   static data
   options
@@ -16,6 +17,9 @@ export default class Inspector {
             callback(null, htmlPluginData)
           }
         )
+      })
+      compiler.hooks.emit.tap('Inspector', compilation => {
+        delete compilation.assets[clientHtmlFilename]
       })
     }
   }

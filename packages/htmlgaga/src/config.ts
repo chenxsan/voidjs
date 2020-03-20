@@ -23,3 +23,5 @@ export const extensions = ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.json']
 
 export const performance: Performance = require('perf_hooks').performance
 export const PerformanceObserver = require('perf_hooks').PerformanceObserver
+
+export const clientHtmlFilename = 'to-be-removed.html'

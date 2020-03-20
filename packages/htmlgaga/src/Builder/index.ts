@@ -21,7 +21,8 @@ import {
   logger,
   cwd,
   performance,
-  PerformanceObserver
+  PerformanceObserver,
+  clientHtmlFilename
 } from '../config'
 
 import collectPages from '../collectPages'
@@ -281,7 +282,11 @@ class Builder {
           inject: false,
           cache: false,
           showErrors: false,
-          meta: false
+          meta: false,
+          filename: clientHtmlFilename
+        }),
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': '"production"'
         }),
         new WebpackAssetsManifest({
           output: 'client-assets.json'
