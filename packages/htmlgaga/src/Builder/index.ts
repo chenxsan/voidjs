@@ -2,7 +2,6 @@ import webpack from 'webpack'
 import * as path from 'path'
 import * as fs from 'fs'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import TerserJSPlugin from 'terser-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
@@ -10,6 +9,7 @@ import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativ
 import merge from 'deepmerge'
 
 import Inspector from './Inspector'
+import clientCompiler from './clientCompiler'
 
 interface WebpackError extends Error {
   details?: any
@@ -21,8 +21,7 @@ import {
   logger,
   cwd,
   performance,
-  PerformanceObserver,
-  clientHtmlFilename
+  PerformanceObserver
 } from '../config'
 
 import collectPages from '../collectPages'
@@ -49,7 +48,7 @@ const configName = path.resolve(cwd, 'htmlgaga.config.js')
 const BEGIN = 'begin'
 const END = 'end'
 
-const rules = [
+export const rules = [
   {
     test: /\.(js|jsx|ts|tsx|mjs)$/i,
     exclude: /node_modules/,
@@ -235,90 +234,6 @@ class Builder {
     }
   }
 
-  private clientJsCompiler(entry: {
-    [propName: string]: string
-  }): webpack.Compiler {
-    const config: webpack.Configuration = {
-      mode: 'production',
-      optimization: {
-        minimize: true,
-        minimizer: [
-          new TerserJSPlugin({
-            terserOptions: {},
-            extractComments: false
-          })
-        ],
-        splitChunks: {
-          cacheGroups: {
-            vendors: {
-              test: (module): boolean => {
-                return (
-                  /[\\/]node_modules[\\/]/.test(module.resource) &&
-                  module.type === 'javascript/auto'
-                )
-              },
-              chunks: 'all',
-              priority: -10
-            }
-          }
-        }
-      },
-      entry,
-      output: {
-        path: path.resolve(this.outputPath),
-        filename: '[name].[contenthash].js',
-        chunkFilename: '[name]-[id].[contenthash].js'
-      },
-      module: {
-        rules
-      },
-      resolve: {
-        extensions,
-        alias
-      },
-      plugins: [
-        new HtmlWebpackPlugin({
-          minify: false,
-          inject: false,
-          cache: false,
-          showErrors: false,
-          meta: false,
-          filename: clientHtmlFilename
-        }),
-        new webpack.DefinePlugin({
-          'process.env.NODE_ENV': '"production"'
-        }),
-        new CssoWebpackPlugin({
-          restructure: false
-        }),
-        new MiniCssExtractPlugin({
-          filename: '[name].[contenthash].css'
-        }),
-        new WebpackAssetsManifest({
-          output: 'client-assets.json'
-        }),
-        new Inspector({ name: 'client' }),
-        new webpack.NamedChunksPlugin(chunk => {
-          // https://github.com/webpack/webpack/issues/1315#issuecomment-386267369
-          // TODO remove for webpack 5
-          if (chunk.name) {
-            return chunk.name
-          }
-
-          return [...chunk._modules]
-            .map(m =>
-              path.relative(
-                m.context,
-                m.userRequest.substring(0, m.userRequest.lastIndexOf('.'))
-              )
-            )
-            .join('_')
-        }),
-        new webpack.HashedModuleIdsPlugin()
-      ]
-    }
-    return webpack(config)
-  }
   private runCallback(err: WebpackError, stats: webpack.Stats): void {
     if (err) {
       if (err.stack) {
@@ -378,9 +293,7 @@ class Builder {
     const clientJs = path.resolve(cwd, 'public/js/index.js')
 
     if (fs.existsSync(clientJs)) {
-      const clientJsCompiler = this.clientJsCompiler({
-        client: clientJs
-      })
+      const clientJsCompiler = clientCompiler(clientJs, this.outputPath)
       logger.info('Building client js...')
 
       // run compilers sequentially
