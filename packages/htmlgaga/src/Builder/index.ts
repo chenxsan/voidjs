@@ -9,7 +9,7 @@ import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativ
 import merge from 'deepmerge'
 
 import clientCompiler from './clientCompiler'
-import ssr from './ssr'
+import Ssr from './Ssr'
 
 import {
   rules,
@@ -224,7 +224,8 @@ class Builder {
 
   async ssr(): Promise<void> {
     this.#outputTemplatesName.forEach((templateName) => {
-      ssr(templateName, cacheRoot, this.#outputPath, this.#config)
+      const ssr = new Ssr()
+      ssr.run(templateName, cacheRoot, this.#outputPath, this.#config)
     })
   }
 
