@@ -2135,13 +2135,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/rimraf@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "@types/rimraf@npm:2.0.3"
+"@types/rimraf@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@types/rimraf@npm:3.0.0"
   dependencies:
     "@types/glob": "*"
     "@types/node": "*"
-  checksum: 2/884c3b5f01b1b9c8a21ff430071ae6bd000ef0c1b456f366e80579639e8a60dc3d49a0d4af45a8686ed48bd820a775d82d409dbc5bcefc42832e48e367cbf4a6
+  checksum: 2/00a00a430f838ddafdbc17386f08d928b1ae7aeada84d112f4369a7a89b4d47c1bb6849688f1d6ee404a08338ab52a80c742f0c3040d63ccc2aaec04bd1009f5
   languageName: node
   linkType: hard
 
@@ -2248,7 +2248,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/webpack@npm:*, @types/webpack@npm:^4.41.7":
+"@types/webpack@npm:*":
   version: 4.41.7
   resolution: "@types/webpack@npm:4.41.7"
   dependencies:
@@ -2259,6 +2259,20 @@ __metadata:
     "@types/webpack-sources": "*"
     source-map: ^0.6.0
   checksum: 2/defc9965e49f020433a3008600c9aca796ad5485faa492a0935daf9ba4a39ebca9e2f3b60a4e1e1ac3e3706ca3eb845b8c89a1038ab261b3b9f2de10f4a1605b
+  languageName: node
+  linkType: hard
+
+"@types/webpack@npm:^4.41.8":
+  version: 4.41.8
+  resolution: "@types/webpack@npm:4.41.8"
+  dependencies:
+    "@types/anymatch": "*"
+    "@types/node": "*"
+    "@types/tapable": "*"
+    "@types/uglify-js": "*"
+    "@types/webpack-sources": "*"
+    source-map: ^0.6.0
+  checksum: 2/411d95e0576d94b580be8fcd06098a8e3ef4e46a8569b280bec1250e63b5f8b7fd339b359e5e76619a3160d81635053705dd7e3ec2d103d6366cb8f14ac2cdbf
   languageName: node
   linkType: hard
 
@@ -3084,18 +3098,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-loader@npm:^8.0.6":
-  version: 8.0.6
-  resolution: "babel-loader@npm:8.0.6"
+"babel-loader@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "babel-loader@npm:8.1.0"
   dependencies:
-    find-cache-dir: ^2.0.0
-    loader-utils: ^1.0.2
-    mkdirp: ^0.5.1
+    find-cache-dir: ^2.1.0
+    loader-utils: ^1.4.0
+    mkdirp: ^0.5.3
     pify: ^4.0.1
+    schema-utils: ^2.6.5
   peerDependencies:
     "@babel/core": ^7.0.0
     webpack: ">=2"
-  checksum: 2/d098baa429fd00ff1d438d9d6532f05ccf6f1644c75d71c7781455f6dd1390ea386a2fdf3ccef3ae9f632879322a1790ae03f76c0ce1130be04002f254af2c95
+  checksum: 2/f7b236a5f7b3f2c8a49ec41ed0a2905075ed4bb6d6ba85552b50be7c56b8fdb46e92270576ef29e6598f23919f7a00a515091c2410ced25c08992a4bd799124b
   languageName: node
   linkType: hard
 
@@ -5995,7 +6010,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-cache-dir@npm:^2.0.0, find-cache-dir@npm:^2.1.0":
+"find-cache-dir@npm:^2.1.0":
   version: 2.1.0
   resolution: "find-cache-dir@npm:2.1.0"
   dependencies:
@@ -6877,15 +6892,15 @@ fsevents@^1.2.7:
     "@types/prettier": ^1.19.0
     "@types/react": ^16.9.23
     "@types/react-dom": ^16.9.5
-    "@types/rimraf": ^2.0.3
+    "@types/rimraf": ^3.0.0
     "@types/terser-webpack-plugin": ^2.2.0
-    "@types/webpack": ^4.41.7
+    "@types/webpack": ^4.41.8
     "@types/webpack-dev-middleware": ^3.7.0
     "@types/webpack-dev-server": ^3.10.0
     "@types/webpack-hot-middleware": ^2.25.0
     "@types/yargs": ^15.0.4
     autoprefixer: ^9.7.4
-    babel-loader: ^8.0.6
+    babel-loader: ^8.1.0
     babel-plugin-react-dom-render: ^1.0.0
     babel-plugin-react-require: ^3.1.3
     css-loader: ^3.4.2
@@ -8701,7 +8716,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"loader-utils@npm:^1.0.2, loader-utils@npm:^1.1.0, loader-utils@npm:^1.2.3":
+"loader-utils@npm:^1.1.0, loader-utils@npm:^1.2.3, loader-utils@npm:^1.4.0":
   version: 1.4.0
   resolution: "loader-utils@npm:1.4.0"
   dependencies:
@@ -9398,6 +9413,17 @@ fsevents@^1.2.7:
   bin:
     mkdirp: bin/cmd.js
   checksum: 2/8ef65f4f0c7642b2f6e7af417eb9f3f24e8d1e4d612eddc5b1ee3b0ef974ccfaafb38bba6cc9178510c5aae82a6ef9ad85037448c9856b2fb8308162a7c8987e
+  languageName: node
+  linkType: hard
+
+"mkdirp@npm:^0.5.3":
+  version: 0.5.3
+  resolution: "mkdirp@npm:0.5.3"
+  dependencies:
+    minimist: ^1.2.5
+  bin:
+    mkdirp: bin/cmd.js
+  checksum: 2/92d96ba83ca6013b7077c3fe776766c823c468de845a4965f5df483c38ad4d12829aab5a7a4e88e9defc4041f18a7cef2172e7bb19f946ae09a3821174b95256
   languageName: node
   linkType: hard
 
