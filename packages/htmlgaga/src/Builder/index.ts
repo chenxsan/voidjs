@@ -9,7 +9,7 @@ import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativ
 
 import clientCompiler from './clientCompiler'
 import Ssr from './Ssr'
-import applyOptionsDefaults from './applyOptionsDefaults'
+import merge from 'lodash.merge'
 
 import {
   rules,
@@ -34,7 +34,7 @@ interface Plugin {
   apply(compiler: Ssr): void
 }
 export interface HtmlgagaConfig {
-  html: {
+  html?: {
     pretty: boolean
     preload: {
       script: boolean
@@ -72,13 +72,30 @@ class Builder {
     }
   }
 
+  applyOptionsDefaults(): void {
+    const defaultOptions = {
+      html: {
+        pretty: true,
+        preload: {
+          style: true,
+          script: true,
+        },
+      },
+      plugins: [],
+    }
+    this.#config = {
+      html: merge({}, defaultOptions.html, this.#config.html ?? {}),
+      plugins: merge([], defaultOptions.plugins, this.#config.plugins ?? []),
+    }
+  }
+
   async resolveConfig(): Promise<void> {
     const config = await import(configName)
     validateSchema(schema as JSONSchema7, config.default, {
       name: 'htmlgaga.config.js',
     })
     this.#config = config
-    applyOptionsDefaults(this.#config)
+    this.applyOptionsDefaults()
     logger.debug('htmlgaga.config.js', this.#config)
   }
 
