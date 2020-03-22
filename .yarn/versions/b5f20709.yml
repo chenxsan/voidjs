@@ -1,6 +1,0 @@
-releases:
-  "@htmlgaga/plugin-react-helmet": patch
-
-declined:
-  - "@htmlgaga/dev-template"
-  - htmlgaga
