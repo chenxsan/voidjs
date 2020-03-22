@@ -54,20 +54,20 @@ const END = 'end'
 
 class Builder {
   #pages: string[]
-  pagesDir: string
-  outputPath: string
-  config: HtmlgagaConfig
-  outputPagesName: string[]
-  outputTemplatesName: string[]
+  #pagesDir: string
+  #outputPath: string
+  #config: HtmlgagaConfig
+  #outputPagesName: string[]
+  #outputTemplatesName: string[]
 
   constructor(pagesDir: string, outputPath: string) {
-    this.pagesDir = pagesDir
-    this.outputPath = outputPath
+    this.#pagesDir = pagesDir
+    this.#outputPath = outputPath
 
-    this.outputPagesName = []
-    this.outputTemplatesName = []
+    this.#outputPagesName = []
+    this.#outputTemplatesName = []
 
-    this.config = {
+    this.#config = {
       html: {
         lang: 'en',
         pretty: true,
@@ -90,13 +90,13 @@ class Builder {
     validateSchema(schema as JSONSchema7, config.default, {
       name: 'htmlgaga.config.js',
     })
-    this.config = merge(this.config, config)
+    this.#config = merge(this.#config, config)
   }
 
   // /path/to/pages/index.js -> index
   normalizedPageEntry(pageEntry: string): string {
     return path
-      .relative(this.pagesDir, pageEntry)
+      .relative(this.#pagesDir, pageEntry)
       .split(path.sep)
       .join('-')
       .replace(new RegExp(`\\${path.extname(pageEntry)}$`), '')
@@ -105,16 +105,16 @@ class Builder {
   createWebpackConfig(pages: string[]): webpack.Configuration {
     const entries = pages.reduce((acc, page) => {
       // acc['index'] = '/path/to/page.js'
-      this.outputTemplatesName.push(this.normalizedPageEntry(page))
+      this.#outputTemplatesName.push(this.normalizedPageEntry(page))
       acc[this.normalizedPageEntry(page)] = page
       return acc
     }, {})
 
     const htmlPlugins = pages.map((page) => {
-      const filename = getHtmlFilenameFromRelativePath(this.pagesDir, page)
+      const filename = getHtmlFilenameFromRelativePath(this.#pagesDir, page)
         .split(path.sep)
         .join('-')
-      this.outputPagesName.push(filename)
+      this.#outputPagesName.push(filename)
       return new HtmlWebpackPlugin({
         chunks: [this.normalizedPageEntry(page)],
         filename,
@@ -135,7 +135,7 @@ class Builder {
         minimize: false,
       },
       output: {
-        path: path.resolve(this.outputPath),
+        path: path.resolve(this.#outputPath),
         libraryTarget: 'commonjs2',
         filename: (chunkData: webpack.ChunkData): string => {
           if (entries[chunkData.chunk.name]) {
@@ -167,7 +167,7 @@ class Builder {
         }),
         ...htmlPlugins,
         new RemoveAssetsPlugin(
-          (filename) => this.outputPagesName.indexOf(filename) !== -1,
+          (filename) => this.#outputPagesName.indexOf(filename) !== -1,
           (filename) =>
             logger.debug(`${filename} removed by RemoveAssetsPlugin`)
         ),
@@ -230,8 +230,8 @@ class Builder {
 
   async ssr(): Promise<void> {
     const clientTags = await import(path.resolve(cacheRoot, 'client.json'))
-    this.outputTemplatesName.forEach(async (template) => {
-      const appPath = `${path.resolve(this.outputPath, template + '.js')}`
+    this.#outputTemplatesName.forEach(async (template) => {
+      const appPath = `${path.resolve(this.#outputPath, template + '.js')}`
       const { default: App } = await import(appPath)
       const pageTags: {
         headTags: HtmlTagObject[]
@@ -250,7 +250,7 @@ class Builder {
       })
       let preloadStyles = ''
 
-      if (this.config.html.preload.style) {
+      if (this.#config.html.preload.style) {
         preloadStyles = headTags
           .filter((tag) => tag.tagName === 'link')
           .map((tag) => {
@@ -263,7 +263,7 @@ class Builder {
 
       let preloadScripts = ''
 
-      if (this.config.html.preload.script) {
+      if (this.#config.html.preload.script) {
         preloadScripts = bodyTags
           .filter((tag) => tag.tagName === 'script')
           .map((tag) => {
@@ -282,16 +282,16 @@ class Builder {
 
       const html = renderToStaticMarkup(createElement(App))
 
-      let body = `<!DOCTYPE html><html lang="${this.config.html.lang}"><head><title></title>${preloadStyles}${preloadScripts}${hd}</head><body>${html}${bd}</body></html>
+      let body = `<!DOCTYPE html><html lang="${this.#config.html.lang}"><head><title></title>${preloadStyles}${preloadScripts}${hd}</head><body>${html}${bd}</body></html>
           `
 
-      if (this.config.html.pretty) {
+      if (this.#config.html.pretty) {
         body = prettier.format(body, {
           parser: 'html',
         })
       }
 
-      fs.outputFileSync(path.join(this.outputPath, template + '.html'), body)
+      fs.outputFileSync(path.join(this.#outputPath, template + '.html'), body)
 
       fs.removeSync(appPath)
     })
@@ -300,7 +300,7 @@ class Builder {
   async run(): Promise<void> {
     this.markBegin()
     logger.info('Collecting pages...')
-    this.#pages = await collectPages(this.pagesDir)
+    this.#pages = await collectPages(this.#pagesDir)
 
     logger.info(`${this.pageOrPages(this.#pages.length)} collected`)
 
@@ -309,7 +309,7 @@ class Builder {
     const clientJs = path.resolve(cwd, 'public/js/index.js')
 
     if (fs.existsSync(clientJs)) {
-      const clientJsCompiler = clientCompiler(clientJs, this.outputPath)
+      const clientJsCompiler = clientCompiler(clientJs, this.#outputPath)
       logger.info('Building client js...')
 
       // run compilers sequentially

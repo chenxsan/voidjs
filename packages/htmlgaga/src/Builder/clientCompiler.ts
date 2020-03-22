@@ -20,8 +20,8 @@ export default function clientCompiler(
       minimizer: [
         new TerserJSPlugin({
           terserOptions: {},
-          extractComments: false
-        })
+          extractComments: false,
+        }),
       ],
       splitChunks: {
         cacheGroups: {
@@ -33,25 +33,25 @@ export default function clientCompiler(
               )
             },
             chunks: 'all',
-            priority: -10
-          }
-        }
-      }
+            priority: -10,
+          },
+        },
+      },
     },
     entry: {
-      client: entry
+      client: entry,
     },
     output: {
       path: path.resolve(outputPath),
       filename: '[name].[contenthash].js',
-      chunkFilename: '[name]-[id].[contenthash].js'
+      chunkFilename: '[name]-[id].[contenthash].js',
     },
     module: {
-      rules
+      rules,
     },
     resolve: {
       extensions,
-      alias
+      alias,
     },
     plugins: [
       new PersistDataPlugin(),
@@ -64,25 +64,25 @@ export default function clientCompiler(
         cache: false,
         showErrors: false,
         meta: false,
-        filename: 'client.html'
+        filename: 'client.html',
       }),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': '"production"'
+        'process.env.NODE_ENV': '"production"',
       }),
       new CssoWebpackPlugin({
-        restructure: false
+        restructure: false,
       }),
       new MiniCssExtractPlugin({
-        filename: '[name].[contenthash].css'
+        filename: '[name].[contenthash].css',
       }),
       new WebpackAssetsManifest({
-        output: 'client-assets.json'
+        output: 'client-assets.json',
       }),
       new RemoveAssetsPlugin(
-        filename => filename === 'client.html',
-        filename => logger.debug(`${filename} removed by RemoveAssetsPlugin`)
+        (filename) => filename === 'client.html',
+        (filename) => logger.debug(`${filename} removed by RemoveAssetsPlugin`)
       ),
-      new webpack.NamedChunksPlugin(chunk => {
+      new webpack.NamedChunksPlugin((chunk) => {
         // https://github.com/webpack/webpack/issues/1315#issuecomment-386267369
         // TODO remove for webpack 5
         if (chunk.name) {
@@ -90,7 +90,7 @@ export default function clientCompiler(
         }
 
         return [...chunk._modules]
-          .map(m =>
+          .map((m) =>
             path.relative(
               m.context,
               m.userRequest.substring(0, m.userRequest.lastIndexOf('.'))
@@ -98,8 +98,8 @@ export default function clientCompiler(
           )
           .join('_')
       }),
-      new webpack.HashedModuleIdsPlugin()
-    ]
+      new webpack.HashedModuleIdsPlugin(),
+    ],
   }
   return webpack(config)
 }
