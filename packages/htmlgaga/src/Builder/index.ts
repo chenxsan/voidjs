@@ -6,10 +6,10 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
 import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativePath'
-import merge from 'deepmerge'
 
 import clientCompiler from './clientCompiler'
 import Ssr from './Ssr'
+import applyOptionsDefaults from './applyOptionsDefaults'
 
 import {
   rules,
@@ -30,6 +30,9 @@ import { JSONSchema7 } from 'schema-utils/declarations/validate'
 import PersistDataPlugin from '../webpackPlugins/PersistDataPlugin'
 import RemoveAssetsPlugin from '../webpackPlugins/RemoveAssetsPlugin'
 
+interface Plugin {
+  apply(compiler: Ssr): void
+}
 export interface HtmlgagaConfig {
   html: {
     lang: string
@@ -39,6 +42,7 @@ export interface HtmlgagaConfig {
       style: boolean
     }
   }
+  plugins?: Plugin[]
 }
 
 const configName = path.resolve(cwd, 'htmlgaga.config.js')
@@ -61,16 +65,6 @@ class Builder {
     this.#outputPagesName = []
     this.#outputTemplatesName = []
 
-    this.#config = {
-      html: {
-        lang: 'en',
-        pretty: true,
-        preload: {
-          style: true,
-          script: true,
-        },
-      },
-    }
     if (fs.existsSync(configName)) {
       this.resolveConfig().catch((err) => {
         logger.error(err)
@@ -84,7 +78,9 @@ class Builder {
     validateSchema(schema as JSONSchema7, config.default, {
       name: 'htmlgaga.config.js',
     })
-    this.#config = merge(this.#config, config)
+    this.#config = config
+    applyOptionsDefaults(this.#config)
+    logger.debug('htmlgaga.config.js', this.#config)
   }
 
   // /path/to/pages/index.js -> index
@@ -121,6 +117,7 @@ class Builder {
     })
 
     return {
+      externals: ['react-helmet'],
       mode: 'production',
       entry: {
         ...entries,
@@ -223,10 +220,15 @@ class Builder {
   }
 
   async ssr(): Promise<void> {
-    this.#outputTemplatesName.forEach((templateName) => {
+    for (const templateName of this.#outputTemplatesName) {
       const ssr = new Ssr()
+      if (Array.isArray(this.#config.plugins)) {
+        for (const plugin of this.#config.plugins) {
+          plugin.apply(ssr)
+        }
+      }
       ssr.run(templateName, cacheRoot, this.#outputPath, this.#config)
-    })
+    }
   }
 
   async run(): Promise<void> {

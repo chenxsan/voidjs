@@ -7,8 +7,11 @@ import render from './react'
 
 import { HtmlgagaConfig } from '../index'
 
+import { HelmetData } from 'react-helmet'
+
 import { HtmlTagObject } from 'html-webpack-plugin'
 import HtmlTags from 'html-webpack-plugin/lib/html-tags'
+import { SyncHook } from 'tapable'
 const { htmlTagObjectToString } = HtmlTags
 interface HtmlTags {
   headTags: HtmlTagObject[]
@@ -41,6 +44,15 @@ async function loadAllHtmlTags(
 }
 
 export default class Ssr {
+  hooks: {
+    [propName: string]: SyncHook
+  }
+  helmet?: HelmetData
+  constructor() {
+    this.hooks = {
+      helmet: new SyncHook(),
+    }
+  }
   async run(
     templateName: string,
     cacheRoot: string,
@@ -96,8 +108,16 @@ export default class Ssr {
 
     const html = render(App)
 
-    let body = `<!DOCTYPE html><html lang="${htmlgagaConfig.html.lang}"><head><title></title>${preloadStyles}${preloadScripts}${hd}</head><body>${html}${bd}</body></html>
-          `
+    this.hooks.helmet.call()
+
+    let body: string
+    if (this.helmet) {
+      body = `<!DOCTYPE html><html lang="${
+        htmlgagaConfig.html.lang
+      }" ${this.helmet.htmlAttributes.toString()}><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="htmlgaga" />${this.helmet.title.toString()}${this.helmet.meta.toString()}${this.helmet.link.toString()}${preloadStyles}${preloadScripts}${hd}</head><body>${html}${bd}</body></html>`
+    } else {
+      body = `<!DOCTYPE html><html lang="${htmlgagaConfig.html.lang}"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="htmlgaga" />${preloadStyles}${preloadScripts}${hd}</head><body>${html}${bd}</body></html>`
+    }
 
     if (htmlgagaConfig.html.pretty) {
       body = prettier.format(body, {

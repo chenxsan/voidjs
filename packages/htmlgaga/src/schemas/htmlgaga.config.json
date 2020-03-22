@@ -22,6 +22,9 @@
           }
         }
       }
+    },
+    "plugins": {
+      "type": "array"
     }
   },
   "additionalProperties": false
