@@ -1,5 +1,6 @@
-import { resolve } from 'path'
+import { resolve, join } from 'path'
 import pino from 'pino'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 export const cwd = process.cwd()
 
@@ -24,4 +25,66 @@ export const extensions = ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.json']
 export const performance: Performance = require('perf_hooks').performance
 export const PerformanceObserver = require('perf_hooks').PerformanceObserver
 
-export const clientHtmlFilename = 'to-be-removed.html'
+export const cacheRoot = join(cwd, '.htmlgaga', 'cache')
+
+// rules for webpack production mode
+export const rules = [
+  {
+    test: /\.(js|jsx|ts|tsx|mjs)$/i,
+    exclude: /node_modules/,
+    use: [
+      {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react'],
+          plugins: ['react-require'],
+          cacheDirectory: true,
+          cacheCompression: false
+        }
+      }
+    ]
+  },
+  {
+    test: /\.(png|svg|jpg|gif)$/i,
+    use: [
+      {
+        loader: 'file-loader',
+        options: {
+          name: '[name].[contenthash].[ext]'
+        }
+      },
+      {
+        loader: 'image-webpack-loader'
+      }
+    ]
+  },
+  {
+    test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+    use: [
+      {
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'fonts/'
+        }
+      }
+    ]
+  },
+  {
+    test: /\.(sa|sc|c)ss$/i,
+    use: [
+      {
+        loader: MiniCssExtractPlugin.loader
+      },
+      'css-loader',
+      {
+        loader: 'postcss-loader',
+        options: {
+          ident: 'postcss',
+          plugins: [require('tailwindcss'), require('autoprefixer')]
+        }
+      },
+      'sass-loader'
+    ]
+  }
+]

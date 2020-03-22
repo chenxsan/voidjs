@@ -1,36 +1,40 @@
 import webpack from 'webpack'
 import * as path from 'path'
-import * as fs from 'fs'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
+import * as fs from 'fs-extra'
+import HtmlWebpackPlugin, { HtmlTagObject } from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
 import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativePath'
 import merge from 'deepmerge'
+import prettier from 'prettier'
 
-import Inspector from './Inspector'
+import HtmlTags from 'html-webpack-plugin/lib/html-tags'
+const { htmlTagObjectToString } = HtmlTags
+
+import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+
 import clientCompiler from './clientCompiler'
 
-interface WebpackError extends Error {
-  details?: any
-}
-
 import {
+  rules,
   extensions,
   alias,
   logger,
   cwd,
   performance,
-  PerformanceObserver
+  PerformanceObserver,
+  cacheRoot,
 } from '../config'
 
 import collectPages from '../collectPages'
 
-import SsrPlugin from './ServerSideRenderingPlugin'
-
 import validateSchema from 'schema-utils'
 import schema from '../schemas/htmlgaga.config.json'
 import { JSONSchema7 } from 'schema-utils/declarations/validate'
+import PersistDataPlugin from '../webpackPlugins/PersistDataPlugin'
+import RemoveAssetsPlugin from '../webpackPlugins/RemoveAssetsPlugin'
 
 interface HtmlgagaConfig {
   html: {
@@ -48,77 +52,20 @@ const configName = path.resolve(cwd, 'htmlgaga.config.js')
 const BEGIN = 'begin'
 const END = 'end'
 
-export const rules = [
-  {
-    test: /\.(js|jsx|ts|tsx|mjs)$/i,
-    exclude: /node_modules/,
-    use: [
-      {
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env', '@babel/preset-react'],
-          plugins: ['react-require'],
-          cacheDirectory: true,
-          cacheCompression: false
-        }
-      }
-    ]
-  },
-  {
-    test: /\.(png|svg|jpg|gif)$/i,
-    use: [
-      {
-        loader: 'file-loader',
-        options: {
-          name: '[name].[contenthash].[ext]'
-        }
-      },
-      {
-        loader: 'image-webpack-loader'
-      }
-    ]
-  },
-  {
-    test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-    use: [
-      {
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-          outputPath: 'fonts/'
-        }
-      }
-    ]
-  },
-  {
-    test: /\.(sa|sc|c)ss$/i,
-    use: [
-      {
-        loader: MiniCssExtractPlugin.loader
-      },
-      'css-loader',
-      {
-        loader: 'postcss-loader',
-        options: {
-          ident: 'postcss',
-          plugins: [require('tailwindcss'), require('autoprefixer')]
-        }
-      },
-      'sass-loader'
-    ]
-  }
-]
-
 class Builder {
-  pages: string[]
+  #pages: string[]
   pagesDir: string
   outputPath: string
   config: HtmlgagaConfig
-  spinner
+  outputPagesName: string[]
+  outputTemplatesName: string[]
 
   constructor(pagesDir: string, outputPath: string) {
     this.pagesDir = pagesDir
     this.outputPath = outputPath
+
+    this.outputPagesName = []
+    this.outputTemplatesName = []
 
     this.config = {
       html: {
@@ -126,12 +73,12 @@ class Builder {
         pretty: true,
         preload: {
           style: true,
-          script: true
-        }
-      }
+          script: true,
+        },
+      },
     }
     if (fs.existsSync(configName)) {
-      this.resolveConfig().catch(err => {
+      this.resolveConfig().catch((err) => {
         logger.error(err)
         process.exit(1)
       })
@@ -141,7 +88,7 @@ class Builder {
   async resolveConfig(): Promise<void> {
     const config = await import(configName)
     validateSchema(schema as JSONSchema7, config.default, {
-      name: 'htmlgaga.config.js'
+      name: 'htmlgaga.config.js',
     })
     this.config = merge(this.config, config)
   }
@@ -156,25 +103,18 @@ class Builder {
   }
 
   createWebpackConfig(pages: string[]): webpack.Configuration {
-    // {[outputHtml]: input}
-    // ssrPlugin needs it
-    const outputMapInput = pages.reduce((acc, pageEntry) => {
-      const outputHtml = getHtmlFilenameFromRelativePath(
-        this.pagesDir,
-        pageEntry
-      )
-      acc[outputHtml] = this.normalizedPageEntry(pageEntry)
-      return acc
-    }, {})
-
     const entries = pages.reduce((acc, page) => {
       // acc['index'] = '/path/to/page.js'
+      this.outputTemplatesName.push(this.normalizedPageEntry(page))
       acc[this.normalizedPageEntry(page)] = page
       return acc
     }, {})
 
-    const htmlPlugins = pages.map(page => {
+    const htmlPlugins = pages.map((page) => {
       const filename = getHtmlFilenameFromRelativePath(this.pagesDir, page)
+        .split(path.sep)
+        .join('-')
+      this.outputPagesName.push(filename)
       return new HtmlWebpackPlugin({
         chunks: [this.normalizedPageEntry(page)],
         filename,
@@ -182,14 +122,17 @@ class Builder {
         inject: false,
         cache: false,
         showErrors: false,
-        meta: false
+        meta: false,
       })
     })
 
     return {
       mode: 'production',
       entry: {
-        ...entries
+        ...entries,
+      },
+      optimization: {
+        minimize: false,
       },
       output: {
         path: path.resolve(this.outputPath),
@@ -198,43 +141,47 @@ class Builder {
           if (entries[chunkData.chunk.name]) {
             // do not include contenthash for those entry pages
             // since we only use it for server side render
-            return '[name]'
+            return '[name].js'
           }
           return '[name].[contenthash].js'
         },
-        chunkFilename: '[name]-[id].[contenthash].js'
+        chunkFilename: '[name]-[id].[contenthash].js',
       },
       module: {
-        rules
+        rules,
       },
       resolve: {
         extensions,
-        alias
+        alias,
       },
       plugins: [
+        new PersistDataPlugin(),
         new WebpackAssetsManifest({
-          output: 'assets.json'
+          output: 'assets.json',
         }),
         new webpack.DefinePlugin({
-          'process.env.NODE_ENV': '"production"'
+          'process.env.NODE_ENV': '"production"',
         }),
         new CssoWebpackPlugin({
-          restructure: false
+          restructure: false,
         }),
         ...htmlPlugins,
-        new SsrPlugin({
-          outputMapInput: outputMapInput,
-          html: this.config.html
-        }),
+        new RemoveAssetsPlugin(
+          (filename) => this.outputPagesName.indexOf(filename) !== -1,
+          (filename) =>
+            logger.debug(`${filename} removed by RemoveAssetsPlugin`)
+        ),
         new MiniCssExtractPlugin({
-          filename: '[name].[contenthash].css'
+          filename: '[name].[contenthash].css',
         }),
-        new Inspector({ name: 'server' })
-      ]
+      ],
     }
   }
 
-  private runCallback(err: WebpackError, stats: webpack.Stats): void {
+  private runCallback(
+    err: Error & { details?: string },
+    stats: webpack.Stats
+  ): void {
     if (err) {
       if (err.stack) {
         logger.error(err.stack)
@@ -249,7 +196,7 @@ class Builder {
 
     const info = stats.toJson()
     if (stats.hasErrors()) {
-      info.errors.forEach(err => logger.error(err))
+      info.errors.forEach((err) => logger.error(err))
     }
     if (stats.hasWarnings()) {
       logger.warn('\n' + info.warnings.join('\n'))
@@ -261,7 +208,7 @@ class Builder {
     performance.measure(`${BEGIN} to ${END}`, BEGIN, END)
     const observerCallback: PerformanceObserverCallback = (list, observer) => {
       logger.info(
-        `All ${this.pageOrPages(this.pages.length)} built in ${(
+        `All ${this.pageOrPages(this.#pages.length)} built in ${(
           list.getEntries()[0].duration / 1000
         ).toFixed(2)}s!`
       )
@@ -281,14 +228,83 @@ class Builder {
     return len < 2 ? len + ' page' : len + ' pages'
   }
 
+  async ssr(): Promise<void> {
+    const clientTags = await import(path.resolve(cacheRoot, 'client.json'))
+    this.outputTemplatesName.forEach(async (template) => {
+      const appPath = `${path.resolve(this.outputPath, template + '.js')}`
+      const { default: App } = await import(appPath)
+      const pageTags: {
+        headTags: HtmlTagObject[]
+        bodyTags: HtmlTagObject[]
+      } = await import(`${path.join(cacheRoot, template)}.json`)
+
+      let { headTags, bodyTags } = pageTags
+
+      headTags = headTags.concat(clientTags.headTags)
+      bodyTags = bodyTags.concat(clientTags.bodyTags)
+
+      bodyTags = bodyTags.filter((tag) => {
+        return !(
+          (tag.tagName === 'script' && template + '.js' === tag.attributes.src) // exclude entryJs from bodyTags
+        )
+      })
+      let preloadStyles = ''
+
+      if (this.config.html.preload.style) {
+        preloadStyles = headTags
+          .filter((tag) => tag.tagName === 'link')
+          .map((tag) => {
+            return `<link rel="preload" href="${tag.attributes.href}" as="${
+              tag.attributes.rel === 'stylesheet' ? 'style' : ''
+            }" />`
+          })
+          .join('')
+      }
+
+      let preloadScripts = ''
+
+      if (this.config.html.preload.script) {
+        preloadScripts = bodyTags
+          .filter((tag) => tag.tagName === 'script')
+          .map((tag) => {
+            return `<link rel="preload" href="${tag.attributes.src}" as="script" />`
+          })
+          .join('')
+      }
+
+      const hd = headTags
+        .map((tag) => htmlTagObjectToString(tag, true))
+        .join('')
+
+      const bd = bodyTags
+        .map((tag) => htmlTagObjectToString(tag, true))
+        .join('')
+
+      const html = renderToStaticMarkup(createElement(App))
+
+      let body = `<!DOCTYPE html><html lang="${this.config.html.lang}"><head><title></title>${preloadStyles}${preloadScripts}${hd}</head><body>${html}${bd}</body></html>
+          `
+
+      if (this.config.html.pretty) {
+        body = prettier.format(body, {
+          parser: 'html',
+        })
+      }
+
+      fs.outputFileSync(path.join(this.outputPath, template + '.html'), body)
+
+      fs.removeSync(appPath)
+    })
+  }
+
   async run(): Promise<void> {
     this.markBegin()
     logger.info('Collecting pages...')
-    this.pages = await collectPages(this.pagesDir)
+    this.#pages = await collectPages(this.pagesDir)
 
-    logger.info(`${this.pageOrPages(this.pages.length)} collected`)
+    logger.info(`${this.pageOrPages(this.#pages.length)} collected`)
 
-    const compiler = webpack(this.createWebpackConfig(this.pages))
+    const compiler = webpack(this.createWebpackConfig(this.#pages))
 
     const clientJs = path.resolve(cwd, 'public/js/index.js')
 
@@ -300,13 +316,20 @@ class Builder {
       clientJsCompiler.run((err: Error, stats: webpack.Stats) => {
         this.runCallback(err, stats)
         logger.info('Building pages...')
-        compiler.run((err, stats) => {
+        compiler.run(async (err, stats) => {
           this.runCallback(err, stats)
+          // after all compiled
+          // we start server side rendering here
+          await this.ssr()
           this.markEnd()
         })
       })
     } else {
-      compiler.run(this.runCallback.bind(this))
+      compiler.run(async (err, stats) => {
+        this.runCallback(err, stats)
+        await this.ssr()
+        this.markEnd()
+      })
     }
   }
 }

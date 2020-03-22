@@ -5,17 +5,9 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
-import Inspector from './Inspector'
-import { extensions, alias, clientHtmlFilename } from '../config'
-import { rules } from './index'
-
-class PersistPlugin {
-  apply(compiler: webpack.Compiler): void {
-    compiler.hooks.emit.tap('PersistPlugin', () => {
-      // we need to persist some data for next usage
-    })
-  }
-}
+import { extensions, alias, rules, logger } from '../config'
+import RemoveAssetsPlugin from '../webpackPlugins/RemoveAssetsPlugin'
+import PersistDataPlugin from '../webpackPlugins/PersistDataPlugin'
 
 export default function clientCompiler(
   entry: string,
@@ -62,14 +54,17 @@ export default function clientCompiler(
       alias
     },
     plugins: [
-      new PersistPlugin(),
+      new PersistDataPlugin(),
+      // we use htmlwebpackplugin only for data collecting
+      // so we'll remove its html file with RemoveAssetsPlugin
+      // might rewrite with own codes in the future
       new HtmlWebpackPlugin({
         minify: false,
         inject: false,
         cache: false,
         showErrors: false,
         meta: false,
-        filename: clientHtmlFilename
+        filename: 'client.html'
       }),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"production"'
@@ -83,7 +78,10 @@ export default function clientCompiler(
       new WebpackAssetsManifest({
         output: 'client-assets.json'
       }),
-      new Inspector({ name: 'client' }),
+      new RemoveAssetsPlugin(
+        filename => filename === 'client.html',
+        filename => logger.debug(`${filename} removed by RemoveAssetsPlugin`)
+      ),
       new webpack.NamedChunksPlugin(chunk => {
         // https://github.com/webpack/webpack/issues/1315#issuecomment-386267369
         // TODO remove for webpack 5
