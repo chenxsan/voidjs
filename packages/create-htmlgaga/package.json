@@ -11,7 +11,7 @@
     "react",
     "html"
   ],
-  "author": "Sam Chen",
+  "author": "Sam Chen <chenxsan@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "chalk": "^3.0.0",

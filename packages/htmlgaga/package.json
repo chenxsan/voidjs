@@ -13,7 +13,7 @@
     "webpack",
     "server-side-rendering"
   ],
-  "author": "Sam Chen",
+  "author": "Sam Chen <chenxsan@gmail.com>",
   "license": "GPL-3.0",
   "files": [
     "./cli.js",
