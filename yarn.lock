@@ -1392,6 +1392,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@htmlgaga/plugin-react-helmet@workspace:packages/plugin-react-helmet":
+  version: 0.0.0-use.local
+  resolution: "@htmlgaga/plugin-react-helmet@workspace:packages/plugin-react-helmet"
+  dependencies:
+    react-helmet: 6.0.0-beta.2
+  languageName: unknown
+  linkType: soft
+
 "@istanbuljs/load-nyc-config@npm:^1.0.0":
   version: 1.0.0
   resolution: "@istanbuljs/load-nyc-config@npm:1.0.0"
@@ -11203,10 +11211,40 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-fast-compare@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "react-fast-compare@npm:2.0.4"
+  checksum: 2/4e4bfc3597414a36ee35977259012fff30c4f13a0e5dcabf958e91991bef8e9a3faee9dd666cfbdb0c2a0f0ddaf242ac2912054caa956a793c4cdff274dc5aec
+  languageName: node
+  linkType: hard
+
+"react-helmet@npm:6.0.0-beta.2":
+  version: 6.0.0-beta.2
+  resolution: "react-helmet@npm:6.0.0-beta.2"
+  dependencies:
+    object-assign: ^4.1.1
+    prop-types: ^15.7.2
+    react-fast-compare: ^2.0.4
+    react-side-effect: ^2.1.0
+  peerDependencies:
+    react: ">=16.3.0"
+  checksum: 2/9ac33ec3ab85224bf6e14171e5d048d4ac1b493b88bfeee32c69ff16bf45a6cf13acab2c83b82d88c3f867f448a13c131af437de9a9fc8e1f049412cfa2ce241
+  languageName: node
+  linkType: hard
+
 "react-is@npm:^16.12.0, react-is@npm:^16.8.1":
   version: 16.13.0
   resolution: "react-is@npm:16.13.0"
   checksum: 2/122f38efe00aca3f8c391a90513cb5e2ef2710db164730c9c6125f2f089b5cd413f22669e06606c5d84df08086c9a6b50fae90efa532baa82bc3a7c5c3b8b5da
+  languageName: node
+  linkType: hard
+
+"react-side-effect@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "react-side-effect@npm:2.1.0"
+  peerDependencies:
+    react: ^16.3.0
+  checksum: 2/643a9898953776783515df3510a438f262f6dff059c3f880b7bbc180957cd0f9a0c4d7b3ae72c347d0f7c56bbd16466e850c5d9e213abad024df3b6c3a430564
   languageName: node
   linkType: hard
 

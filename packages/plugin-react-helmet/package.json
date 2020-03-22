@@ -1,0 +1,9 @@
+{
+  "name": "@htmlgaga/plugin-react-helmet",
+  "version": "0.0.0",
+  "dependencies": {
+    "react-helmet": "6.0.0-beta.2"
+  },
+  "main": "dist/plugin-react-helmet.cjs.js",
+  "module": "dist/plugin-react-helmet.esm.js"
+}
