@@ -7,6 +7,6 @@
   "main": "dist/plugin-react-helmet.cjs.js",
   "module": "dist/plugin-react-helmet.esm.js",
   "peerDependencies": {
-    "react-helmet": "^6.0.0-beta.2"
+    "react-helmet": "^6.0.0-beta"
   }
 }
