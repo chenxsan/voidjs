@@ -1,21 +1,15 @@
 import webpack from 'webpack'
 import * as path from 'path'
 import * as fs from 'fs-extra'
-import HtmlWebpackPlugin, { HtmlTagObject } from 'html-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
 import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativePath'
 import merge from 'deepmerge'
-import prettier from 'prettier'
-
-import HtmlTags from 'html-webpack-plugin/lib/html-tags'
-const { htmlTagObjectToString } = HtmlTags
-
-import { createElement } from 'react'
-import { renderToStaticMarkup } from 'react-dom/server'
 
 import clientCompiler from './clientCompiler'
+import ssr from './ssr'
 
 import {
   rules,
@@ -36,7 +30,7 @@ import { JSONSchema7 } from 'schema-utils/declarations/validate'
 import PersistDataPlugin from '../webpackPlugins/PersistDataPlugin'
 import RemoveAssetsPlugin from '../webpackPlugins/RemoveAssetsPlugin'
 
-interface HtmlgagaConfig {
+export interface HtmlgagaConfig {
   html: {
     lang: string
     pretty: boolean
@@ -229,71 +223,8 @@ class Builder {
   }
 
   async ssr(): Promise<void> {
-    const clientTags = await import(path.resolve(cacheRoot, 'client.json'))
-    this.#outputTemplatesName.forEach(async (template) => {
-      const appPath = `${path.resolve(this.#outputPath, template + '.js')}`
-      const { default: App } = await import(appPath)
-      const pageTags: {
-        headTags: HtmlTagObject[]
-        bodyTags: HtmlTagObject[]
-      } = await import(`${path.join(cacheRoot, template)}.json`)
-
-      let { headTags, bodyTags } = pageTags
-
-      headTags = headTags.concat(clientTags.headTags)
-      bodyTags = bodyTags.concat(clientTags.bodyTags)
-
-      bodyTags = bodyTags.filter((tag) => {
-        return !(
-          (tag.tagName === 'script' && template + '.js' === tag.attributes.src) // exclude entryJs from bodyTags
-        )
-      })
-      let preloadStyles = ''
-
-      if (this.#config.html.preload.style) {
-        preloadStyles = headTags
-          .filter((tag) => tag.tagName === 'link')
-          .map((tag) => {
-            return `<link rel="preload" href="${tag.attributes.href}" as="${
-              tag.attributes.rel === 'stylesheet' ? 'style' : ''
-            }" />`
-          })
-          .join('')
-      }
-
-      let preloadScripts = ''
-
-      if (this.#config.html.preload.script) {
-        preloadScripts = bodyTags
-          .filter((tag) => tag.tagName === 'script')
-          .map((tag) => {
-            return `<link rel="preload" href="${tag.attributes.src}" as="script" />`
-          })
-          .join('')
-      }
-
-      const hd = headTags
-        .map((tag) => htmlTagObjectToString(tag, true))
-        .join('')
-
-      const bd = bodyTags
-        .map((tag) => htmlTagObjectToString(tag, true))
-        .join('')
-
-      const html = renderToStaticMarkup(createElement(App))
-
-      let body = `<!DOCTYPE html><html lang="${this.#config.html.lang}"><head><title></title>${preloadStyles}${preloadScripts}${hd}</head><body>${html}${bd}</body></html>
-          `
-
-      if (this.#config.html.pretty) {
-        body = prettier.format(body, {
-          parser: 'html',
-        })
-      }
-
-      fs.outputFileSync(path.join(this.#outputPath, template + '.html'), body)
-
-      fs.removeSync(appPath)
+    this.#outputTemplatesName.forEach((templateName) => {
+      ssr(templateName, cacheRoot, this.#outputPath, this.#config)
     })
   }
 
