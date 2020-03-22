@@ -3,7 +3,6 @@ import { HtmlgagaConfig } from './index'
 export default (options: HtmlgagaConfig): void => {
   const defaultOptions = {
     html: {
-      lang: 'en',
       pretty: true,
       preload: {
         style: true,

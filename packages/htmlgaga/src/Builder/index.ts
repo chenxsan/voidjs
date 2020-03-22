@@ -35,7 +35,6 @@ interface Plugin {
 }
 export interface HtmlgagaConfig {
   html: {
-    lang: string
     pretty: boolean
     preload: {
       script: boolean

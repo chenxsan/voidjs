@@ -4,9 +4,6 @@
     "html": {
       "type": "object",
       "properties": {
-        "lang": {
-          "type": "string"
-        },
         "pretty": {
           "type": "boolean"
         },
