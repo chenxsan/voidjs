@@ -1397,6 +1397,8 @@ __metadata:
   resolution: "@htmlgaga/plugin-react-helmet@workspace:packages/plugin-react-helmet"
   dependencies:
     react-helmet: 6.0.0-beta.2
+  peerDependencies:
+    react-helmet: ^6.0.0-beta.2
   languageName: unknown
   linkType: soft
 
