@@ -1387,8 +1387,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@htmlgaga/plugin-react-helmet@workspace:packages/plugin-react-helmet"
   dependencies:
+    "@types/react": 16.9.25
+    react: ^16.13.1
     react-helmet: 6.0.0-beta.2
   peerDependencies:
+    react: ^16.13.1
     react-helmet: ^6.0.0-beta
   languageName: unknown
   linkType: soft
@@ -2125,6 +2128,16 @@ __metadata:
     "@types/prop-types": "*"
     csstype: ^2.2.0
   checksum: 2/2aebd251cc8d4551a7c3f39d5d0d251bfcb2d55c0f1b17153010e0c8e52ffda498b4e468ab839ca039c2d277dfa36744d1f3a7f21cf1e525f32bfef55362f77d
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:16.9.25":
+  version: 16.9.25
+  resolution: "@types/react@npm:16.9.25"
+  dependencies:
+    "@types/prop-types": "*"
+    csstype: ^2.2.0
+  checksum: 2/20cc7d3b714cc1802e84eb30d6090d67de1b76dd02d58f03705bb1046f1be11525670c73696e86363293506a6f9bfcc3438ec9f44e9de32cba1a0d1c3efc3aa8
   languageName: node
   linkType: hard
 
