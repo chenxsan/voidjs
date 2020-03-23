@@ -39,5 +39,8 @@
   "prettier": {
     "singleQuote": true,
     "semi": false
+  },
+  "resolutions": {
+    "@babel/parser": "^7.9.2"
   }
 }
