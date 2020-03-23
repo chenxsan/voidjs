@@ -7,7 +7,7 @@ import render from './react'
 
 import { HtmlgagaConfig } from '../index'
 
-import { HelmetData } from 'react-helmet'
+import type { HelmetData } from 'react-helmet'
 
 import { HtmlTagObject } from 'html-webpack-plugin'
 import HtmlTags from 'html-webpack-plugin/lib/html-tags'
@@ -77,7 +77,7 @@ export default class Ssr {
     })
     let preloadStyles = ''
 
-    if (htmlgagaConfig.html.preload.style) {
+    if (htmlgagaConfig?.html?.preload.style) {
       preloadStyles = headTags
         .filter((tag) => tag.tagName === 'link')
         .map((tag) => {
@@ -90,7 +90,7 @@ export default class Ssr {
 
     let preloadScripts = ''
 
-    if (htmlgagaConfig.html.preload.script) {
+    if (htmlgagaConfig?.html?.preload.script) {
       preloadScripts = bodyTags
         .filter((tag) => tag.tagName === 'script')
         .map((tag) => {
@@ -117,7 +117,7 @@ export default class Ssr {
       body = `<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="htmlgaga" />${preloadStyles}${preloadScripts}${hd}</head><body>${html}${bd}</body></html>`
     }
 
-    if (htmlgagaConfig.html.pretty) {
+    if (htmlgagaConfig?.html?.pretty) {
       body = prettier.format(body, {
         parser: 'html',
       })
