@@ -17,6 +17,15 @@ import findFirstPage from './findFirstPage'
 
 const BUILT = Symbol('built')
 
+class Page {
+  page: string
+  url: string
+  constructor(page: string, url: string) {
+    this.page = page
+    this.url = url
+  }
+}
+
 // always reload
 const hotClient = 'webpack-hot-middleware/client?reload=true'
 class DevServer {
@@ -45,7 +54,7 @@ class DevServer {
       chunks: this.hasClientJs ? [entryKey, 'client'] : [entryKey],
       chunksSortMode: 'manual',
       filename,
-      title: `htmlgaga - ${filename}`
+      title: `htmlgaga - ${filename}`,
     })
   }
 
@@ -56,14 +65,14 @@ class DevServer {
   } {
     const entryKey = getEntryKeyFromRelativePath(this.pagesDir, page)
     return {
-      [entryKey]: [page, hotClient]
+      [entryKey]: [page, hotClient],
     }
   }
 
   private initWebpackConfig(page: string): webpack.Configuration {
     // generate entries for pages
     const entries = {
-      ...this.createEntry(page)
+      ...this.createEntry(page),
     }
 
     if (this.hasClientJs) {
@@ -74,7 +83,7 @@ class DevServer {
       mode: 'development',
       entry: entries,
       output: {
-        publicPath: '/'
+        publicPath: '/',
       },
       stats: 'minimal',
       module: {
@@ -96,19 +105,19 @@ class DevServer {
                           'react-dom-render',
                           {
                             hydrate: false,
-                            root: 'htmlgaga'
-                          }
-                        ]
-                      ]
-                    }
-                  ]
-                }
-              }
-            ]
+                            root: 'htmlgaga',
+                          },
+                        ],
+                      ],
+                    },
+                  ],
+                },
+              },
+            ],
           },
           {
             test: /\.(png|svg|jpg|gif)$/i,
-            use: ['file-loader']
+            use: ['file-loader'],
           },
           {
             test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
@@ -117,10 +126,10 @@ class DevServer {
                 loader: 'file-loader',
                 options: {
                   name: '[name].[ext]',
-                  outputPath: 'fonts/'
-                }
-              }
-            ]
+                  outputPath: 'fonts/',
+                },
+              },
+            ],
           },
           {
             test: /\.(sa|sc|c)ss$/i,
@@ -131,26 +140,26 @@ class DevServer {
                 loader: 'postcss-loader',
                 options: {
                   ident: 'postcss',
-                  plugins: [require('tailwindcss'), require('autoprefixer')]
-                }
+                  plugins: [require('tailwindcss'), require('autoprefixer')],
+                },
               },
-              'sass-loader'
-            ]
-          }
-        ]
+              'sass-loader',
+            ],
+          },
+        ],
       },
       resolve: {
         extensions,
-        alias
+        alias,
       },
       plugins: [
         this.htmlPlugin(page),
         new webpack.DefinePlugin({
-          'process.env.NODE_ENV': '"development"'
+          'process.env.NODE_ENV': '"development"',
         }),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
-      ]
+        new webpack.NoEmitOnErrorsPlugin(),
+      ],
     }
   }
 
@@ -183,8 +192,8 @@ class DevServer {
 
     this.entries = {
       [entryKey]: {
-        status: BUILT
-      }
+        status: BUILT,
+      },
     }
 
     const compiler = webpack(webpackConfig)
@@ -201,7 +210,7 @@ class DevServer {
           // if entry not added to webpack
           if (!this.entries[entryKey]) {
             new DynamicEntryPlugin(cwd, () => ({
-              [entryKey]: [page, hotClient]
+              [entryKey]: [page, hotClient],
             })).apply(compiler)
 
             this.htmlPlugin(page).apply(compiler)
@@ -211,8 +220,8 @@ class DevServer {
             this.entries = {
               ...this.entries,
               [entryKey]: {
-                status: BUILT
-              }
+                status: BUILT,
+              },
             }
           }
         } else {
@@ -233,25 +242,30 @@ class DevServer {
     app.use(express.static(cwd)) // serve statics from ../fixture
 
     app
-      .listen(this.port, this.host, err => {
+      .listen(this.port, this.host, (err) => {
         if (err) {
           return logger.error(err)
         }
 
         const server = `http://${this.host}:${this.port}`
 
-        logger.info(
-          `${getFilenameFromRelativePath(
-            this.pagesDir,
-            firstPage
-          )} is ready on ${server}/${getFilenameFromRelativePath(
-            this.pagesDir,
-            firstPage
-          )}`
-        )
+        const results = this.pages
+          .sort((a, b) => a.split(path.sep).length - b.split(path.sep).length)
+          .map((page) => {
+            return new Page(
+              path.relative(this.pagesDir, page),
+              `${server}/${getFilenameFromRelativePath(this.pagesDir, page)}`
+            )
+          })
+
+        console.table(results)
+
+        console.log()
       })
-      .on('error', err => {
-        logger.info('You might run server on another port with option --port')
+      .on('error', (err) => {
+        logger.info(
+          `You might run server on another port with option like --port 9999`
+        )
         throw err
       })
 
