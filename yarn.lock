@@ -6843,9 +6843,9 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"html-webpack-plugin@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "html-webpack-plugin@npm:4.0.0"
+"html-webpack-plugin@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "html-webpack-plugin@npm:4.0.1"
   dependencies:
     html-minifier-terser: ^5.0.1
     loader-utils: ^1.2.3
@@ -6855,7 +6855,7 @@ fsevents@^1.2.7:
     util.promisify: 1.0.0
   peerDependencies:
     webpack: ^4.0.0
-  checksum: 2/3ee09d575d97fa8cbcde0cc741cdd1d6b1871ed6327b63b5f1fd4d3788f51a6b681800b4c10c37493bdcb533e0edc395f5a912e02f9cb4c20b0f385c2dab35a0
+  checksum: 2/f7be8b5b75ce0aee318b552ed43888d92b10f3d3a08efb142b35dac8c7443117ac1284d3ee8024e7430cb3cfa22d2cc989ba56e5116f4249b3e0069ab0882642
   languageName: node
   linkType: hard
 
@@ -6917,7 +6917,7 @@ fsevents@^1.2.7:
     express: ^4.17.1
     file-loader: ^6.0.0
     fs-extra: ^9.0.0
-    html-webpack-plugin: ^4.0.0
+    html-webpack-plugin: ^4.0.1
     image-webpack-loader: ^6.0.0
     lodash.merge: ^4.6.2
     mini-css-extract-plugin: ^0.9.0
