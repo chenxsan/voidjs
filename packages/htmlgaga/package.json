@@ -54,7 +54,7 @@
     "pino-pretty": "^3.6.1",
     "pnp-webpack-plugin": "^1.6.4",
     "postcss-loader": "^3.0.0",
-    "prettier": "^2.0.1",
+    "prettier": "^2.0.2",
     "rimraf": "^3.0.2",
     "sass": "^1.26.3",
     "sass-loader": "^8.0.2",

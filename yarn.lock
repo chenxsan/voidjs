@@ -6879,7 +6879,7 @@ fsevents@^1.2.7:
     eslint-plugin-react: ^7.19.0
     jest: ^25.1.0
     memfs: ^3.1.2
-    prettier: ^2.0.1
+    prettier: ^2.0.2
     ts-jest: ^25.2.1
     typescript: ^3.8.3
   languageName: unknown
@@ -6925,7 +6925,7 @@ fsevents@^1.2.7:
     pino-pretty: ^3.6.1
     pnp-webpack-plugin: ^1.6.4
     postcss-loader: ^3.0.0
-    prettier: ^2.0.1
+    prettier: ^2.0.2
     react: ^16.13.1
     react-dom: ^16.13.1
     rimraf: ^3.0.2
@@ -10876,12 +10876,12 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "prettier@npm:2.0.1"
+"prettier@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "prettier@npm:2.0.2"
   bin:
     prettier: bin-prettier.js
-  checksum: 2/69cb0bf916f014f288767e97c46383005520b4d41766e1e94c499c26d447c77e7fd7d92904621ec175e1e5f9185c25cb84a87206e8905b6817a7e545b63f5095
+  checksum: 2/a00d6e8c454b6f9965702dd932094370a8ed7ff475ffbbf80e0203f390d63714863190666edb7daae25648f0f62e41e12bf7f3a2493781c71ac921f6de650705
   languageName: node
   linkType: hard
 
