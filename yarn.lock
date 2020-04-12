@@ -1383,7 +1383,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@htmlgaga/plugin-react-helmet@workspace:packages/plugin-react-helmet":
+"@htmlgaga/doc@workspace:packages/doc":
+  version: 0.0.0-use.local
+  resolution: "@htmlgaga/doc@workspace:packages/doc"
+  dependencies:
+    "@htmlgaga/plugin-react-helmet": "workspace:*"
+    htmlgaga: "workspace:*"
+    react: ^16.13.1
+    react-dom: ^16.13.1
+    react-helmet: ^6.0.0
+  languageName: unknown
+  linkType: soft
+
+"@htmlgaga/plugin-react-helmet@workspace:*, @htmlgaga/plugin-react-helmet@workspace:packages/plugin-react-helmet":
   version: 0.0.0-use.local
   resolution: "@htmlgaga/plugin-react-helmet@workspace:packages/plugin-react-helmet"
   dependencies:
@@ -6894,7 +6906,7 @@ fsevents@^1.2.7:
   languageName: unknown
   linkType: soft
 
-"htmlgaga@workspace:packages/htmlgaga":
+"htmlgaga@workspace:*, htmlgaga@workspace:packages/htmlgaga":
   version: 0.0.0-use.local
   resolution: "htmlgaga@workspace:packages/htmlgaga"
   dependencies:
@@ -11254,6 +11266,20 @@ fsevents@^1.2.7:
   peerDependencies:
     react: ">=16.3.0"
   checksum: 2/9ac33ec3ab85224bf6e14171e5d048d4ac1b493b88bfeee32c69ff16bf45a6cf13acab2c83b82d88c3f867f448a13c131af437de9a9fc8e1f049412cfa2ce241
+  languageName: node
+  linkType: hard
+
+"react-helmet@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "react-helmet@npm:6.0.0"
+  dependencies:
+    object-assign: ^4.1.1
+    prop-types: ^15.7.2
+    react-fast-compare: ^2.0.4
+    react-side-effect: ^2.1.0
+  peerDependencies:
+    react: ">=16.3.0"
+  checksum: 2/c0bcafb562616525cd1c759cf96820a6455071289f60496726ed7fe5636b166198f685fab11c6fc5c03274d1c451f059cbfc965f39e2c4ffd9ee2b3284b0a569
   languageName: node
   linkType: hard
 
