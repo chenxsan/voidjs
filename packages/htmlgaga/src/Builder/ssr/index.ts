@@ -1,8 +1,6 @@
 import path from 'path'
 import fs from 'fs-extra'
 
-import prettier from 'prettier'
-
 import render from './react'
 
 import { HtmlgagaConfig } from '../index'
@@ -18,10 +16,17 @@ interface HtmlTags {
   bodyTags: HtmlTagObject[]
 }
 async function loadHtmlTags(root: string, filename: string): Promise<HtmlTags> {
-  const { headTags, bodyTags } = await import(path.resolve(root, filename))
-  return {
-    headTags,
-    bodyTags,
+  try {
+    const { headTags, bodyTags } = await import(path.resolve(root, filename))
+    return {
+      headTags,
+      bodyTags,
+    }
+  } catch (err) {
+    return {
+      headTags: [],
+      bodyTags: [],
+    }
   }
 }
 
@@ -59,22 +64,14 @@ export default class Ssr {
     outputPath: string,
     htmlgagaConfig: HtmlgagaConfig
   ): Promise<void> {
-    const htmlTags = await loadAllHtmlTags(cacheRoot, [
-      `${templateName}.json`,
-      'client.json',
-    ])
+    const htmlTags = await loadAllHtmlTags(cacheRoot, [`${templateName}.json`])
 
     const { headTags } = htmlTags
     let { bodyTags } = htmlTags
 
-    bodyTags = bodyTags.filter((tag) => {
-      return !(
-        (
-          tag.tagName === 'script' &&
-          templateName + '.js' === tag.attributes.src
-        ) // exclude entryJs from bodyTags
-      )
-    })
+    // only include page entrypoint, so no need
+    bodyTags = []
+
     let preloadStyles = ''
 
     if (htmlgagaConfig?.html?.preload.style) {
@@ -115,12 +112,6 @@ export default class Ssr {
       body = `<!DOCTYPE html><html ${this.helmet.htmlAttributes.toString()}><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="htmlgaga" />${this.helmet.title.toString()}${this.helmet.meta.toString()}${this.helmet.link.toString()}${preloadStyles}${preloadScripts}${hd}</head><body>${html}${bd}</body></html>`
     } else {
       body = `<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="htmlgaga" />${preloadStyles}${preloadScripts}${hd}</head><body>${html}${bd}</body></html>`
-    }
-
-    if (htmlgagaConfig?.html?.pretty) {
-      body = prettier.format(body, {
-        parser: 'html',
-      })
     }
 
     fs.outputFileSync(path.join(outputPath, templateName + '.html'), body)

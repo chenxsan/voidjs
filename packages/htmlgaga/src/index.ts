@@ -24,14 +24,14 @@ yargs
     {
       host: {
         default: 'localhost',
-        description: 'Host to run server'
+        description: 'Host to run server',
       },
       port: {
         default: 8080,
-        description: 'Port to run server'
-      }
+        description: 'Port to run server',
+      },
     },
-    async function(argv: DevCmdArgs) {
+    async function (argv: DevCmdArgs) {
       const { host, port } = argv
       const pagesDir = path.resolve(cwd, 'pages')
       const server = new DevServer(pagesDir, { host, port })
@@ -44,10 +44,10 @@ yargs
     {
       dest: {
         default: 'out',
-        description: 'The output directory'
-      }
+        description: 'The output directory',
+      },
     },
-    function(argv: BuildCmdArgs) {
+    function (argv: BuildCmdArgs) {
       const pagesDir = path.resolve(cwd, 'pages')
       if (!existsSync(pagesDir)) {
         throw new Error(
@@ -59,10 +59,14 @@ yargs
       const outDir = path.resolve(cwd, dest)
 
       // Clean outDir first
-      rimraf(outDir, async err => {
+      rimraf(outDir, async (err) => {
         if (err) return logger.error(err)
-        const builder = new Builder(pagesDir, outDir)
-        await builder.run()
+        // remove .htmlgaga folder
+        rimraf(path.resolve(cwd, '.htmlgaga'), async (err) => {
+          if (err) return logger.error(err)
+          const builder = new Builder(pagesDir, outDir)
+          await builder.run()
+        })
       })
     }
   )

@@ -18,7 +18,8 @@ export const logger = pino({
 
 export const alias = {
   img: resolve(cwd, 'public/img'),
-  css: resolve(cwd, 'public/css')
+  css: resolve(cwd, 'public/css'),
+  js: resolve(cwd, 'public/js')
 }
 export const extensions = ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.json']
 

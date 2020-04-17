@@ -14,9 +14,9 @@
   "author": "Sam Chen <chenxsan@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^3.0.0",
+    "chalk": "^4.0.0",
     "commander": "^5.0.0",
-    "cross-spawn": "^7.0.1",
+    "cross-spawn": "^7.0.2",
     "fs-extra": "^9.0.0",
     "prompts": "^2.3.2",
     "update-check": "^1.5.3",
@@ -25,7 +25,7 @@
   "devDependencies": {
     "@types/cross-spawn": "^6.0.1",
     "@types/fs-extra": "^8.1.0",
-    "@types/prompts": "^2.0.5",
+    "@types/prompts": "^2.4.0",
     "@types/validate-npm-package-name": "^3.0.0"
   },
   "files": [
