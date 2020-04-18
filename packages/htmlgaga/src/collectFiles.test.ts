@@ -1,4 +1,5 @@
 import collectFiles from './collectFiles'
+import { join } from 'path'
 import { vol } from 'memfs'
 jest.mock('fs')
 describe('collectFiles', () => {
@@ -7,38 +8,44 @@ describe('collectFiles', () => {
   })
   test('Found one file', async () => {
     vol.fromJSON({
-      '/pages/hello.tsx': ''
+      [join('/pages/hello.tsx')]: '',
     })
-    const pages = await collectFiles('/pages')
-    expect(pages).toEqual(['/pages/hello.tsx'])
+    const pages = await collectFiles(join('/pages'))
+    expect(pages).toEqual([join('/pages/hello.tsx')])
   })
   test('Found two files', async () => {
     vol.fromJSON({
-      '/pages/hello.tsx': '',
-      '/pages/hi.tsx': ''
+      [join('/pages/hello.tsx')]: '',
+      [join('/pages/hi.tsx')]: '',
     })
-    const pages = await collectFiles('/pages')
-    expect(pages.sort()).toEqual(['/pages/hello.tsx', '/pages/hi.tsx'])
+    const pages = await collectFiles(join('/pages'))
+    expect(pages.sort()).toEqual([
+      join('/pages/hello.tsx'),
+      join('/pages/hi.tsx'),
+    ])
   })
   test('Found two files under nested directory', async () => {
     vol.fromJSON({
-      '/pages/blog/hi.tsx': '',
-      '/pages/hello.tsx': ''
+      [join('/pages/blog/hi.tsx')]: '',
+      [join('/pages/hello.tsx')]: '',
     })
-    const pages = await collectFiles('/pages')
-    expect(pages.sort()).toEqual(['/pages/blog/hi.tsx', '/pages/hello.tsx'])
+    const pages = await collectFiles(join('/pages'))
+    expect(pages.sort()).toEqual([
+      join('/pages/blog/hi.tsx'),
+      join('/pages/hello.tsx'),
+    ])
   })
   test('Found three files under nested directory', async () => {
     vol.fromJSON({
-      '/pages/hello.tsx': '',
-      '/pages/blog/hi.tsx': '',
-      '/pages/blog/wow.tsx': ''
+      [join('/pages/hello.tsx')]: '',
+      [join('/pages/blog/hi.tsx')]: '',
+      [join('/pages/blog/wow.tsx')]: '',
     })
-    const pages = await collectFiles('/pages')
+    const pages = await collectFiles(join('/pages'))
     expect(pages.sort()).toEqual([
-      '/pages/blog/hi.tsx',
-      '/pages/blog/wow.tsx',
-      '/pages/hello.tsx'
+      join('/pages/blog/hi.tsx'),
+      join('/pages/blog/wow.tsx'),
+      join('/pages/hello.tsx'),
     ])
   })
 })
