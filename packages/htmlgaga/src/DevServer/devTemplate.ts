@@ -9,6 +9,6 @@ export default `<!DOCTYPE html>
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   </head>
   <body>
-    <div id="htmlgaga"></div>
+    <div id="htmlgaga-app"></div>
   </body>
 </html>`

@@ -135,7 +135,7 @@ class DevServer {
                           'react-dom-render',
                           {
                             hydrate: false,
-                            root: 'htmlgaga',
+                            root: 'htmlgaga-app',
                           },
                         ],
                       ],
