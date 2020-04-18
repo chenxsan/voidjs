@@ -13,6 +13,9 @@ import PnpWebpackPlugin from 'pnp-webpack-plugin'
 
 import DynamicEntryPlugin from 'webpack/lib/DynamicEntryPlugin'
 
+// Not exported yet
+import { getNormalizedEntryStatic } from 'webpack/lib/config/normalization'
+
 import isHtmlRequest from './isHtmlRequest'
 import findFirstPage from './findFirstPage'
 
@@ -278,9 +281,9 @@ class DevServer {
               entries['client'] = [clientJs.filePath as string, hotClient]
             }
 
-            new DynamicEntryPlugin(this.#cwd, () => ({ ...entries })).apply(
-              compiler
-            )
+            new DynamicEntryPlugin(this.#cwd, () =>
+              getNormalizedEntryStatic(entries)
+            ).apply(compiler)
             this.htmlPlugin(src).apply(compiler)
             devMiddlewareInstance.invalidate()
             devMiddlewareInstance.waitUntilValid(() => {
