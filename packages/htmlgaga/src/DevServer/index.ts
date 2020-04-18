@@ -2,10 +2,10 @@ import webpack from 'webpack'
 import * as path from 'path'
 import * as fs from 'fs'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import collectPages from '../collectPages'
+import collectPages from '../collectFiles'
 import getEntryKeyFromRelativePath from './getEntryKeyFromRelativePath'
 import getFilenameFromRelativePath from './getFilenameFromRelativePath'
-import { cwd, extensions, alias, logger } from '../config'
+import { extensions, alias, logger } from '../config'
 import express from 'express'
 import devMiddleware from 'webpack-dev-middleware'
 import hotMiddleware from 'webpack-hot-middleware'
@@ -29,34 +29,57 @@ class Page {
 
 // always reload
 const hotClient = 'webpack-hot-middleware/client?reload=true'
+
 class DevServer {
-  private pagesDir: string
-  private pages: string[]
-  private entries: {
-    [propName: string]: any
+  #cwd: string
+  #pagesDir: string
+  #host: string
+  #port: number
+  #pages: string[]
+  #entries: {
+    [propName: string]: {
+      status: symbol
+    }
   }
-  private hasClientJs: boolean
-  private host: string
-  private port: number
 
   constructor(pagesDir: string, { host, port }) {
-    this.pagesDir = pagesDir
-    this.hasClientJs = fs.existsSync(path.join(cwd, 'public/js/index.js'))
+    this.#pagesDir = pagesDir
+    this.#cwd = path.resolve(pagesDir, '..')
 
-    this.host = host
-    this.port = port
+    this.#host = host
+    this.#port = port
   }
 
   private htmlPlugin(page: string): HtmlWebpackPlugin {
-    const filename = getFilenameFromRelativePath(this.pagesDir, page)
-    const entryKey = getEntryKeyFromRelativePath(this.pagesDir, page)
+    const filename = getFilenameFromRelativePath(this.#pagesDir, page)
+    const entryKey = getEntryKeyFromRelativePath(this.#pagesDir, page)
+    const clientJs = this.searchClientJs(page)
     return new HtmlWebpackPlugin({
-      template: require.resolve('@htmlgaga/dev-template'),
-      chunks: this.hasClientJs ? [entryKey, 'client'] : [entryKey],
+      template: path.resolve(__dirname, 'devTemplate'),
+      chunks: clientJs.exists === true ? [entryKey, 'client'] : [entryKey],
       chunksSortMode: 'manual',
       filename,
       title: `htmlgaga - ${filename}`,
     })
+  }
+
+  private searchClientJs(
+    pagePath: string
+  ): {
+    exists: boolean
+    filePath?: string
+  } {
+    const { name, dir } = path.parse(pagePath)
+    const clientJs = path.resolve(dir, `${name}.client.js`)
+    if (fs.existsSync(clientJs)) {
+      return {
+        exists: true,
+        filePath: clientJs,
+      }
+    }
+    return {
+      exists: false,
+    }
   }
 
   private createEntry(
@@ -64,7 +87,7 @@ class DevServer {
   ): {
     [propName: string]: string[]
   } {
-    const entryKey = getEntryKeyFromRelativePath(this.pagesDir, page)
+    const entryKey = getEntryKeyFromRelativePath(this.#pagesDir, page)
     return {
       [entryKey]: [page, hotClient],
     }
@@ -76,8 +99,10 @@ class DevServer {
       ...this.createEntry(page),
     }
 
-    if (this.hasClientJs) {
-      entries['client'] = [path.resolve(cwd, 'public/js/index'), hotClient]
+    const clientJs = this.searchClientJs(page)
+
+    if (clientJs.exists === true) {
+      entries['client'] = [clientJs.filePath as string, hotClient]
     }
 
     return {
@@ -90,23 +115,27 @@ class DevServer {
       module: {
         rules: [
           {
-            test: /\.(js|jsx|ts|tsx|mjs)$/i,
+            test: /\.(js|jsx|ts|tsx)$/i,
             exclude: [/node_modules/],
             use: [
               {
                 loader: 'babel-loader',
                 options: {
-                  presets: ['@babel/preset-env', '@babel/preset-react'],
+                  presets: [
+                    '@babel/preset-env',
+                    '@babel/preset-react',
+                    '@babel/preset-typescript',
+                  ],
                   plugins: ['react-require'],
                   overrides: [
                     {
-                      include: path.resolve(cwd, 'pages'),
+                      include: this.#pagesDir,
                       plugins: [
                         [
                           'react-dom-render',
                           {
                             hydrate: false,
-                            root: 'htmlgaga',
+                            root: 'htmlgaga-app',
                           },
                         ],
                       ],
@@ -165,34 +194,56 @@ class DevServer {
     }
   }
 
-  private findSrcPage(url: string): string {
+  public locateSrc(
+    url: string
+  ): {
+    src?: string
+    exists: boolean
+  } {
     if (url.endsWith('/')) url = url + '/index.html'
-    const target = path.join(this.pagesDir, url.replace(/\.html$/, '') + '.js')
-    if (fs.existsSync(target)) {
-      return target
+    const exts = ['tsx', 'jsx', 'js']
+    for (let i = 0, len = exts.length; i < len; i++) {
+      const target = path.join(
+        this.#pagesDir,
+        url.replace(/\.html$/, '') + `.${exts[i]}`
+      )
+      if (fs.existsSync(target)) {
+        return {
+          src: target,
+          exists: true,
+        }
+      }
     }
-    return ''
+
+    return {
+      exists: false,
+    }
   }
 
-  async start(): Promise<any> {
+  async start(): Promise<express.Application | void> {
     // collect all pages
-    this.pages = await collectPages(this.pagesDir)
+    logger.info('Collecting pages')
+    this.#pages = await collectPages(
+      this.#pagesDir,
+      (pagePath) =>
+        /\.(js|jsx|ts|tsx)$/.test(pagePath) && !pagePath.includes('.client.')
+    )
 
-    if (this.pages.length === 0) {
+    if (this.#pages.length === 0) {
       return logger.warn('No pages found under `pages`')
     }
 
     const app = express()
 
-    const firstPage = findFirstPage(this.pages)
+    const firstPage = findFirstPage(this.#pages)
 
     logger.debug(`firstPage ${firstPage}`)
 
-    const entryKey = getEntryKeyFromRelativePath(this.pagesDir, firstPage)
+    const entryKey = getEntryKeyFromRelativePath(this.#pagesDir, firstPage)
 
     const webpackConfig = this.initWebpackConfig(firstPage)
 
-    this.entries = {
+    this.#entries = {
       [entryKey]: {
         status: BUILT,
       },
@@ -200,69 +251,84 @@ class DevServer {
 
     const compiler = webpack(webpackConfig)
 
-    const middleware = devMiddleware(compiler)
+    const devMiddlewareInstance = devMiddleware(compiler)
 
     app.use((req, res, next) => {
       if (isHtmlRequest(req.url)) {
         // check if page does exit
-        const page = this.findSrcPage(req.url)
-        const entryKey = getEntryKeyFromRelativePath(this.pagesDir, page)
+        const page = this.locateSrc(req.url)
 
-        if (page !== '') {
-          // if entry not added to webpack
-          if (!this.entries[entryKey]) {
-            new DynamicEntryPlugin(cwd, () => ({
-              [entryKey]: [page, hotClient],
-            })).apply(compiler)
+        if (page.exists) {
+          const src = page.src as string
 
-            this.htmlPlugin(page).apply(compiler)
-            middleware.invalidate()
+          if (!this.#pages.includes(src)) {
+            this.#pages.push(src)
+          }
 
-            // save to this.entries
-            this.entries = {
-              ...this.entries,
-              [entryKey]: {
-                status: BUILT,
-              },
+          const entryKey = getEntryKeyFromRelativePath(this.#pagesDir, src)
+
+          // if entry not added to webpack yet
+          if (!this.#entries[entryKey]) {
+            const entries = {
+              [entryKey]: [src, hotClient],
             }
+
+            const clientJs = this.searchClientJs(src)
+            if (clientJs.exists === true) {
+              entries['client'] = [clientJs.filePath as string, hotClient]
+            }
+
+            new DynamicEntryPlugin(this.#cwd, () => ({ ...entries })).apply(
+              compiler
+            )
+            this.htmlPlugin(src).apply(compiler)
+            devMiddlewareInstance.invalidate()
+            devMiddlewareInstance.waitUntilValid(() => {
+              // save to this.#entries
+              this.#entries = {
+                ...this.#entries,
+                [entryKey]: {
+                  status: BUILT,
+                },
+              }
+              return next()
+            })
+          } else {
+            // already added to webpack
+            logger.debug(`${src} was already added to webpack`)
           }
         } else {
-          // page not exist now
-          if (this.entries[entryKey]) {
-            delete this.entries[entryKey]
-          }
           res.status(404).end('Page Not Found')
         }
       }
       next()
     })
 
-    app.use(middleware)
+    app.use(devMiddlewareInstance)
 
     app.use(hotMiddleware(compiler))
 
-    app.use(express.static(cwd)) // serve statics from ../fixture
+    app.use(express.static(this.#cwd)) // serve statics from ../fixture
 
     app
-      .listen(this.port, this.host, (err) => {
+      .listen(this.#port, this.#host, (err) => {
         if (err) {
           return logger.error(err)
         }
 
-        const server = `http://${this.host}:${this.port}`
-
-        const results = this.pages
-          .sort((a, b) => a.split(path.sep).length - b.split(path.sep).length)
-          .map((page) => {
-            return new Page(
-              path.relative(this.pagesDir, page),
-              `${server}/${getFilenameFromRelativePath(this.pagesDir, page)}`
-            )
-          })
-
-        console.table(results)
-
-        console.log()
+        compiler.hooks.done.tap('HTMLGAGA', () => {
+          // only print it after webpack done compiling.
+          const server = `http://${this.#host}:${this.#port}`
+          const results = this.#pages
+            .sort((a, b) => a.split(path.sep).length - b.split(path.sep).length)
+            .map((page) => {
+              return new Page(
+                path.relative(this.#pagesDir, page),
+                `${server}/${getFilenameFromRelativePath(this.#pagesDir, page)}`
+              )
+            })
+          console.table(results)
+        })
       })
       .on('error', (err) => {
         logger.info(

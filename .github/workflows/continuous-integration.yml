@@ -1,0 +1,21 @@
+name: Node.js CI
+
+on: [pull_request]
+
+jobs:
+  test:
+    name: Testing htmlgaga
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        node-version: [10.x, 12.x, 13.x]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn set version berry
+      - run: yarn
+      - run: yarn test

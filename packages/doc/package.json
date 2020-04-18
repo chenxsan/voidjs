@@ -1,0 +1,15 @@
+{
+  "name": "@htmlgaga/doc",
+  "private": true,
+  "scripts": {
+    "dev": "htmlgaga dev",
+    "build": "htmlgaga build"
+  },
+  "devDependencies": {
+    "@htmlgaga/plugin-react-helmet": "workspace:*",
+    "htmlgaga": "workspace:*",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-helmet": "^6.0.0"
+  }
+}

@@ -1,6 +1,0 @@
-{
-  "name": "@htmlgaga/dev-template",
-  "version": "0.2.2",
-  "main": "dist/dev-template.cjs.js",
-  "module": "dist/dev-template.esm.js"
-}

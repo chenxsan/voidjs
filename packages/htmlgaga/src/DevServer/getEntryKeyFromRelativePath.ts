@@ -5,5 +5,5 @@ export default function getEntryKeyFromRelativePath(
 ): string {
   const relativePath = path.relative(from, to)
   const { base, name } = path.parse(relativePath)
-  return relativePath.replace(base, '') + name + '/index'
+  return path.join(relativePath.replace(base, '') + name + '/index')
 }

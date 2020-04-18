@@ -8,8 +8,8 @@ import WebpackAssetsManifest from 'webpack-assets-manifest'
 import PnpWebpackPlugin from 'pnp-webpack-plugin'
 import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativePath'
 
-import clientCompiler from './clientCompiler'
-import Ssr from './Ssr'
+import ClientJsCompiler from './ClientJsCompiler'
+import ServerSideRender from './ServerSideRender/index'
 import merge from 'lodash.merge'
 
 import {
@@ -17,13 +17,12 @@ import {
   extensions,
   alias,
   logger,
-  cwd,
   performance,
   PerformanceObserver,
   cacheRoot,
 } from '../config'
 
-import collectPages from '../collectPages'
+import collectPages from '../collectFiles'
 
 import validateSchema from 'schema-utils'
 import schema from '../schemas/htmlgaga.config.json'
@@ -32,7 +31,7 @@ import PersistDataPlugin from '../webpackPlugins/PersistDataPlugin'
 import RemoveAssetsPlugin from '../webpackPlugins/RemoveAssetsPlugin'
 
 interface Plugin {
-  apply(compiler: Ssr): void
+  apply(compiler: ServerSideRender): void
 }
 export interface HtmlgagaConfig {
   html?: {
@@ -45,27 +44,28 @@ export interface HtmlgagaConfig {
   plugins?: Plugin[]
 }
 
-const configName = path.resolve(cwd, 'htmlgaga.config.js')
-
 const BEGIN = 'begin'
 const END = 'end'
 
 class Builder {
   #pages: string[]
   #pagesDir: string
+  #cwd: string
   #outputPath: string
   #config: HtmlgagaConfig
-  #outputPagesName: string[]
-  #outputTemplatesName: string[]
+  #pageEntries: string[]
+  #configName: string
 
   constructor(pagesDir: string, outputPath: string) {
     this.#pagesDir = pagesDir
+    this.#cwd = path.join(pagesDir, '..')
     this.#outputPath = outputPath
 
-    this.#outputPagesName = []
-    this.#outputTemplatesName = []
+    this.#pageEntries = []
 
-    if (fs.existsSync(configName)) {
+    this.#configName = path.resolve(this.#cwd, 'htmlgaga.config.js')
+
+    if (fs.existsSync(this.#configName)) {
       this.resolveConfig().catch((err) => {
         logger.error(err)
         process.exit(1)
@@ -91,7 +91,7 @@ class Builder {
   }
 
   async resolveConfig(): Promise<void> {
-    const config = await import(configName)
+    const config = await import(this.#configName)
     validateSchema(schema as JSONSchema7, config.default, {
       name: 'htmlgaga.config.js',
     })
@@ -100,28 +100,22 @@ class Builder {
     logger.debug('htmlgaga.config.js', this.#config)
   }
 
-  // /path/to/pages/index.js -> index
-  normalizedPageEntry(pageEntry: string): string {
+  public normalizedPageEntry(pagePath: string): string {
     return path
-      .relative(this.#pagesDir, pageEntry)
-      .split(path.sep)
-      .join('-')
-      .replace(new RegExp(`\\${path.extname(pageEntry)}$`), '')
+      .relative(this.#pagesDir, pagePath) // calculate relative path
+      .replace(new RegExp(`\\${path.extname(pagePath)}$`), '') // remove extname
   }
 
   createWebpackConfig(pages: string[]): webpack.Configuration {
     const entries = pages.reduce((acc, page) => {
-      // acc['index'] = '/path/to/page.js'
-      this.#outputTemplatesName.push(this.normalizedPageEntry(page))
-      acc[this.normalizedPageEntry(page)] = page
+      const pageEntryKey = this.normalizedPageEntry(page)
+      this.#pageEntries.push(pageEntryKey)
+      acc[pageEntryKey] = page
       return acc
     }, {})
 
     const htmlPlugins = pages.map((page) => {
       const filename = getHtmlFilenameFromRelativePath(this.#pagesDir, page)
-        .split(path.sep)
-        .join('-')
-      this.#outputPagesName.push(filename)
       return new HtmlWebpackPlugin({
         chunks: [this.normalizedPageEntry(page)],
         filename,
@@ -154,6 +148,7 @@ class Builder {
           return '[name].[contenthash].js'
         },
         chunkFilename: '[name]-[id].[contenthash].js',
+        publicPath: '/', // TODO, should be configurable
       },
       module: {
         rules,
@@ -176,7 +171,8 @@ class Builder {
         }),
         ...htmlPlugins,
         new RemoveAssetsPlugin(
-          (filename) => this.#outputPagesName.indexOf(filename) !== -1,
+          (filename) =>
+            this.#pageEntries.indexOf(filename.replace('.html', '')) !== -1,
           (filename) =>
             logger.debug(`${filename} removed by RemoveAssetsPlugin`)
         ),
@@ -238,8 +234,8 @@ class Builder {
   }
 
   async ssr(): Promise<void> {
-    for (const templateName of this.#outputTemplatesName) {
-      const ssr = new Ssr()
+    for (const templateName of this.#pageEntries) {
+      const ssr = new ServerSideRender()
       if (Array.isArray(this.#config.plugins)) {
         for (const plugin of this.#config.plugins) {
           plugin.apply(ssr)
@@ -252,37 +248,29 @@ class Builder {
   async run(): Promise<void> {
     this.markBegin()
     logger.info('Collecting pages...')
-    this.#pages = await collectPages(this.#pagesDir)
+    this.#pages = await collectPages(
+      this.#pagesDir,
+      (pagePath) =>
+        /\.(js|jsx|ts|tsx)$/.test(pagePath) && !pagePath.includes('.client.')
+    )
 
     logger.info(`${this.pageOrPages(this.#pages.length)} collected`)
 
     const compiler = webpack(this.createWebpackConfig(this.#pages))
 
-    const clientJs = path.resolve(cwd, 'public/js/index.js')
-
-    if (fs.existsSync(clientJs)) {
-      const clientJsCompiler = clientCompiler(clientJs, this.#outputPath)
-      logger.info('Building client js...')
-
-      // run compilers sequentially
-      clientJsCompiler.run((err: Error, stats: webpack.Stats) => {
+    compiler.run(async (err, stats) => {
+      this.runCallback(err, stats)
+      await this.ssr()
+      const clientJsCompiler = new ClientJsCompiler(
+        this.#pagesDir,
+        this.#outputPath,
+        this.#config
+      )
+      await clientJsCompiler.run((err: Error, stats: webpack.Stats) => {
         this.runCallback(err, stats)
-        logger.info('Building pages...')
-        compiler.run(async (err, stats) => {
-          this.runCallback(err, stats)
-          // after all compiled
-          // we start server side rendering here
-          await this.ssr()
-          this.markEnd()
-        })
-      })
-    } else {
-      compiler.run(async (err, stats) => {
-        this.runCallback(err, stats)
-        await this.ssr()
         this.markEnd()
       })
-    }
+    })
   }
 }
 
