@@ -19,13 +19,13 @@
     "cross-spawn": "^7.0.2",
     "fs-extra": "^9.0.0",
     "prompts": "^2.3.2",
-    "update-check": "^1.5.3",
+    "update-check": "^1.5.4",
     "validate-npm-package-name": "^3.0.0"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.1",
     "@types/fs-extra": "^8.1.0",
-    "@types/prompts": "^2.4.0",
+    "@types/prompts": "^2.0.5",
     "@types/validate-npm-package-name": "^3.0.0"
   },
   "files": [
