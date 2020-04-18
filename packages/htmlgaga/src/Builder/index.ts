@@ -9,7 +9,7 @@ import PnpWebpackPlugin from 'pnp-webpack-plugin'
 import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativePath'
 
 import ClientsCompiler from './ClientsCompiler'
-import Ssr from './Ssr/index'
+import ServerSideRender from './ServerSideRender/index'
 import merge from 'lodash.merge'
 
 import {
@@ -31,7 +31,7 @@ import PersistDataPlugin from '../webpackPlugins/PersistDataPlugin'
 import RemoveAssetsPlugin from '../webpackPlugins/RemoveAssetsPlugin'
 
 interface Plugin {
-  apply(compiler: Ssr): void
+  apply(compiler: ServerSideRender): void
 }
 export interface HtmlgagaConfig {
   html?: {
@@ -235,7 +235,7 @@ class Builder {
 
   async ssr(): Promise<void> {
     for (const templateName of this.#pageEntries) {
-      const ssr = new Ssr()
+      const ssr = new ServerSideRender()
       if (Array.isArray(this.#config.plugins)) {
         for (const plugin of this.#config.plugins) {
           plugin.apply(ssr)
