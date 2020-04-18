@@ -34,7 +34,6 @@
   "preconstruct": {
     "packages": [
       "packages/create-htmlgaga",
-      "packages/dev-template",
       "packages/htmlgaga",
       "packages/plugin-react-helmet"
     ]

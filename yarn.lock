@@ -1417,12 +1417,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@htmlgaga/dev-template@workspace:packages/dev-template":
-  version: 0.0.0-use.local
-  resolution: "@htmlgaga/dev-template@workspace:packages/dev-template"
-  languageName: unknown
-  linkType: soft
-
 "@htmlgaga/doc@workspace:packages/doc":
   version: 0.0.0-use.local
   resolution: "@htmlgaga/doc@workspace:packages/doc"
