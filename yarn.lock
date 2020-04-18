@@ -1417,7 +1417,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@htmlgaga/dev-template@workspace:*, @htmlgaga/dev-template@workspace:packages/dev-template":
+"@htmlgaga/dev-template@workspace:packages/dev-template":
   version: 0.0.0-use.local
   resolution: "@htmlgaga/dev-template@workspace:packages/dev-template"
   languageName: unknown
@@ -7202,7 +7202,6 @@ fsevents@^1.2.7:
     "@babel/preset-env": ^7.9.5
     "@babel/preset-react": ^7.9.4
     "@babel/preset-typescript": ^7.9.0
-    "@htmlgaga/dev-template": "workspace:*"
     "@types/assets-webpack-plugin": ^3.9.0
     "@types/express": ^4.17.6
     "@types/mini-css-extract-plugin": ^0.9.1
