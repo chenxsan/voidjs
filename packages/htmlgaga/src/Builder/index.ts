@@ -9,7 +9,7 @@ import PnpWebpackPlugin from 'pnp-webpack-plugin'
 import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativePath'
 
 import ClientsCompiler from './ClientsCompiler'
-import Ssr from './Ssr'
+import Ssr from './Ssr/index'
 import merge from 'lodash.merge'
 
 import {
