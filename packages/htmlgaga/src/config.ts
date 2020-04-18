@@ -2,6 +2,9 @@ import { resolve, join } from 'path'
 import pino from 'pino'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
+// FIXME weird bug on windows
+// it would resolve to htmlgaga\node_modules\@htmlgaga\doc
+// when I run `yarn dev` under htmlgaga\packages\doc
 export const cwd = process.cwd()
 
 export const logger = pino({
