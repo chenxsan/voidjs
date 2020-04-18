@@ -8,7 +8,7 @@ import WebpackAssetsManifest from 'webpack-assets-manifest'
 import PnpWebpackPlugin from 'pnp-webpack-plugin'
 import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativePath'
 
-import ClientsCompiler from './ClientsCompiler'
+import ClientJsCompiler from './ClientJsCompiler'
 import ServerSideRender from './ServerSideRender/index'
 import merge from 'lodash.merge'
 
@@ -261,7 +261,7 @@ class Builder {
     compiler.run(async (err, stats) => {
       this.runCallback(err, stats)
       await this.ssr()
-      const clientJsCompiler = new ClientsCompiler(
+      const clientJsCompiler = new ClientJsCompiler(
         this.#pagesDir,
         this.#outputPath,
         this.#config
