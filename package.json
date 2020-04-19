@@ -28,6 +28,7 @@
   },
   "scripts": {
     "test": "jest",
+    "preinstall": "yarn set version berry",
     "postinstall": "preconstruct dev",
     "build": "preconstruct build"
   },
