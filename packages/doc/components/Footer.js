@@ -5,7 +5,7 @@ export default function Footer() {
       <div>
         <a
           target="_blank"
-          href="https://github.com/HTMLgaga/doc"
+          href="https://github.com/chenxsan/htmlgaga/tree/master/packages/doc"
           rel="noopener noreferrer"
           className="underline text-blue-700 hover:text-blue-900 transition duration-200"
         >
