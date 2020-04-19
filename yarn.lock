@@ -6787,7 +6787,6 @@ __metadata:
     mini-css-extract-plugin: ^0.9.0
     pino: ^6.2.0
     pino-pretty: ^4.0.0
-    pnp-webpack-plugin: ^1.6.4
     postcss-loader: ^3.0.0
     prettier: ^2.0.4
     react: ^16.13.1
@@ -10662,15 +10661,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pnp-webpack-plugin@npm:^1.6.4":
-  version: 1.6.4
-  resolution: "pnp-webpack-plugin@npm:1.6.4"
-  dependencies:
-    ts-pnp: ^1.1.6
-  checksum: 2/39a484182f8fc08cb1420d4a5ccf16457c6498a4546bfbad9e00df7238ba7d98796e9aa6f82a4e803a627860409ffed491a55c5a1384e09bed60cefeb618586d
-  languageName: node
-  linkType: hard
-
 "posix-character-classes@npm:^0.1.0":
   version: 0.1.1
   resolution: "posix-character-classes@npm:0.1.1"
@@ -13034,18 +13024,6 @@ resolve@1.1.7:
   bin:
     ts-jest: cli.js
   checksum: 2/7b1cffcc40bd964725b1c02e957e74b13bdb2e608c2d9e643d9c72db303820952ea56a333b2ddea9b1e90739ea9a8f94a092d9fe6b854be79cbc5d952abf1393
-  languageName: node
-  linkType: hard
-
-"ts-pnp@npm:^1.1.6":
-  version: 1.1.6
-  resolution: "ts-pnp@npm:1.1.6"
-  peerDependencies:
-    typescript: "*"
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 2/0c1ab7d1b85820a4ad12d25f18e6e9b68e57095412cb436266e8d0c58508892d871cd6d39512701e1117b0ad6354f0596d7f9ef9a0e630538ef3c7ff1970e0ef
   languageName: node
   linkType: hard
 
