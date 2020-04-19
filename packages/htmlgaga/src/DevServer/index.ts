@@ -13,7 +13,50 @@ import hotMiddleware from 'webpack-hot-middleware'
 import DynamicEntryPlugin from 'webpack/lib/DynamicEntryPlugin'
 
 // Not exported yet
-import { getNormalizedEntryStatic } from 'webpack/lib/config/normalization'
+// import { getNormalizedEntryStatic } from 'webpack/lib/config/normalization'
+// copied from webpack/lib/config/normalization
+const getNormalizedEntryStatic = (entry) => {
+  if (typeof entry === 'string') {
+    return {
+      main: {
+        import: [entry],
+      },
+    }
+  }
+  if (Array.isArray(entry)) {
+    return {
+      main: {
+        import: entry,
+      },
+    }
+  }
+  /** @type {EntryStaticNormalized} */
+  const result = {}
+  for (const key of Object.keys(entry)) {
+    const value = entry[key]
+    if (typeof value === 'string') {
+      result[key] = {
+        import: [value],
+      }
+    } else if (Array.isArray(value)) {
+      result[key] = {
+        import: value,
+      }
+    } else {
+      result[key] = {
+        import:
+          value.import &&
+          (Array.isArray(value.import) ? value.import : [value.import]),
+        filename: value.filename,
+        dependOn:
+          value.dependOn &&
+          (Array.isArray(value.dependOn) ? value.dependOn : [value.dependOn]),
+        library: value.library,
+      }
+    }
+  }
+  return result
+}
 
 import isHtmlRequest from './isHtmlRequest'
 import findFirstPage from './findFirstPage'
