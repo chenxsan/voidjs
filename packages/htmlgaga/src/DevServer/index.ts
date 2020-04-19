@@ -15,7 +15,7 @@ import DynamicEntryPlugin from 'webpack/lib/DynamicEntryPlugin'
 // Not exported yet
 // import { getNormalizedEntryStatic } from 'webpack/lib/config/normalization'
 // copied from webpack/lib/config/normalization
-const getNormalizedEntryStatic = (entry) => {
+const getNormalizedEntryStatic = (entry): any => {
   if (typeof entry === 'string') {
     return {
       main: {
