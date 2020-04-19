@@ -157,6 +157,9 @@ class DevServer {
         publicPath: '/',
       },
       stats: 'minimal',
+      experiments: {
+        asset: true,
+      },
       module: {
         rules: [
           {
@@ -192,7 +195,7 @@ class DevServer {
           },
           {
             test: /\.(png|svg|jpg|gif)$/i,
-            use: ['file-loader'],
+            type: 'asset/resource',
           },
           {
             test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
