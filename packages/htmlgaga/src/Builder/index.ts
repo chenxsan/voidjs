@@ -199,10 +199,12 @@ class Builder {
 
     const info = stats.toJson()
     if (stats.hasErrors()) {
-      info.errors.forEach((err) => logger.error(err.message))
+      // TODO clean any after updated webpack 5 types
+      (info.errors as any).forEach((err) => logger.error(err.message))
     }
     if (stats.hasWarnings()) {
-      info.warnings.forEach((warn) => logger.warn(warn.message))
+      // TODO clean any after updated webpack 5 types
+      (info.warnings as any).forEach((warn) => logger.warn(warn.message))
     }
   }
   // measure end
