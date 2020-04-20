@@ -12,7 +12,7 @@ export default function Home() {
         <title>htmlgaga</title>
         <meta
           name="description"
-          content="Manage multiple non-SPA pages with webpack and React.js"
+          content="Manage non-SPA pages with webpack and React.js"
         />
       </Helmet>
       <h1 className="flex text-4xl leading-none justify-center pt-6 lg:text-4xl font-bold items-center">
@@ -20,7 +20,7 @@ export default function Home() {
         HTMLgaga
       </h1>
       <h2 className="flex justify-center text-base pt-6 px-2 leading-tight font-normal">
-        Manage multiple non-SPA pages with webpack and React.js
+        Manage non-SPA pages with webpack and React.js
       </h2>
       <section className="pt-8 px-0 sm:px-2">
         <h2 className="font-medium text-2xl">System requirements</h2>

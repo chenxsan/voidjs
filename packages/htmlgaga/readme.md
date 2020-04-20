@@ -1,6 +1,6 @@
 # htmlgaga
 
-Manage multiple non-SPA pages with webpack and React.js
+Manage non-SPA pages with webpack and React.js
 
 ## Why htmlgaga
 
