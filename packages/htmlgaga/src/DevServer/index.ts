@@ -11,10 +11,7 @@ import devMiddleware from 'webpack-dev-middleware'
 import hotMiddleware from 'webpack-hot-middleware'
 import PnpWebpackPlugin from 'pnp-webpack-plugin'
 
-import DynamicEntryPlugin from 'webpack/lib/DynamicEntryPlugin'
-
 import isHtmlRequest from './isHtmlRequest'
-import findFirstPage from './findFirstPage'
 
 const BUILT = Symbol('built')
 
@@ -30,17 +27,24 @@ class Page {
 // always reload
 const hotClient = 'webpack-hot-middleware/client?reload=true'
 
+interface Entrypoints {
+  [propName: string]: string[]
+}
+
 class DevServer {
   #cwd: string
   #pagesDir: string
   #host: string
   #port: number
   #pages: string[]
+  // save entris status in webpack
   #entries: {
     [propName: string]: {
       status: symbol
     }
   }
+  // save entries webpack needs compile
+  #entrypoints: Entrypoints
 
   constructor(pagesDir: string, { host, port }) {
     this.#pagesDir = pagesDir
@@ -48,6 +52,9 @@ class DevServer {
 
     this.#host = host
     this.#port = port
+
+    this.#entries = {}
+    this.#entrypoints = {}
   }
 
   private htmlPlugin(page: string): HtmlWebpackPlugin {
@@ -56,7 +63,10 @@ class DevServer {
     const clientJs = this.searchClientJs(page)
     return new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'devTemplate'),
-      chunks: clientJs.exists === true ? [entryKey, 'client'] : [entryKey],
+      chunks:
+        clientJs.exists === true
+          ? [entryKey, `${entryKey}-client`]
+          : [entryKey],
       chunksSortMode: 'manual',
       filename,
       title: `htmlgaga - ${filename}`,
@@ -82,32 +92,14 @@ class DevServer {
     }
   }
 
-  private createEntry(
-    page: string
-  ): {
-    [propName: string]: string[]
-  } {
-    const entryKey = getEntryKeyFromRelativePath(this.#pagesDir, page)
-    return {
-      [entryKey]: [page, hotClient],
-    }
+  webpackEntries() {
+    return (): Entrypoints => this.#entrypoints
   }
 
-  private initWebpackConfig(page: string): webpack.Configuration {
-    // generate entries for pages
-    const entries = {
-      ...this.createEntry(page),
-    }
-
-    const clientJs = this.searchClientJs(page)
-
-    if (clientJs.exists === true) {
-      entries['client'] = [clientJs.filePath as string, hotClient]
-    }
-
+  private initWebpackConfig(): webpack.Configuration {
     return {
       mode: 'development',
-      entry: entries,
+      entry: this.webpackEntries(),
       output: {
         publicPath: '/',
       },
@@ -184,7 +176,6 @@ class DevServer {
       },
       plugins: [
         PnpWebpackPlugin,
-        this.htmlPlugin(page),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': '"development"',
         }),
@@ -221,7 +212,7 @@ class DevServer {
   }
 
   async start(): Promise<express.Application | void> {
-    // collect all pages
+    // collect all pages when server start so we can print pages' table
     logger.info('Collecting pages')
     this.#pages = await collectPages(
       this.#pagesDir,
@@ -230,24 +221,14 @@ class DevServer {
     )
 
     if (this.#pages.length === 0) {
-      return logger.warn('No pages found under `pages`')
+      logger.warn(
+        'No pages found under `pages`, you might want to add one later'
+      )
     }
 
     const app = express()
 
-    const firstPage = findFirstPage(this.#pages)
-
-    logger.debug(`firstPage ${firstPage}`)
-
-    const entryKey = getEntryKeyFromRelativePath(this.#pagesDir, firstPage)
-
-    const webpackConfig = this.initWebpackConfig(firstPage)
-
-    this.#entries = {
-      [entryKey]: {
-        status: BUILT,
-      },
-    }
+    const webpackConfig = this.initWebpackConfig()
 
     const compiler = webpack(webpackConfig)
 
@@ -255,17 +236,19 @@ class DevServer {
 
     app.use((req, res, next) => {
       if (isHtmlRequest(req.url)) {
-        // check if page does exit
+        // check if page does exit on disk
         const page = this.locateSrc(req.url)
 
         if (page.exists) {
           const src = page.src as string
 
           if (!this.#pages.includes(src)) {
+            // update pages' table
             this.#pages.push(src)
           }
 
           const entryKey = getEntryKeyFromRelativePath(this.#pagesDir, src)
+          const clientJs = this.searchClientJs(src)
 
           // if entry not added to webpack yet
           if (!this.#entries[entryKey]) {
@@ -273,14 +256,18 @@ class DevServer {
               [entryKey]: [src, hotClient],
             }
 
-            const clientJs = this.searchClientJs(src)
             if (clientJs.exists === true) {
-              entries['client'] = [clientJs.filePath as string, hotClient]
+              entries[`${entryKey}-client`] = [
+                clientJs.filePath as string,
+                hotClient,
+              ]
             }
 
-            new DynamicEntryPlugin(this.#cwd, () => ({ ...entries })).apply(
-              compiler
-            )
+            this.#entrypoints = {
+              ...this.#entrypoints,
+              ...entries,
+            }
+
             this.htmlPlugin(src).apply(compiler)
             devMiddlewareInstance.invalidate()
             devMiddlewareInstance.waitUntilValid(() => {
@@ -294,10 +281,17 @@ class DevServer {
               return next()
             })
           } else {
-            // already added to webpack
-            logger.debug(`${src} was already added to webpack`)
+            // TODO
+            // check if clientJs exists in this.#entrypoints
+            if (clientJs.exists === true) {
+              if (!this.#entrypoints[`${entryKey}-client`]) {
+                // user add a client.js
+                // should update this.#entrypoints?
+              }
+            }
           }
         } else {
+          // TODO remove from this.#pages if presented
           res.status(404).end('Page Not Found')
         }
       }
@@ -316,19 +310,16 @@ class DevServer {
           return logger.error(err)
         }
 
-        compiler.hooks.done.tap('HTMLGAGA', () => {
-          // only print it after webpack done compiling.
-          const server = `http://${this.#host}:${this.#port}`
-          const results = this.#pages
-            .sort((a, b) => a.split(path.sep).length - b.split(path.sep).length)
-            .map((page) => {
-              return new Page(
-                path.relative(this.#pagesDir, page),
-                `${server}/${getFilenameFromRelativePath(this.#pagesDir, page)}`
-              )
-            })
-          console.table(results)
-        })
+        const server = `http://${this.#host}:${this.#port}`
+        const results = this.#pages
+          .sort((a, b) => a.split(path.sep).length - b.split(path.sep).length)
+          .map((page) => {
+            return new Page(
+              path.relative(this.#pagesDir, page),
+              `${server}/${getFilenameFromRelativePath(this.#pagesDir, page)}`
+            )
+          })
+        console.table(results)
       })
       .on('error', (err) => {
         logger.info(
