@@ -27,6 +27,10 @@ class Page {
 // always reload
 const hotClient = 'webpack-hot-middleware/client?reload=true'
 
+interface Entrypoints {
+  [propName: string]: string[]
+}
+
 class DevServer {
   #cwd: string
   #pagesDir: string
@@ -40,9 +44,7 @@ class DevServer {
     }
   }
   // save entries webpack needs compile
-  #entrypoints: {
-    [propName: string]: string[]
-  }
+  #entrypoints: Entrypoints
 
   constructor(pagesDir: string, { host, port }) {
     this.#pagesDir = pagesDir
@@ -91,7 +93,7 @@ class DevServer {
   }
 
   webpackEntries() {
-    return () => this.#entrypoints
+    return (): Entrypoints => this.#entrypoints
   }
 
   private initWebpackConfig(): webpack.Configuration {
