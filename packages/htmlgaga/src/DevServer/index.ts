@@ -9,7 +9,6 @@ import { extensions, alias, logger } from '../config'
 import express from 'express'
 import devMiddleware from 'webpack-dev-middleware'
 import hotMiddleware from 'webpack-hot-middleware'
-import PnpWebpackPlugin from 'pnp-webpack-plugin'
 
 import isHtmlRequest from './isHtmlRequest'
 
@@ -175,7 +174,6 @@ class DevServer {
         alias,
       },
       plugins: [
-        PnpWebpackPlugin,
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': '"development"',
         }),

@@ -5,7 +5,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
-import PnpWebpackPlugin from 'pnp-webpack-plugin'
 import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativePath'
 
 import ClientJsCompiler from './ClientJsCompiler'
@@ -158,7 +157,6 @@ class Builder {
         alias,
       },
       plugins: [
-        PnpWebpackPlugin,
         new PersistDataPlugin(),
         new WebpackAssetsManifest({
           output: 'assets.json',
