@@ -1,0 +1,1 @@
+(window.webpackJsonp_htmlgaga_doc=window.webpackJsonp_htmlgaga_doc||[]).push([[638],{638:(o,a,c)=>{"use strict";function n(o){console.log(o)}c.r(a),c.d(a,{default:()=>n})}}]);

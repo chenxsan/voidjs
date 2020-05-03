@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([["log"],{iMLl:function(n,o,c){"use strict";function i(n){console.log(n)}c.r(o),c.d(o,"default",(function(){return i}))}}]);
