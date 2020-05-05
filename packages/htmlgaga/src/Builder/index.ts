@@ -138,12 +138,15 @@ class Builder {
       output: {
         path: path.resolve(this.#outputPath),
         libraryTarget: 'commonjs2',
-        filename: (chunkData: webpack.ChunkData): string => {
-          if (entries[chunkData.chunk.name]) {
-            // do not include contenthash for those entry pages
-            // since we only use it for server side render
-            return '[name].js'
+        filename: (pathData): string => {
+          if (pathData?.chunk?.name) {
+            if (entries[pathData?.chunk?.name]) {
+              // do not include contenthash for those entry pages
+              // since we only use it for server side render
+              return '[name].js'
+            }
           }
+
           return '[name].[contenthash].js'
         },
         chunkFilename: '[name]-[id].[contenthash].js',
