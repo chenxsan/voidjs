@@ -79,7 +79,6 @@
     "@types/react-dom": "^16.9.7",
     "@types/react-helmet": "^5.0.15",
     "@types/rimraf": "^3.0.0",
-    "@types/terser-webpack-plugin": "^2.2.0",
     "@types/webpack-dev-middleware": "^3.7.0",
     "@types/webpack-hot-middleware": "^2.25.2",
     "@types/yargs": "^15.0.4",

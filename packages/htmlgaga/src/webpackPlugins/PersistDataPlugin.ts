@@ -10,6 +10,7 @@ export default class PersistDataPlugin {
       PersistDataPlugin.PluginName,
       compilation => {
         // we need to persist some data in htmlPluginData for next usage
+        // @ts-ignore
         HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tapAsync(
           PersistDataPlugin.PluginName,
           (htmlPluginData, callback) => {

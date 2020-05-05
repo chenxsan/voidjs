@@ -2449,16 +2449,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/terser-webpack-plugin@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "@types/terser-webpack-plugin@npm:2.2.0"
-  dependencies:
-    "@types/webpack": "*"
-    terser: ^4.3.9
-  checksum: 3/39f95345bd4b830ce75f0b071ed493c42cca8f0f0b1c4d6a7e2f6e82dae80e2d9bf3f95fcf8fcf51f99f35659598622ac7299adac96d0126b6370ba320779282
-  languageName: node
-  linkType: hard
-
 "@types/uglify-js@npm:*":
   version: 3.0.4
   resolution: "@types/uglify-js@npm:3.0.4"
@@ -7142,7 +7132,6 @@ __metadata:
     "@types/react-dom": ^16.9.7
     "@types/react-helmet": ^5.0.15
     "@types/rimraf": ^3.0.0
-    "@types/terser-webpack-plugin": ^2.2.0
     "@types/webpack-dev-middleware": ^3.7.0
     "@types/webpack-hot-middleware": ^2.25.2
     "@types/yargs": ^15.0.4

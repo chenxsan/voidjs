@@ -12,6 +12,9 @@ import hotMiddleware from 'webpack-hot-middleware'
 
 import isHtmlRequest from './isHtmlRequest'
 
+interface EntryObject {
+  [index: string]: [string, ...string[]]
+}
 const BUILT = Symbol('built')
 
 class Page {
@@ -26,15 +29,16 @@ class Page {
 // always reload
 const hotClient = 'webpack-hot-middleware/client?reload=true'
 
-interface Entrypoints {
-  [propName: string]: string[]
+export interface Server {
+  locateSrc(url: string): { exists: boolean; src?: string }
+  start(): Promise<express.Application | void>
 }
 
-class DevServer {
-  #cwd: string
-  #pagesDir: string
-  #host: string
-  #port: number
+class DevServer implements Server {
+  readonly #cwd: string
+  readonly #pagesDir: string
+  readonly #host: string
+  readonly #port: number
   #pages: string[]
   // save entris status in webpack
   #entries: {
@@ -43,7 +47,7 @@ class DevServer {
     }
   }
   // save entries webpack needs compile
-  #entrypoints: Entrypoints
+  #entrypoints: EntryObject
 
   constructor(pagesDir: string, { host, port }) {
     this.#pagesDir = pagesDir
@@ -53,7 +57,7 @@ class DevServer {
     this.#port = port
 
     this.#entries = {}
-    this.#entrypoints = {}
+    this.#entrypoints = {} as EntryObject
   }
 
   private htmlPlugin(page: string): HtmlWebpackPlugin {
@@ -91,14 +95,14 @@ class DevServer {
     }
   }
 
-  webpackEntries() {
-    return (): Entrypoints => this.#entrypoints
+  private webpackEntry(): () => EntryObject {
+    return (): EntryObject => this.#entrypoints
   }
 
   private initWebpackConfig(): webpack.Configuration {
     return {
       mode: 'development',
-      entry: this.webpackEntries(),
+      entry: this.webpackEntry(),
       output: {
         publicPath: '/',
       },
@@ -209,7 +213,7 @@ class DevServer {
     }
   }
 
-  async start(): Promise<express.Application | void> {
+  public async start(): Promise<express.Application | void> {
     // collect all pages when server start so we can print pages' table
     logger.info('Collecting pages')
     this.#pages = await collectPages(
@@ -250,7 +254,7 @@ class DevServer {
 
           // if entry not added to webpack yet
           if (!this.#entries[entryKey]) {
-            const entries = {
+            const entries: EntryObject = {
               [entryKey]: [src, hotClient],
             }
 
@@ -265,7 +269,9 @@ class DevServer {
               ...this.#entrypoints,
               ...entries,
             }
-
+            // @ts-ignore
+            // ts reports error because html-webpack-plugin uses types from @types/webpack
+            // while we have types from webpack 5
             this.htmlPlugin(src).apply(compiler)
             devMiddlewareInstance.invalidate()
             devMiddlewareInstance.waitUntilValid(() => {
