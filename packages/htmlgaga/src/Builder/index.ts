@@ -209,10 +209,14 @@ class Builder {
 
     const info = stats.toJson()
     if (stats.hasErrors()) {
-      info.errors.forEach((err) => logger.error(err))
+      info.errors.forEach((err: { message: string }) =>
+        logger.error(err.message)
+      )
     }
     if (stats.hasWarnings()) {
-      logger.warn('\n' + info.warnings.join('\n'))
+      info.warnings.forEach((warning: { message: string }) =>
+        logger.warn(warning.message)
+      )
     }
   }
   // measure end
