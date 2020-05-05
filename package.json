@@ -43,6 +43,7 @@
     "semi": false
   },
   "resolutions": {
-    "@babel/parser": "^7.9.2"
+    "@babel/parser": "^7.9.2",
+    "webpack": "https://github.com/webpack/webpack"
   }
 }

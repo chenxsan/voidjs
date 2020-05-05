@@ -6286,17 +6286,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-cache-dir@npm:^3.2.0":
-  version: 3.3.0
-  resolution: "find-cache-dir@npm:3.3.0"
-  dependencies:
-    commondir: ^1.0.1
-    make-dir: ^3.0.2
-    pkg-dir: ^4.1.0
-  checksum: 3/56c8f553151a9818ef5885bda8776c5e6cf0c0c27d1ead1b2721b58532a8f2c7836cef1ccf12b3a7b11548f918b298d4a2487c2e21b01c13438c98726bbd4467
-  languageName: node
-  linkType: hard
-
 "find-cache-dir@npm:^3.3.1":
   version: 3.3.1
   resolution: "find-cache-dir@npm:3.3.1"
@@ -8939,7 +8928,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-worker@npm:^25.5.0":
+"jest-worker@npm:^25.4.0, jest-worker@npm:^25.5.0":
   version: 25.5.0
   resolution: "jest-worker@npm:25.5.0"
   dependencies:
@@ -10761,7 +10750,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-limit@npm:^2.0.0, p-limit@npm:^2.2.0, p-limit@npm:^2.2.1, p-limit@npm:^2.2.2":
+"p-limit@npm:^2.0.0, p-limit@npm:^2.2.0, p-limit@npm:^2.2.1":
   version: 2.2.2
   resolution: "p-limit@npm:2.2.2"
   dependencies:
@@ -12672,13 +12661,6 @@ resolve@^1.17.0:
   languageName: node
   linkType: hard
 
-"serialize-javascript@npm:^2.1.2":
-  version: 2.1.2
-  resolution: "serialize-javascript@npm:2.1.2"
-  checksum: 3/9a4d4da6469e327332203438eed9a408e0618519d18aaba3790c88bf87712df4d577423d8fbd7122753800fa12afe19540cba111178ab0cf1f33c2b5771731bf
-  languageName: node
-  linkType: hard
-
 "serialize-javascript@npm:^3.0.0":
   version: 3.0.0
   resolution: "serialize-javascript@npm:3.0.0"
@@ -13584,22 +13566,22 @@ resolve@^1.17.0:
   languageName: node
   linkType: hard
 
-"terser-webpack-plugin@npm:^2.3.1":
-  version: 2.3.5
-  resolution: "terser-webpack-plugin@npm:2.3.5"
+"terser-webpack-plugin@npm:^2.3.6":
+  version: 2.3.6
+  resolution: "terser-webpack-plugin@npm:2.3.6"
   dependencies:
     cacache: ^13.0.1
-    find-cache-dir: ^3.2.0
-    jest-worker: ^25.1.0
-    p-limit: ^2.2.2
-    schema-utils: ^2.6.4
-    serialize-javascript: ^2.1.2
+    find-cache-dir: ^3.3.1
+    jest-worker: ^25.4.0
+    p-limit: ^2.3.0
+    schema-utils: ^2.6.6
+    serialize-javascript: ^3.0.0
     source-map: ^0.6.1
-    terser: ^4.4.3
+    terser: ^4.6.12
     webpack-sources: ^1.4.3
   peerDependencies:
     webpack: ^4.0.0 || ^5.0.0
-  checksum: 3/5fe02a3b3119b4955871c147257a994953fb6c0ec1ed257943b1af628741cedad809d3c8c32da623176eb9402dd11b951f3267518f4b66479899de8ecba07421
+  checksum: 3/567eccab30fb3f99c05a48d3a911b895305920317d6df37bcfbf71beb3e3cfc4053bb7b61426375d4c1dba155d9227e8c295f89cbe8dbed244558b30769e7262
   languageName: node
   linkType: hard
 
@@ -13622,7 +13604,7 @@ resolve@^1.17.0:
   languageName: node
   linkType: hard
 
-"terser@npm:^4.3.9, terser@npm:^4.4.3, terser@npm:^4.6.3":
+"terser@npm:^4.3.9, terser@npm:^4.6.3":
   version: 4.6.6
   resolution: "terser@npm:4.6.6"
   dependencies:
@@ -13635,7 +13617,7 @@ resolve@^1.17.0:
   languageName: node
   linkType: hard
 
-"terser@npm:^4.6.13":
+"terser@npm:^4.6.12, terser@npm:^4.6.13":
   version: 4.6.13
   resolution: "terser@npm:4.6.13"
   dependencies:
@@ -14393,9 +14375,9 @@ typescript@^3.8.3:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.0.0-beta.15, webpack@npm:beta":
+"webpack@https://github.com/webpack/webpack, webpack@https://github.com/webpack/webpack#commit=96142f829f7df4bfe6aa5095b1aed647de50edfe":
   version: 5.0.0-beta.15
-  resolution: "webpack@npm:5.0.0-beta.15"
+  resolution: "webpack@https://github.com/webpack/webpack#commit=96142f829f7df4bfe6aa5095b1aed647de50edfe"
   dependencies:
     "@webassemblyjs/ast": 1.9.0
     "@webassemblyjs/helper-module-context": 1.9.0
@@ -14416,12 +14398,12 @@ typescript@^3.8.3:
     pkg-dir: ^4.2.0
     schema-utils: ^2.5.0
     tapable: 2.0.0-beta.9
-    terser-webpack-plugin: ^2.3.1
+    terser-webpack-plugin: ^2.3.6
     watchpack: 2.0.0-beta.13
     webpack-sources: 2.0.0-beta.8
   bin:
-    webpack: bin/webpack.js
-  checksum: 3/684b464664966047c8ec82f3b974eaa3aa265fb350abb615e85baa48edc45a772a95487d0925c42a7e6633c0a641f6a06d19d5abc2bce88b66267b0fcc773a6c
+    webpack: ./bin/webpack.js
+  checksum: 3/7b6ce7dda7c96c0cf775627d35dd7787eae52d969296110cd36aeba752a8a76dfbdc8004c94ab99723c755b9dc84400eb330a524da4d102500e9e52754988111
   languageName: node
   linkType: hard
 
