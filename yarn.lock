@@ -14332,15 +14332,15 @@ typescript@^3.8.3:
   languageName: node
   linkType: hard
 
-"webpack-hot-middleware@npm:^2.25.0":
+"webpack-hot-middleware@https://github.com/chenxsan/webpack-hot-middleware#webpack-5":
   version: 2.25.0
-  resolution: "webpack-hot-middleware@npm:2.25.0"
+  resolution: "webpack-hot-middleware@https://github.com/chenxsan/webpack-hot-middleware#commit=f40534f8b00d482e7cfb3ab36dc038c3b132378e"
   dependencies:
     ansi-html: 0.0.7
     html-entities: ^1.2.0
     querystring: ^0.2.0
     strip-ansi: ^3.0.0
-  checksum: 3/83de4f89e79f0e1f0226865423666295fe551fadaadf426b84993cba5148665faeb65535e887c9e387967c745a0c1736bb8d83b48a866e54a3a7614be7e41063
+  checksum: 3/3cf171a8f1c560abbd1fc1f73c85871768b42eb86515bda85f1508c39b75c6ff1108f32aa37d6b7d29071c138932add2248a1c328f6bb299622a2618eb81e6b3
   languageName: node
   linkType: hard
 

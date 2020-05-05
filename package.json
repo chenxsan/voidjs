@@ -44,6 +44,7 @@
   },
   "resolutions": {
     "@babel/parser": "^7.9.2",
-    "webpack": "https://github.com/webpack/webpack"
+    "webpack": "https://github.com/webpack/webpack",
+    "webpack-hot-middleware": "https://github.com/chenxsan/webpack-hot-middleware#webpack-5"
   }
 }
