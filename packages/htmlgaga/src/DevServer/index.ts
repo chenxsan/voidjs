@@ -8,14 +8,14 @@ import getFilenameFromRelativePath from './getFilenameFromRelativePath'
 import { extensions, alias, logger } from '../config'
 import express from 'express'
 import devMiddleware from 'webpack-dev-middleware'
-import hotMiddleware from 'webpack-hot-middleware'
-
+import WebSocket from 'ws'
+import http from 'http'
 import isHtmlRequest from './isHtmlRequest'
+import { MessageType } from './Client/MessageType'
 
 interface EntryObject {
   [index: string]: [string, ...string[]]
 }
-const BUILT = Symbol('built')
 
 class Page {
   page: string
@@ -26,8 +26,10 @@ class Page {
   }
 }
 
-// always reload
-const hotClient = 'webpack-hot-middleware/client?reload=true'
+// we would only need it when HMR enabled
+// const hotRuntime = 'webpack/hot/dev-server'
+
+const socketPath = '/__websocket'
 
 export interface Server {
   locateSrc(url: string): { exists: boolean; src?: string }
@@ -40,14 +42,15 @@ class DevServer implements Server {
   readonly #host: string
   readonly #port: number
   #pages: string[]
-  // save entris status in webpack
-  #entries: {
-    [propName: string]: {
-      status: symbol
-    }
-  }
-  // save entries webpack needs compile
+
+  // save entries for webpack compiling
   #entrypoints: EntryObject
+
+  #wsServer: WebSocket.Server
+
+  #httpServer: http.Server
+
+  #compiler: webpack.Compiler
 
   constructor(pagesDir: string, { host, port }) {
     this.#pagesDir = pagesDir
@@ -56,7 +59,6 @@ class DevServer implements Server {
     this.#host = host
     this.#port = port
 
-    this.#entries = {}
     this.#entrypoints = {} as EntryObject
   }
 
@@ -213,6 +215,59 @@ class DevServer implements Server {
     }
   }
 
+  cleanup(): void {
+    this.#wsServer.close(() => {
+      process.exit()
+    })
+  }
+
+  createWebSocketServer(httpServer: http.Server, socketPath: string): void {
+    const hotReloadPluginName = 'htmlgaga-hot-reload'
+    this.#wsServer = new WebSocket.Server({
+      server: httpServer,
+      path: socketPath,
+    })
+
+    this.#wsServer.on('connection', (socket) => {
+      socket.on('message', (data) => {
+        // received data from client
+        // we might sync browsers in future
+        console.log(`${data} from client`)
+      })
+    })
+
+    this.#wsServer.on('close', () => {
+      console.log('closed')
+    })
+
+    process.on('SIGINT', () => this.cleanup())
+    process.on('SIGTERM', () => this.cleanup())
+
+    this.#compiler.hooks.done.tap(hotReloadPluginName, () => {
+      if (!this.#wsServer) return
+      this.#wsServer.clients.forEach((client) => {
+        if (client.readyState !== WebSocket.OPEN) return
+        client.send(
+          JSON.stringify({
+            type: MessageType.RELOAD,
+          })
+        )
+      })
+    })
+
+    this.#compiler.hooks.invalid.tap(hotReloadPluginName, () => {
+      if (!this.#wsServer) return
+      this.#wsServer.clients.forEach((client) => {
+        if (client.readyState !== WebSocket.OPEN) return
+        client.send(
+          JSON.stringify({
+            type: MessageType.INVALID,
+          })
+        )
+      })
+    })
+  }
+
   public async start(): Promise<express.Application | void> {
     // collect all pages when server start so we can print pages' table
     logger.info('Collecting pages')
@@ -233,8 +288,13 @@ class DevServer implements Server {
     const webpackConfig = this.initWebpackConfig()
 
     const compiler = webpack(webpackConfig)
+    this.#compiler = compiler
 
     const devMiddlewareInstance = devMiddleware(compiler)
+
+    const socketClient = `${require.resolve('./Client')}?${this.#host}:${
+      this.#port
+    }${socketPath}`
 
     app.use((req, res, next) => {
       if (isHtmlRequest(req.url)) {
@@ -253,16 +313,13 @@ class DevServer implements Server {
           const clientJs = this.searchClientJs(src)
 
           // if entry not added to webpack yet
-          if (!this.#entries[entryKey]) {
+          if (!this.#entrypoints[entryKey]) {
             const entries: EntryObject = {
-              [entryKey]: [src, hotClient],
+              [entryKey]: [socketClient, src],
             }
 
             if (clientJs.exists === true) {
-              entries[`${entryKey}-client`] = [
-                clientJs.filePath as string,
-                hotClient,
-              ]
+              entries[`${entryKey}-client`] = [clientJs.filePath as string]
             }
 
             this.#entrypoints = {
@@ -275,13 +332,6 @@ class DevServer implements Server {
             this.htmlPlugin(src).apply(compiler)
             devMiddlewareInstance.invalidate()
             devMiddlewareInstance.waitUntilValid(() => {
-              // save to this.#entries
-              this.#entries = {
-                ...this.#entries,
-                [entryKey]: {
-                  status: BUILT,
-                },
-              }
               return next()
             })
           } else {
@@ -304,16 +354,13 @@ class DevServer implements Server {
 
     app.use(devMiddlewareInstance)
 
-    app.use(hotMiddleware(compiler))
+    app.use(express.static(this.#cwd)) // serve statics from ../fixture, etc.
 
-    app.use(express.static(this.#cwd)) // serve statics from ../fixture
+    this.#httpServer = http.createServer(app)
+    this.createWebSocketServer(this.#httpServer, socketPath)
 
-    app
-      .listen(this.#port, this.#host, (err) => {
-        if (err) {
-          return logger.error(err)
-        }
-
+    this.#httpServer
+      .listen(this.#port, this.#host, () => {
         const server = `http://${this.#host}:${this.#port}`
         const results = this.#pages
           .sort((a, b) => a.split(path.sep).length - b.split(path.sep).length)
