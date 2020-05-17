@@ -331,9 +331,6 @@ class DevServer implements Server {
             // while we have types from webpack 5
             this.htmlPlugin(src).apply(compiler)
             devMiddlewareInstance.invalidate()
-            devMiddlewareInstance.waitUntilValid(() => {
-              return next()
-            })
           } else {
             // TODO
             // check if clientJs exists in this.#entrypoints
