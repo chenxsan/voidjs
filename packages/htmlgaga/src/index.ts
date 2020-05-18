@@ -4,6 +4,7 @@ import { existsSync } from 'fs'
 import * as path from 'path'
 import { logger, cwd } from './config'
 import DevServer from './DevServer'
+import type { Server } from './DevServer'
 import Builder from './Builder'
 
 interface DevCmdArgs {
@@ -34,7 +35,7 @@ yargs
     async function (argv: DevCmdArgs) {
       const { host, port } = argv
       const pagesDir = path.resolve(cwd, 'pages')
-      const server = new DevServer(pagesDir, { host, port })
+      const server: Server = new DevServer(pagesDir, { host, port })
       server.start()
     }
   )
@@ -65,6 +66,7 @@ yargs
         rimraf(path.resolve(cwd, '.htmlgaga'), async (err) => {
           if (err) return logger.error(err)
           const builder = new Builder(pagesDir, outDir)
+          process.env.NODE_ENV = 'production'
           await builder.run()
         })
       })

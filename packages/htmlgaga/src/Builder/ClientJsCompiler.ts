@@ -5,7 +5,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
-import { extensions, alias, rules } from '../config'
+import { extensions, alias, rules, cwd } from '../config'
 import prettier from 'prettier'
 
 import collectPages from '../collectFiles'
@@ -25,12 +25,23 @@ class PrettyPlugin {
       Object.keys(compilation.assets).forEach((asset) => {
         if (asset.endsWith('.html')) {
           const html = compilation.assets[asset]
-          const prettyHtml = prettier.format(html.source(), {
-            parser: 'html',
-          })
+          const source = html.source()
+          const prettyHtml = prettier.format(
+            Buffer.isBuffer(source) ? source.toString() : source,
+            {
+              parser: 'html',
+            }
+          )
           compilation.assets[asset] = {
             source: (): string => prettyHtml,
             size: (): number => prettyHtml.length,
+          } as {
+            size(): number
+            source(): string | Buffer
+            buffer(): Buffer
+            map
+            sourceAndMap
+            updateHash
           }
         }
       })
@@ -63,16 +74,7 @@ export default class ClientsCompiler {
         ],
         splitChunks: {
           cacheGroups: {
-            vendors: {
-              test: (module): boolean => {
-                return (
-                  /[\\/]node_modules[\\/]/.test(module.resource) &&
-                  module.type === 'javascript/auto'
-                )
-              },
-              chunks: 'all',
-              priority: -10,
-            },
+            vendors: path.resolve(cwd, 'node_modules'),
           },
         },
       },
@@ -113,30 +115,11 @@ export default class ClientsCompiler {
           assets: data,
           output: 'client-assets.json',
         }),
-        new webpack.NamedChunksPlugin((chunk) => {
-          // https://github.com/webpack/webpack/issues/1315#issuecomment-386267369
-          // TODO remove for webpack 5
-          if (chunk.name) {
-            return chunk.name
-          }
-
-          return [...chunk._modules]
-            .map((m) =>
-              path.relative(
-                m.context,
-                m.userRequest.substring(0, m.userRequest.lastIndexOf('.'))
-              )
-            )
-            .join('_')
-        }),
-        new webpack.HashedModuleIdsPlugin(),
         new PrettyPlugin(this.#config),
       ],
     }
   }
-  async run(
-    callback: (err: Error & { details?: string }, stats: webpack.Stats) => void
-  ): Promise<void> {
+  async run(callback: (err, stats) => void): Promise<void> {
     this.#clients = await collectPages(
       this.#pagesDir,
       (filename) =>

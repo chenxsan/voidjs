@@ -5,12 +5,13 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
-import PnpWebpackPlugin from 'pnp-webpack-plugin'
 import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativePath'
 
 import ClientJsCompiler from './ClientJsCompiler'
 import ServerSideRender from './ServerSideRender/index'
 import merge from 'lodash.merge'
+
+import type { Stats } from 'webpack'
 
 import {
   rules,
@@ -46,6 +47,13 @@ export interface HtmlgagaConfig {
 
 const BEGIN = 'begin'
 const END = 'end'
+
+interface WebpackError {
+  name: string
+  message: string
+  stack?: string
+  details?: string
+}
 
 class Builder {
   #pages: string[]
@@ -139,12 +147,15 @@ class Builder {
       output: {
         path: path.resolve(this.#outputPath),
         libraryTarget: 'commonjs2',
-        filename: (chunkData: webpack.ChunkData): string => {
-          if (entries[chunkData.chunk.name]) {
-            // do not include contenthash for those entry pages
-            // since we only use it for server side render
-            return '[name].js'
+        filename: (pathData): string => {
+          if (pathData?.chunk?.name) {
+            if (entries[pathData?.chunk?.name]) {
+              // do not include contenthash for those entry pages
+              // since we only use it for server side render
+              return '[name].js'
+            }
           }
+
           return '[name].[contenthash].js'
         },
         chunkFilename: '[name]-[id].[contenthash].js',
@@ -158,7 +169,6 @@ class Builder {
         alias,
       },
       plugins: [
-        PnpWebpackPlugin,
         new PersistDataPlugin(),
         new WebpackAssetsManifest({
           output: 'assets.json',
@@ -183,10 +193,7 @@ class Builder {
     }
   }
 
-  private runCallback(
-    err: Error & { details?: string },
-    stats: webpack.Stats
-  ): void {
+  private runCallback(err?: WebpackError, stats?: Stats): void {
     if (err) {
       if (err.stack) {
         logger.error(err.stack)
@@ -198,13 +205,18 @@ class Builder {
       }
       return
     }
+    if (!stats) return
 
     const info = stats.toJson()
     if (stats.hasErrors()) {
-      info.errors.forEach((err) => logger.error(err))
+      info.errors.forEach((err: { message: string }) =>
+        logger.error(err.message)
+      )
     }
     if (stats.hasWarnings()) {
-      logger.warn('\n' + info.warnings.join('\n'))
+      info.warnings.forEach((warning: { message: string }) =>
+        logger.warn(warning.message)
+      )
     }
   }
   // measure end
@@ -266,7 +278,7 @@ class Builder {
         this.#outputPath,
         this.#config
       )
-      await clientJsCompiler.run((err: Error, stats: webpack.Stats) => {
+      await clientJsCompiler.run((err, stats) => {
         this.runCallback(err, stats)
         this.markEnd()
       })
