@@ -66,7 +66,7 @@ yargs
         rimraf(path.resolve(cwd, '.htmlgaga'), async (err) => {
           if (err) return logger.error(err)
           const builder = new Builder(pagesDir, outDir)
-          process.env.NODE_ENV = 'production'
+          // process.env.NODE_ENV = 'production'
           await builder.run()
         })
       })
