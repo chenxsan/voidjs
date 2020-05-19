@@ -4,7 +4,7 @@
     "module": "CommonJS",
     "noEmit": true,
     "allowJs": true,
-    "target": "es2017", // <- Node 10
+    "target": "es2019",
     "strictNullChecks": true,
     "esModuleInterop": true,
     "moduleResolution": "node",

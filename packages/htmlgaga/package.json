@@ -15,11 +15,6 @@
   ],
   "author": "Sam Chen <chenxsan@gmail.com>",
   "license": "GPL-3.0",
-  "files": [
-    "./cli.js",
-    "dist",
-    "!**/*.d.ts"
-  ],
   "homepage": "https://htmlgaga.com",
   "repository": {
     "type": "git",
@@ -30,7 +25,7 @@
     "url": "https://github.com/chenxsan/htmlgaga/issues"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=14"
   },
   "dependencies": {
     "@babel/core": "^7.9.6",
@@ -88,5 +83,11 @@
   "peerDependencies": {
     "react": ">=16.4.2",
     "react-dom": ">=16.4.2"
+  },
+  "preconstruct": {
+    "entrypoints": [
+      ".",
+      "Client"
+    ]
   }
 }
