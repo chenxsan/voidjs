@@ -99,7 +99,8 @@ class Builder {
   }
 
   async resolveConfig(): Promise<void> {
-    const config = await import(this.#configName)
+    const configName = this.#configName
+    const config = await import(configName)
     validateSchema(schema as JSONSchema7, config.default, {
       name: 'htmlgaga.config.js',
     })
