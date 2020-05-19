@@ -4,14 +4,14 @@ module.exports = {
       '@babel/preset-env',
       {
         targets: {
-          node: '12'
-        }
-      }
+          node: 'current',
+        },
+      },
     ],
-    ['@babel/preset-typescript']
+    '@babel/preset-typescript',
   ],
   plugins: [
     '@babel/plugin-proposal-private-methods',
-    '@babel/plugin-proposal-class-properties'
-  ]
+    '@babel/plugin-proposal-class-properties',
+  ],
 }
