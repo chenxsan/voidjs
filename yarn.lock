@@ -1431,15 +1431,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@htmlgaga/doc@workspace:packages/doc"
   dependencies:
-    "@htmlgaga/plugin-react-helmet": "workspace:*"
-    htmlgaga: "workspace:*"
+    "@htmlgaga/plugin-react-helmet": ^0.1.4
+    htmlgaga: ^0.8.7
     react: ^16.13.1
     react-dom: ^16.13.1
     react-helmet: ^6.0.0
   languageName: unknown
   linkType: soft
 
-"@htmlgaga/plugin-react-helmet@workspace:*, @htmlgaga/plugin-react-helmet@workspace:packages/plugin-react-helmet":
+"@htmlgaga/plugin-react-helmet@^0.1.4, @htmlgaga/plugin-react-helmet@workspace:packages/plugin-react-helmet":
   version: 0.0.0-use.local
   resolution: "@htmlgaga/plugin-react-helmet@workspace:packages/plugin-react-helmet"
   dependencies:
@@ -7098,7 +7098,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"htmlgaga@workspace:*, htmlgaga@workspace:packages/htmlgaga":
+"htmlgaga@^0.8.7, htmlgaga@workspace:packages/htmlgaga":
   version: 0.0.0-use.local
   resolution: "htmlgaga@workspace:packages/htmlgaga"
   dependencies:
