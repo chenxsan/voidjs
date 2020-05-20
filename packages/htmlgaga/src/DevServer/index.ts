@@ -11,7 +11,7 @@ import devMiddleware from 'webpack-dev-middleware'
 import WebSocket from 'ws'
 import http from 'http'
 import isHtmlRequest from './isHtmlRequest'
-import { MessageType } from './Client/MessageType'
+import { MessageType } from '../Client/MessageType'
 
 interface EntryObject {
   [index: string]: [string, ...string[]]
@@ -292,7 +292,7 @@ class DevServer implements Server {
 
     const devMiddlewareInstance = devMiddleware(compiler)
 
-    const socketClient = `${require.resolve('./Client')}?${this.#host}:${
+    const socketClient = `${require.resolve('../Client')}?${this.#host}:${
       this.#port
     }${socketPath}`
 

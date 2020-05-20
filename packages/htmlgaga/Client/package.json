@@ -2,6 +2,6 @@
   "main": "dist/htmlgaga.cjs.js",
   "module": "dist/htmlgaga.esm.js",
   "preconstruct": {
-    "source": "../src/DevServer/Client/index"
+    "source": "../src/Client/index"
   }
 }
