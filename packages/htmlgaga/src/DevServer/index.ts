@@ -67,7 +67,7 @@ class DevServer implements Server {
     const entryKey = getEntryKeyFromRelativePath(this.#pagesDir, page)
     const clientJs = this.searchClientJs(page)
     return new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'devTemplate'),
+      template: require.resolve('../devTemplate'),
       chunks:
         clientJs.exists === true
           ? [entryKey, `${entryKey}-client`]

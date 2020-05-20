@@ -29,6 +29,7 @@
   "scripts": {
     "test": "jest",
     "postinstall": "preconstruct dev",
+    "dev": "preconstruct dev",
     "build": "preconstruct build"
   },
   "preconstruct": {

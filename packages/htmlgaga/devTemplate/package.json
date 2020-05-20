@@ -1,0 +1,7 @@
+{
+  "main": "dist/htmlgaga.cjs.js",
+  "module": "dist/htmlgaga.esm.js",
+  "preconstruct": {
+    "source": "../src/devTemplate/index"
+  }
+}

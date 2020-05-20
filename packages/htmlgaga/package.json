@@ -29,8 +29,9 @@
   },
   "files": [
     "dist",
+    "cli.js",
     "Client",
-    "cli.js"
+    "devTemplate"
   ],
   "dependencies": {
     "@babel/core": "^7.9.6",
@@ -92,7 +93,8 @@
   "preconstruct": {
     "entrypoints": [
       ".",
-      "Client"
+      "Client",
+      "devTemplate"
     ]
   }
 }
