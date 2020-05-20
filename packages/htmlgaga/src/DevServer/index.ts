@@ -182,6 +182,9 @@ class DevServer implements Server {
       plugins: [
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': '"development"',
+          __WEBSOCKET__: JSON.stringify(
+            `?${this.#host}:${this.#port}${socketPath}`
+          ),
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
@@ -292,9 +295,7 @@ class DevServer implements Server {
 
     const devMiddlewareInstance = devMiddleware(compiler)
 
-    const socketClient = `${require.resolve('../Client')}?${this.#host}:${
-      this.#port
-    }${socketPath}`
+    const socketClient = `${require.resolve('../Client')}`
 
     app.use((req, res, next) => {
       if (isHtmlRequest(req.url)) {

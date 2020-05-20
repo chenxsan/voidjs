@@ -1,9 +1,9 @@
-/** global __resourceQuery */
-declare const __resourceQuery: string
+/** global __WEBSOCKET__ */
+declare const __WEBSOCKET__: string
 import { MessageType } from './MessageType'
 import calculateDelay from './calculateDelay'
 
-const socketUrl = `ws://${__resourceQuery.replace(/^\?/, '')}`
+const socketUrl = `ws://${__WEBSOCKET__.replace(/^\?/, '')}`
 
 // let's try at most 10 times
 const maxRetries = 10
@@ -46,9 +46,7 @@ function createWebSocketClient(socketUrl: string): WebSocket {
         createWebSocketClient(socketUrl)
       }, Math.random() * calculateDelay(delay, retries))
     } else {
-      console.log(
-        `Please make sure the server is on and refresh the page.`
-      )
+      console.log(`Please make sure the server is on and refresh the page.`)
     }
   }
 
