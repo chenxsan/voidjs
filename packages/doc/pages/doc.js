@@ -1,5 +1,5 @@
 export default function Doc() {
   return <div>
-    hello doc from htmlgaga
+    doc for htmlgaga.
   </div>
 }
