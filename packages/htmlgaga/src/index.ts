@@ -66,8 +66,7 @@ yargs
         rimraf(path.resolve(cwd, '.htmlgaga'), async (err) => {
           if (err) return logger.error(err)
           const builder = new Builder(pagesDir, outDir)
-          // FIXME, https://github.com/preconstruct/preconstruct/issues/267
-          // process.env.NODE_ENV = 'production'
+          process.env['NODE_ENV'] = 'production'
           await builder.run()
         })
       })
