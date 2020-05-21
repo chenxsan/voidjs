@@ -11,18 +11,18 @@ export const logger = pino({
   level: process.env.LOG_LEVEL || 'info',
   prettyPrint: {
     translateTime: 'HH:MM:ss',
-    ignore: 'pid,hostname'
+    ignore: 'pid,hostname',
   },
   serializers: {
     err: pino.stdSerializers.err,
-    error: pino.stdSerializers.err
-  }
+    error: pino.stdSerializers.err,
+  },
 })
 
 export const alias = {
   img: resolve(cwd, 'public/img'),
   css: resolve(cwd, 'public/css'),
-  js: resolve(cwd, 'public/js')
+  js: resolve(cwd, 'public/js'),
 }
 export const extensions = ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.json']
 
@@ -43,10 +43,27 @@ export const rules = [
           presets: ['@babel/preset-env', '@babel/preset-react'],
           plugins: ['react-require'],
           cacheDirectory: true,
-          cacheCompression: false
-        }
-      }
-    ]
+          cacheCompression: false,
+        },
+      },
+    ],
+  },
+  {
+    test: /\.(md|mdx)$/i,
+    use: [
+      {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react'],
+          plugins: ['react-require'],
+          cacheDirectory: true,
+          cacheCompression: false,
+        },
+      },
+      {
+        loader: '@mdx-js/loader',
+      },
+    ],
   },
   {
     test: /\.(png|svg|jpg|gif)$/i,
@@ -54,13 +71,13 @@ export const rules = [
       {
         loader: 'file-loader',
         options: {
-          name: '[name].[contenthash].[ext]'
-        }
+          name: '[name].[contenthash].[ext]',
+        },
       },
       {
-        loader: 'image-webpack-loader'
-      }
-    ]
+        loader: 'image-webpack-loader',
+      },
+    ],
   },
   {
     test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
@@ -69,26 +86,26 @@ export const rules = [
         loader: 'file-loader',
         options: {
           name: '[name].[ext]',
-          outputPath: 'fonts/'
-        }
-      }
-    ]
+          outputPath: 'fonts/',
+        },
+      },
+    ],
   },
   {
     test: /\.(sa|sc|c)ss$/i,
     use: [
       {
-        loader: MiniCssExtractPlugin.loader
+        loader: MiniCssExtractPlugin.loader,
       },
       'css-loader',
       {
         loader: 'postcss-loader',
         options: {
           ident: 'postcss',
-          plugins: [require('tailwindcss'), require('autoprefixer')]
-        }
+          plugins: [require('tailwindcss'), require('autoprefixer')],
+        },
       },
-      'sass-loader'
-    ]
-  }
+      'sass-loader',
+    ],
+  },
 ]

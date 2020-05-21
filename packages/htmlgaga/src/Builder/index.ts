@@ -137,7 +137,7 @@ class Builder {
     })
 
     return {
-      externals: ['react-helmet'],
+      externals: ['react-helmet', 'react', 'react-dom'],
       mode: 'production',
       entry: {
         ...entries,
