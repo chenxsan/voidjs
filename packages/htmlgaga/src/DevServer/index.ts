@@ -143,6 +143,37 @@ class DevServer implements Server {
             ],
           },
           {
+            test: /\.(mdx|md)$/,
+            use: [
+              {
+                loader: 'babel-loader',
+                options: {
+                  presets: [
+                    '@babel/preset-env',
+                    '@babel/preset-react',
+                    '@babel/preset-typescript',
+                  ],
+                  plugins: ['react-require'],
+                  overrides: [
+                    {
+                      include: this.#pagesDir,
+                      plugins: [
+                        [
+                          'react-dom-render',
+                          {
+                            hydrate: false,
+                            root: 'htmlgaga-app',
+                          },
+                        ],
+                      ],
+                    },
+                  ],
+                },
+              },
+              '@mdx-js/loader',
+            ],
+          },
+          {
             test: /\.(png|svg|jpg|gif)$/i,
             use: ['file-loader'],
           },
@@ -199,7 +230,7 @@ class DevServer implements Server {
     exists: boolean
   } {
     if (url.endsWith('/')) url = url + '/index.html'
-    const exts = ['tsx', 'jsx', 'js']
+    const exts = ['tsx', 'jsx', 'js', 'mdx', 'md']
     for (let i = 0, len = exts.length; i < len; i++) {
       const target = path.join(
         this.#pagesDir,
@@ -277,7 +308,8 @@ class DevServer implements Server {
     this.#pages = await collectPages(
       this.#pagesDir,
       (pagePath) =>
-        /\.(js|jsx|ts|tsx)$/.test(pagePath) && !pagePath.includes('.client.')
+        /\.(js|jsx|ts|tsx|mdx|md)$/.test(pagePath) &&
+        !pagePath.includes('.client.')
     )
 
     if (this.#pages.length === 0) {

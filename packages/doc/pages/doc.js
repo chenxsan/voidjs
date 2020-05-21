@@ -1,5 +1,8 @@
+import Docx from '../components/doc.md'
 export default function Doc() {
-  return <div>
-    hello doc
-  </div>
+  return (
+    <div>
+      <Docx />
+    </div>
+  )
 }
