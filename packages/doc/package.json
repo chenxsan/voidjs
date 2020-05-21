@@ -7,7 +7,7 @@
   },
   "devDependencies": {
     "@htmlgaga/plugin-react-helmet": "^0.1.4",
-    "htmlgaga": "^0.8.7",
+    "htmlgaga": "^0.9.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0"
