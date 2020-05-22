@@ -157,6 +157,9 @@ class Builder {
     })
 
     return {
+      experiments: {
+        asset: true
+      },
       externals: ['react-helmet', 'react', 'react-dom'],
       mode: 'production',
       entry: {
