@@ -123,6 +123,9 @@ class DevServer implements Server {
 
   private initWebpackConfig(): webpack.Configuration {
     return {
+      experiments: {
+        asset: true
+      },
       mode: 'development',
       entry: this.webpackEntry(),
       output: {
@@ -195,7 +198,7 @@ class DevServer implements Server {
           },
           {
             test: /\.(png|svg|jpg|gif)$/i,
-            use: ['file-loader'],
+            type: 'asset'
           },
           {
             test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,

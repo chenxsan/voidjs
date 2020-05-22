@@ -87,17 +87,10 @@ export const rules = [
   },
   {
     test: /\.(png|svg|jpg|gif)$/i,
-    use: [
-      {
-        loader: 'file-loader',
-        options: {
-          name: '[name].[contenthash].[ext]',
-        },
-      },
-      {
-        loader: 'image-webpack-loader',
-      },
-    ],
+    type: 'asset',
+    generator: {
+      filename: '[name].[contenthash].[ext]',
+    },
   },
   {
     test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
