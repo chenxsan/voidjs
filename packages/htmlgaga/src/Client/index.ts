@@ -18,12 +18,18 @@
     You should have received a copy of the GNU General Public License
     along with htmlgaga.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 /** global __WEBSOCKET__ */
+// __WEBSOCKET__ is defined by webpack.DefinePlugin
 declare const __WEBSOCKET__: string
+
 import { MessageType } from './MessageType'
 import calculateDelay from './calculateDelay'
+import report from './overlay'
 
-const socketUrl = `ws://${__WEBSOCKET__.replace(/^\?/, '')}`
+const prefix = `[htmlgaga]`
+
+const socketUrl = `ws://${__WEBSOCKET__}`
 
 // let's try at most 10 times
 const maxRetries = 10
@@ -40,23 +46,28 @@ function createWebSocketClient(socketUrl: string): WebSocket {
     if (retries > 0) {
       return window.location.reload()
     }
-    console.log('Connected')
+    console.log(`${prefix} Socket connected on ${socketUrl}`)
   }
 
   client.onmessage = function (event): void {
-    const { type } = JSON.parse(event?.data)
-    if (type === MessageType.RELOAD) {
-      window.location.reload()
-      return
-    }
-    if (type === MessageType.INVALID) {
-      console.log('Rebuilding...')
-      return
+    const { type, data } = JSON.parse(event?.data)
+    switch (true) {
+      case type === MessageType.HASH:
+        return
+      case type === MessageType.RELOAD:
+        window.location.reload()
+        return
+      case type === MessageType.INVALID:
+        console.log(`${prefix} Rebuilding...`)
+        return
+      case type === MessageType.ERRORS:
+        report(data)
+        return
     }
   }
 
   client.onclose = (event): void => {
-    console.log('Disconnected', event)
+    console.log(`${prefix} Disconnected`, event)
     // try to reconnect in case server restarted
     if (retries < maxRetries) {
       retries = retries + 1
@@ -66,7 +77,9 @@ function createWebSocketClient(socketUrl: string): WebSocket {
         createWebSocketClient(socketUrl)
       }, Math.random() * calculateDelay(delay, retries))
     } else {
-      console.log(`Please make sure the server is on and refresh the page.`)
+      console.log(
+        `${prefix} Please make sure the server is on and refresh the page.`
+      )
     }
   }
 

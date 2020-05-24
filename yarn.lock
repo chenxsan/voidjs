@@ -2529,6 +2529,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/strip-ansi@npm:5.2.1":
+  version: 5.2.1
+  resolution: "@types/strip-ansi@npm:5.2.1"
+  dependencies:
+    strip-ansi: "*"
+  checksum: 3/d7d7404876f63e05701da167ed54585f5722b1c0c09638e574d513d305f5b6f3e23b5b5855e847151adee5357bf531dd3969ff0a066192bfff4222cd5346ed67
+  languageName: node
+  linkType: hard
+
 "@types/tapable@npm:*, @types/tapable@npm:^1.0.5":
   version: 1.0.5
   resolution: "@types/tapable@npm:1.0.5"
@@ -6568,6 +6577,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"html-entities@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "html-entities@npm:1.3.1"
+  checksum: 3/53d37e5161230ad7f2c16dd2b54945069d84b5167113eac55e39a8fffed357378afc022d5dc66045b132ea46232cab41aee86e79dd5cd0618e0b78776b9085b5
+  languageName: node
+  linkType: hard
+
 "html-escaper@npm:^2.0.0":
   version: 2.0.0
   resolution: "html-escaper@npm:2.0.0"
@@ -6662,6 +6678,7 @@ __metadata:
     "@types/react-dom": ^16.9.7
     "@types/react-helmet": ^5.0.15
     "@types/rimraf": ^3.0.0
+    "@types/strip-ansi": 5.2.1
     "@types/webpack-dev-middleware": ^3.7.0
     "@types/ws": ^7.2.4
     "@types/yargs": ^15.0.4
@@ -6674,6 +6691,7 @@ __metadata:
     express: ^4.17.1
     file-loader: ^6.0.0
     fs-extra: ^9.0.0
+    html-entities: ^1.3.1
     html-webpack-plugin: ^4.3.0
     lodash.merge: ^4.6.2
     mini-css-extract-plugin: ^0.9.0
@@ -6687,6 +6705,7 @@ __metadata:
     sass: ^1.26.5
     sass-loader: ^8.0.2
     schema-utils: ^2.6.6
+    strip-ansi: ^6.0.0
     style-loader: ^1.2.1
     tailwindcss: ^1.4.4
     tapable: ^1.1.3
@@ -12292,6 +12311,15 @@ resolve@^1.17.0:
   languageName: node
   linkType: hard
 
+"strip-ansi@npm:*, strip-ansi@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "strip-ansi@npm:6.0.0"
+  dependencies:
+    ansi-regex: ^5.0.0
+  checksum: 3/10568c91cadbef182a807c38dfa718dce15a35b12fcc97b96b6b2029d0508ef66ca93fabddeb49482d9b027495d1e18591858e80f27ad26861c4967c60fd207f
+  languageName: node
+  linkType: hard
+
 "strip-ansi@npm:^3.0.0, strip-ansi@npm:^3.0.1":
   version: 3.0.1
   resolution: "strip-ansi@npm:3.0.1"
@@ -12316,15 +12344,6 @@ resolve@^1.17.0:
   dependencies:
     ansi-regex: ^4.1.0
   checksum: 3/44a0d0d354f5f7b15f83323879a9112ea746daae7bef0b68238a27626ee757d9a04ce6590433841e14b325e8e7c5d62b8442885e50497e21b7cbca6da40d54ea
-  languageName: node
-  linkType: hard
-
-"strip-ansi@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "strip-ansi@npm:6.0.0"
-  dependencies:
-    ansi-regex: ^5.0.0
-  checksum: 3/10568c91cadbef182a807c38dfa718dce15a35b12fcc97b96b6b2029d0508ef66ca93fabddeb49482d9b027495d1e18591858e80f27ad26861c4967c60fd207f
   languageName: node
   linkType: hard
 

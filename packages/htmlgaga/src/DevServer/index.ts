@@ -124,7 +124,7 @@ class DevServer implements Server {
   private initWebpackConfig(): webpack.Configuration {
     return {
       experiments: {
-        asset: true
+        asset: true,
       },
       mode: 'development',
       entry: this.webpackEntry(),
@@ -198,7 +198,7 @@ class DevServer implements Server {
           },
           {
             test: /\.(png|svg|jpg|gif)$/i,
-            type: 'asset'
+            type: 'asset',
           },
           {
             test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
@@ -237,7 +237,7 @@ class DevServer implements Server {
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': '"development"',
           __WEBSOCKET__: JSON.stringify(
-            `?${this.#host}:${this.#port}${socketPath}`
+            `${this.#host}:${this.#port}${socketPath}`
           ),
         }),
         new webpack.HotModuleReplacementPlugin(),
@@ -300,10 +300,47 @@ class DevServer implements Server {
     process.on('SIGINT', () => this.cleanup())
     process.on('SIGTERM', () => this.cleanup())
 
-    this.#compiler.hooks.done.tap(hotReloadPluginName, () => {
+    this.#compiler.hooks.done.tap(hotReloadPluginName, (stats) => {
       if (!this.#wsServer) return
+      const statsJson = stats.toJson({
+        all: false,
+        hash: true,
+        assets: true,
+        warnings: true,
+        errors: true,
+        errorDetails: false,
+      })
+      const hasErrors = stats.hasErrors()
+      const hasWarnings = stats.hasWarnings()
       this.#wsServer.clients.forEach((client) => {
         if (client.readyState !== WebSocket.OPEN) return
+        client.send(
+          JSON.stringify({
+            type: MessageType.HASH,
+            data: {
+              hash: statsJson.hash,
+              startTime: stats.startTime,
+              endTime: stats.endTime,
+            },
+          })
+        )
+        if (hasErrors) {
+          console.log(statsJson.errors)
+          return client.send(
+            JSON.stringify({
+              type: MessageType.ERRORS,
+              data: statsJson.errors,
+            })
+          )
+        }
+        if (hasWarnings) {
+          return client.send(
+            JSON.stringify({
+              type: MessageType.WARNINGS,
+              data: statsJson.warnings,
+            })
+          )
+        }
         client.send(
           JSON.stringify({
             type: MessageType.RELOAD,
