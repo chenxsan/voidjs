@@ -1,13 +1,14 @@
 # htmlgaga
 
-Manage non-SPA pages with webpack and React.js
+Manage non-SPA pages with [webpack](https://webpack.js.org/) and [React](https://reactjs.org/)
 
 ## Why htmlgaga
 
-htmlgaga is designed for writing non-SPA HTML pages with vanilla JavaScript or jQuery. It brings lots of benefits of webpack & React to multiple HTML pages developing.
+htmlgaga is designed for managing non-SPA HTML pages. It brings a lot of benefits of webpack and React to non-SPA HTML pages developing.
 
-1. Better assets management with webpack and its ecosystem
-2. Manage your html with **Components**, no more copy & paste which is error-prone
+1. Better assets' management with webpack
+2. Manage html with **Components**, no more error-prone copy & paste
+3. Pre-built static HTML
 
 ## License
 
