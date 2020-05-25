@@ -21,6 +21,7 @@
 import { resolve, join } from 'path'
 import pino from 'pino'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import rehypePrism from '@mapbox/rehype-prism'
 
 // FIXME weird bug on windows
 // it would resolve to htmlgaga\node_modules\@htmlgaga\doc
@@ -82,6 +83,9 @@ export const rules = [
       },
       {
         loader: '@mdx-js/loader',
+        options: {
+          rehypePlugins: [rehypePrism],
+        },
       },
     ],
   },
