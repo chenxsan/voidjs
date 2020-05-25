@@ -32,6 +32,7 @@ import WebSocket from 'ws'
 import http from 'http'
 import isHtmlRequest from './isHtmlRequest'
 import { MessageType } from '../Client/MessageType'
+import rehypePrism from '@mapbox/rehype-prism'
 
 interface EntryObject {
   [index: string]: [string, ...string[]]
@@ -193,7 +194,12 @@ class DevServer implements Server {
                   ],
                 },
               },
-              '@mdx-js/loader',
+              {
+                loader: '@mdx-js/loader',
+                options: {
+                  rehypePlugins: [rehypePrism],
+                },
+              },
             ],
           },
           {
