@@ -8,8 +8,8 @@ import chalk from 'chalk'
 
 async function createApp(
   name: string,
-  template: string,
-  useNpm: boolean
+  template = 'default',
+  useNpm = false
 ): Promise<void> {
   const root = path.resolve(name)
   const appName = path.basename(root)
@@ -27,8 +27,8 @@ async function createApp(
     private: true,
     scripts: {
       dev: 'htmlgaga dev',
-      build: 'htmlgaga build'
-    }
+      build: 'htmlgaga build',
+    },
   }
 
   fs.writeFileSync(
@@ -49,7 +49,7 @@ async function createApp(
   await install(root, ['react', 'react-dom', 'htmlgaga'], { useYarn })
   console.log()
 
-  fs.copySync(path.resolve(__dirname, '..', 'templates', 'default'), root)
+  fs.copySync(path.resolve(__dirname, '..', 'templates', template), root)
 
   console.log(`${chalk.green('Success!')} Created ${appName} at ${root}`)
   console.log('Inside that directory, you can run several commands:')
