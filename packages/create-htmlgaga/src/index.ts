@@ -4,7 +4,6 @@ import validate from 'validate-npm-package-name'
 import chalk from 'chalk'
 import createApp from './createApp'
 import packageJson from '../package.json'
-import checkForUpdate from 'update-check'
 
 let projectName = ''
 
@@ -12,7 +11,7 @@ const program = new commander.Command(packageJson.name)
   .version(packageJson.version)
   .arguments('<project-directory>')
   .usage(`${chalk.green('<project-directory>')} [options]`)
-  .action(name => {
+  .action((name) => {
     projectName = name
   })
   .option('--use-npm')
@@ -24,19 +23,6 @@ const program = new commander.Command(packageJson.name)
   .parse(process.argv)
 
 async function run(): Promise<void> {
-  let update = null
-  try {
-    update = await checkForUpdate(packageJson)
-  } catch (err) {
-    //
-  }
-
-  if (update) {
-    console.log(
-      chalk.yellow.bold('A new version of `create-htmlgaga` is available!')
-    )
-  }
-
   if (projectName === '') {
     // ask user to input projectName
     const response = await prompts({
@@ -44,14 +30,15 @@ async function run(): Promise<void> {
       name: 'path',
       message: 'What is your project name?',
       initial: 'my-app',
-      validate: name => {
+      validate: (name) => {
         const validation = validate(name)
         if (validation.validForNewPackages) {
           return true
         }
-        return `Invalid project name: ${validation.errors &&
-          validation.errors[0]}`
-      }
+        return `Invalid project name: ${
+          validation.errors && validation.errors[0]
+        }`
+      },
     })
     projectName = response.path
   }

@@ -1470,7 +1470,6 @@ __metadata:
   dependencies:
     "@htmlgaga/plugin-react-helmet": ^0.1.4
     htmlgaga: ^0.9.0
-    prismjs: ^1.2.0
     react: ^16.13.1
     react-dom: ^16.13.1
     react-helmet: ^6.0.0
@@ -4617,7 +4616,6 @@ __metadata:
     cross-spawn: ^7.0.2
     fs-extra: ^9.0.0
     prompts: ^2.3.2
-    update-check: ^1.5.4
     validate-npm-package-name: ^3.0.0
   bin:
     create-htmlgaga: ./cli.js
@@ -4868,13 +4866,6 @@ __metadata:
   dependencies:
     mimic-response: ^2.0.0
   checksum: 3/c5ba32725f138ecdaee8d477243b8fa51c7cb458fa7b694804d1fd6236251b23dfd140a1458da370e0e31a5caf91ffa851f0a9288546e8d0f230cb0a29886b5c
-  languageName: node
-  linkType: hard
-
-"deep-extend@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "deep-extend@npm:0.6.0"
-  checksum: 3/856d7f52db152c19fc5a70439ea938461cfb9338a632496fe370050dc73d3291cd76fc6713f604a5c126612dee9cac0f6da1d4b88ba4b0caa4f7214345879b89
   languageName: node
   linkType: hard
 
@@ -7015,7 +7006,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ini@npm:^1.3.4, ini@npm:^1.3.5, ini@npm:~1.3.0":
+"ini@npm:^1.3.4, ini@npm:^1.3.5":
   version: 1.3.5
   resolution: "ini@npm:1.3.5"
   checksum: 3/304a78d1e0ec49c6dc316b6a21bee5340ba85159c6581235b26a4cf27e2bac5f66f2c8f0e074ceaf3c48085f89fb974691cbf812df2128d2d74c5ef726d1b19a
@@ -10658,18 +10649,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prismjs@npm:^1.2.0":
-  version: 1.20.0
-  resolution: "prismjs@npm:1.20.0"
-  dependencies:
-    clipboard: ^2.0.0
-  dependenciesMeta:
-    clipboard:
-      optional: true
-  checksum: 3/b4cb8bdd48a18421e8eabf936ad38a33254250a7d8576d05a2286fbae8d07ef2b2a92a3c22f5e61fa9ba72eeff3d246326274138470f4c98d7a06adcfee4dcae
-  languageName: node
-  linkType: hard
-
 "prismjs@npm:~1.17.0":
   version: 1.17.1
   resolution: "prismjs@npm:1.17.1"
@@ -10901,20 +10880,6 @@ __metadata:
     iconv-lite: 0.4.24
     unpipe: 1.0.0
   checksum: 3/46dc02f8b4f358786d41e18fb55533fbe4702d390e22bbe2b9c98c88dec41cab23ea2315f3ae0bf4bc0213a2872c89943d3df6857f4e21f996ea9d2d92f1bcaa
-  languageName: node
-  linkType: hard
-
-"rc@npm:^1.0.1, rc@npm:^1.1.6":
-  version: 1.2.8
-  resolution: "rc@npm:1.2.8"
-  dependencies:
-    deep-extend: ^0.6.0
-    ini: ~1.3.0
-    minimist: ^1.2.0
-    strip-json-comments: ~2.0.1
-  bin:
-    rc: ./cli.js
-  checksum: 3/ea2b7f7cee201a67923a2240de594a5d9b59bd312b814b06536d3d609a416dfd6fb9b85ea2abfd3b8a4eb5ed33eaff946ee75a8f2b7fb10941073c5cfee6b7a5
   languageName: node
   linkType: hard
 
@@ -11184,25 +11149,6 @@ __metadata:
     unicode-match-property-ecmascript: ^1.0.4
     unicode-match-property-value-ecmascript: ^1.1.0
   checksum: 3/76b30d5257672adb31af81c851132cff45eea2f48371b63af829f7c792d466e5bf28d01d8692e3c621672b92ce29d6cbfe361e5c4e9b44fc80dbdbbc437e4574
-  languageName: node
-  linkType: hard
-
-"registry-auth-token@npm:3.3.2":
-  version: 3.3.2
-  resolution: "registry-auth-token@npm:3.3.2"
-  dependencies:
-    rc: ^1.1.6
-    safe-buffer: ^5.0.1
-  checksum: 3/e23c360fd85760a9fb75bd9deea1dc4bf7d8d0cca995e267db40d748ef9d106ffc79d7dde36d9c29b5b76e49b10de79240748f8a411f75eaee74c10e65607739
-  languageName: node
-  linkType: hard
-
-"registry-url@npm:3.1.0":
-  version: 3.1.0
-  resolution: "registry-url@npm:3.1.0"
-  dependencies:
-    rc: ^1.0.1
-  checksum: 3/f0bdf9be94c196506846ddc4cbb6a2aee1b90025c36739d1b309c2e9b2c765ab7900cb020e5ae1141f2300d3b2723efa8f24e907bc44f37adde595fbd1d30695
   languageName: node
   linkType: hard
 
@@ -12508,13 +12454,6 @@ resolve@^1.17.0:
   languageName: node
   linkType: hard
 
-"strip-json-comments@npm:~2.0.1":
-  version: 2.0.1
-  resolution: "strip-json-comments@npm:2.0.1"
-  checksum: 3/e60d99aa2849c27a04dce0620334f45822197df6b83664dd3746971e9a0a766d989dbb8d87f9cb7350725d2b5df401a2343222ad06e36a1ba7d62c6633267fcb
-  languageName: node
-  linkType: hard
-
 "style-loader@npm:^1.2.1":
   version: 1.2.1
   resolution: "style-loader@npm:1.2.1"
@@ -13300,16 +13239,6 @@ typescript@^3.9.2:
     has-value: ^0.3.1
     isobject: ^3.0.0
   checksum: 3/b4c4853f2744a91e9bb5ccb3dfb28f78c32310bf851f0e6b9e781d3ca5244a803632926b2af701da5f9153a03e405023cebc1f90b87711f73b5fc86b6c33efae
-  languageName: node
-  linkType: hard
-
-"update-check@npm:^1.5.4":
-  version: 1.5.4
-  resolution: "update-check@npm:1.5.4"
-  dependencies:
-    registry-auth-token: 3.3.2
-    registry-url: 3.1.0
-  checksum: 3/a7e0ea4212bdaaee0b450ed4d0cf2d2e4575e052f26c26f84621b0eb70e609131f122f924f13ef6da184d1a2cfd4e6ab00c29914ba1d9f043d577d0345ea49f1
   languageName: node
   linkType: hard
 
