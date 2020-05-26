@@ -311,7 +311,14 @@ class Builder {
 
 export default Builder
 
-export function filterPageEntry(pagePath: string): boolean {
-  const entryPattern = /\.(mjs|js|jsx|ts|tsx|md|mdx)$/
-  return entryPattern.test(pagePath) && pagePath.includes('.client.') === false
+export const exts = 'mjs,js,jsx,ts,tsx,md,mdx'
+
+export function filterPageEntry(pagePath: string, extList = exts): boolean {
+  const entryPattern = new RegExp(`.(${extList.split(',').join('|')})$`)
+  return (
+    entryPattern.test(pagePath) &&
+    extList
+      .split(',')
+      .every((ext) => pagePath.includes(`.client.${ext}`) === false)
+  )
 }
