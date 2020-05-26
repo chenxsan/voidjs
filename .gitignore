@@ -8,3 +8,4 @@ dist
 !.yarn/versions
 .pnp.*
 packages/doc/out
+packages/doc/.htmlgaga
