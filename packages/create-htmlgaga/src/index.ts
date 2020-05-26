@@ -14,7 +14,7 @@ const program = new commander.Command(packageJson.name)
   .action((name) => {
     projectName = name
   })
-  .option('--use-npm')
+  .option('--use-npm', 'use npm instead of yarn')
   .option(
     '--template <path-to-template>',
     'specify a template for the created project'
