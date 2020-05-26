@@ -1,7 +1,6 @@
 import path from 'path'
 import fs from 'fs-extra'
 import os from 'os'
-import isSafeToCreateProjectIn from './helpers/isSafeToCreateProjectIn'
 import install from './helpers/install'
 import shouldUseYarn from './helpers/shouldUseYarn'
 import chalk from 'chalk'
@@ -13,10 +12,16 @@ async function createApp(
 ): Promise<void> {
   const root = path.resolve(name)
   const appName = path.basename(root)
+
+  // create dir if nonexistent
   fs.ensureDirSync(name)
-  if (!isSafeToCreateProjectIn(root, name)) {
+
+  // just make sure dir is empty to use
+  if (fs.readdirSync(root).length !== 0) {
+    console.log(`${name} is not empty`)
     process.exit(1)
   }
+
   console.log()
 
   console.log(`Creating a new htmlgaga app in ${chalk.green(root)}.`)
@@ -41,14 +46,17 @@ async function createApp(
       'react'
     )} and ${chalk.cyan('react-dom')}...`
   )
+
   console.log()
 
   process.chdir(root)
   const useYarn = useNpm ? false : shouldUseYarn()
   const cmd = useYarn ? 'yarn' : 'npm'
   await install(root, ['react', 'react-dom', 'htmlgaga'], { useYarn })
+
   console.log()
 
+  // copy template into root
   fs.copySync(path.resolve(__dirname, '..', 'templates', template), root)
 
   console.log(`${chalk.green('Success!')} Created ${appName} at ${root}`)

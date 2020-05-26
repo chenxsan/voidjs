@@ -2,10 +2,10 @@ import createApp from './createApp'
 import { vol } from 'memfs'
 jest.mock('fs')
 describe('createApp', () => {
-  it('should return true', () => {
-    expect(true).toBe(true)
+  afterEach(() => {
+    vol.reset()
   })
-  it('process exit with 1', async () => {
+  it('should exit process with code 1', async () => {
     const json = {
       './htmlgaga-app/index.js': 'var a = 123',
     }
