@@ -2410,13 +2410,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prompts@npm:^2.4.0":
-  version: 2.4.0
-  resolution: "@types/prompts@npm:2.4.0"
-  checksum: 3/9d5b490dbad2a89ed17b6bf5ef4430b045d61677ccd75e2d18b119cee97a2aa0329f573925032c22fe5d1b2a95b32f318156cb74b60ff8b36b488c36c4ee36b4
-  languageName: node
-  linkType: hard
-
 "@types/prop-types@npm:*":
   version: 15.7.3
   resolution: "@types/prop-types@npm:15.7.3"
@@ -2557,13 +2550,6 @@ __metadata:
   version: 2.0.3
   resolution: "@types/unist@npm:2.0.3"
   checksum: 3/42e0dc4ac75a27c4bb91a3f8e82edfd8819cacb6edda08bdfb436700ea01a587faa30017fde744b0a0b33825f5e37686398c1eb5b664cabc3a72a6b3757f85a5
-  languageName: node
-  linkType: hard
-
-"@types/validate-npm-package-name@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@types/validate-npm-package-name@npm:3.0.0"
-  checksum: 3/08792f773efbf99feef81034f7a1ff77bfa41810cab6f7da3f1c2e17e5646ccecb4d5d04ab8821ac7c2d5002b3839072ceadf12509400c11d777f4b63f4774c2
   languageName: node
   linkType: hard
 
@@ -3878,13 +3864,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"builtins@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "builtins@npm:1.0.3"
-  checksum: 3/36aa0f11effcc9ab1637e69240752c70aab8ed1f9ed88baae94dd989fa3e34fc332a41f851062c24a888572f31343130e5cd7055344b9743c9d6bcbdc449eaf1
-  languageName: node
-  linkType: hard
-
 "bytes@npm:3.1.0, bytes@npm:^3.0.0":
   version: 3.1.0
   resolution: "bytes@npm:3.1.0"
@@ -4597,14 +4576,10 @@ __metadata:
   dependencies:
     "@types/cross-spawn": ^6.0.1
     "@types/fs-extra": ^8.1.0
-    "@types/prompts": ^2.4.0
-    "@types/validate-npm-package-name": ^3.0.0
     chalk: ^4.0.0
     commander: ^5.1.0
     cross-spawn: ^7.0.2
     fs-extra: ^9.0.0
-    prompts: ^2.3.2
-    validate-npm-package-name: ^3.0.0
   bin:
     create-htmlgaga: ./cli.js
   languageName: unknown
@@ -10691,16 +10666,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prompts@npm:^2.3.2":
-  version: 2.3.2
-  resolution: "prompts@npm:2.3.2"
-  dependencies:
-    kleur: ^3.0.3
-    sisteransi: ^1.0.4
-  checksum: 3/a910ba767eb61bfba15d8ef602fb50eb3f99809790e078941833c59f549557f1edd6dcdf8c749568379c2f2babe930bd3b87755fea639ad516fa1a1974e0fe7b
-  languageName: node
-  linkType: hard
-
 "prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
   version: 15.7.2
   resolution: "prop-types@npm:15.7.2"
@@ -13313,15 +13278,6 @@ typescript@^3.9.2:
     spdx-correct: ^3.0.0
     spdx-expression-parse: ^3.0.0
   checksum: 3/940899bd4eacfa012ceecb10a5814ba0e8103da5243aa74d0d62f1f8a405efcd23e034fb7193e2d05b392870c53aabcb1f66439b062075cdcb28bc5d562a8ff6
-  languageName: node
-  linkType: hard
-
-"validate-npm-package-name@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "validate-npm-package-name@npm:3.0.0"
-  dependencies:
-    builtins: ^1.0.3
-  checksum: 3/3c5a5b154a32d141a8fff660e4cdfcbd359bfafb1fc544772d50fb04377bea2eb7073bd49d914309c21c1fd19af68849e8022791573b88fc6413560a8dcf5016
   languageName: node
   linkType: hard
 
