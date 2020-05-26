@@ -33,6 +33,7 @@ import http from 'http'
 import isHtmlRequest from './isHtmlRequest'
 import { MessageType } from '../Client/MessageType'
 import rehypePrism from '@mapbox/rehype-prism'
+import { filterPageEntry } from '../ProdBuilder'
 
 interface EntryObject {
   [index: string]: [string, ...string[]]
@@ -371,12 +372,7 @@ class DevServer implements Server {
   public async start(): Promise<express.Application | void> {
     // collect all pages when server start so we can print pages' table
     logger.info('Collecting pages')
-    this.#pages = await collectPages(
-      this.#pagesDir,
-      (pagePath) =>
-        /\.(js|jsx|ts|tsx|mdx|md)$/.test(pagePath) &&
-        !pagePath.includes('.client.')
-    )
+    this.#pages = await collectPages(this.#pagesDir, filterPageEntry)
 
     if (this.#pages.length === 0) {
       logger.warn(

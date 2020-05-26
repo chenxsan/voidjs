@@ -3,12 +3,14 @@
 const nodeVersion = process.versions.node
 const major = nodeVersion.split('.')[0]
 
-if (major < 12) {
+const minVersion = 12
+
+if (major < minVersion) {
   console.error(
     'You are running Node ' +
       nodeVersion +
       '.\n' +
-      'Htmlgaga requires Node 12 or higher. \n' +
+      `Htmlgaga requires Node ${minVersion} or higher. \n` +
       'Please update your version of Node.'
   )
   process.exit(1)

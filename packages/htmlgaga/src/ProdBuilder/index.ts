@@ -92,13 +92,6 @@ class Builder {
     this.#pageEntries = []
 
     this.#configName = path.resolve(this.#cwd, 'htmlgaga.config.js')
-
-    if (fs.existsSync(this.#configName)) {
-      this.resolveConfig().catch((err) => {
-        logger.error(err)
-        process.exit(1)
-      })
-    }
   }
 
   applyOptionsDefaults(): void {
@@ -158,7 +151,7 @@ class Builder {
 
     return {
       experiments: {
-        asset: true
+        asset: true,
       },
       externals: ['react-helmet', 'react', 'react-dom'],
       mode: 'production',
@@ -284,15 +277,21 @@ class Builder {
   async run(): Promise<void> {
     this.markBegin()
     logger.info('Collecting pages...')
-    this.#pages = await collectPages(
-      this.#pagesDir,
-      (pagePath) =>
-        /\.(js|jsx|ts|tsx)$/.test(pagePath) && !pagePath.includes('.client.')
-    )
+    this.#pages = await collectPages(this.#pagesDir, filterPageEntry)
 
     logger.info(`${this.pageOrPages(this.#pages.length)} collected`)
 
     const compiler = webpack(this.createWebpackConfig(this.#pages))
+
+    // resolve htmlgaga config
+    if (fs.existsSync(this.#configName)) {
+      try {
+        await this.resolveConfig()
+      } catch (err) {
+        logger.error(err)
+        process.exit(1)
+      }
+    }
 
     compiler.run(async (err, stats) => {
       this.runCallback(err, stats)
@@ -311,3 +310,15 @@ class Builder {
 }
 
 export default Builder
+
+export const exts = 'mjs,js,jsx,ts,tsx,md,mdx'
+
+export function filterPageEntry(pagePath: string, extList = exts): boolean {
+  const entryPattern = new RegExp(`.(${extList.split(',').join('|')})$`)
+  return (
+    entryPattern.test(pagePath) &&
+    extList
+      .split(',')
+      .every((ext) => pagePath.includes(`.client.${ext}`) === false)
+  )
+}
