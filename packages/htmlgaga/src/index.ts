@@ -25,7 +25,7 @@ import * as path from 'path'
 import { logger, cwd } from './config'
 import DevServer from './DevServer'
 import type { Server } from './DevServer'
-import Builder from './Builder'
+import Builder from './ProdBuilder'
 
 interface DevCmdArgs {
   host: string

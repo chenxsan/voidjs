@@ -33,7 +33,7 @@ import http from 'http'
 import isHtmlRequest from './isHtmlRequest'
 import { MessageType } from '../Client/MessageType'
 import rehypePrism from '@mapbox/rehype-prism'
-import { filterPageEntry } from '../Builder'
+import { filterPageEntry } from '../ProdBuilder'
 
 interface EntryObject {
   [index: string]: [string, ...string[]]
