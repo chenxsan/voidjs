@@ -9,12 +9,12 @@ let projectName = ''
 
 const program = new commander.Command(packageJson.name)
   .version(packageJson.version)
-  .arguments('<project-directory>')
-  .usage(`${chalk.green('<project-directory>')} [options]`)
-  .action((name) => {
+  .arguments('[project-directory]')
+  .usage(`${chalk.green('[project-directory]')} [options]`)
+  .action((name = 'my-app') => {
     projectName = name
   })
-  .option('--use-npm', 'use npm instead of yarn')
+  .option('--use-npm', 'use npm instead of yarn', 'false')
   .option(
     '--template <path-to-template>',
     'specify a template for the created project'
