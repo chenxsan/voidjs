@@ -1,6 +1,6 @@
 {
   "name": "create-htmlgaga",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Create htmlgaga project",
   "main": "dist/create-htmlgaga.cjs.js",
   "module": "dist/create-htmlgaga.esm.js",
