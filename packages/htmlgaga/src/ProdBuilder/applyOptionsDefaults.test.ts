@@ -1,4 +1,4 @@
-import ProdBuilder, { defaultOptions } from './index'
+import ProdBuilder, { defaultOptions, HtmlgagaConfig } from './index'
 import { vol } from 'memfs'
 jest.mock('fs')
 describe('applyOptionsDefaults', () => {
@@ -14,7 +14,7 @@ describe('applyOptionsDefaults', () => {
       '/app'
     )
     const builder = new ProdBuilder('/app/pages', '/app/out')
-    builder.config = {}
+    builder.config = {} as HtmlgagaConfig
     builder.applyOptionsDefaults()
     expect(builder.config).toEqual(defaultOptions)
   })
@@ -31,7 +31,7 @@ describe('applyOptionsDefaults', () => {
       html: {
         pretty: false,
       },
-    }
+    } as HtmlgagaConfig
     builder.applyOptionsDefaults()
     expect(builder.config).toEqual({
       ...defaultOptions,
