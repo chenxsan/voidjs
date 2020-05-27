@@ -94,7 +94,7 @@ export default class Ssr {
 
     let preloadStyles = ''
 
-    if (htmlgagaConfig?.html?.preload.style) {
+    if (htmlgagaConfig.html.preload.style) {
       preloadStyles = headTags
         .filter((tag) => tag.tagName === 'link')
         .map((tag) => {
@@ -107,7 +107,7 @@ export default class Ssr {
 
     let preloadScripts = ''
 
-    if (htmlgagaConfig?.html?.preload.script) {
+    if (htmlgagaConfig.html.preload.script) {
       preloadScripts = bodyTags
         .filter((tag) => tag.tagName === 'script')
         .map((tag) => {
