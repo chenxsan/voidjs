@@ -9,19 +9,15 @@ export default function install(
     let args: string[]
     if (useYarn) {
       command = 'yarn'
-      args = ['add', '--exact', '--dev']
+      args = ['add', '--dev']
       args.push(...dependencies)
       args.push('--cwd')
       args.push(root)
     } else {
       command = 'npm'
-      args = [
-        'install',
-        '--save-dev',
-        '--save-exact',
-        '--loglevel',
-        'error',
-      ].concat(dependencies)
+      args = ['install', '--save-dev', '--loglevel', 'error'].concat(
+        dependencies
+      )
     }
     const child = spawn(command, args, {
       stdio: 'inherit',
