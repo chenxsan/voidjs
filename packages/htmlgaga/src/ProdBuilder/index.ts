@@ -20,7 +20,6 @@
  */
 import webpack from 'webpack'
 import * as path from 'path'
-import * as fs from 'fs-extra'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
@@ -56,10 +55,10 @@ interface Plugin {
 }
 export interface HtmlgagaConfig {
   html?: {
-    pretty: boolean
-    preload: {
-      script: boolean
-      style: boolean
+    pretty?: boolean
+    preload?: {
+      script?: boolean
+      style?: boolean
     }
   }
   plugins?: Plugin[]
@@ -75,12 +74,23 @@ interface WebpackError {
   details?: string
 }
 
+export const defaultOptions = {
+  html: {
+    pretty: true,
+    preload: {
+      style: true,
+      script: true,
+    },
+  },
+  plugins: [],
+}
+
 class Builder {
   #pages: string[]
   #pagesDir: string
   #cwd: string
   #outputPath: string
-  #config: HtmlgagaConfig
+  config: HtmlgagaConfig
   #pageEntries: string[]
   #configName: string
 
@@ -95,31 +105,29 @@ class Builder {
   }
 
   applyOptionsDefaults(): void {
-    const defaultOptions = {
-      html: {
-        pretty: true,
-        preload: {
-          style: true,
-          script: true,
-        },
-      },
-      plugins: [],
-    }
-    this.#config = {
-      html: merge({}, defaultOptions.html, this.#config.html ?? {}),
-      plugins: merge([], defaultOptions.plugins, this.#config.plugins ?? []),
+    this.config = {
+      html: merge({}, defaultOptions.html, this.config.html ?? {}),
+      plugins: merge([], defaultOptions.plugins, this.config.plugins ?? []),
     }
   }
 
   async resolveConfig(): Promise<void> {
     const configName = this.#configName
-    const config = await import(configName)
-    validateSchema(schema as JSONSchema7, config.default, {
-      name: 'htmlgaga.config.js',
-    })
-    this.#config = config
+    let config
+    try {
+      // how can I mock this in test?
+      config = await import(configName)
+      validateSchema(schema as JSONSchema7, config.default, {
+        name: 'htmlgaga.config.js',
+      })
+    } catch (err) {
+      // config file does not exist
+      config = {}
+    }
+
+    this.config = config
     this.applyOptionsDefaults()
-    logger.debug('htmlgaga.config.js', this.#config)
+    logger.debug('htmlgaga.config.js', this.config)
   }
 
   public normalizedPageEntry(pagePath: string): string {
@@ -265,12 +273,12 @@ class Builder {
   async ssr(): Promise<void> {
     for (const templateName of this.#pageEntries) {
       const ssr = new ServerSideRender()
-      if (Array.isArray(this.#config.plugins)) {
-        for (const plugin of this.#config.plugins) {
+      if (Array.isArray(this.config.plugins)) {
+        for (const plugin of this.config.plugins) {
           plugin.apply(ssr)
         }
       }
-      ssr.run(templateName, cacheRoot, this.#outputPath, this.#config)
+      ssr.run(templateName, cacheRoot, this.#outputPath, this.config)
     }
   }
 
@@ -284,14 +292,7 @@ class Builder {
     const compiler = webpack(this.createWebpackConfig(this.#pages))
 
     // resolve htmlgaga config
-    if (fs.existsSync(this.#configName)) {
-      try {
-        await this.resolveConfig()
-      } catch (err) {
-        logger.error(err)
-        process.exit(1)
-      }
-    }
+    await this.resolveConfig()
 
     compiler.run(async (err, stats) => {
       this.runCallback(err, stats)
@@ -299,7 +300,7 @@ class Builder {
       const clientJsCompiler = new ClientJsCompiler(
         this.#pagesDir,
         this.#outputPath,
-        this.#config
+        this.config
       )
       await clientJsCompiler.run((err, stats) => {
         this.runCallback(err, stats)
