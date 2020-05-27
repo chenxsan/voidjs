@@ -54,14 +54,14 @@ interface Plugin {
   apply(compiler: ServerSideRender): void
 }
 export interface HtmlgagaConfig {
-  html?: {
-    pretty?: boolean
-    preload?: {
-      script?: boolean
-      style?: boolean
+  html: {
+    pretty: boolean
+    preload: {
+      script: boolean
+      style: boolean
     }
   }
-  plugins?: Plugin[]
+  plugins: Plugin[]
 }
 
 const BEGIN = 'begin'
