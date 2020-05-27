@@ -1469,7 +1469,7 @@ __metadata:
   resolution: "@htmlgaga/doc@workspace:packages/doc"
   dependencies:
     "@htmlgaga/plugin-react-helmet": ^0.1.4
-    htmlgaga: ^0.10.0
+    htmlgaga: ^0.10.1
     react: ^16.13.1
     react-dom: ^16.13.1
     react-helmet: ^6.0.0
@@ -6660,7 +6660,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"htmlgaga@^0.10.0, htmlgaga@workspace:packages/htmlgaga":
+"htmlgaga@^0.10.1, htmlgaga@workspace:packages/htmlgaga":
   version: 0.0.0-use.local
   resolution: "htmlgaga@workspace:packages/htmlgaga"
   dependencies:
