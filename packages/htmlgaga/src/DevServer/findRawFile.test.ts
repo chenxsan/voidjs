@@ -1,5 +1,6 @@
 import findRawFile from './findRawFile'
 import { vol } from 'memfs'
+import path from 'path'
 jest.mock('fs')
 describe('findRawFile', () => {
   afterEach(() => {
@@ -14,7 +15,7 @@ describe('findRawFile', () => {
     )
     const result = findRawFile('/app', '/index.html')
     expect(result).toEqual({
-      src: '/app/index.js',
+      src: path.join('/app/index.js'),
       exists: true,
     })
   })
