@@ -24,7 +24,7 @@
 declare const __WEBSOCKET__: string
 
 import { MessageType } from './MessageType'
-import calculateDelay from './calculateDelay'
+import calculateDelayMs from './calculateDelayMs'
 import report from './overlay'
 
 const prefix = `[htmlgaga]`
@@ -75,7 +75,7 @@ function createWebSocketClient(socketUrl: string): WebSocket {
       // https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/
       setTimeout(() => {
         createWebSocketClient(socketUrl)
-      }, Math.random() * calculateDelay(delay, retries))
+      }, Math.random() * calculateDelayMs(delay, retries))
     } else {
       console.log(
         `${prefix} Please make sure the server is on and refresh the page.`
