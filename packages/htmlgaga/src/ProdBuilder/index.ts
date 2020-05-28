@@ -285,7 +285,7 @@ class Builder {
   async run(): Promise<void> {
     this.markBegin()
     logger.info('Collecting pages...')
-    this.#pages = await collectPages(this.#pagesDir, filterPageEntry)
+    this.#pages = await collectPages(this.#pagesDir, searchPageEntry)
 
     logger.info(`${this.pageOrPages(this.#pages.length)} collected`)
 
@@ -314,7 +314,7 @@ export default Builder
 
 export const exts = 'mjs,js,jsx,ts,tsx,md,mdx'
 
-export function filterPageEntry(pagePath: string, extList = exts): boolean {
+export function searchPageEntry(pagePath: string, extList = exts): boolean {
   const entryPattern = new RegExp(`.(${extList.split(',').join('|')})$`)
   return (
     entryPattern.test(pagePath) &&

@@ -1,20 +1,20 @@
-import { filterPageEntry } from './index'
+import { searchPageEntry } from './index'
 const exts = 'mjs,js,jsx,ts,tsx,md,mdx'
 const clientSuffix = '.client'
-describe('filterPageEntry', () => {
+describe('searchPageEntry', () => {
   it('should pass for page entry', () => {
     exts.split(',').forEach((ext) => {
-      expect(filterPageEntry(`/app/index.${ext}`)).toBe(true)
+      expect(searchPageEntry(`/app/index.${ext}`)).toBe(true)
     })
     exts.split(',').forEach((ext) => {
-      expect(filterPageEntry(`/app/index${clientSuffix}.hello.${ext}`)).toBe(
+      expect(searchPageEntry(`/app/index${clientSuffix}.hello.${ext}`)).toBe(
         true
       )
     })
   })
   it('should fail for client side JavaScript entry', () => {
     exts.split(',').forEach((ext) => {
-      expect(filterPageEntry(`/app/index${clientSuffix}.${ext}`)).toBe(false)
+      expect(searchPageEntry(`/app/index${clientSuffix}.${ext}`)).toBe(false)
     })
   })
 })
