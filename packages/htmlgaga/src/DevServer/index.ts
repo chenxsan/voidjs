@@ -34,6 +34,7 @@ import isHtmlRequest from './isHtmlRequest'
 import { MessageType } from '../Client/MessageType'
 import rehypePrism from '@mapbox/rehype-prism'
 import { searchPageEntry } from '../ProdBuilder'
+import findRawFile from './findRawFile'
 
 interface EntryObject {
   [index: string]: [string, ...string[]]
@@ -54,7 +55,6 @@ class Page {
 const socketPath = '/__websocket'
 
 export interface Server {
-  locateSrc(url: string): { exists: boolean; src?: string }
   start(): Promise<express.Application | void>
 }
 
@@ -253,32 +253,6 @@ class DevServer implements Server {
     }
   }
 
-  public locateSrc(
-    url: string
-  ): {
-    src?: string
-    exists: boolean
-  } {
-    if (url.endsWith('/')) url = url + '/index.html'
-    const exts = ['tsx', 'jsx', 'js', 'mdx', 'md']
-    for (let i = 0, len = exts.length; i < len; i++) {
-      const target = path.join(
-        this.#pagesDir,
-        url.replace(/\.html$/, '') + `.${exts[i]}`
-      )
-      if (fs.existsSync(target)) {
-        return {
-          src: target,
-          exists: true,
-        }
-      }
-    }
-
-    return {
-      exists: false,
-    }
-  }
-
   cleanup(): void {
     this.#wsServer.close(() => {
       process.exit()
@@ -394,7 +368,7 @@ class DevServer implements Server {
     app.use((req, res, next) => {
       if (isHtmlRequest(req.url)) {
         // check if page does exit on disk
-        const page = this.locateSrc(req.url)
+        const page = findRawFile(this.#pagesDir, req.url)
 
         if (page.exists) {
           const src = page.src as string
