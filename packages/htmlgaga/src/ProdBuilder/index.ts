@@ -24,7 +24,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
-import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativePath'
+import deriveHtmlFilenameFromRelativePath from '../DevServer/deriveFilenameFromRelativePath'
 
 import ClientJsCompiler from './ClientJsCompiler'
 import ServerSideRender from './ServerSideRender/index'
@@ -145,7 +145,7 @@ class Builder {
     }, {})
 
     const htmlPlugins = pages.map((page) => {
-      const filename = getHtmlFilenameFromRelativePath(this.#pagesDir, page)
+      const filename = deriveHtmlFilenameFromRelativePath(this.#pagesDir, page)
       return new HtmlWebpackPlugin({
         chunks: [this.normalizedPageEntry(page)],
         filename,
