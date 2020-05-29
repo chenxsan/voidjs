@@ -26,7 +26,6 @@ import deriveFilenameFromRelativePath from './deriveFilenameFromRelativePath'
 import { logger } from '../config'
 import express from 'express'
 import devMiddleware from 'webpack-dev-middleware'
-import WebSocket from 'ws'
 import http from 'http'
 import isHtmlRequest from './isHtmlRequest'
 import { searchPageEntry } from '../ProdBuilder'
@@ -35,6 +34,7 @@ import hasClientEntry from './hasClientEntry'
 import createWebpackConfig from './createWebpackConfig'
 import newHtmlWebpackPlugin from './newHtmlWebpackPlugin'
 import watchCompilation from './watchCompilation'
+import createWebSocketServer from './createWebSocketServer'
 
 export interface EntryObject {
   [index: string]: [string, ...string[]]
@@ -59,7 +59,6 @@ class DevServer implements Server {
   readonly #port: number
   #pages: string[]
   #entrypoints: EntryObject // save entries for webpack compiling
-  #wsServer: WebSocket.Server
   #httpServer: http.Server
 
   constructor(pagesDir: string, { host, port }) {
@@ -68,34 +67,6 @@ class DevServer implements Server {
     this.#host = host
     this.#port = port
     this.#entrypoints = {} as EntryObject
-  }
-
-  cleanup(): void {
-    this.#wsServer.close(() => {
-      process.exit()
-    })
-  }
-
-  createWebSocketServer(httpServer: http.Server, socketPath: string): void {
-    this.#wsServer = new WebSocket.Server({
-      server: httpServer,
-      path: socketPath,
-    })
-
-    this.#wsServer.on('connection', (socket) => {
-      socket.on('message', (data) => {
-        // received data from client
-        // TODO we might sync browsers in future
-        console.log(`${data} from client`)
-      })
-    })
-
-    this.#wsServer.on('close', () => {
-      console.log('closed')
-    })
-
-    process.on('SIGINT', () => this.cleanup())
-    process.on('SIGTERM', () => this.cleanup())
   }
 
   private listen() {
@@ -147,6 +118,8 @@ class DevServer implements Server {
     const socketClient = `${require.resolve('../Client')}`
 
     const app = express()
+
+    // TODO extract this into middleware
     app.use((req, res, next) => {
       if (isHtmlRequest(req.url)) {
         // check if page does exit on disk
@@ -208,8 +181,8 @@ class DevServer implements Server {
     app.use(express.static(this.#cwd)) // serve statics from ../fixture, etc.
 
     this.#httpServer = http.createServer(app)
-    this.createWebSocketServer(this.#httpServer, socketPath)
-    watchCompilation(compiler, this.#wsServer)
+    const wsServer = createWebSocketServer(this.#httpServer, socketPath)
+    watchCompilation(compiler, wsServer)
     this.listen()
 
     return app
