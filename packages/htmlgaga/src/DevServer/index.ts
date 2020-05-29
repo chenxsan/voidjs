@@ -39,6 +39,9 @@ import createWebpackConfig from './createWebpackConfig'
 export interface EntryObject {
   [index: string]: [string, ...string[]]
 }
+export interface Server {
+  start(): Promise<express.Application | void>
+}
 
 class Page {
   page: string
@@ -49,54 +52,37 @@ class Page {
   }
 }
 
-// we would only need it when HMR enabled
-// const hotRuntime = 'webpack/hot/dev-server'
-
-const socketPath = '/__websocket'
-
-export interface Server {
-  start(): Promise<express.Application | void>
-}
-
 class DevServer implements Server {
   readonly #cwd: string
   readonly #pagesDir: string
   readonly #host: string
   readonly #port: number
   #pages: string[]
-
-  // save entries for webpack compiling
-  #entrypoints: EntryObject
-
+  #entrypoints: EntryObject // save entries for webpack compiling
   #wsServer: WebSocket.Server
-
   #httpServer: http.Server
-
   #compiler: webpack.Compiler
 
   constructor(pagesDir: string, { host, port }) {
     this.#pagesDir = pagesDir
     this.#cwd = path.resolve(pagesDir, '..')
-
     this.#host = host
     this.#port = port
-
     this.#entrypoints = {} as EntryObject
   }
 
   private htmlPlugin(page: string): HtmlWebpackPlugin {
     const filename = deriveFilenameFromRelativePath(this.#pagesDir, page)
     const entryKey = deriveEntryKeyFromRelativePath(this.#pagesDir, page)
-    const clientJs = hasClientEntry(page)
+    const hasClientJs = hasClientEntry(page)
     return new HtmlWebpackPlugin({
       template: require.resolve('../devTemplate'),
       chunks:
-        clientJs.exists === true
+        hasClientJs.exists === true
           ? [entryKey, `${entryKey}-client`]
           : [entryKey],
       chunksSortMode: 'manual',
       filename,
-      title: `htmlgaga - ${filename}`,
     })
   }
 
@@ -190,6 +176,31 @@ class DevServer implements Server {
     })
   }
 
+  private listen() {
+    this.#httpServer
+      .listen(this.#port, this.#host, () => {
+        const server = `http://${this.#host}:${this.#port}`
+        const results = this.#pages
+          .sort((a, b) => a.split(path.sep).length - b.split(path.sep).length)
+          .map((page) => {
+            return new Page(
+              path.relative(this.#pagesDir, page),
+              `${server}/${deriveFilenameFromRelativePath(
+                this.#pagesDir,
+                page
+              )}`
+            )
+          })
+        console.table(results)
+      })
+      .on('error', (err) => {
+        logger.info(
+          `You might run server on another port with option like --port 9999`
+        )
+        throw err
+      })
+  }
+
   public async start(): Promise<express.Application | void> {
     // collect all pages when server start so we can print pages' table
     logger.info('Collecting pages')
@@ -201,14 +212,12 @@ class DevServer implements Server {
       )
     }
 
-    const app = express()
-
+    const socketPath = '/__websocket'
     const webpackConfig = createWebpackConfig(
       (): EntryObject => this.#entrypoints,
       this.#pagesDir,
       `${this.#host}:${this.#port}${socketPath}`
     )
-
     const compiler = webpack(webpackConfig)
     this.#compiler = compiler
 
@@ -216,6 +225,7 @@ class DevServer implements Server {
 
     const socketClient = `${require.resolve('../Client')}`
 
+    const app = express()
     app.use((req, res, next) => {
       if (isHtmlRequest(req.url)) {
         // check if page does exit on disk
@@ -275,29 +285,7 @@ class DevServer implements Server {
 
     this.#httpServer = http.createServer(app)
     this.createWebSocketServer(this.#httpServer, socketPath)
-
-    this.#httpServer
-      .listen(this.#port, this.#host, () => {
-        const server = `http://${this.#host}:${this.#port}`
-        const results = this.#pages
-          .sort((a, b) => a.split(path.sep).length - b.split(path.sep).length)
-          .map((page) => {
-            return new Page(
-              path.relative(this.#pagesDir, page),
-              `${server}/${deriveFilenameFromRelativePath(
-                this.#pagesDir,
-                page
-              )}`
-            )
-          })
-        console.table(results)
-      })
-      .on('error', (err) => {
-        logger.info(
-          `You might run server on another port with option like --port 9999`
-        )
-        throw err
-      })
+    this.listen()
 
     return app
   }
