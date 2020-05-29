@@ -1,4 +1,5 @@
 import hasClientEntry from './hasClientEntry'
+import path from 'path'
 import { vol } from 'memfs'
 jest.mock('fs')
 describe('hasClientEntry', () => {
@@ -18,7 +19,7 @@ describe('hasClientEntry', () => {
     const result = hasClientEntry('/app/index.js')
     expect(result).toEqual({
       exists: true,
-      clientEntry: '/app/index.client.js',
+      clientEntry: path.join('/app/index.client.js'),
     })
   })
   it('should not find clientEntry', () => {
