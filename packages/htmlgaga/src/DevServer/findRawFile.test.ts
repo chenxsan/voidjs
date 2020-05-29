@@ -6,13 +6,15 @@ describe('findRawFile', () => {
   afterEach(() => {
     vol.reset()
   })
-  it('should find raw file', () => {
+  beforeEach(() => {
     vol.fromJSON(
       {
         './index.js': '',
       },
       '/app'
     )
+  })
+  it('should find raw file', () => {
     const result = findRawFile('/app', '/index.html')
     expect(result).toEqual({
       src: path.join('/app/index.js'),
@@ -20,12 +22,6 @@ describe('findRawFile', () => {
     })
   })
   it('should not find raw file', () => {
-    vol.fromJSON(
-      {
-        './index.js': '',
-      },
-      '/app'
-    )
     const result = findRawFile('/app', '/test.html')
     expect(result).toEqual({
       exists: false,

@@ -20,7 +20,6 @@
  */
 import webpack from 'webpack'
 import * as path from 'path'
-import * as fs from 'fs'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import collectPages from '../collectFiles'
 import getEntryKeyFromRelativePath from './getEntryKeyFromRelativePath'
@@ -35,6 +34,7 @@ import { MessageType } from '../Client/MessageType'
 import rehypePrism from '@mapbox/rehype-prism'
 import { searchPageEntry } from '../ProdBuilder'
 import findRawFile from './findRawFile'
+import hasClientEntry from './hasClientEntry'
 
 interface EntryObject {
   [index: string]: [string, ...string[]]
@@ -87,7 +87,7 @@ class DevServer implements Server {
   private htmlPlugin(page: string): HtmlWebpackPlugin {
     const filename = getFilenameFromRelativePath(this.#pagesDir, page)
     const entryKey = getEntryKeyFromRelativePath(this.#pagesDir, page)
-    const clientJs = this.searchClientJs(page)
+    const clientJs = hasClientEntry(page)
     return new HtmlWebpackPlugin({
       template: require.resolve('../devTemplate'),
       chunks:
@@ -98,25 +98,6 @@ class DevServer implements Server {
       filename,
       title: `htmlgaga - ${filename}`,
     })
-  }
-
-  private searchClientJs(
-    pagePath: string
-  ): {
-    exists: boolean
-    filePath?: string
-  } {
-    const { name, dir } = path.parse(pagePath)
-    const clientJs = path.resolve(dir, `${name}.client.js`)
-    if (fs.existsSync(clientJs)) {
-      return {
-        exists: true,
-        filePath: clientJs,
-      }
-    }
-    return {
-      exists: false,
-    }
   }
 
   private webpackEntry(): () => EntryObject {
@@ -379,7 +360,7 @@ class DevServer implements Server {
           }
 
           const entryKey = getEntryKeyFromRelativePath(this.#pagesDir, src)
-          const clientJs = this.searchClientJs(src)
+          const clientJs = hasClientEntry(src)
 
           // if entry not added to webpack yet
           if (!this.#entrypoints[entryKey]) {
@@ -388,7 +369,7 @@ class DevServer implements Server {
             }
 
             if (clientJs.exists === true) {
-              entries[`${entryKey}-client`] = [clientJs.filePath as string]
+              entries[`${entryKey}-client`] = [clientJs.clientEntry as string]
             }
 
             this.#entrypoints = {
