@@ -19,7 +19,7 @@
     along with htmlgaga.  If not, see <https://www.gnu.org/licenses/>.
  */
 import * as path from 'path'
-export default function getEntryKeyFromRelativePath(
+export default function deriveEntryKeyFromRelativePath(
   from: string,
   to: string
 ): string {

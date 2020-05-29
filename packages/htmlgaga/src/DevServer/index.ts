@@ -22,8 +22,8 @@ import webpack from 'webpack'
 import * as path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import collectPages from '../collectFiles'
-import getEntryKeyFromRelativePath from './getEntryKeyFromRelativePath'
-import getFilenameFromRelativePath from './getFilenameFromRelativePath'
+import deriveEntryKeyFromRelativePath from './deriveEntryKeyFromRelativePath'
+import deriveFilenameFromRelativePath from './deriveFilenameFromRelativePath'
 import { logger } from '../config'
 import express from 'express'
 import devMiddleware from 'webpack-dev-middleware'
@@ -85,8 +85,8 @@ class DevServer implements Server {
   }
 
   private htmlPlugin(page: string): HtmlWebpackPlugin {
-    const filename = getFilenameFromRelativePath(this.#pagesDir, page)
-    const entryKey = getEntryKeyFromRelativePath(this.#pagesDir, page)
+    const filename = deriveFilenameFromRelativePath(this.#pagesDir, page)
+    const entryKey = deriveEntryKeyFromRelativePath(this.#pagesDir, page)
     const clientJs = hasClientEntry(page)
     return new HtmlWebpackPlugin({
       template: require.resolve('../devTemplate'),
@@ -229,7 +229,7 @@ class DevServer implements Server {
             this.#pages.push(src)
           }
 
-          const entryKey = getEntryKeyFromRelativePath(this.#pagesDir, src)
+          const entryKey = deriveEntryKeyFromRelativePath(this.#pagesDir, src)
           const hasClientJs = hasClientEntry(src)
 
           // if entry not added to webpack yet
@@ -284,7 +284,10 @@ class DevServer implements Server {
           .map((page) => {
             return new Page(
               path.relative(this.#pagesDir, page),
-              `${server}/${getFilenameFromRelativePath(this.#pagesDir, page)}`
+              `${server}/${deriveFilenameFromRelativePath(
+                this.#pagesDir,
+                page
+              )}`
             )
           })
         console.table(results)
