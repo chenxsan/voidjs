@@ -29,12 +29,12 @@ import devMiddleware from 'webpack-dev-middleware'
 import WebSocket from 'ws'
 import http from 'http'
 import isHtmlRequest from './isHtmlRequest'
-import { MessageType } from '../Client/MessageType'
 import { searchPageEntry } from '../ProdBuilder'
 import findRawFile from './findRawFile'
 import hasClientEntry from './hasClientEntry'
 import createWebpackConfig from './createWebpackConfig'
 import newHtmlWebpackPlugin from './newHtmlWebpackPlugin'
+import watchCompilation from './watchCompilation'
 
 export interface EntryObject {
   [index: string]: [string, ...string[]]
@@ -61,7 +61,6 @@ class DevServer implements Server {
   #entrypoints: EntryObject // save entries for webpack compiling
   #wsServer: WebSocket.Server
   #httpServer: http.Server
-  #compiler: webpack.Compiler
 
   constructor(pagesDir: string, { host, port }) {
     this.#pagesDir = pagesDir
@@ -78,7 +77,6 @@ class DevServer implements Server {
   }
 
   createWebSocketServer(httpServer: http.Server, socketPath: string): void {
-    const reloadPluginName = 'htmlgaga-reload'
     this.#wsServer = new WebSocket.Server({
       server: httpServer,
       path: socketPath,
@@ -87,7 +85,7 @@ class DevServer implements Server {
     this.#wsServer.on('connection', (socket) => {
       socket.on('message', (data) => {
         // received data from client
-        // we might sync browsers in future
+        // TODO we might sync browsers in future
         console.log(`${data} from client`)
       })
     })
@@ -98,67 +96,6 @@ class DevServer implements Server {
 
     process.on('SIGINT', () => this.cleanup())
     process.on('SIGTERM', () => this.cleanup())
-
-    this.#compiler.hooks.done.tap(reloadPluginName, (stats) => {
-      if (!this.#wsServer) return
-      const statsJson = stats.toJson({
-        all: false,
-        hash: true,
-        assets: true,
-        warnings: true,
-        errors: true,
-        errorDetails: false,
-      })
-      const hasErrors = stats.hasErrors()
-      const hasWarnings = stats.hasWarnings()
-      this.#wsServer.clients.forEach((client) => {
-        if (client.readyState !== WebSocket.OPEN) return
-        client.send(
-          JSON.stringify({
-            type: MessageType.HASH,
-            data: {
-              hash: statsJson.hash,
-              startTime: stats.startTime,
-              endTime: stats.endTime,
-            },
-          })
-        )
-        if (hasErrors) {
-          console.log(statsJson.errors)
-          return client.send(
-            JSON.stringify({
-              type: MessageType.ERRORS,
-              data: statsJson.errors,
-            })
-          )
-        }
-        if (hasWarnings) {
-          return client.send(
-            JSON.stringify({
-              type: MessageType.WARNINGS,
-              data: statsJson.warnings,
-            })
-          )
-        }
-        client.send(
-          JSON.stringify({
-            type: MessageType.RELOAD,
-          })
-        )
-      })
-    })
-
-    this.#compiler.hooks.invalid.tap(reloadPluginName, () => {
-      if (!this.#wsServer) return
-      this.#wsServer.clients.forEach((client) => {
-        if (client.readyState !== WebSocket.OPEN) return
-        client.send(
-          JSON.stringify({
-            type: MessageType.INVALID,
-          })
-        )
-      })
-    })
   }
 
   private listen() {
@@ -204,7 +141,6 @@ class DevServer implements Server {
       `${this.#host}:${this.#port}${socketPath}`
     )
     const compiler = webpack(webpackConfig)
-    this.#compiler = compiler
 
     const devMiddlewareInstance = devMiddleware(compiler)
 
@@ -273,6 +209,7 @@ class DevServer implements Server {
 
     this.#httpServer = http.createServer(app)
     this.createWebSocketServer(this.#httpServer, socketPath)
+    watchCompilation(compiler, this.#wsServer)
     this.listen()
 
     return app
