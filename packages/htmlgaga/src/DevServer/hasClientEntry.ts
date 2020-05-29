@@ -31,7 +31,7 @@ export default function hasClientEntry(
   for (let i = 0; i < exts.length; i++) {
     const ext = exts[i]
     // find clientEntry beside pageEntry
-    const clientEntry = path.resolve(dir, `${name}.client.${ext}`)
+    const clientEntry = path.join(dir, `${name}.client.${ext}`)
     if (fs.existsSync(clientEntry)) {
       return {
         exists: true,
