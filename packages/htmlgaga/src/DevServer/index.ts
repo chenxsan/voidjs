@@ -24,19 +24,19 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import collectPages from '../collectFiles'
 import getEntryKeyFromRelativePath from './getEntryKeyFromRelativePath'
 import getFilenameFromRelativePath from './getFilenameFromRelativePath'
-import { extensions, alias, logger } from '../config'
+import { logger } from '../config'
 import express from 'express'
 import devMiddleware from 'webpack-dev-middleware'
 import WebSocket from 'ws'
 import http from 'http'
 import isHtmlRequest from './isHtmlRequest'
 import { MessageType } from '../Client/MessageType'
-import rehypePrism from '@mapbox/rehype-prism'
 import { searchPageEntry } from '../ProdBuilder'
 import findRawFile from './findRawFile'
 import hasClientEntry from './hasClientEntry'
+import createWebpackConfig from './createWebpackConfig'
 
-interface EntryObject {
+export interface EntryObject {
   [index: string]: [string, ...string[]]
 }
 
@@ -98,140 +98,6 @@ class DevServer implements Server {
       filename,
       title: `htmlgaga - ${filename}`,
     })
-  }
-
-  private webpackEntry(): () => EntryObject {
-    return (): EntryObject => this.#entrypoints
-  }
-
-  private initWebpackConfig(): webpack.Configuration {
-    return {
-      experiments: {
-        asset: true,
-      },
-      mode: 'development',
-      entry: this.webpackEntry(),
-      output: {
-        publicPath: '/',
-      },
-      stats: 'minimal',
-      module: {
-        rules: [
-          {
-            test: /\.(js|jsx|ts|tsx)$/i,
-            exclude: [/node_modules/],
-            use: [
-              {
-                loader: 'babel-loader',
-                options: {
-                  presets: [
-                    '@babel/preset-env',
-                    '@babel/preset-react',
-                    '@babel/preset-typescript',
-                  ],
-                  plugins: ['react-require'],
-                  overrides: [
-                    {
-                      include: this.#pagesDir,
-                      plugins: [
-                        [
-                          'react-dom-render',
-                          {
-                            hydrate: false,
-                            root: 'htmlgaga-app',
-                          },
-                        ],
-                      ],
-                    },
-                  ],
-                },
-              },
-            ],
-          },
-          {
-            test: /\.(mdx|md)$/,
-            use: [
-              {
-                loader: 'babel-loader',
-                options: {
-                  presets: [
-                    '@babel/preset-env',
-                    '@babel/preset-react',
-                    '@babel/preset-typescript',
-                  ],
-                  plugins: ['react-require'],
-                  overrides: [
-                    {
-                      include: this.#pagesDir,
-                      plugins: [
-                        [
-                          'react-dom-render',
-                          {
-                            hydrate: false,
-                            root: 'htmlgaga-app',
-                          },
-                        ],
-                      ],
-                    },
-                  ],
-                },
-              },
-              {
-                loader: '@mdx-js/loader',
-                options: {
-                  rehypePlugins: [rehypePrism],
-                },
-              },
-            ],
-          },
-          {
-            test: /\.(png|svg|jpg|gif)$/i,
-            type: 'asset',
-          },
-          {
-            test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-            use: [
-              {
-                loader: 'file-loader',
-                options: {
-                  name: '[name].[ext]',
-                  outputPath: 'fonts/',
-                },
-              },
-            ],
-          },
-          {
-            test: /\.(sa|sc|c)ss$/i,
-            use: [
-              'style-loader',
-              'css-loader',
-              {
-                loader: 'postcss-loader',
-                options: {
-                  ident: 'postcss',
-                  plugins: [require('tailwindcss'), require('autoprefixer')],
-                },
-              },
-              'sass-loader',
-            ],
-          },
-        ],
-      },
-      resolve: {
-        extensions,
-        alias,
-      },
-      plugins: [
-        new webpack.DefinePlugin({
-          'process.env.NODE_ENV': '"development"',
-          __WEBSOCKET__: JSON.stringify(
-            `${this.#host}:${this.#port}${socketPath}`
-          ),
-        }),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
-      ],
-    }
   }
 
   cleanup(): void {
@@ -337,7 +203,11 @@ class DevServer implements Server {
 
     const app = express()
 
-    const webpackConfig = this.initWebpackConfig()
+    const webpackConfig = createWebpackConfig(
+      (): EntryObject => this.#entrypoints,
+      this.#pagesDir,
+      `${this.#host}:${this.#port}${socketPath}`
+    )
 
     const compiler = webpack(webpackConfig)
     this.#compiler = compiler
@@ -360,7 +230,7 @@ class DevServer implements Server {
           }
 
           const entryKey = getEntryKeyFromRelativePath(this.#pagesDir, src)
-          const clientJs = hasClientEntry(src)
+          const hasClientJs = hasClientEntry(src)
 
           // if entry not added to webpack yet
           if (!this.#entrypoints[entryKey]) {
@@ -368,8 +238,10 @@ class DevServer implements Server {
               [entryKey]: [socketClient, src],
             }
 
-            if (clientJs.exists === true) {
-              entries[`${entryKey}-client`] = [clientJs.clientEntry as string]
+            if (hasClientJs.exists === true) {
+              entries[`${entryKey}-client`] = [
+                hasClientJs.clientEntry as string,
+              ]
             }
 
             this.#entrypoints = {
@@ -384,7 +256,7 @@ class DevServer implements Server {
           } else {
             // TODO
             // check if clientJs exists in this.#entrypoints
-            if (clientJs.exists === true) {
+            if (hasClientJs.exists === true) {
               if (!this.#entrypoints[`${entryKey}-client`]) {
                 // user add a client.js
                 // should update this.#entrypoints?
@@ -398,9 +270,7 @@ class DevServer implements Server {
       }
       next()
     })
-
     app.use(devMiddlewareInstance)
-
     app.use(express.static(this.#cwd)) // serve statics from ../fixture, etc.
 
     this.#httpServer = http.createServer(app)
