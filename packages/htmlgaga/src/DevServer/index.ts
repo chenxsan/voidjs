@@ -20,7 +20,6 @@
  */
 import webpack from 'webpack'
 import * as path from 'path'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
 import collectPages from '../collectFiles'
 import deriveEntryKeyFromRelativePath from './deriveEntryKeyFromRelativePath'
 import deriveFilenameFromRelativePath from './deriveFilenameFromRelativePath'
@@ -35,6 +34,7 @@ import { searchPageEntry } from '../ProdBuilder'
 import findRawFile from './findRawFile'
 import hasClientEntry from './hasClientEntry'
 import createWebpackConfig from './createWebpackConfig'
+import newHtmlWebpackPlugin from './newHtmlWebpackPlugin'
 
 export interface EntryObject {
   [index: string]: [string, ...string[]]
@@ -71,21 +71,6 @@ class DevServer implements Server {
     this.#entrypoints = {} as EntryObject
   }
 
-  private htmlPlugin(page: string): HtmlWebpackPlugin {
-    const filename = deriveFilenameFromRelativePath(this.#pagesDir, page)
-    const entryKey = deriveEntryKeyFromRelativePath(this.#pagesDir, page)
-    const hasClientJs = hasClientEntry(page)
-    return new HtmlWebpackPlugin({
-      template: require.resolve('../devTemplate'),
-      chunks:
-        hasClientJs.exists === true
-          ? [entryKey, `${entryKey}-client`]
-          : [entryKey],
-      chunksSortMode: 'manual',
-      filename,
-    })
-  }
-
   cleanup(): void {
     this.#wsServer.close(() => {
       process.exit()
@@ -93,7 +78,7 @@ class DevServer implements Server {
   }
 
   createWebSocketServer(httpServer: http.Server, socketPath: string): void {
-    const hotReloadPluginName = 'htmlgaga-hot-reload'
+    const reloadPluginName = 'htmlgaga-reload'
     this.#wsServer = new WebSocket.Server({
       server: httpServer,
       path: socketPath,
@@ -114,7 +99,7 @@ class DevServer implements Server {
     process.on('SIGINT', () => this.cleanup())
     process.on('SIGTERM', () => this.cleanup())
 
-    this.#compiler.hooks.done.tap(hotReloadPluginName, (stats) => {
+    this.#compiler.hooks.done.tap(reloadPluginName, (stats) => {
       if (!this.#wsServer) return
       const statsJson = stats.toJson({
         all: false,
@@ -163,7 +148,7 @@ class DevServer implements Server {
       })
     })
 
-    this.#compiler.hooks.invalid.tap(hotReloadPluginName, () => {
+    this.#compiler.hooks.invalid.tap(reloadPluginName, () => {
       if (!this.#wsServer) return
       this.#wsServer.clients.forEach((client) => {
         if (client.readyState !== WebSocket.OPEN) return
@@ -249,9 +234,12 @@ class DevServer implements Server {
             }
 
             if (hasClientJs.exists === true) {
-              entries[`${entryKey}-client`] = [
-                hasClientJs.clientEntry as string,
-              ]
+              entries[
+                deriveEntryKeyFromRelativePath(
+                  this.#pagesDir,
+                  hasClientJs.clientEntry as string
+                )
+              ] = [hasClientJs.clientEntry as string]
             }
 
             this.#entrypoints = {
@@ -261,7 +249,7 @@ class DevServer implements Server {
             // @ts-ignore
             // ts reports error because html-webpack-plugin uses types from @types/webpack
             // while we have types from webpack 5
-            this.htmlPlugin(src).apply(compiler)
+            newHtmlWebpackPlugin(this.#pagesDir, src).apply(compiler)
             devMiddlewareInstance.invalidate()
           } else {
             // TODO
