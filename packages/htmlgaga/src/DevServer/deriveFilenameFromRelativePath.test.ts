@@ -1,4 +1,4 @@
-import fn from './getFilenameFromRelativePath'
+import fn from './deriveFilenameFromRelativePath'
 test('should return index.html', () => {
   expect(fn('/root/pages', '/root/pages/index.js')).toBe('index.html')
 })

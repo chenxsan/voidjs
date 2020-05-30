@@ -24,7 +24,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
 import WebpackAssetsManifest from 'webpack-assets-manifest'
-import getHtmlFilenameFromRelativePath from '../DevServer/getFilenameFromRelativePath'
+import deriveHtmlFilenameFromRelativePath from '../DevServer/deriveFilenameFromRelativePath'
 
 import ClientJsCompiler from './ClientJsCompiler'
 import ServerSideRender from './ServerSideRender/index'
@@ -145,7 +145,7 @@ class Builder {
     }, {})
 
     const htmlPlugins = pages.map((page) => {
-      const filename = getHtmlFilenameFromRelativePath(this.#pagesDir, page)
+      const filename = deriveHtmlFilenameFromRelativePath(this.#pagesDir, page)
       return new HtmlWebpackPlugin({
         chunks: [this.normalizedPageEntry(page)],
         filename,
@@ -285,7 +285,7 @@ class Builder {
   async run(): Promise<void> {
     this.markBegin()
     logger.info('Collecting pages...')
-    this.#pages = await collectPages(this.#pagesDir, filterPageEntry)
+    this.#pages = await collectPages(this.#pagesDir, searchPageEntry)
 
     logger.info(`${this.pageOrPages(this.#pages.length)} collected`)
 
@@ -314,7 +314,7 @@ export default Builder
 
 export const exts = 'mjs,js,jsx,ts,tsx,md,mdx'
 
-export function filterPageEntry(pagePath: string, extList = exts): boolean {
+export function searchPageEntry(pagePath: string, extList = exts): boolean {
   const entryPattern = new RegExp(`.(${extList.split(',').join('|')})$`)
   return (
     entryPattern.test(pagePath) &&

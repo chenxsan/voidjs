@@ -18,12 +18,29 @@
     You should have received a copy of the GNU General Public License
     along with htmlgaga.  If not, see <https://www.gnu.org/licenses/>.
  */
-import * as path from 'path'
-export default function getEntryKeyFromRelativePath(
-  from: string,
-  to: string
-): string {
-  const relativePath = path.relative(from, to)
-  const { base, name } = path.parse(relativePath)
-  return path.join(relativePath.replace(base, '') + name + '/index')
+import path from 'path'
+import fs from 'fs-extra'
+export default function hasClientEntry(
+  pageEntry: string,
+  exts = 'js,ts'.split(',')
+): {
+  exists: boolean
+  clientEntry?: string
+} {
+  const { name, dir } = path.parse(pageEntry)
+  for (let i = 0; i < exts.length; i++) {
+    const ext = exts[i]
+    // find clientEntry beside pageEntry
+    const clientEntry = path.join(dir, `${name}.client.${ext}`)
+    if (fs.existsSync(clientEntry)) {
+      return {
+        exists: true,
+        clientEntry: clientEntry,
+      }
+    }
+  }
+
+  return {
+    exists: false,
+  }
 }

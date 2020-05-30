@@ -19,7 +19,10 @@
     along with htmlgaga.  If not, see <https://www.gnu.org/licenses/>.
  */
 import * as path from 'path'
-export default function(from: string, to: string): string {
+export default function deriveFilenameFromRelativePath(
+  from: string,
+  to: string
+): string {
   const relativePath = path.relative(from, to)
   const { ext } = path.parse(relativePath)
   return relativePath.replace(ext, '.html')

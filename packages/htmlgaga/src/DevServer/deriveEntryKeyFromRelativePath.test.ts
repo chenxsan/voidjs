@@ -1,5 +1,5 @@
 import * as path from 'path'
-import fn from './getEntryKeyFromRelativePath'
+import fn from './deriveEntryKeyFromRelativePath'
 const { resolve } = path
 test('should remove file ext from index', () => {
   expect(fn(resolve('/root/pages'), resolve('/root/pages/index.js'))).toBe(
