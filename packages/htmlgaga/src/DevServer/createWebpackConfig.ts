@@ -1,6 +1,7 @@
 import webpack from 'webpack'
 import { extensions, alias } from '../config'
 import rehypePrism from '@mapbox/rehype-prism'
+import createEntries from './createEntries'
 import type { EntryObject } from './index'
 
 const createDOMRenderRule = (pagesDir: string) => ({
@@ -19,8 +20,9 @@ const createDOMRenderRule = (pagesDir: string) => ({
     ],
   ],
 })
+
 export default function createWebpackConfig(
-  entry: () => EntryObject,
+  pages: string[],
   pagesDir: string,
   socketUrl: string
 ): webpack.Configuration {
@@ -29,7 +31,7 @@ export default function createWebpackConfig(
       asset: true,
     },
     mode: 'development',
-    entry: entry,
+    entry: (): EntryObject => createEntries(pagesDir, pages),
     output: {
       publicPath: '/',
     },
