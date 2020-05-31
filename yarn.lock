@@ -1469,7 +1469,9 @@ __metadata:
   resolution: "@htmlgaga/doc@workspace:packages/doc"
   dependencies:
     "@htmlgaga/plugin-react-helmet": ^0.1.4
+    "@types/prismjs": 1.16.1
     htmlgaga: ^0.10.1
+    prismjs: ^1.20.0
     react: ^16.13.1
     react-dom: ^16.13.1
     react-helmet: ^6.0.0
@@ -2407,6 +2409,13 @@ __metadata:
   version: 2.0.0
   resolution: "@types/prettier@npm:2.0.0"
   checksum: 3/aee539015e8c815b211ffdb1a4b6e6aab24bd5665b3c71cc1aa95b9b65b3452f3e2b8541146577ba25535317532e6c8d9626e27568a89fad1888f248142a19bb
+  languageName: node
+  linkType: hard
+
+"@types/prismjs@npm:1.16.1":
+  version: 1.16.1
+  resolution: "@types/prismjs@npm:1.16.1"
+  checksum: 3/f3807984ec5df53c37a83d315851e620ff5038f37e748f18e68075c0184485abcf1b5de5fde94f5640922a24e3c0eb6f4ea424c27650322a25ab0f3de73d6ec1
   languageName: node
   linkType: hard
 
@@ -10364,6 +10373,18 @@ __metadata:
   version: 1.0.3
   resolution: "pretty-hrtime@npm:1.0.3"
   checksum: 3/efb9d4987ec2ba55a6b59c8eab4933ba5cd3c9311b9360f7ec491f1aad643ec8b533c8209170433de93bbc71e66b46f2a7035b991a1826141b128b73949b5577
+  languageName: node
+  linkType: hard
+
+"prismjs@npm:^1.20.0":
+  version: 1.20.0
+  resolution: "prismjs@npm:1.20.0"
+  dependencies:
+    clipboard: ^2.0.0
+  dependenciesMeta:
+    clipboard:
+      optional: true
+  checksum: 3/b4cb8bdd48a18421e8eabf936ad38a33254250a7d8576d05a2286fbae8d07ef2b2a92a3c22f5e61fa9ba72eeff3d246326274138470f4c98d7a06adcfee4dcae
   languageName: node
   linkType: hard
 
