@@ -53,6 +53,7 @@ function createWebSocketClient(socketUrl: string): WebSocket {
     const { type, data } = JSON.parse(event?.data)
     switch (true) {
       case type === MessageType.HASH:
+        console.log(`${prefix} Built in ${data.endTime - data.startTime}ms`)
         return
       case type === MessageType.RELOAD:
         window.location.reload()

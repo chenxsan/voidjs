@@ -32,7 +32,12 @@ import watchCompilation from './watchCompilation'
 import createWebSocketServer from './createWebSocketServer'
 
 export interface EntryObject {
-  [index: string]: [string, ...string[]]
+  [index: string]:
+    | [string, ...string[]]
+    | {
+        import: string | string[]
+        dependOn: string | string[]
+      }
 }
 export interface Server {
   start(): Promise<express.Application | void>
