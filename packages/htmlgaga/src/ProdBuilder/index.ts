@@ -278,7 +278,7 @@ class Builder {
           plugin.apply(ssr)
         }
       }
-      ssr.run(templateName, cacheRoot, this.#outputPath, this.config)
+      ssr.run(this.#pagesDir, templateName, cacheRoot, this.#outputPath, this.config)
     }
   }
 
