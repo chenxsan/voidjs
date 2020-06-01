@@ -52,6 +52,12 @@ export const PerformanceObserver = require('perf_hooks').PerformanceObserver
 
 export const cacheRoot = join(cwd, '.htmlgaga', 'cache')
 
+const babelPresets = [
+  '@babel/preset-env',
+  '@babel/preset-react',
+  '@babel/preset-typescript',
+]
+
 // rules for webpack production mode
 export const rules = [
   {
@@ -61,7 +67,7 @@ export const rules = [
       {
         loader: 'babel-loader',
         options: {
-          presets: ['@babel/preset-env', '@babel/preset-react'],
+          presets: [...babelPresets],
           plugins: ['react-require'],
           cacheDirectory: true,
           cacheCompression: false,
@@ -75,7 +81,7 @@ export const rules = [
       {
         loader: 'babel-loader',
         options: {
-          presets: ['@babel/preset-env', '@babel/preset-react'],
+          presets: [...babelPresets],
           plugins: ['react-require'],
           cacheDirectory: true,
           cacheCompression: false,
@@ -90,7 +96,7 @@ export const rules = [
     ],
   },
   {
-    test: /\.(png|svg|jpg|gif)$/i,
+    test: /\.(png|svg|jpg|jpeg|gif)$/i,
     type: 'asset',
     generator: {
       filename: '[name].[hash][ext]',
