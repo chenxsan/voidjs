@@ -80,7 +80,7 @@ export default function createWebpackConfig(
           ],
         },
         {
-          test: /\.(png|svg|jpg|gif)$/i,
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
           type: 'asset',
         },
         {
