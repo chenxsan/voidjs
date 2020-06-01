@@ -20,6 +20,7 @@
  */
 import path from 'path'
 import fs from 'fs-extra'
+import prettier from 'prettier'
 
 import render from './react'
 
@@ -30,6 +31,7 @@ import type { HelmetData } from 'react-helmet'
 import { HtmlTagObject } from 'html-webpack-plugin'
 import HtmlTags from 'html-webpack-plugin/lib/html-tags'
 import { SyncHook } from 'tapable'
+import hasClientEntry from '../../DevServer/hasClientEntry'
 const { htmlTagObjectToString } = HtmlTags
 interface HtmlTags {
   headTags: HtmlTagObject[]
@@ -79,6 +81,7 @@ export default class Ssr {
     }
   }
   async run(
+    pagesDir: string,
     templateName: string,
     cacheRoot: string,
     outputPath: string,
@@ -132,6 +135,16 @@ export default class Ssr {
       body = `<!DOCTYPE html><html ${this.helmet.htmlAttributes.toString()}><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="htmlgaga" />${this.helmet.title.toString()}${this.helmet.meta.toString()}${this.helmet.link.toString()}${preloadStyles}${preloadScripts}${hd}</head><body>${html}${bd}</body></html>`
     } else {
       body = `<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="htmlgaga" />${preloadStyles}${preloadScripts}${hd}</head><body>${html}${bd}</body></html>`
+    }
+
+    const hasClientJs = hasClientEntry(path.join(pagesDir, templateName))
+
+    if (hasClientJs.exists === false) {
+      if (htmlgagaConfig?.html?.pretty === true) {
+        body = prettier.format(body, {
+          parser: 'html',
+        })
+      }
     }
 
     fs.outputFileSync(path.join(outputPath, templateName + '.html'), body)
