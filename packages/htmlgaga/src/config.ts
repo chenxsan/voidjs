@@ -93,7 +93,7 @@ export const rules = [
     test: /\.(png|svg|jpg|gif)$/i,
     type: 'asset',
     generator: {
-      filename: '[name].[contenthash].[ext]',
+      filename: '[name].[hash][ext]',
     },
   },
   {
