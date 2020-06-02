@@ -31,7 +31,7 @@ import prettier from 'prettier'
 import collectPages from '../collectFiles'
 
 import type { HtmlgagaConfig } from './index'
-import { ASSET_PATH } from "./index";
+import { ASSET_PATH } from './index'
 
 const data = Object.create(null)
 
@@ -109,7 +109,7 @@ export default class ClientsCompiler {
         path: path.resolve(this.#outputPath),
         filename: '[name].[contenthash].js',
         chunkFilename: '[name]-[id].[contenthash].js',
-        publicPath: ASSET_PATH
+        publicPath: ASSET_PATH ?? this.#config.assetPath,
       },
       module: {
         rules,

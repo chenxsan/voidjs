@@ -29,6 +29,7 @@ import deriveHtmlFilenameFromRelativePath from '../DevServer/deriveFilenameFromR
 import ClientJsCompiler from './ClientJsCompiler'
 import ServerSideRender from './ServerSideRender/index'
 import merge from 'lodash.merge'
+import normalizeAssetPath from './normalizeAssetPath'
 
 import type { Stats } from 'webpack'
 
@@ -62,6 +63,7 @@ export interface HtmlgagaConfig {
     }
   }
   plugins: Plugin[]
+  assetPath: string
 }
 
 const BEGIN = 'begin'
@@ -83,11 +85,7 @@ export const defaultOptions = {
     },
   },
   plugins: [],
-}
-
-function normalizeAssetPath() {
-  const ASSET_PATH = process.env.ASSET_PATH ?? './'
-  return ASSET_PATH.endsWith('/') ? ASSET_PATH : ASSET_PATH + '/'
+  assetPath: './',
 }
 
 export const ASSET_PATH = normalizeAssetPath()
@@ -113,6 +111,7 @@ class Builder {
 
   applyOptionsDefaults(): void {
     this.config = {
+      ...defaultOptions,
       html: merge({}, defaultOptions.html, this.config.html ?? {}),
       plugins: merge([], defaultOptions.plugins, this.config.plugins ?? []),
     }
@@ -191,7 +190,7 @@ class Builder {
           return '[name].[contenthash].js'
         },
         chunkFilename: '[name]-[id].[contenthash].js',
-        publicPath: ASSET_PATH,
+        publicPath: ASSET_PATH ?? this.config.assetPath, // ASSET_PATH takes precedence over assetPath in htmlgaga.config.js
       },
       module: {
         rules,
