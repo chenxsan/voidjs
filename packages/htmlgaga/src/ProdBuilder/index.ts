@@ -29,6 +29,7 @@ import deriveHtmlFilenameFromRelativePath from '../DevServer/deriveFilenameFromR
 import ClientJsCompiler from './ClientJsCompiler'
 import ServerSideRender from './ServerSideRender/index'
 import merge from 'lodash.merge'
+import normalizeAssetPath from './normalizeAssetPath'
 
 import type { Stats } from 'webpack'
 
@@ -62,6 +63,7 @@ export interface HtmlgagaConfig {
     }
   }
   plugins: Plugin[]
+  assetPath: string
 }
 
 const BEGIN = 'begin'
@@ -83,7 +85,10 @@ export const defaultOptions = {
     },
   },
   plugins: [],
+  assetPath: './',
 }
+
+export const ASSET_PATH = normalizeAssetPath()
 
 class Builder {
   #pages: string[]
@@ -106,6 +111,7 @@ class Builder {
 
   applyOptionsDefaults(): void {
     this.config = {
+      ...defaultOptions,
       html: merge({}, defaultOptions.html, this.config.html ?? {}),
       plugins: merge([], defaultOptions.plugins, this.config.plugins ?? []),
     }
@@ -184,7 +190,7 @@ class Builder {
           return '[name].[contenthash].js'
         },
         chunkFilename: '[name]-[id].[contenthash].js',
-        publicPath: '/', // TODO, should be configurable
+        publicPath: ASSET_PATH ?? this.config.assetPath, // ASSET_PATH takes precedence over assetPath in htmlgaga.config.js
       },
       module: {
         rules,
@@ -278,7 +284,13 @@ class Builder {
           plugin.apply(ssr)
         }
       }
-      ssr.run(this.#pagesDir, templateName, cacheRoot, this.#outputPath, this.config)
+      ssr.run(
+        this.#pagesDir,
+        templateName,
+        cacheRoot,
+        this.#outputPath,
+        this.config
+      )
     }
   }
 
