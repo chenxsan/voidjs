@@ -301,10 +301,10 @@ class Builder {
 
     logger.info(`${this.pageOrPages(this.#pages.length)} collected`)
 
-    const compiler = webpack(this.createWebpackConfig(this.#pages))
-
     // resolve htmlgaga config
     await this.resolveConfig()
+
+    const compiler = webpack(this.createWebpackConfig(this.#pages))
 
     compiler.run(async (err, stats) => {
       this.runCallback(err, stats)
