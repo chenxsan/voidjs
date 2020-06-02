@@ -20,4 +20,15 @@ describe('Builder', () => {
       ['test', 'index'].join(sep)
     )
   })
+  it('should build', async () => {
+    vol.fromJSON(
+      {
+        './pages/index.js': 'var a = 5;',
+        './out/tmp.txt': 'hello',
+      },
+      '/app'
+    )
+    const builder = new Builder('/app/pages', '/app/out')
+    await builder.run()
+  })
 })
