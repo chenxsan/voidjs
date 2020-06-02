@@ -85,6 +85,13 @@ export const defaultOptions = {
   plugins: [],
 }
 
+function normalizeAssetPath() {
+  const ASSET_PATH = process.env.ASSET_PATH ?? './'
+  return ASSET_PATH.endsWith('/') ? ASSET_PATH : ASSET_PATH + '/'
+}
+
+export const ASSET_PATH = normalizeAssetPath()
+
 class Builder {
   #pages: string[]
   #pagesDir: string
@@ -184,7 +191,7 @@ class Builder {
           return '[name].[contenthash].js'
         },
         chunkFilename: '[name]-[id].[contenthash].js',
-        publicPath: '/', // TODO, should be configurable
+        publicPath: ASSET_PATH,
       },
       module: {
         rules,
@@ -278,7 +285,13 @@ class Builder {
           plugin.apply(ssr)
         }
       }
-      ssr.run(this.#pagesDir, templateName, cacheRoot, this.#outputPath, this.config)
+      ssr.run(
+        this.#pagesDir,
+        templateName,
+        cacheRoot,
+        this.#outputPath,
+        this.config
+      )
     }
   }
 
