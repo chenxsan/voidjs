@@ -58,6 +58,11 @@ async function createApp(
 
   // copy template into root
   fs.copySync(path.resolve(__dirname, '..', 'templates', template), root)
+  fs.moveSync(path.join(root, 'gitignore'), path.join(root, '.gitignore'))
+  fs.moveSync(
+    path.join(root, 'browserslistrc'),
+    path.join(root, '.browserslistrc')
+  )
 
   console.log(`${chalk.green('Success!')} Created ${appName} at ${root}`)
   console.log('Inside that directory, you can run several commands:')
