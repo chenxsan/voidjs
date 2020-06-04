@@ -41,8 +41,10 @@ class PrettyPlugin {
     this.#options = options
   }
   apply(compiler: webpack.Compiler): void {
+    // TODO compiler.hooks.compilation.tap
     compiler.hooks.emit.tap('PrettyPlugin', (compilation) => {
       if (!this.#options.html?.pretty) return
+      // TODO compilation.hooks.processAssets
       Object.keys(compilation.assets).forEach((asset) => {
         if (asset.endsWith('.html')) {
           const html = compilation.assets[asset]
