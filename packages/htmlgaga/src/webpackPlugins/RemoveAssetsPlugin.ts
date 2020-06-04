@@ -38,12 +38,14 @@ export default class RemoveAssetsPlugin {
     this.callback = callback
   }
   apply(compiler: webpack.Compiler): void {
-    compiler.hooks.emit.tap(NAME, compilation => {
-      Object.keys(compilation.assets).forEach(filename => {
-        if (this.filter(filename)) {
-          delete compilation.assets[filename]
-          if (this.callback) this.callback(filename)
-        }
+    compiler.hooks.compilation.tap(NAME, (compilation) => {
+      compilation.hooks.processAssets.tap(NAME, (assets) => {
+        Object.keys(assets).forEach((filename) => {
+          if (this.filter(filename)) {
+            delete assets[filename]
+            if (this.callback) this.callback(filename)
+          }
+        })
       })
     })
   }
