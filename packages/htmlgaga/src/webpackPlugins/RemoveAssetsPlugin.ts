@@ -38,7 +38,7 @@ export default class RemoveAssetsPlugin {
     this.callback = callback
   }
   apply(compiler: webpack.Compiler): void {
-    compiler.hooks.emit.tap(NAME, (compilation) => {
+    compiler.hooks.compilation.tap(NAME, (compilation) => {
       compilation.hooks.processAssets.tap(NAME, (assets) => {
         Object.keys(assets).forEach((filename) => {
           if (this.filter(filename)) {
