@@ -101,6 +101,11 @@ export const rules = [
     generator: {
       filename: '[name].[hash][ext]',
     },
+    parser: {
+      dataUrlCondition: {
+        maxSize: 1024,
+      },
+    },
   },
   {
     test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
