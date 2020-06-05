@@ -1,6 +1,7 @@
 import 'prismjs/themes/prism-okaidia.css'
 import 'css/tailwind.css'
-import logo from 'img/logo.svg'
+import logo from 'img/htmlgaga-logo.svg'
+import favicon from 'img/favicon.png'
 import Footer from '../components/Footer'
 import Content from '../markdown/home.md'
 import { Helmet } from 'react-helmet'
@@ -14,6 +15,7 @@ export default function Home() {
           name="description"
           content="Manage non-SPA pages with webpack and React.js"
         />
+        <link rel="icon" type="image/png" href={favicon} />
       </Helmet>
       <h1 className="flex text-4xl leading-none justify-center pt-6 lg:text-4xl font-bold items-center">
         <img src={logo} alt="htmlgaga logo" className="mr-3 w-10 h-10" />
