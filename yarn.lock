@@ -3005,10 +3005,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^14.0.10":
-  version: 14.0.10
-  resolution: "@types/node@npm:14.0.10"
-  checksum: 3/9ab21029e6bc6888e3f93c54bd75d4868e33dfd9aa77e5a061e89035089c79421a603025ad98e47c1eed7b8f98916aa4fa44977b113bd5100cbb62712916c8e7
+"@types/node@npm:^14.0.11":
+  version: 14.0.11
+  resolution: "@types/node@npm:14.0.11"
+  checksum: 3/96b1a437ff7d1bbd20d8cfc54b94c865e934906db13d20ac9e3d2d86509433a4433abe7fd4e091f894633d5728c5c7e25b5ef1e641e4c165bfb66de38da9a609
   languageName: node
   linkType: hard
 
@@ -7394,7 +7394,7 @@ __metadata:
     memfs: ^3.2.0
     prettier: ^2.0.5
     ts-jest: ^26.1.0
-    typescript: ^3.9.4
+    typescript: ^3.9.5
   languageName: unknown
   linkType: soft
 
@@ -7411,7 +7411,7 @@ __metadata:
     "@types/assets-webpack-plugin": ^3.9.0
     "@types/express": ^4.17.6
     "@types/mini-css-extract-plugin": ^0.9.1
-    "@types/node": ^14.0.10
+    "@types/node": ^14.0.11
     "@types/prettier": ^2.0.1
     "@types/react": ^16.9.35
     "@types/react-dom": ^16.9.8
@@ -7441,7 +7441,7 @@ __metadata:
     react: ^16.13.1
     react-dom: ^16.13.1
     rimraf: ^3.0.2
-    sass: ^1.26.7
+    sass: ^1.26.8
     sass-loader: ^8.0.2
     schema-utils: ^2.7.0
     strip-ansi: ^6.0.0
@@ -12404,14 +12404,14 @@ resolve@^1.17.0:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.26.7":
-  version: 1.26.7
-  resolution: "sass@npm:1.26.7"
+"sass@npm:^1.26.8":
+  version: 1.26.8
+  resolution: "sass@npm:1.26.8"
   dependencies:
     chokidar: ">=2.0.0 <4.0.0"
   bin:
     sass: sass.js
-  checksum: 3/95193ea9a66a1ffc92a399bc98e647aa33e35aecd8a4fa761364f7fdce38dcbddb05109fc4139c167f8f5a79518bc1ec2f10e20dc653c80502a538b33a6bd865
+  checksum: 3/25e26756241ac708e48e7241642127bae00fa875816648ac203f8cc2d49fa00094118e6515a850dd78a328c48b9bc72056d85cfce8220f6ff353e37ab769b0d0
   languageName: node
   linkType: hard
 
@@ -13815,23 +13815,23 @@ resolve@^1.17.0:
   languageName: node
   linkType: hard
 
-typescript@^3.9.4:
-  version: 3.9.4
-  resolution: "typescript@npm:3.9.4"
+typescript@^3.9.5:
+  version: 3.9.5
+  resolution: "typescript@npm:3.9.5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 3/f364e86609679566abda039acf35030b78d738c456dae201bad71722b47aa753ea42f3076a2767b72b63a1b8641f1ffb3984dcbdf088bd401b4e7118e3601893
+  checksum: 3/15618435493667083eb43dc7b36c4d3dd47fd9e9c8a14f0ac4019bbf6124b6cc518b6ed506400913db1bf50831207ee8201b5d827680076930b562923f4f18a0
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^3.9.4#builtin<compat/typescript>":
-  version: 3.9.4
-  resolution: "typescript@patch:typescript@npm%3A3.9.4#builtin<compat/typescript>::version=3.9.4&hash=8cac75"
+"typescript@patch:typescript@^3.9.5#builtin<compat/typescript>":
+  version: 3.9.5
+  resolution: "typescript@patch:typescript@npm%3A3.9.5#builtin<compat/typescript>::version=3.9.5&hash=8cac75"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 3/6fe6acffaf466fe06116a9adb089914b070b8363c38fa1c80a4728452eb8fc88b7977930b61a860ab37080733eddf4dacf25dc88f0dd14efe6d8312ed6fcfb12
+  checksum: 3/347b57e017c6f6c956eb7fc3c392e764bb924b1758103207cfb9c465210d4134212a164a064c259d524f055b86b023ebecc3e3ab5b5d666c1c0d96e1397149f6
   languageName: node
   linkType: hard
 
