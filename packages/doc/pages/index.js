@@ -1,5 +1,6 @@
 import 'prismjs/themes/prism-okaidia.css'
 import 'css/tailwind.css'
+import '@htmlgaga/styles/dist/index.css'
 import logo from 'img/htmlgaga-logo.svg'
 import favicon from 'img/favicon.png'
 import Footer from '../components/Footer'
@@ -24,7 +25,9 @@ export default function Home() {
       <h2 className="flex justify-center text-base pt-6 px-2 leading-tight font-normal">
         Manage non-SPA pages with webpack and React
       </h2>
-      <Content />
+      <div className="htmlgaga">
+        <Content />
+      </div>
       <Footer />
     </div>
   )

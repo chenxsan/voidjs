@@ -1,0 +1,20 @@
+{
+  "name": "@htmlgaga/styles",
+  "version": "0.1.0",
+  "main": "dist/styles.cjs.js",
+  "scripts": {
+    "dev": "htmlgaga dev",
+    "watch": "sass src/index.scss dist/index.css --watch",
+    "build": "sass src/index.scss dist/index.css"
+  },
+  "files": [
+    "./dist"
+  ],
+  "devDependencies": {
+    "@types/react": "16.9.35",
+    "@types/react-dom": "16.9.8",
+    "htmlgaga": "workspace:packages/htmlgaga",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
