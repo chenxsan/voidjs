@@ -21,7 +21,7 @@ $scale: 1.25; // major third
   h5,
   h6 {
     font-weight: 400;
-    line-height: 1.5;
+    line-height: $scale;
   }
   h1 {
     font-size: #{pow($scale, 5)}rem;
