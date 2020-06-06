@@ -37,7 +37,8 @@
     "packages": [
       "packages/create-htmlgaga",
       "packages/htmlgaga",
-      "packages/plugin-react-helmet"
+      "packages/plugin-react-helmet",
+      "packages/htmlgaga-styles"
     ]
   },
   "prettier": {

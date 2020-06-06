@@ -8,12 +8,14 @@
   "devDependencies": {
     "@htmlgaga/plugin-react-helmet": "^0.1.4",
     "@types/prismjs": "1.16.1",
-    "htmlgaga": "^0.11.0",
+    "htmlgaga": "^0.11.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0"
   },
   "dependencies": {
+    "@htmlgaga/styles": "0.1.1",
     "prismjs": "^1.20.0"
-  }
+  },
+  "version": "0.1.0"
 }

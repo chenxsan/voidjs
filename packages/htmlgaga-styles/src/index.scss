@@ -1,0 +1,50 @@
+@function pow($number, $exponent) {
+  $value: 1;
+
+  @if $exponent > 0 {
+    @for $i from 1 through $exponent {
+      $value: $value * $number;
+    }
+  }
+
+  @return $value;
+}
+$scale: 1.25; // major third
+
+.htmlgaga {
+  font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI,
+    Roboto, Helvetica Neue, sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 400;
+    line-height: $scale;
+  }
+  h1 {
+    font-size: #{pow($scale, 5)}rem;
+  }
+
+  h2 {
+    font-size: #{pow($scale, 4)}rem;
+  }
+
+  h3 {
+    font-size: #{pow($scale, 3)}rem;
+  }
+
+  h4 {
+    font-size: #{pow($scale, 2)}rem;
+  }
+
+  h5 {
+    font-size: #{pow($scale, 1)}rem;
+  }
+
+  h6,
+  p {
+    font-size: #{pow($scale, 0)}rem;
+  }
+}

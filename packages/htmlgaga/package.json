@@ -1,6 +1,6 @@
 {
   "name": "htmlgaga",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "Manage non-SPA pages with webpack and React.js",
   "main": "dist/htmlgaga.cjs.js",
   "module": "dist/htmlgaga.esm.js",
