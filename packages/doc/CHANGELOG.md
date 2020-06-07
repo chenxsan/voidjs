@@ -1,5 +1,13 @@
 # @htmlgaga/doc
 
+## 0.1.2
+
+### Patch Changes
+
+- update styles
+- Updated dependencies [undefined]
+  - @htmlgaga/styles@0.1.3
+
 ## 0.1.1
 
 ### Patch Changes
