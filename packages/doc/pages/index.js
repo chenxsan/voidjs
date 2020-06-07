@@ -1,6 +1,6 @@
 import 'prismjs/themes/prism-okaidia.css'
 import 'css/tailwind.css'
-import '@htmlgaga/styles/dist/index.css'
+import '@htmlgaga/styles/lib/index.css'
 import logo from 'img/htmlgaga-logo.svg'
 import favicon from 'img/favicon.png'
 import Footer from '../components/Footer'
