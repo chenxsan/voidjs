@@ -4,7 +4,7 @@
   "devDependencies": {
     "@types/react": "16.9.35",
     "react": "^16.13.1",
-    "react-helmet": "6.0.0"
+    "react-helmet": "6.1.0"
   },
   "main": "dist/plugin-react-helmet.cjs.js",
   "module": "dist/plugin-react-helmet.esm.js",
