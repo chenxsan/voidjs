@@ -24,16 +24,14 @@ import TerserJSPlugin from 'terser-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
-import WebpackAssetsManifest from 'webpack-assets-manifest'
+import WebpackAssetsManifest from 'webpack-manifest-plugin'
 import { extensions, alias, rules, cwd } from '../config'
 import prettier from 'prettier'
 
 import collectPages from '../collectFiles'
 
-import type { HtmlgagaConfig } from './index'
+import { HtmlgagaConfig, generateManifest } from './index'
 import { ASSET_PATH } from './index'
-
-const data = Object.create(null)
 
 class PrettyPlugin {
   #options: HtmlgagaConfig
@@ -136,8 +134,8 @@ export default class ClientsCompiler {
           filename: '[name].[contenthash].css',
         }),
         new WebpackAssetsManifest({
-          assets: data,
-          output: 'client-assets.json',
+          fileName: 'client-assets.json',
+          generate: generateManifest,
         }),
         new PrettyPlugin(this.#config),
       ],

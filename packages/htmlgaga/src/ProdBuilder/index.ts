@@ -23,7 +23,7 @@ import * as path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
-import WebpackAssetsManifest from 'webpack-assets-manifest'
+import WebpackAssetsManifest from 'webpack-manifest-plugin'
 import deriveHtmlFilenameFromRelativePath from '../DevServer/deriveFilenameFromRelativePath'
 
 import ClientJsCompiler from './ClientJsCompiler'
@@ -64,6 +64,27 @@ export interface HtmlgagaConfig {
   }
   plugins: Plugin[]
   assetPath: string
+}
+
+export function generateManifest(
+  seed,
+  files,
+  entrypoints
+): {
+  files: {
+    [key: string]: string
+  }
+  entrypoints: {
+    [key: string]: string[]
+  }
+} {
+  return {
+    files: files.reduce(
+      (manifest, { name, path }) => ({ ...manifest, [name]: path }),
+      seed
+    ),
+    entrypoints,
+  }
 }
 
 const BEGIN = 'begin'
@@ -202,7 +223,8 @@ class Builder {
       plugins: [
         new PersistDataPlugin(),
         new WebpackAssetsManifest({
-          output: 'assets.json',
+          fileName: 'assets.json',
+          generate: generateManifest,
         }),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': '"production"',
