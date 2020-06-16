@@ -14,7 +14,7 @@
     "@changesets/cli": "^2.8.0",
     "@preconstruct/cli": "^1.1.14",
     "@types/jest": "^25.2.3",
-    "@typescript-eslint/eslint-plugin": "^3.1.0",
+    "@typescript-eslint/eslint-plugin": "^3.3.0",
     "@typescript-eslint/parser": "^3.1.0",
     "@yarnpkg/pnpify": "^2.0.0-rc.22",
     "babel-eslint": "^10.1.0",
