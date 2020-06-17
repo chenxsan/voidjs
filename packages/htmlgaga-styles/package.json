@@ -12,7 +12,7 @@
     "lib"
   ],
   "devDependencies": {
-    "@types/react": "16.9.35",
+    "@types/react": "16.9.37",
     "@types/react-dom": "16.9.8",
     "htmlgaga": "0.11.1",
     "react": "^16.13.1",
