@@ -1,6 +1,13 @@
 # htmlgaga
 
+## 0.11.2
+
+### Patch Changes
+
+- fix assets manifest
+
 ## 0.11.1
+
 ### Patch Changes
 
 - eb02b2a: update readme
