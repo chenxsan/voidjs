@@ -1,5 +1,11 @@
 # htmlgaga
 
+## 0.11.4
+
+### Patch Changes
+
+- clean cache folder
+
 ## 0.11.3
 
 ### Patch Changes
