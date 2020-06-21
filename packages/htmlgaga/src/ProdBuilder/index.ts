@@ -50,6 +50,7 @@ import schema from '../schemas/htmlgaga.config.json'
 import { JSONSchema7 } from 'schema-utils/declarations/validate'
 import PersistDataPlugin from '../webpackPlugins/PersistDataPlugin'
 import RemoveAssetsPlugin from '../webpackPlugins/RemoveAssetsPlugin'
+import fs from 'fs-extra'
 
 interface Plugin {
   apply(compiler: ServerSideRender): void
@@ -338,9 +339,14 @@ class Builder {
       )
       await clientJsCompiler.run((err, stats) => {
         this.runCallback(err, stats)
+        this.cleanCache()
         this.markEnd()
       })
     })
+  }
+
+  cleanCache(): void {
+    fs.removeSync(cacheRoot)
   }
 }
 
