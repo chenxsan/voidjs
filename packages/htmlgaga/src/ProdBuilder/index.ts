@@ -106,7 +106,7 @@ export const defaultOptions = {
     },
   },
   plugins: [],
-  assetPath: './',
+  assetPath: '',
 }
 
 export const ASSET_PATH = normalizeAssetPath()
