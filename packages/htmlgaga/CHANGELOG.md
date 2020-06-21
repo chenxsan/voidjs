@@ -1,5 +1,11 @@
 # htmlgaga
 
+## 0.11.5
+
+### Patch Changes
+
+- republish
+
 ## 0.11.4
 
 ### Patch Changes
