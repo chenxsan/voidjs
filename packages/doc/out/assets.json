@@ -1,8 +1,8 @@
 {
   "files": {
-    "doc/doc.css": "./doc/doc.2fe44491dc296d4f03c3.css",
+    "doc/doc.css": "./doc/doc.e8849991386555e4dc85.css",
     "doc/doc.js": "./doc/doc.js",
-    "index.css": "./index.f0a55e8f62e19cefa75a.css",
+    "index.css": "./index.6745178e81953c671e3a.css",
     "index.js": "./index.js",
     "doc/doc.html": "./doc/doc.html",
     "favicon.55f3740f4d0148a3679e.png": "./favicon.55f3740f4d0148a3679e.png",
@@ -11,11 +11,11 @@
   },
   "entrypoints": {
     "doc/doc": [
-      "doc/doc.2fe44491dc296d4f03c3.css",
+      "doc/doc.e8849991386555e4dc85.css",
       "doc/doc.js"
     ],
     "index": [
-      "index.f0a55e8f62e19cefa75a.css",
+      "index.6745178e81953c671e3a.css",
       "index.js"
     ]
   }
