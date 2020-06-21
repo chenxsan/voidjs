@@ -22,7 +22,7 @@ export default function Home() {
         <img src={logo} alt="htmlgaga logo" className="mr-3 w-10 h-10" />
         HTMLgaga
       </h1>
-      <h2 className="flex justify-center text-base pt-6 px-2 leading-tight font-normal">
+      <h2 className="flex justify-center text-lg pt-0 px-2 leading-tight font-normal">
         Manage non-SPA pages with webpack and React
       </h2>
       <div className="htmlgaga">
