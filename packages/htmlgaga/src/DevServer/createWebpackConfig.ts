@@ -33,6 +33,7 @@ export default function createWebpackConfig(
     mode: 'development',
     entry: (): EntryObject => createEntries(pagesDir, pages),
     output: {
+      ecmaVersion: 5, // I need ie 11 support :(
       publicPath: '/',
     },
     stats: 'minimal',
