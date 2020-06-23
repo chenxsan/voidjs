@@ -198,6 +198,7 @@ class Builder {
         minimize: false,
       },
       output: {
+        ecmaVersion: 5, // I need ie 11 support :(
         path: path.resolve(this.#outputPath),
         libraryTarget: 'commonjs2',
         filename: (pathData): string => {
