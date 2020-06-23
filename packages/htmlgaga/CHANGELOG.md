@@ -1,5 +1,11 @@
 # htmlgaga
 
+## 0.11.6
+
+### Patch Changes
+
+- use ecmaVersion 5 for ie 11
+
 ## 0.11.5
 
 ### Patch Changes
