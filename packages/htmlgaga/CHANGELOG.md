@@ -1,5 +1,11 @@
 # htmlgaga
 
+## 0.11.8
+
+### Patch Changes
+
+- publish with compiled client code
+
 ## 0.11.7
 
 ### Patch Changes
