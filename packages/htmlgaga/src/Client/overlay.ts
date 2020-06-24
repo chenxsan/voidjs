@@ -40,12 +40,12 @@ const overlayStyles = {
   paddingLeft: '20px',
   paddingRight: '20px',
   overflow: 'auto',
-  lineHeight: 1.5
+  lineHeight: 1.5,
 }
 
 // set styles for overlay
-Object.entries(overlayStyles).forEach(([key, value]) => {
-  overlay.style[key] = value
+Object.keys(overlayStyles).forEach((key) => {
+  overlay.style[key] = overlayStyles[key]
 })
 function htmlElement(
   txt: string,
@@ -58,8 +58,8 @@ function htmlElement(
   element.innerHTML = txt
 
   // set styles
-  Object.entries(styles).forEach(([key, value]) => {
-    element.style[key] = value
+  Object.keys(styles).forEach((key) => {
+    element.style[key] = styles[key]
   })
   return element
 }
