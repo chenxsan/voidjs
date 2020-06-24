@@ -1,5 +1,11 @@
 # htmlgaga
 
+## 0.11.7
+
+### Patch Changes
+
+- fix for ie 11
+
 ## 0.11.6
 
 ### Patch Changes
