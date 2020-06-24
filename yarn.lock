@@ -2217,7 +2217,7 @@ __metadata:
   dependencies:
     "@types/react": 16.9.41
     "@types/react-dom": 16.9.8
-    htmlgaga: 0.11.7
+    htmlgaga: 0.11.8
     react: ^16.13.1
     react-dom: ^16.13.1
   languageName: unknown
@@ -7580,7 +7580,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"htmlgaga@0.11.7, htmlgaga@^0.11.1, htmlgaga@workspace:packages/htmlgaga":
+"htmlgaga@0.11.8, htmlgaga@^0.11.1, htmlgaga@workspace:packages/htmlgaga":
   version: 0.0.0-use.local
   resolution: "htmlgaga@workspace:packages/htmlgaga"
   dependencies:
