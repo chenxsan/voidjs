@@ -2192,6 +2192,7 @@ __metadata:
     htmlgaga: ^0.11.1
     prismjs: ^1.20.0
     react: ^16.13.1
+    react-app-polyfill: ^1.0.6
     react-dom: ^16.13.1
     react-helmet: ^6.1.0
   languageName: unknown
@@ -2216,7 +2217,7 @@ __metadata:
   dependencies:
     "@types/react": 16.9.38
     "@types/react-dom": 16.9.8
-    htmlgaga: 0.11.5
+    htmlgaga: 0.11.6
     react: ^16.13.1
     react-dom: ^16.13.1
   languageName: unknown
@@ -4208,7 +4209,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"asap@npm:~2.0.3":
+"asap@npm:~2.0.3, asap@npm:~2.0.6":
   version: 2.0.6
   resolution: "asap@npm:2.0.6"
   checksum: 3d314f8c598b625a98347bacdba609d4c889c616ca5d8ea65acaae8050ab8b7aa6630df2cfe9856c20b260b432adf2ee7a65a1021f268ef70408c70f809e3a39
@@ -5389,6 +5390,13 @@ __metadata:
   version: 3.6.4
   resolution: "core-js-pure@npm:3.6.4"
   checksum: 23273f04eaa0dae33c9b9f07856c9b01a5dd00d4ef16d5e048eb403bf3a055f06c8a891ddaf0df4cacebaf0b398c958605ea294f47eb24d988a735656a4b11a0
+  languageName: node
+  linkType: hard
+
+"core-js@npm:^3.5.0":
+  version: 3.6.5
+  resolution: "core-js@npm:3.6.5"
+  checksum: 9283348dd5be2f1d07feaf90e2336b3f00a2316e3d3c6d4f789c9a67bdd4d7b08ce1c88dca4e591340130056c6b412b0b74fae039f8e259206f1073f542e4e85
   languageName: node
   linkType: hard
 
@@ -7563,7 +7571,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"htmlgaga@0.11.5, htmlgaga@^0.11.1, htmlgaga@workspace:packages/htmlgaga":
+"htmlgaga@0.11.6, htmlgaga@^0.11.1, htmlgaga@workspace:packages/htmlgaga":
   version: 0.0.0-use.local
   resolution: "htmlgaga@workspace:packages/htmlgaga"
   dependencies:
@@ -7609,7 +7617,7 @@ __metadata:
     sass: ^1.26.8
     sass-loader: ^8.0.2
     schema-utils: ^2.7.0
-    strip-ansi: ^6.0.0
+    strip-ansi: 3.0.1
     style-loader: ^1.2.1
     tailwindcss: ^1.4.6
     tapable: ^1.1.3
@@ -11544,6 +11552,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"promise@npm:^8.0.3":
+  version: 8.1.0
+  resolution: "promise@npm:8.1.0"
+  dependencies:
+    asap: ~2.0.6
+  checksum: ec94008d8a673c276dbc7722c215f583026b8d2588fb83f40e69908c553801eac7fbe3034c9bca853d5c422af20826abdfb9391b982a888868d9c88281dc59fb
+  languageName: node
+  linkType: hard
+
 "promiseback@npm:^2.0.2":
   version: 2.0.3
   resolution: "promiseback@npm:2.0.3"
@@ -11691,6 +11708,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"raf@npm:^3.4.1":
+  version: 3.4.1
+  resolution: "raf@npm:3.4.1"
+  dependencies:
+    performance-now: ^2.1.0
+  checksum: 567b0160be46ed20b124a05ace6e653f4ad3c047c48d02ac76161e9ac624488c0fdf622b2f4fb9c35c0c828a13dfa549044ad1db89c7af075cb0f99403b88c4b
+  languageName: node
+  linkType: hard
+
 "randombytes@npm:^2.1.0":
   version: 2.1.0
   resolution: "randombytes@npm:2.1.0"
@@ -11716,6 +11742,20 @@ __metadata:
     iconv-lite: 0.4.24
     unpipe: 1.0.0
   checksum: 46dc02f8b4f358786d41e18fb55533fbe4702d390e22bbe2b9c98c88dec41cab23ea2315f3ae0bf4bc0213a2872c89943d3df6857f4e21f996ea9d2d92f1bcaa
+  languageName: node
+  linkType: hard
+
+"react-app-polyfill@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "react-app-polyfill@npm:1.0.6"
+  dependencies:
+    core-js: ^3.5.0
+    object-assign: ^4.1.1
+    promise: ^8.0.3
+    raf: ^3.4.1
+    regenerator-runtime: ^0.13.3
+    whatwg-fetch: ^3.0.0
+  checksum: 94d24bf1d69a0cbb26d8adbb14ba600b29c7c5adc06c9f9c8337d0f8ee7358ee2c443d806f8ca96fdf002d7f37c1a5fae6a796f63164df44a4fc3996aeb2d71f
   languageName: node
   linkType: hard
 
@@ -11934,6 +11974,13 @@ __metadata:
   version: 1.4.0
   resolution: "regenerate@npm:1.4.0"
   checksum: d797b035730c0b5cbb7c230220b6a34610f84c1ea2369f0025292613c1ec88068cd87819fccf9c08f002670f26d59e63bbc309358181a6186f7fda185e93618a
+  languageName: node
+  linkType: hard
+
+"regenerator-runtime@npm:^0.13.3":
+  version: 0.13.5
+  resolution: "regenerator-runtime@npm:0.13.5"
+  checksum: 8d8ee0eca26e0491085033caf2b1b95379c4db21e38d79cde52bbd4014a3865eee26ec0f4f958682e8600f185f2f5dbcd8c6685b9b9261639767929c19b5bcd2
   languageName: node
   linkType: hard
 
@@ -13259,7 +13306,7 @@ resolve@^1.17.0:
   languageName: node
   linkType: hard
 
-"strip-ansi@npm:^3.0.0, strip-ansi@npm:^3.0.1":
+"strip-ansi@npm:3.0.1, strip-ansi@npm:^3.0.0, strip-ansi@npm:^3.0.1":
   version: 3.0.1
   resolution: "strip-ansi@npm:3.0.1"
   dependencies:
@@ -14496,6 +14543,13 @@ typescript@^3.9.5:
   dependencies:
     iconv-lite: 0.4.24
   checksum: 44e4276ad2c770d1eb8c5a49294b863c581ef4bc78a10ac6a73a7eba00b377bc53ae0501d7ffce29a2c051b6af5ebbbd135f1da7d8eb98097af2cf12f7b2c984
+  languageName: node
+  linkType: hard
+
+"whatwg-fetch@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "whatwg-fetch@npm:3.0.0"
+  checksum: 56ffff2db0908b2180830c1c543b16b3cb93f07c771f15af9ce1a31f426c4b843e0a22cb0afd9de585d7583c07f4b84cb5dbf42fe22bcf6ad34f96103b456aaf
   languageName: node
   linkType: hard
 
