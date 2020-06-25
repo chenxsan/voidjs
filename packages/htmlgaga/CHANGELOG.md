@@ -1,5 +1,11 @@
 # htmlgaga
 
+## 0.11.9
+
+### Patch Changes
+
+- enable asset modules for client compiler
+
 ## 0.11.8
 
 ### Patch Changes
