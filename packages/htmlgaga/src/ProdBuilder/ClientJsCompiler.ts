@@ -84,6 +84,9 @@ export default class ClientsCompiler {
     const relative = path.relative(this.#pagesDir, entry)
     const outputHtml = relative.replace(/\.client\.(js|ts)$/, '.html')
     return {
+      experiments: {
+        asset: true
+      },
       mode: 'production',
       optimization: {
         minimize: true,
