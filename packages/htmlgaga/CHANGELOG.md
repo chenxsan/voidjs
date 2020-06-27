@@ -1,5 +1,11 @@
 # htmlgaga
 
+## 0.11.10
+
+### Patch Changes
+
+- fix assets.json
+
 ## 0.11.9
 
 ### Patch Changes
