@@ -97,14 +97,9 @@ export const rules = [
   },
   {
     test: /\.(png|svg|jpg|jpeg|gif)$/i,
-    type: 'asset',
-    generator: {
-      filename: '[name].[hash][ext]',
-    },
-    parser: {
-      dataUrlCondition: {
-        maxSize: 1024,
-      },
+    loader: 'file-loader',
+    options: {
+      name: '[name].[contenthash].[ext]',
     },
   },
   {
