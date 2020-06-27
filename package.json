@@ -13,7 +13,7 @@
     "@babel/preset-typescript": "^7.10.1",
     "@changesets/cli": "^2.9.1",
     "@preconstruct/cli": "^1.1.14",
-    "@types/jest": "^26.0.2",
+    "@types/jest": "^26.0.3",
     "@typescript-eslint/eslint-plugin": "^3.4.0",
     "@typescript-eslint/parser": "^3.4.0",
     "@yarnpkg/pnpify": "^2.0.0-rc.25",
