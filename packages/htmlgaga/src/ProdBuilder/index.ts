@@ -28,8 +28,8 @@ import deriveHtmlFilenameFromRelativePath from '../DevServer/deriveFilenameFromR
 
 import ClientJsCompiler from './ClientJsCompiler'
 import ServerSideRender from './ServerSideRender/index'
-import merge from 'lodash.merge'
 import normalizeAssetPath from './normalizeAssetPath'
+import Builder, { HtmlgagaConfig } from '../Builder'
 
 import type { Stats } from 'webpack'
 
@@ -45,27 +45,9 @@ import {
 
 import collectPages from '../collectFiles'
 
-import validateSchema from 'schema-utils'
-import schema from '../schemas/htmlgaga.config.json'
-import { JSONSchema7 } from 'schema-utils/declarations/validate'
 import PersistDataPlugin from '../webpackPlugins/PersistDataPlugin'
 import RemoveAssetsPlugin from '../webpackPlugins/RemoveAssetsPlugin'
 import fs from 'fs-extra'
-
-interface Plugin {
-  apply(compiler: ServerSideRender): void
-}
-export interface HtmlgagaConfig {
-  html: {
-    pretty: boolean
-    preload: {
-      script: boolean
-      style: boolean
-    }
-  }
-  plugins: Plugin[]
-  assetPath: string
-}
 
 export function generateManifest(
   seed,
@@ -98,69 +80,24 @@ interface WebpackError {
   details?: string
 }
 
-export const defaultOptions = {
-  html: {
-    pretty: true,
-    preload: {
-      style: true,
-      script: true,
-    },
-  },
-  plugins: [],
-  assetPath: '',
-}
-
 export const ASSET_PATH = normalizeAssetPath()
 
-class Builder {
+class ProdBuilder extends Builder {
   #pages: string[]
-  #pagesDir: string
-  #cwd: string
   #outputPath: string
   config: HtmlgagaConfig
   #pageEntries: string[]
-  #configName: string
 
   constructor(pagesDir: string, outputPath: string) {
-    this.#pagesDir = pagesDir
-    this.#cwd = path.join(pagesDir, '..')
+    super(pagesDir)
     this.#outputPath = outputPath
 
     this.#pageEntries = []
-
-    this.#configName = path.resolve(this.#cwd, 'htmlgaga.config.js')
-  }
-
-  applyOptionsDefaults(): void {
-    this.config = {
-      ...defaultOptions,
-      html: merge({}, defaultOptions.html, this.config.html ?? {}),
-      plugins: merge([], defaultOptions.plugins, this.config.plugins ?? []),
-    }
-  }
-
-  async resolveConfig(): Promise<void> {
-    const configName = this.#configName
-    let config
-    try {
-      // how can I mock this in test?
-      config = await import(configName)
-      validateSchema(schema as JSONSchema7, config.default, {
-        name: 'htmlgaga.config.js',
-      })
-    } catch (err) {
-      // config file does not exist
-      config = {}
-    }
-
-    this.config = config
-    this.applyOptionsDefaults()
-    logger.debug('htmlgaga.config.js', this.config)
   }
 
   public normalizedPageEntry(pagePath: string): string {
     return path
-      .relative(this.#pagesDir, pagePath) // calculate relative path
+      .relative(this.pagesDir, pagePath) // calculate relative path
       .replace(new RegExp(`\\${path.extname(pagePath)}$`), '') // remove extname
   }
 
@@ -173,7 +110,7 @@ class Builder {
     }, {})
 
     const htmlPlugins = pages.map((page) => {
-      const filename = deriveHtmlFilenameFromRelativePath(this.#pagesDir, page)
+      const filename = deriveHtmlFilenameFromRelativePath(this.pagesDir, page)
       return new HtmlWebpackPlugin({
         chunks: [this.normalizedPageEntry(page)],
         filename,
@@ -309,7 +246,7 @@ class Builder {
         }
       }
       ssr.run(
-        this.#pagesDir,
+        this.pagesDir,
         templateName,
         cacheRoot,
         this.#outputPath,
@@ -321,7 +258,7 @@ class Builder {
   async run(): Promise<void> {
     this.markBegin()
     logger.info('Collecting pages...')
-    this.#pages = await collectPages(this.#pagesDir, searchPageEntry)
+    this.#pages = await collectPages(this.pagesDir, searchPageEntry)
 
     logger.info(`${this.pageOrPages(this.#pages.length)} collected`)
 
@@ -334,7 +271,7 @@ class Builder {
       this.runCallback(err, stats)
       await this.ssr()
       const clientJsCompiler = new ClientJsCompiler(
-        this.#pagesDir,
+        this.pagesDir,
         this.#outputPath,
         this.config
       )
@@ -351,7 +288,7 @@ class Builder {
   }
 }
 
-export default Builder
+export default ProdBuilder
 
 export const exts = 'mjs,js,jsx,ts,tsx,md,mdx'
 

@@ -24,7 +24,8 @@ const createDOMRenderRule = (pagesDir: string) => ({
 export default function createWebpackConfig(
   pages: string[],
   pagesDir: string,
-  socketUrl: string
+  socketUrl: string,
+  options
 ): webpack.Configuration {
   return {
     experiments: {
@@ -124,5 +125,6 @@ export default function createWebpackConfig(
       }),
       new webpack.NoEmitOnErrorsPlugin(),
     ],
+    ...options,
   }
 }
