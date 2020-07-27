@@ -1,4 +1,4 @@
-import ProdBuilder, { defaultOptions } from './index'
+import Builder, { defaultConfiguration } from './index'
 import { vol } from 'memfs'
 jest.mock('fs')
 describe('resolveConfig', () => {
@@ -13,9 +13,9 @@ describe('resolveConfig', () => {
       },
       '/app'
     )
-    const builder = new ProdBuilder('/app/pages', '/app/out')
+    const builder = new Builder('/app/pages')
     await builder.resolveConfig()
-    expect(builder.config).toEqual(defaultOptions)
+    expect(builder.config).toEqual(defaultConfiguration)
   })
   // FIXME
   // currently broken
@@ -36,7 +36,7 @@ describe('resolveConfig', () => {
       '/app'
     )
 
-    const builder = new ProdBuilder('/app/pages', '/app/out')
+    const builder = new Builder('/app/pages')
     await builder.resolveConfig()
     expect(builder.config).toEqual({
       html: {

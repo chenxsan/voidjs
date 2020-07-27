@@ -30,7 +30,8 @@ import prettier from 'prettier'
 
 import collectPages from '../collectFiles'
 
-import { HtmlgagaConfig, generateManifest } from './index'
+import { generateManifest } from './index'
+import { HtmlgagaConfig } from '../Builder'
 import { ASSET_PATH } from './index'
 
 class PrettyPlugin {
@@ -85,7 +86,7 @@ export default class ClientsCompiler {
     const outputHtml = relative.replace(/\.client\.(js|ts)$/, '.html')
     return {
       experiments: {
-        asset: true
+        asset: true,
       },
       mode: 'production',
       optimization: {
@@ -122,6 +123,11 @@ export default class ClientsCompiler {
         extensions,
         alias,
       },
+      externals: this.#config.globalScripts
+        ? this.#config.globalScripts.map((script) => ({
+            [script[0]]: script[1].global,
+          }))
+        : [],
       plugins: [
         new HtmlWebpackPlugin({
           template: path.resolve(this.#outputPath, outputHtml),

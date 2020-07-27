@@ -30,6 +30,8 @@ import createWebpackConfig from './createWebpackConfig'
 import newHtmlWebpackPlugin from './newHtmlWebpackPlugin'
 import watchCompilation from './watchCompilation'
 import createWebSocketServer from './createWebSocketServer'
+import Builder from '../Builder'
+import InjectGlobalScriptsPlugin from '../webpackPlugins/InjectGlobalScriptsPlugin'
 
 export interface EntryObject {
   [index: string]:
@@ -43,15 +45,17 @@ export interface Server {
   start(): Promise<express.Application | void>
 }
 
-class DevServer implements Server {
-  readonly #pagesDir: string
+class DevServer extends Builder {
   readonly #host: string
   readonly #port: number
   #pages: string[]
   #httpServer: http.Server
 
-  constructor(pagesDir: string, { host, port }) {
-    this.#pagesDir = pagesDir
+  constructor(
+    pagesDir: string,
+    { host, port }: { host: string; port: number }
+  ) {
+    super(pagesDir)
     this.#host = host
     this.#port = port
     this.#pages = []
@@ -72,11 +76,20 @@ class DevServer implements Server {
   }
 
   public async start(): Promise<express.Application | void> {
+    await this.resolveConfig()
     const socketPath = '/__websocket'
     const webpackConfig = createWebpackConfig(
       this.#pages,
-      this.#pagesDir,
-      `${this.#host}:${this.#port}${socketPath}`
+      this.pagesDir,
+      `${this.#host}:${this.#port}${socketPath}`,
+      {
+        externals: this.config.globalScripts
+          ? this.config.globalScripts.reduce((acc, cur) => {
+              acc[cur[0]] = cur[1].global
+              return acc
+            }, {})
+          : [],
+      }
     )
     const compiler = webpack(webpackConfig)
     const devMiddlewareInstance = devMiddleware(compiler)
@@ -99,17 +112,22 @@ class DevServer implements Server {
             // ts reports error because html-webpack-plugin uses types from @types/webpack
             // while we have types from webpack 5
             newHtmlWebpackPlugin(pagesDir, src).apply(compiler)
+            new InjectGlobalScriptsPlugin(
+              this.config.globalScripts
+                ? this.config.globalScripts.map((script) => script[1].src)
+                : []
+            ).apply(compiler)
             devMiddlewareInstance.invalidate()
           }
         } else {
-          res.status(404).end('Page Not Found')
+          res.status(404).end('Page Not Found') // TODO list available pages
         }
       }
       next()
     }
-    app.use(htmlgagaMiddleware(this.#pagesDir))
+    app.use(htmlgagaMiddleware(this.pagesDir))
     app.use(devMiddlewareInstance)
-    const cwd = path.resolve(this.#pagesDir, '..')
+    const cwd = path.resolve(this.pagesDir, '..')
     app.use(express.static(cwd)) // serve statics from ../fixture, etc.
 
     this.#httpServer = http.createServer(app)

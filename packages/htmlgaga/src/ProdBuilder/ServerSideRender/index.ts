@@ -24,7 +24,7 @@ import prettier from 'prettier'
 
 import render from './react'
 
-import { HtmlgagaConfig } from '../index'
+import { HtmlgagaConfig } from '../../Builder/index'
 
 import type { HelmetData } from 'react-helmet'
 
@@ -89,8 +89,21 @@ export default class Ssr {
   ): Promise<void> {
     const htmlTags = await loadAllHtmlTags(cacheRoot, [`${templateName}.json`])
 
-    const { headTags } = htmlTags
+    let { headTags } = htmlTags
     let { bodyTags } = htmlTags
+
+    if (htmlgagaConfig.globalScripts) {
+      headTags = (htmlgagaConfig.globalScripts.map((script) => {
+        const { global, ...others } = script[1]
+        return {
+          tagName: 'script',
+          voidTag: false,
+          attributes: {
+            ...others,
+          },
+        }
+      }) as HtmlTagObject[]).concat(headTags)
+    }
 
     // only include page entrypoint, so no need
     bodyTags = []
