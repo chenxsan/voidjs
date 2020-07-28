@@ -8,7 +8,7 @@
   "devDependencies": {
     "@htmlgaga/plugin-react-helmet": "^0.1.4",
     "@types/prismjs": "1.16.1",
-    "htmlgaga": "^0.11.1",
+    "htmlgaga": "^0.12.0",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.13.1",
