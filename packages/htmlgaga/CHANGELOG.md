@@ -1,5 +1,11 @@
 # htmlgaga
 
+## 0.12.0
+
+### Minor Changes
+
+- set external script
+
 ## 0.11.10
 
 ### Patch Changes
