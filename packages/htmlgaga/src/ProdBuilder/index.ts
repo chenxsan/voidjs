@@ -41,6 +41,7 @@ import {
   performance,
   PerformanceObserver,
   cacheRoot,
+  publicFolder,
 } from '../config'
 
 import collectPages from '../collectFiles'
@@ -48,6 +49,7 @@ import collectPages from '../collectFiles'
 import PersistDataPlugin from '../webpackPlugins/PersistDataPlugin'
 import RemoveAssetsPlugin from '../webpackPlugins/RemoveAssetsPlugin'
 import fs from 'fs-extra'
+import { cwd } from 'process'
 
 export function generateManifest(
   seed,
@@ -278,6 +280,11 @@ class ProdBuilder extends Builder {
       await clientJsCompiler.run((err, stats) => {
         this.runCallback(err, stats)
         this.cleanCache()
+        // copy public
+        fs.copySync(
+          path.join(this.pagesDir, '..', publicFolder),
+          this.#outputPath
+        )
         this.markEnd()
       })
     })

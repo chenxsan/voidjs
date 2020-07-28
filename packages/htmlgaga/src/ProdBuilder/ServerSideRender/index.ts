@@ -126,6 +126,7 @@ export default class Ssr {
     if (htmlgagaConfig.html.preload.script) {
       preloadScripts = bodyTags
         .filter((tag) => tag.tagName === 'script')
+        .concat(headTags.filter((tag) => tag.tagName === 'script'))
         .map((tag) => {
           return `<link rel="preload" href="${tag.attributes.src}" as="script" />`
         })

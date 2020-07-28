@@ -20,7 +20,7 @@
  */
 import webpack from 'webpack'
 import * as path from 'path'
-import { logger } from '../config'
+import { logger, publicFolder } from '../config'
 import express from 'express'
 import devMiddleware from 'webpack-dev-middleware'
 import http from 'http'
@@ -128,6 +128,7 @@ class DevServer extends Builder {
     app.use(htmlgagaMiddleware(this.pagesDir))
     app.use(devMiddlewareInstance)
     const cwd = path.resolve(this.pagesDir, '..')
+    app.use(express.static(path.join(cwd, publicFolder))) // serve statics from ../fixture, etc.
     app.use(express.static(cwd)) // serve statics from ../fixture, etc.
 
     this.#httpServer = http.createServer(app)

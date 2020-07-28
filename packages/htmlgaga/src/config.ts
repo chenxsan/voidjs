@@ -40,11 +40,14 @@ export const logger = pino({
   },
 })
 
+const assetsRoot = 'static'
 export const alias = {
-  img: resolve(cwd, 'public/img'),
-  css: resolve(cwd, 'public/css'),
-  js: resolve(cwd, 'public/js'),
+  img: resolve(cwd, `${assetsRoot}/img`),
+  css: resolve(cwd, `${assetsRoot}/css`),
+  js: resolve(cwd, `${assetsRoot}/js`),
 }
+export const publicFolder = 'public'
+
 export const extensions = ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.json']
 
 export const performance: Performance = require('perf_hooks').performance
