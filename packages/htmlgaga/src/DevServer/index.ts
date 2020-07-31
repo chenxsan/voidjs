@@ -119,8 +119,6 @@ class DevServer extends Builder {
             ).apply(compiler)
             devMiddlewareInstance.invalidate()
           }
-        } else {
-          res.status(404).end('Page Not Found') // TODO list available pages
         }
       }
       next()
@@ -129,7 +127,12 @@ class DevServer extends Builder {
     app.use(devMiddlewareInstance)
     const cwd = path.resolve(this.pagesDir, '..')
     app.use(express.static(path.join(cwd, publicFolder))) // serve statics from public folder.
-    app.use(express.static(cwd)) // serve statics from ../fixture, etc.
+    app.use(function (req, res, next) {
+      if (req.is('html')) {
+        return res.status(404).end('Page Not Found') // TODO list all pages
+      }
+      next()
+    })
 
     this.#httpServer = http.createServer(app)
     const wsServer = createWebSocketServer(this.#httpServer, socketPath)
