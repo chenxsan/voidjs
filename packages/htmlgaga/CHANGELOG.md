@@ -1,5 +1,11 @@
 # htmlgaga
 
+## 0.12.2
+
+### Patch Changes
+
+- fix 404 bug for html request in public
+
 ## 0.12.1
 
 ### Patch Changes
