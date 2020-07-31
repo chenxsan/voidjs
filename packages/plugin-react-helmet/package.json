@@ -2,7 +2,7 @@
   "name": "@htmlgaga/plugin-react-helmet",
   "version": "0.1.4",
   "devDependencies": {
-    "@types/react": "16.9.41",
+    "@types/react": "16.9.43",
     "react": "^16.13.1",
     "react-helmet": "6.1.0"
   },
