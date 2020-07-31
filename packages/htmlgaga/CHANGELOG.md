@@ -1,5 +1,11 @@
 # htmlgaga
 
+## 0.12.1
+
+### Patch Changes
+
+- update deps
+
 ## 0.12.0
 
 ### Minor Changes
