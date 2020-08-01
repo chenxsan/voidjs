@@ -1,5 +1,11 @@
 # htmlgaga
 
+## 0.12.3
+
+### Patch Changes
+
+- fix a bug causing failed links in page
+
 ## 0.12.2
 
 ### Patch Changes
