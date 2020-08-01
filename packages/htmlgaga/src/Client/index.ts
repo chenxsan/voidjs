@@ -39,6 +39,14 @@ let retries = 0
 
 const delay = 200
 
+let linkOpening = false
+
+document.addEventListener('click', (e: MouseEvent) => {
+  if ((e.target as HTMLElement)?.tagName.toLowerCase() === 'a') {
+    linkOpening = true
+  }
+})
+
 function createWebSocketClient(socketUrl: string): WebSocket {
   let client: WebSocket | null = new WebSocket(socketUrl)
 
@@ -56,6 +64,7 @@ function createWebSocketClient(socketUrl: string): WebSocket {
         console.log(`${prefix} Built in ${data.endTime - data.startTime}ms`)
         return
       case type === MessageType.RELOAD:
+        if (linkOpening) return // we should wait here
         window.location.reload()
         return
       case type === MessageType.INVALID:
