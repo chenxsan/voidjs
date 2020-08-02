@@ -47,4 +47,8 @@ $scale: 1.25; // major third
   p {
     font-size: #{pow($scale, 0)}rem;
   }
+
+  img {
+    max-width: 100%;
+  }
 }
