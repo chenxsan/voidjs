@@ -9,10 +9,9 @@ export default function Index(): React.ReactNode {
           textAlign: 'center',
           fontSize: 28,
           padding: '20px 0',
-          textTransform: 'uppercase'
         }}
       >
-        htmlgaga styles
+        Style guide for markdown content
       </header>
       <section>
         <Body />
