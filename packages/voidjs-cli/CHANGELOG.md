@@ -1,4 +1,10 @@
-# voidjs
+# voidjs-cli
+
+## 0.12.5
+
+### Patch Changes
+
+- check existence of `public` before copy
 
 ## 0.12.4
 
