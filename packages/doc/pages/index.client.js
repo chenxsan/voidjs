@@ -4,6 +4,6 @@
 import 'js/css.scss'
 window.addEventListener('load', () => {
   import('js/log').then(({ default: log }) => {
-    log('htmlgaga loaded')
+    log('voidjs loaded')
   })
 })

@@ -1,5 +1,5 @@
 {
-  "name": "@htmlgaga/plugin-react-helmet",
+  "name": "@voidjs/plugin-react-helmet",
   "version": "0.1.4",
   "devDependencies": {
     "@types/react": "16.9.43",

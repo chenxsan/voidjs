@@ -17,8 +17,8 @@ module.exports = {
   overrides: [
     {
       test: [
-        './packages/htmlgaga/src/Client',
-        './packages/htmlgaga/src/devTemplate',
+        './packages/voidjs/src/Client',
+        './packages/voidjs/src/devTemplate',
       ],
       presets: [
         [

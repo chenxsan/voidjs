@@ -1,0 +1,33 @@
+.voidjs {
+  font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+}
+.voidjs h1,
+.voidjs h2,
+.voidjs h3,
+.voidjs h4,
+.voidjs h5,
+.voidjs h6 {
+  font-weight: 400;
+  line-height: 1.25;
+}
+.voidjs h1 {
+  font-size: 3.0517578125rem;
+}
+.voidjs h2 {
+  font-size: 2.44140625rem;
+}
+.voidjs h3 {
+  font-size: 1.953125rem;
+}
+.voidjs h4 {
+  font-size: 1.5625rem;
+}
+.voidjs h5 {
+  font-size: 1.25rem;
+}
+.voidjs h6,
+.voidjs p {
+  font-size: 1rem;
+}
+
+/*# sourceMappingURL=index.css.map */

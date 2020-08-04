@@ -1,6 +1,6 @@
 # Contributing
 
-htmlgaga is a monorepo managed with yarn 2, please make sure you have [yarn 2](https://yarnpkg.com/getting-started/install) installed first.
+voidjs is a monorepo managed with yarn 2, please make sure you have [yarn 2](https://yarnpkg.com/getting-started/install) installed first.
 
 1. Clone this repo
 2. Run `yarn` to install dependencies

@@ -1,5 +1,5 @@
 {
-  "name": "htmlgaga-monorepo",
+  "name": "voidjs-monorepo",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -35,10 +35,10 @@
   },
   "preconstruct": {
     "packages": [
-      "packages/create-htmlgaga",
-      "packages/htmlgaga",
+      "packages/create-voidjs",
+      "packages/voidjs",
       "packages/plugin-react-helmet",
-      "packages/htmlgaga-styles"
+      "packages/voidjs-styles"
     ]
   },
   "prettier": {
