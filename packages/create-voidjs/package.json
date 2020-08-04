@@ -1,6 +1,6 @@
 {
   "name": "create-voidjs",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Create voidjs project",
   "main": "dist/create-voidjs.cjs.js",
   "module": "dist/create-voidjs.esm.js",
