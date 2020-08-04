@@ -1,21 +1,21 @@
 {
-  "name": "@htmlgaga/doc",
+  "name": "@void-js/doc",
   "private": true,
   "scripts": {
-    "dev": "htmlgaga dev",
-    "build": "htmlgaga build"
+    "dev": "voidjs dev",
+    "build": "voidjs build"
   },
   "devDependencies": {
-    "@htmlgaga/plugin-react-helmet": "^0.1.4",
     "@types/prismjs": "1.16.1",
-    "htmlgaga": "^0.12.0",
+    "@void-js/plugin-react-helmet": "^0.1.4",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.13.1",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "voidjs-cli": "^0.12.0"
   },
   "dependencies": {
-    "@htmlgaga/styles": "0.1.3",
+    "@void-js/styles": "0.1.3",
     "prismjs": "^1.20.0"
   },
   "version": "0.1.2"

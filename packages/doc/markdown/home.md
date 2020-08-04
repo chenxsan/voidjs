@@ -5,11 +5,11 @@
 
 ## Get started
 
-- To create a new htmlgaga project, run `npm init`:
+- To create a new voidjs project, run `npm init`:
   ```bash
-  npm init htmlgaga ./my-app
+  npm init voidjs ./my-app
   ```
 - Or if you are using `yarn`, run `yarn create`:
   ```bash
-  yarn create htmlgaga ./my-app
+  yarn create voidjs ./my-app
   ```
