@@ -1,5 +1,11 @@
 # voidjs
 
+## 0.12.4
+
+### Patch Changes
+
+- fix file path
+
 ## 0.12.3
 
 ### Patch Changes
