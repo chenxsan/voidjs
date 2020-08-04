@@ -281,10 +281,12 @@ class ProdBuilder extends Builder {
         this.runCallback(err, stats)
         this.cleanCache()
         // copy public
-        fs.copySync(
-          path.join(this.pagesDir, '..', publicFolder),
-          this.#outputPath
-        )
+        if (fs.existsSync(path.join(this.pagesDir, '..', publicFolder))) {
+          fs.copySync(
+            path.join(this.pagesDir, '..', publicFolder),
+            this.#outputPath
+          )
+        }
         this.markEnd()
       })
     })
