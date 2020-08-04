@@ -1,6 +1,6 @@
 {
-  "main": "dist/voidjs.cjs.js",
-  "module": "dist/voidjs.esm.js",
+  "main": "dist/voidjs-cli.cjs.js",
+  "module": "dist/voidjs-cli.esm.js",
   "preconstruct": {
     "source": "../src/Client/index"
   }

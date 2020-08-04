@@ -2,8 +2,8 @@
   "name": "voidjs-cli",
   "version": "0.12.3",
   "description": "Manage non-SPA pages with webpack and React.js",
-  "main": "dist/voidjs.cjs.js",
-  "module": "dist/voidjs.esm.js",
+  "main": "dist/voidjs-cli.cjs.js",
+  "module": "dist/voidjs-cli.esm.js",
   "exports": false,
   "type": "commonjs",
   "bin": {
