@@ -1,4 +1,4 @@
-const PluginHelmet = require('@voidjs/plugin-react-helmet').default
+const PluginHelmet = require('@void-js/plugin-react-helmet').default
 module.exports = {
   html: {
     pretty: true

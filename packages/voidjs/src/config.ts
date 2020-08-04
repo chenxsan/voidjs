@@ -24,7 +24,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import rehypePrism from '@mapbox/rehype-prism'
 
 // FIXME weird bug on windows
-// it would resolve to voidjs\node_modules\@voidjs\doc
+// it would resolve to voidjs\node_modules\@void-js\doc
 // when I run `yarn dev` under voidjs\packages\doc
 export const cwd = process.cwd()
 

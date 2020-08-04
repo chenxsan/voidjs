@@ -1,4 +1,4 @@
-# @voidjs/styles
+# @void-js/styles
 
 ## 0.1.3
 

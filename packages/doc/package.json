@@ -1,12 +1,12 @@
 {
-  "name": "@voidjs/doc",
+  "name": "@void-js/doc",
   "private": true,
   "scripts": {
     "dev": "voidjs dev",
     "build": "voidjs build"
   },
   "devDependencies": {
-    "@voidjs/plugin-react-helmet": "^0.1.4",
+    "@void-js/plugin-react-helmet": "^0.1.4",
     "@types/prismjs": "1.16.1",
     "voidjs": "^0.12.0",
     "react": "^16.13.1",
@@ -15,7 +15,7 @@
     "react-helmet": "^6.1.0"
   },
   "dependencies": {
-    "@voidjs/styles": "0.1.3",
+    "@void-js/styles": "0.1.3",
     "prismjs": "^1.20.0"
   },
   "version": "0.1.2"

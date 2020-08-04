@@ -2167,12 +2167,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@voidjs/doc@workspace:packages/doc":
+"@void-js/doc@workspace:packages/doc":
   version: 0.0.0-use.local
-  resolution: "@voidjs/doc@workspace:packages/doc"
+  resolution: "@void-js/doc@workspace:packages/doc"
   dependencies:
-    "@voidjs/plugin-react-helmet": ^0.1.4
-    "@voidjs/styles": 0.1.3
+    "@void-js/plugin-react-helmet": ^0.1.4
+    "@void-js/styles": 0.1.3
     "@types/prismjs": 1.16.1
     voidjs: ^0.12.0
     prismjs: ^1.20.0
@@ -2183,9 +2183,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@voidjs/plugin-react-helmet@^0.1.4, @voidjs/plugin-react-helmet@workspace:packages/plugin-react-helmet":
+"@void-js/plugin-react-helmet@^0.1.4, @void-js/plugin-react-helmet@workspace:packages/plugin-react-helmet":
   version: 0.0.0-use.local
-  resolution: "@voidjs/plugin-react-helmet@workspace:packages/plugin-react-helmet"
+  resolution: "@void-js/plugin-react-helmet@workspace:packages/plugin-react-helmet"
   dependencies:
     "@types/react": 16.9.43
     react: ^16.13.1
@@ -2196,9 +2196,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@voidjs/styles@0.1.3, @voidjs/styles@workspace:packages/voidjs-styles":
+"@void-js/styles@0.1.3, @void-js/styles@workspace:packages/voidjs-styles":
   version: 0.0.0-use.local
-  resolution: "@voidjs/styles@workspace:packages/voidjs-styles"
+  resolution: "@void-js/styles@workspace:packages/voidjs-styles"
   dependencies:
     "@types/react": 16.9.43
     "@types/react-dom": 16.9.8

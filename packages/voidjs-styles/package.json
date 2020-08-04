@@ -1,5 +1,5 @@
 {
-  "name": "@voidjs/styles",
+  "name": "@void-js/styles",
   "version": "0.1.3",
   "main": "dist/styles.cjs.js",
   "scripts": {
