@@ -22,29 +22,53 @@ $scale: 1.25; // major third
   h6 {
     font-weight: 400;
     line-height: $scale;
+    margin-bottom: #{$scale}rem;
   }
   h1 {
-    font-size: #{pow($scale, 5)}rem;
+    font-size: #{pow($scale, 6)}rem;
+    margin-top: #{$scale * 6}rem;
   }
 
   h2 {
-    font-size: #{pow($scale, 4)}rem;
+    font-size: #{pow($scale, 5)}rem;
+    margin-top: #{$scale * 5}rem;
   }
 
   h3 {
-    font-size: #{pow($scale, 3)}rem;
+    font-size: #{pow($scale, 4)}rem;
+    margin-top: #{$scale * 4}rem;
   }
 
   h4 {
-    font-size: #{pow($scale, 2)}rem;
+    font-size: #{pow($scale, 3)}rem;
+    margin-top: #{$scale * 3}rem;
   }
 
   h5 {
-    font-size: #{pow($scale, 1)}rem;
+    font-size: #{pow($scale, 2)}rem;
+    margin-top: #{$scale * 2}rem;
   }
 
-  h6,
-  p {
+  h6 {
+    font-size: #{pow($scale, 1)}rem;
+    margin-top: #{$scale * 1}rem;
+  }
+
+  p,
+  ol,
+  ul {
     font-size: #{pow($scale, 0)}rem;
+    margin-top: #{$scale * 1}rem;
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+
+  li {
+    font-size: #{pow($scale, 0)}rem;
+    line-height: 1.5;
+  }
+
+  img {
+    max-width: 100%;
   }
 }

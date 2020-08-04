@@ -1,6 +1,7 @@
 import React from 'react'
 import '../src/index.scss'
-import Body from '../markdown/body.md'
+import 'css/page.css'
+import Body from '../markdown/body.mdx'
 export default function Index(): React.ReactNode {
   return (
     <div className="htmlgaga">
@@ -8,10 +9,12 @@ export default function Index(): React.ReactNode {
         style={{
           textAlign: 'center',
           fontSize: 28,
-          padding: '20px 0',
+          padding: '40px 0',
+          background: '#000',
+          color: '#fff',
         }}
       >
-        htmlgaga styles for markdown
+        Style guide for markdown content
       </header>
       <section>
         <Body />
