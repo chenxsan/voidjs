@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('./dist/voidjs.cjs.js')
+require('./dist/voidjs-cli.cjs.js')
