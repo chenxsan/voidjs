@@ -42,7 +42,7 @@ async function createApp(
   )
 
   console.log(
-    `Installing ${chalk.cyan('voidjs')}, ${chalk.cyan(
+    `Installing ${chalk.cyan('voidjs-cli')}, ${chalk.cyan(
       'react'
     )} and ${chalk.cyan('react-dom')}...`
   )
@@ -52,7 +52,7 @@ async function createApp(
   process.chdir(root)
   const useYarn = useNpm ? false : shouldUseYarn()
   const cmd = useYarn ? 'yarn' : 'npm'
-  await install(root, ['react', 'react-dom', 'voidjs'], { useYarn })
+  await install(root, ['react', 'react-dom', 'voidjs-cli'], { useYarn })
 
   console.log()
 
