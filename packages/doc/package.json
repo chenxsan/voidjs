@@ -6,13 +6,13 @@
     "build": "voidjs build"
   },
   "devDependencies": {
-    "@void-js/plugin-react-helmet": "^0.1.4",
     "@types/prismjs": "1.16.1",
-    "voidjs": "^0.12.0",
+    "@void-js/plugin-react-helmet": "^0.1.4",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-dom": "^16.13.1",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "voidjs": "^0.12.0"
   },
   "dependencies": {
     "@void-js/styles": "0.1.3",

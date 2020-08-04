@@ -2167,47 +2167,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@void-js/doc@workspace:packages/doc":
-  version: 0.0.0-use.local
-  resolution: "@void-js/doc@workspace:packages/doc"
-  dependencies:
-    "@void-js/plugin-react-helmet": ^0.1.4
-    "@void-js/styles": 0.1.3
-    "@types/prismjs": 1.16.1
-    voidjs: ^0.12.0
-    prismjs: ^1.20.0
-    react: ^16.13.1
-    react-app-polyfill: ^1.0.6
-    react-dom: ^16.13.1
-    react-helmet: ^6.1.0
-  languageName: unknown
-  linkType: soft
-
-"@void-js/plugin-react-helmet@^0.1.4, @void-js/plugin-react-helmet@workspace:packages/plugin-react-helmet":
-  version: 0.0.0-use.local
-  resolution: "@void-js/plugin-react-helmet@workspace:packages/plugin-react-helmet"
-  dependencies:
-    "@types/react": 16.9.43
-    react: ^16.13.1
-    react-helmet: 6.1.0
-  peerDependencies:
-    react: ^16.13.1
-    react-helmet: ^6.0.0-beta
-  languageName: unknown
-  linkType: soft
-
-"@void-js/styles@0.1.3, @void-js/styles@workspace:packages/voidjs-styles":
-  version: 0.0.0-use.local
-  resolution: "@void-js/styles@workspace:packages/voidjs-styles"
-  dependencies:
-    "@types/react": 16.9.43
-    "@types/react-dom": 16.9.8
-    voidjs: 0.12.1
-    react: ^16.13.1
-    react-dom: ^16.13.1
-  languageName: unknown
-  linkType: soft
-
 "@istanbuljs/load-nyc-config@npm:^1.0.0":
   version: 1.0.0
   resolution: "@istanbuljs/load-nyc-config@npm:1.0.0"
@@ -3534,6 +3493,47 @@ __metadata:
   checksum: a5bf6cb46828cd0f64330ae67c030ad6c0d70a79492bfc8a35a4d4fbf4fb2f1b580680742895a1c631957e1c9c80b0efdf4b98323c958ac9724a6c1983b284de
   languageName: node
   linkType: hard
+
+"@void-js/doc@workspace:packages/doc":
+  version: 0.0.0-use.local
+  resolution: "@void-js/doc@workspace:packages/doc"
+  dependencies:
+    "@types/prismjs": 1.16.1
+    "@void-js/plugin-react-helmet": ^0.1.4
+    "@void-js/styles": 0.1.3
+    prismjs: ^1.20.0
+    react: ^16.13.1
+    react-app-polyfill: ^1.0.6
+    react-dom: ^16.13.1
+    react-helmet: ^6.1.0
+    voidjs: ^0.12.0
+  languageName: unknown
+  linkType: soft
+
+"@void-js/plugin-react-helmet@^0.1.4, @void-js/plugin-react-helmet@workspace:packages/plugin-react-helmet":
+  version: 0.0.0-use.local
+  resolution: "@void-js/plugin-react-helmet@workspace:packages/plugin-react-helmet"
+  dependencies:
+    "@types/react": 16.9.43
+    react: ^16.13.1
+    react-helmet: 6.1.0
+  peerDependencies:
+    react: ^16.13.1
+    react-helmet: ^6.0.0-beta
+  languageName: unknown
+  linkType: soft
+
+"@void-js/styles@0.1.3, @void-js/styles@workspace:packages/voidjs-styles":
+  version: 0.0.0-use.local
+  resolution: "@void-js/styles@workspace:packages/voidjs-styles"
+  dependencies:
+    "@types/react": 16.9.43
+    "@types/react-dom": 16.9.8
+    react: ^16.13.1
+    react-dom: ^16.13.1
+    voidjs: 0.12.3
+  languageName: unknown
+  linkType: soft
 
 "@webassemblyjs/ast@npm:1.9.0":
   version: 1.9.0
@@ -7629,97 +7629,6 @@ __metadata:
   checksum: 13c23547ac83142f2e23a993a82e6fa6beb21291848a856c09d27e0dae12f5781699ed9c1fe798fb03cf317a6a4dce164d224fd6023640abc167f222b59a0fa0
   languageName: node
   linkType: hard
-
-"voidjs-monorepo@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "voidjs-monorepo@workspace:."
-  dependencies:
-    "@babel/core": ^7.11.0
-    "@babel/plugin-proposal-class-properties": ^7.10.4
-    "@babel/plugin-proposal-private-methods": ^7.10.4
-    "@babel/preset-env": ^7.11.0
-    "@babel/preset-typescript": ^7.10.4
-    "@changesets/cli": ^2.9.2
-    "@preconstruct/cli": ^1.1.17
-    "@types/jest": ^26.0.7
-    "@typescript-eslint/eslint-plugin": ^3.7.1
-    "@typescript-eslint/parser": ^3.7.1
-    "@yarnpkg/pnpify": ^2.1.0
-    babel-eslint: ^10.1.0
-    eslint: ^7.5.0
-    eslint-config-prettier: ^6.11.0
-    eslint-plugin-react: ^7.20.5
-    jest: ^26.2.1
-    memfs: ^3.2.0
-    prettier: ^2.0.5
-    ts-jest: ^26.1.4
-    typescript: ^3.9.7
-  languageName: unknown
-  linkType: soft
-
-"voidjs@0.12.1, voidjs@^0.12.0, voidjs@workspace:packages/voidjs":
-  version: 0.0.0-use.local
-  resolution: "voidjs@workspace:packages/voidjs"
-  dependencies:
-    "@babel/core": ^7.11.0
-    "@babel/preset-env": ^7.11.0
-    "@babel/preset-react": ^7.10.4
-    "@babel/preset-typescript": ^7.10.4
-    "@mapbox/rehype-prism": ^0.5.0
-    "@mdx-js/loader": next
-    "@types/assets-webpack-plugin": ^3.9.0
-    "@types/express": ^4.17.7
-    "@types/mini-css-extract-plugin": ^0.9.1
-    "@types/node": ^14.0.27
-    "@types/prettier": ^2.0.2
-    "@types/react": ^16.9.43
-    "@types/react-dom": ^16.9.8
-    "@types/react-helmet": ^6.0.0
-    "@types/rimraf": ^3.0.0
-    "@types/strip-ansi": 5.2.1
-    "@types/webpack-dev-middleware": ^3.7.1
-    "@types/ws": ^7.2.6
-    "@types/yargs": ^15.0.5
-    autoprefixer: ^9.8.6
-    babel-loader: ^8.1.0
-    babel-plugin-react-dom-render: ^1.0.0
-    babel-plugin-react-require: ^3.1.3
-    css-loader: ^4.1.1
-    csso-webpack-plugin: ^2.0.0-beta.1
-    express: ^4.17.1
-    file-loader: ^6.0.0
-    fs-extra: ^9.0.1
-    html-entities: ^1.3.1
-    html-webpack-plugin: ^4.3.0
-    lodash.merge: ^4.6.2
-    mini-css-extract-plugin: ^0.9.0
-    pino: ^6.4.1
-    pino-pretty: ^4.1.0
-    postcss-loader: ^3.0.0
-    prettier: ^2.0.5
-    react: ^16.13.1
-    react-dom: ^16.13.1
-    rimraf: ^3.0.2
-    sass: ^1.26.10
-    sass-loader: ^9.0.2
-    schema-utils: ^2.7.0
-    strip-ansi: 3.0.1
-    style-loader: ^1.2.1
-    tailwindcss: ^1.6.0
-    tapable: ^1.1.3
-    terser-webpack-plugin: ^3.0.8
-    webpack: ^5.0.0-beta.22
-    webpack-dev-middleware: ^4.0.0-rc.1
-    webpack-manifest-plugin: next
-    ws: ^7.3.1
-    yargs: ^15.4.1
-  peerDependencies:
-    react: ">=16.4.2"
-    react-dom: ">=16.4.2"
-  bin:
-    voidjs: ./cli.js
-  languageName: unknown
-  linkType: soft
 
 "htmlparser2@npm:^3.3.0":
   version: 3.10.1
@@ -14531,6 +14440,97 @@ typescript@^3.9.7:
   checksum: 3f84677ed6180335ec2e699c9b91305eda35fad42cba0bddcb0f4561f8b6373fddb87bc9a89d91d926b4281be614a7ec003ff6cd2f3e1c0ccecf95e90ef8b035
   languageName: node
   linkType: hard
+
+"voidjs-monorepo@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "voidjs-monorepo@workspace:."
+  dependencies:
+    "@babel/core": ^7.11.0
+    "@babel/plugin-proposal-class-properties": ^7.10.4
+    "@babel/plugin-proposal-private-methods": ^7.10.4
+    "@babel/preset-env": ^7.11.0
+    "@babel/preset-typescript": ^7.10.4
+    "@changesets/cli": ^2.9.2
+    "@preconstruct/cli": ^1.1.17
+    "@types/jest": ^26.0.7
+    "@typescript-eslint/eslint-plugin": ^3.7.1
+    "@typescript-eslint/parser": ^3.7.1
+    "@yarnpkg/pnpify": ^2.1.0
+    babel-eslint: ^10.1.0
+    eslint: ^7.5.0
+    eslint-config-prettier: ^6.11.0
+    eslint-plugin-react: ^7.20.5
+    jest: ^26.2.1
+    memfs: ^3.2.0
+    prettier: ^2.0.5
+    ts-jest: ^26.1.4
+    typescript: ^3.9.7
+  languageName: unknown
+  linkType: soft
+
+"voidjs@0.12.3, voidjs@^0.12.0, voidjs@workspace:packages/voidjs":
+  version: 0.0.0-use.local
+  resolution: "voidjs@workspace:packages/voidjs"
+  dependencies:
+    "@babel/core": ^7.11.0
+    "@babel/preset-env": ^7.11.0
+    "@babel/preset-react": ^7.10.4
+    "@babel/preset-typescript": ^7.10.4
+    "@mapbox/rehype-prism": ^0.5.0
+    "@mdx-js/loader": next
+    "@types/assets-webpack-plugin": ^3.9.0
+    "@types/express": ^4.17.7
+    "@types/mini-css-extract-plugin": ^0.9.1
+    "@types/node": ^14.0.27
+    "@types/prettier": ^2.0.2
+    "@types/react": ^16.9.43
+    "@types/react-dom": ^16.9.8
+    "@types/react-helmet": ^6.0.0
+    "@types/rimraf": ^3.0.0
+    "@types/strip-ansi": 5.2.1
+    "@types/webpack-dev-middleware": ^3.7.1
+    "@types/ws": ^7.2.6
+    "@types/yargs": ^15.0.5
+    autoprefixer: ^9.8.6
+    babel-loader: ^8.1.0
+    babel-plugin-react-dom-render: ^1.0.0
+    babel-plugin-react-require: ^3.1.3
+    css-loader: ^4.1.1
+    csso-webpack-plugin: ^2.0.0-beta.1
+    express: ^4.17.1
+    file-loader: ^6.0.0
+    fs-extra: ^9.0.1
+    html-entities: ^1.3.1
+    html-webpack-plugin: ^4.3.0
+    lodash.merge: ^4.6.2
+    mini-css-extract-plugin: ^0.9.0
+    pino: ^6.4.1
+    pino-pretty: ^4.1.0
+    postcss-loader: ^3.0.0
+    prettier: ^2.0.5
+    react: ^16.13.1
+    react-dom: ^16.13.1
+    rimraf: ^3.0.2
+    sass: ^1.26.10
+    sass-loader: ^9.0.2
+    schema-utils: ^2.7.0
+    strip-ansi: 3.0.1
+    style-loader: ^1.2.1
+    tailwindcss: ^1.6.0
+    tapable: ^1.1.3
+    terser-webpack-plugin: ^3.0.8
+    webpack: ^5.0.0-beta.22
+    webpack-dev-middleware: ^4.0.0-rc.1
+    webpack-manifest-plugin: next
+    ws: ^7.3.1
+    yargs: ^15.4.1
+  peerDependencies:
+    react: ">=16.4.2"
+    react-dom: ">=16.4.2"
+  bin:
+    voidjs: ./cli.js
+  languageName: unknown
+  linkType: soft
 
 "w3c-hr-time@npm:^1.0.1, w3c-hr-time@npm:^1.0.2":
   version: 1.0.2
