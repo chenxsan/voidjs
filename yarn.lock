@@ -3506,7 +3506,7 @@ __metadata:
     react-app-polyfill: ^1.0.6
     react-dom: ^16.13.1
     react-helmet: ^6.1.0
-    voidjs: ^0.12.0
+    voidjs-cli: ^0.12.0
   languageName: unknown
   linkType: soft
 
@@ -3531,7 +3531,7 @@ __metadata:
     "@types/react-dom": 16.9.8
     react: ^16.13.1
     react-dom: ^16.13.1
-    voidjs: 0.12.3
+    voidjs-cli: 0.12.3
   languageName: unknown
   linkType: soft
 
@@ -14441,36 +14441,9 @@ typescript@^3.9.7:
   languageName: node
   linkType: hard
 
-"voidjs-monorepo@workspace:.":
+"voidjs-cli@0.12.3, voidjs-cli@^0.12.0, voidjs-cli@workspace:packages/voidjs-cli":
   version: 0.0.0-use.local
-  resolution: "voidjs-monorepo@workspace:."
-  dependencies:
-    "@babel/core": ^7.11.0
-    "@babel/plugin-proposal-class-properties": ^7.10.4
-    "@babel/plugin-proposal-private-methods": ^7.10.4
-    "@babel/preset-env": ^7.11.0
-    "@babel/preset-typescript": ^7.10.4
-    "@changesets/cli": ^2.9.2
-    "@preconstruct/cli": ^1.1.17
-    "@types/jest": ^26.0.7
-    "@typescript-eslint/eslint-plugin": ^3.7.1
-    "@typescript-eslint/parser": ^3.7.1
-    "@yarnpkg/pnpify": ^2.1.0
-    babel-eslint: ^10.1.0
-    eslint: ^7.5.0
-    eslint-config-prettier: ^6.11.0
-    eslint-plugin-react: ^7.20.5
-    jest: ^26.2.1
-    memfs: ^3.2.0
-    prettier: ^2.0.5
-    ts-jest: ^26.1.4
-    typescript: ^3.9.7
-  languageName: unknown
-  linkType: soft
-
-"voidjs@0.12.3, voidjs@^0.12.0, voidjs@workspace:packages/voidjs":
-  version: 0.0.0-use.local
-  resolution: "voidjs@workspace:packages/voidjs"
+  resolution: "voidjs-cli@workspace:packages/voidjs-cli"
   dependencies:
     "@babel/core": ^7.11.0
     "@babel/preset-env": ^7.11.0
@@ -14529,6 +14502,33 @@ typescript@^3.9.7:
     react-dom: ">=16.4.2"
   bin:
     voidjs: ./cli.js
+  languageName: unknown
+  linkType: soft
+
+"voidjs-monorepo@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "voidjs-monorepo@workspace:."
+  dependencies:
+    "@babel/core": ^7.11.0
+    "@babel/plugin-proposal-class-properties": ^7.10.4
+    "@babel/plugin-proposal-private-methods": ^7.10.4
+    "@babel/preset-env": ^7.11.0
+    "@babel/preset-typescript": ^7.10.4
+    "@changesets/cli": ^2.9.2
+    "@preconstruct/cli": ^1.1.17
+    "@types/jest": ^26.0.7
+    "@typescript-eslint/eslint-plugin": ^3.7.1
+    "@typescript-eslint/parser": ^3.7.1
+    "@yarnpkg/pnpify": ^2.1.0
+    babel-eslint: ^10.1.0
+    eslint: ^7.5.0
+    eslint-config-prettier: ^6.11.0
+    eslint-plugin-react: ^7.20.5
+    jest: ^26.2.1
+    memfs: ^3.2.0
+    prettier: ^2.0.5
+    ts-jest: ^26.1.4
+    typescript: ^3.9.7
   languageName: unknown
   linkType: soft
 
