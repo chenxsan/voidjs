@@ -7,11 +7,11 @@ describe('normalizeAssetPath', () => {
     expect(fn()).toBeUndefined()
   })
   it('should return value from process.env.ASSET_PATH', () => {
-    process.env.ASSET_PATH = 'https://voidjs.com/'
-    expect(fn()).toBe('https://voidjs.com/')
+    process.env.ASSET_PATH = 'https://voidjs.org/'
+    expect(fn()).toBe('https://voidjs.org/')
   })
   it('should append / to process.env.ASSET_PATH', () => {
-    process.env.ASSET_PATH = 'https://voidjs.com'
-    expect(fn()).toBe('https://voidjs.com/')
+    process.env.ASSET_PATH = 'https://voidjs.org'
+    expect(fn()).toBe('https://voidjs.org/')
   })
 })
