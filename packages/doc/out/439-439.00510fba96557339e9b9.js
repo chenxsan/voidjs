@@ -1,0 +1,1 @@
+(window.webpackJsonp_void_js_doc=window.webpackJsonp_void_js_doc||[]).push([[439],{439:function(o,n,c){"use strict";function d(o){console.log(o)}c.r(n),c.d(n,{default:function(){return d}})}}]);
