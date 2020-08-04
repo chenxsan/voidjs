@@ -2,12 +2,12 @@
   "files": {
     "doc/doc.css": "doc/doc.eb810661f8d5f73f0939.css",
     "doc/doc.js": "doc/doc.js",
-    "index.css": "index.2949911b97e8b0091ce8.css",
+    "index.css": "index.f84cd0c0405c218d28b0.css",
     "index.js": "index.js",
     "doc/doc.html": "doc/doc.html",
-    "favicon.png": "favicon.a34bf0f7505754ec70abe64b0e1c3d39.png",
-    "voidjs-logo.svg": "voidjs-logo.7b315d6fc027a6b6b5537620cf38bbbb.svg",
-    "index.html": "index.html"
+    "favicon.png": "favicon.123559ffcd6fdb61b6a843cde9904f6b.png",
+    "index.html": "index.html",
+    "voidjs-logo.svg": "voidjs-logo.de5a021a0c00bdaa81ca60834b52f990.svg"
   },
   "entrypoints": {
     "doc/doc": [
@@ -15,7 +15,7 @@
       "doc/doc.js"
     ],
     "index": [
-      "index.2949911b97e8b0091ce8.css",
+      "index.f84cd0c0405c218d28b0.css",
       "index.js"
     ]
   }
