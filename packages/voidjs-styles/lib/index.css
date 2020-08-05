@@ -9,25 +9,52 @@
 .voidjs h6 {
   font-weight: 400;
   line-height: 1.25;
+  margin-bottom: 1.25rem;
 }
 .voidjs h1 {
-  font-size: 3.0517578125rem;
+  font-size: 3.8146972656rem;
+  margin-top: 7.5rem;
 }
 .voidjs h2 {
-  font-size: 2.44140625rem;
+  font-size: 3.0517578125rem;
+  margin-top: 6.25rem;
 }
 .voidjs h3 {
-  font-size: 1.953125rem;
+  font-size: 2.44140625rem;
+  margin-top: 5rem;
 }
 .voidjs h4 {
-  font-size: 1.5625rem;
+  font-size: 1.953125rem;
+  margin-top: 3.75rem;
 }
 .voidjs h5 {
-  font-size: 1.25rem;
+  font-size: 1.5625rem;
+  margin-top: 2.5rem;
 }
-.voidjs h6,
-.voidjs p {
+.voidjs h6 {
+  font-size: 1.25rem;
+  margin-top: 1.25rem;
+}
+.voidjs p,
+.voidjs ol,
+.voidjs ul {
   font-size: 1rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+.voidjs li {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.voidjs img {
+  max-width: 100%;
+}
+.voidjs p code,
+.voidjs li code {
+  background-color: rgba(204, 0, 0, 0.05);
+  padding: 2px 3px;
+  font-family: monospace;
 }
 
 /*# sourceMappingURL=index.css.map */

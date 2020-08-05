@@ -71,4 +71,12 @@ $scale: 1.25; // major third
   img {
     max-width: 100%;
   }
+
+  p code,
+  li code {
+    // we don't want to affect those in pre
+    background-color: rgba(204, 0, 0, 0.05);
+    padding: 2px 3px;
+    font-family: monospace;
+  }
 }
