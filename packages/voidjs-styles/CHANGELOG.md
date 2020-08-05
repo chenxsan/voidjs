@@ -1,5 +1,11 @@
 # @void-js/styles
 
+## 0.1.5
+
+### Patch Changes
+
+- fix style for inline code
+
 ## 0.1.4
 
 ### Patch Changes
