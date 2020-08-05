@@ -50,8 +50,7 @@
 .voidjs img {
   max-width: 100%;
 }
-.voidjs p code,
-.voidjs li code {
+.voidjs code:not([class*=language-]) {
   background-color: rgba(204, 0, 0, 0.05);
   padding: 2px 3px;
   font-family: monospace;

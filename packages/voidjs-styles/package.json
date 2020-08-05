@@ -1,6 +1,6 @@
 {
   "name": "@void-js/styles",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "dist/styles.cjs.js",
   "scripts": {
     "dev": "voidjs dev",
