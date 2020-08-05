@@ -1,5 +1,11 @@
 # @void-js/styles
 
+## 0.1.4
+
+### Patch Changes
+
+- add styles for code
+
 ## 0.1.3
 
 ### Patch Changes
