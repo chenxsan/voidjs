@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.13.0
+
+### Minor Changes
+
+- make tailwindcss optional
+
 ## 0.12.5
 
 ### Patch Changes

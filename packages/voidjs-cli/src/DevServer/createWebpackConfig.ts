@@ -1,5 +1,5 @@
 import webpack from 'webpack'
-import { extensions, alias } from '../config'
+import { extensions, alias, postcssPlugins } from '../config'
 import rehypePrism from '@mapbox/rehype-prism'
 import createEntries from './createEntries'
 import type { EntryObject } from './index'
@@ -106,7 +106,7 @@ export default function createWebpackConfig(
               loader: 'postcss-loader',
               options: {
                 ident: 'postcss',
-                plugins: [require('tailwindcss'), require('autoprefixer')],
+                plugins: postcssPlugins,
               },
             },
             'sass-loader',
