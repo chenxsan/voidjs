@@ -22,6 +22,7 @@ import { resolve, join } from 'path'
 import pino from 'pino'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import rehypePrism from '@mapbox/rehype-prism'
+import fs from 'fs-extra'
 
 // FIXME weird bug on windows
 // it would resolve to voidjs\node_modules\@void-js\doc
@@ -53,7 +54,15 @@ export const extensions = ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.json']
 export const performance: Performance = require('perf_hooks').performance
 export const PerformanceObserver = require('perf_hooks').PerformanceObserver
 
-export const cacheRoot = join(cwd, '.voidjs', 'cache')
+export const cacheRoot: string = join(cwd, '.voidjs', 'cache')
+
+const tailwindcssEnabled: boolean = fs.existsSync(
+  join(cwd, 'tailwind.config.js')
+)
+
+export const postcssPlugins = tailwindcssEnabled
+  ? [require('tailwindcss'), require('autoprefixer')]
+  : [require('autoprefixer')]
 
 const babelPresets = [
   '@babel/preset-env',
@@ -128,7 +137,7 @@ export const rules = [
         loader: 'postcss-loader',
         options: {
           ident: 'postcss',
-          plugins: [require('tailwindcss'), require('autoprefixer')],
+          plugins: postcssPlugins,
         },
       },
       'sass-loader',
