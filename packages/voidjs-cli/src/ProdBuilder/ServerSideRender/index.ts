@@ -140,12 +140,14 @@ export default class Ssr {
     const appPath = `${path.resolve(outputPath, templateName + '.js')}`
     const { default: App, getStaticProps } = await import(appPath)
 
+    let props
+
     if (getStaticProps) {
-      const props = await getStaticProps()
-      console.log(props)
+      const staticProps = await getStaticProps()
+      props = staticProps.props
     }
 
-    const html = render(App)
+    const html = render(App, props)
 
     this.hooks.helmet.call()
 
