@@ -138,7 +138,12 @@ export default class Ssr {
     const bd = bodyTags.map((tag) => htmlTagObjectToString(tag, true)).join('')
 
     const appPath = `${path.resolve(outputPath, templateName + '.js')}`
-    const { default: App } = await import(appPath)
+    const { default: App, getStaticProps } = await import(appPath)
+
+    if (getStaticProps) {
+      const props = await getStaticProps()
+      console.log(props)
+    }
 
     const html = render(App)
 
