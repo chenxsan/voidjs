@@ -21,6 +21,26 @@ const createDOMRenderRule = (pagesDir: string) => ({
   ],
 })
 
+const createBabelOptions = (pagesDir: string) => {
+  return {
+    presets: [
+      '@babel/preset-env',
+      '@babel/preset-react',
+      '@babel/preset-typescript',
+    ],
+    plugins: [
+      'react-require',
+      [
+        '@babel/plugin-transform-runtime',
+        {
+          regenerator: true,
+        },
+      ],
+    ],
+    overrides: [createDOMRenderRule(pagesDir)],
+  }
+}
+
 export default function createWebpackConfig(
   pages: string[],
   pagesDir: string,
@@ -30,6 +50,7 @@ export default function createWebpackConfig(
   return {
     experiments: {
       asset: true,
+      topLevelAwait: true,
     },
     mode: 'development',
     entry: (): EntryObject => createEntries(pagesDir, pages),
@@ -46,15 +67,7 @@ export default function createWebpackConfig(
           use: [
             {
               loader: 'babel-loader',
-              options: {
-                presets: [
-                  '@babel/preset-env',
-                  '@babel/preset-react',
-                  '@babel/preset-typescript',
-                ],
-                plugins: ['react-require'], // inject React automatically when jsx presented
-                overrides: [createDOMRenderRule(pagesDir)],
-              },
+              options: createBabelOptions(pagesDir),
             },
           ],
         },
@@ -63,15 +76,7 @@ export default function createWebpackConfig(
           use: [
             {
               loader: 'babel-loader',
-              options: {
-                presets: [
-                  '@babel/preset-env',
-                  '@babel/preset-react',
-                  '@babel/preset-typescript',
-                ],
-                plugins: ['react-require'],
-                overrides: [createDOMRenderRule(pagesDir)],
-              },
+              options: createBabelOptions(pagesDir),
             },
             {
               loader: '@mdx-js/loader',

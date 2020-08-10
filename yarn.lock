@@ -149,6 +149,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/core@npm:^7.8.6":
+  version: 7.11.1
+  resolution: "@babel/core@npm:7.11.1"
+  dependencies:
+    "@babel/code-frame": ^7.10.4
+    "@babel/generator": ^7.11.0
+    "@babel/helper-module-transforms": ^7.11.0
+    "@babel/helpers": ^7.10.4
+    "@babel/parser": ^7.11.1
+    "@babel/template": ^7.10.4
+    "@babel/traverse": ^7.11.0
+    "@babel/types": ^7.11.0
+    convert-source-map: ^1.7.0
+    debug: ^4.1.0
+    gensync: ^1.0.0-beta.1
+    json5: ^2.1.2
+    lodash: ^4.17.19
+    resolve: ^1.3.2
+    semver: ^5.4.1
+    source-map: ^0.5.0
+  checksum: c6bb33b1f7eb803de5832342841ed615f0152e333efa601bf18460c8070bfd0e77cea83010a18a409bf8886096ec57397dd8bf388bc4d85f1337dc2bc6e3f7ef
+  languageName: node
+  linkType: hard
+
 "@babel/generator@npm:^7.10.5":
   version: 7.10.5
   resolution: "@babel/generator@npm:7.10.5"
@@ -2850,6 +2874,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/babel__core@npm:^7.1.6":
+  version: 7.1.9
+  resolution: "@types/babel__core@npm:7.1.9"
+  dependencies:
+    "@babel/parser": ^7.1.0
+    "@babel/types": ^7.0.0
+    "@types/babel__generator": "*"
+    "@types/babel__template": "*"
+    "@types/babel__traverse": "*"
+  checksum: 251c4d3c2ae220b12b57143ca1ac7766d9e86da3819fbdf26ccae969b3fde041c0a21d893d96c08e4cca16373b4a209d06bd258c23d4df5e684ea47f5d158ffb
+  languageName: node
+  linkType: hard
+
 "@types/babel__generator@npm:*":
   version: 7.6.1
   resolution: "@types/babel__generator@npm:7.6.1"
@@ -4514,12 +4551,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-dom-render@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "babel-plugin-react-dom-render@npm:1.0.0"
-  checksum: 689e8d9733c74071feaa3bf6c9d58fd9f5c02afd605e0dc0673c9ff886516cada4f2a44e9eebe9f0c7582a4a68df02cc29775d27379eecc9c44c2efa4316e8ee
-  languageName: node
-  linkType: hard
+"babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render":
+  version: 0.0.0-use.local
+  resolution: "babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render"
+  dependencies:
+    "@babel/core": ^7.8.6
+    "@babel/traverse": ^7.8.6
+    "@babel/types": ^7.8.6
+    "@types/babel__core": ^7.1.6
+  languageName: unknown
+  linkType: soft
 
 "babel-plugin-react-require@npm:^3.1.3":
   version: 3.1.3
@@ -14489,7 +14530,7 @@ typescript@^3.9.7:
     "@types/yargs": ^15.0.5
     autoprefixer: ^9.8.6
     babel-loader: ^8.1.0
-    babel-plugin-react-dom-render: ^1.0.0
+    babel-plugin-react-dom-render: "workspace:packages/babel-plugin-react-dom-render"
     babel-plugin-react-require: ^3.1.3
     css-loader: ^4.1.1
     csso-webpack-plugin: ^2.0.0-beta.1
