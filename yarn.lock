@@ -3,7 +3,7 @@
 
 __metadata:
   version: 4
-  cacheKey: 4
+  cacheKey: 6
 
 "@arcanis/slice-ansi@npm:^1.0.2":
   version: 1.0.2
@@ -3584,7 +3584,7 @@ __metadata:
     react-app-polyfill: ^1.0.6
     react-dom: ^16.13.1
     react-helmet: ^6.1.0
-    voidjs-cli: ^0.13.0
+    voidjs-cli: ^0.14.0
   languageName: unknown
   linkType: soft
 
@@ -3609,7 +3609,7 @@ __metadata:
     "@types/react-dom": 16.9.8
     react: ^16.13.1
     react-dom: ^16.13.1
-    voidjs-cli: 0.13.0
+    voidjs-cli: 0.14.0
   languageName: unknown
   linkType: soft
 
@@ -4571,7 +4571,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render":
+"babel-plugin-react-dom-render@^1.1.0, babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render":
   version: 0.0.0-use.local
   resolution: "babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render"
   dependencies:
@@ -7175,10 +7175,10 @@ __metadata:
 
 "fsevents@patch:fsevents@^2.1.2#builtin<compat/fsevents>, fsevents@patch:fsevents@~2.1.2#builtin<compat/fsevents>":
   version: 2.1.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.1.2#builtin<compat/fsevents>::version=2.1.2&hash=495457"
+  resolution: "fsevents@patch:fsevents@npm%3A2.1.2#builtin<compat/fsevents>::version=2.1.2&hash=87eb42"
   dependencies:
     node-gyp: latest
-  checksum: 6fb6ae0c1e5aca68fec6c0bf119d0dc9a1d653af60925c7ec69868f0ac68fa6930eeb769745030ecb560e00c144c74068da62bb77a000cc7dc263963ba4e2d7f
+  checksum: 28fbb58d43f2949e9f7097b460bf594efc6cba5b4d4326158de82a116b01a1c059efee445b1c60b85acba408087e22d1e23a0595358d5d538ceb6a35bf5ae16a
   languageName: node
   linkType: hard
 
@@ -12538,7 +12538,7 @@ resolve@1.1.7:
 "resolve@patch:resolve@1.1.7#builtin<compat/resolve>":
   version: 1.1.7
   resolution: "resolve@patch:resolve@npm%3A1.1.7#builtin<compat/resolve>::version=1.1.7&hash=3388aa"
-  checksum: 5238277188664a6948dd7288d16f1a09e098fb36d4f9b2c749130969c998faa9bccefd30fd618073af5210fdc768730cadfc15588bbee4fc64b257f20cab6783
+  checksum: ca4e21815c78134fdb248d2175d98c2ead024c680a3a9c7b8ee13fc8a7f5157e061b13ae29ee07a60e1b9faea33c3740cb88d48d94966d7e94479add70d3f544
   languageName: node
   linkType: hard
 
@@ -12547,7 +12547,7 @@ resolve@1.1.7:
   resolution: "resolve@patch:resolve@npm%3A1.15.1#builtin<compat/resolve>::version=1.15.1&hash=3388aa"
   dependencies:
     path-parse: ^1.0.6
-  checksum: 6e76c94f84457c88dfff3f0ff894be6f6250380c9bb8a712891282d2f4ed146c6b4588c3ed2082ae530981adea1743ca6f56732de99004ab31b79f958cd42c0e
+  checksum: 6588c8a8735d8b2a00cfee2a325538f325ae5e48653490882d3e8afe6124f25c25d60ec09864f30a03c4471a3201c9cfba0e14ca0f74f626ac4b5c8d2e42c2c2
   languageName: node
   linkType: hard
 
@@ -12556,7 +12556,7 @@ resolve@1.1.7:
   resolution: "resolve@patch:resolve@npm%3A1.17.0#builtin<compat/resolve>::version=1.17.0&hash=3388aa"
   dependencies:
     path-parse: ^1.0.6
-  checksum: 99df12ab341fb8e96c6bce2ea521d3a1294c5c56f85524369808f7294fbf6f01d6f6c7f4408a1f6cd4fb5762b800a889629ff64abc08f12bcc8c3553e3564ab8
+  checksum: 4bcfb568860d0c361fd16c26b6fce429711138ff0de7dd353bdd73fcb5c7eede2f4602d40ccfa08ff45ec7ef9830845eab2021a46036af0a6e5b58bab1ff6399
   languageName: node
   linkType: hard
 
@@ -14162,11 +14162,11 @@ typescript@^3.9.7:
 
 "typescript@patch:typescript@^3.9.7#builtin<compat/typescript>":
   version: 3.9.7
-  resolution: "typescript@patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=64df9d"
+  resolution: "typescript@patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=5b02a2"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 251a760b5a4d44481d04edaa35a6526841a9878cdfc72a0aee52b18187bd7304e91d467827f3f71b8046faf05d0f35ce1357cd3298b2b172410ccf731660a85f
+  checksum: f0d3d9c987860c7c458229ab6dd7e3d322405db36b70abccba610b5efd9f9451e4e67a3fc7983c0d3741033c1f1a8d7aa859a1510caa8f20fad762fc39648bfa
   languageName: node
   linkType: hard
 
@@ -14550,7 +14550,7 @@ typescript@^3.9.7:
   languageName: node
   linkType: hard
 
-"voidjs-cli@0.13.0, voidjs-cli@^0.13.0, voidjs-cli@workspace:packages/voidjs-cli":
+"voidjs-cli@0.14.0, voidjs-cli@^0.14.0, voidjs-cli@workspace:packages/voidjs-cli":
   version: 0.0.0-use.local
   resolution: "voidjs-cli@workspace:packages/voidjs-cli"
   dependencies:
@@ -14577,7 +14577,7 @@ typescript@^3.9.7:
     "@types/yargs": ^15.0.5
     autoprefixer: ^9.8.6
     babel-loader: ^8.1.0
-    babel-plugin-react-dom-render: "workspace:packages/babel-plugin-react-dom-render"
+    babel-plugin-react-dom-render: ^1.1.0
     babel-plugin-react-require: ^3.1.3
     css-loader: ^4.1.1
     csso-webpack-plugin: ^2.0.0-beta.1
