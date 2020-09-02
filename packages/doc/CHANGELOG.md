@@ -1,5 +1,11 @@
 # @void-js/doc
 
+## 0.2.0
+
+### Minor Changes
+
+- support getStaticProps
+
 ## 0.1.4
 
 ### Patch Changes
