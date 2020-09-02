@@ -1,5 +1,11 @@
 # create-voidjs
 
+## 0.3.9
+
+### Patch Changes
+
+- update dependencies
+
 ## 0.3.8
 
 ### Patch Changes
