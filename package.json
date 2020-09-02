@@ -6,10 +6,10 @@
   ],
   "author": "Sam Chen <chenxsan@gmail.com>",
   "devDependencies": {
-    "@babel/core": "^7.11.0",
+    "@babel/core": "^7.11.5",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-private-methods": "^7.10.4",
-    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-env": "^7.11.5",
     "@babel/preset-typescript": "^7.10.4",
     "@changesets/cli": "^2.9.2",
     "@preconstruct/cli": "^1.1.17",
@@ -21,10 +21,10 @@
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-react": "^7.20.5",
-    "jest": "^26.2.1",
+    "jest": "^26.4.2",
     "memfs": "^3.2.0",
     "prettier": "^2.0.5",
-    "ts-jest": "^26.1.4",
+    "ts-jest": "latest",
     "typescript": "^3.9.7"
   },
   "scripts": {
@@ -38,7 +38,8 @@
       "packages/create-voidjs",
       "packages/voidjs-cli",
       "packages/plugin-react-helmet",
-      "packages/voidjs-styles"
+      "packages/voidjs-styles",
+      "packages/babel-plugin-react-dom-render"
     ]
   },
   "prettier": {

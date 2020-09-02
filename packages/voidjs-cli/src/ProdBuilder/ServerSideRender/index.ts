@@ -138,9 +138,16 @@ export default class Ssr {
     const bd = bodyTags.map((tag) => htmlTagObjectToString(tag, true)).join('')
 
     const appPath = `${path.resolve(outputPath, templateName + '.js')}`
-    const { default: App } = await import(appPath)
+    const { default: App, getStaticProps } = await import(appPath)
 
-    const html = render(App)
+    let props
+
+    if (getStaticProps) {
+      const staticProps = await getStaticProps()
+      props = staticProps.props
+    }
+
+    const html = render(App, props)
 
     this.hooks.helmet.call()
 

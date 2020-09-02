@@ -80,7 +80,15 @@ export const rules = [
         loader: 'babel-loader',
         options: {
           presets: [...babelPresets],
-          plugins: ['react-require'],
+          plugins: [
+            'react-require',
+            [
+              '@babel/plugin-transform-runtime',
+              {
+                regenerator: true
+              },
+            ],
+          ],
           cacheDirectory: true,
           cacheCompression: false,
         },

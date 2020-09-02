@@ -49,7 +49,6 @@ import collectPages from '../collectFiles'
 import PersistDataPlugin from '../webpackPlugins/PersistDataPlugin'
 import RemoveAssetsPlugin from '../webpackPlugins/RemoveAssetsPlugin'
 import fs from 'fs-extra'
-import { cwd } from 'process'
 
 export function generateManifest(
   seed,

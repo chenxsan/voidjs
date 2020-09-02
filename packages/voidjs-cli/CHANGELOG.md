@@ -1,5 +1,16 @@
 # voidjs-cli
 
+## 0.14.0
+
+### Minor Changes
+
+- support getStaticProps
+
+### Patch Changes
+
+- Updated dependencies [undefined]
+  - babel-plugin-react-dom-render@1.1.0
+
 ## 0.13.0
 
 ### Minor Changes
