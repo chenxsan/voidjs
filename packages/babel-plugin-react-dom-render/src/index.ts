@@ -10,7 +10,8 @@ interface State {
   }
 }
 export default function (babel: any): PluginObj<State> {
-  const t = babel.types
+  const template = babel.template
+  let exportDefaultDeclarationName = ''
   return {
     visitor: {
       Program: {
@@ -26,135 +27,49 @@ export default function (babel: any): PluginObj<State> {
             return
           }
 
-          // import ReactDOM from 'react-dom'
-          const identifier = t.identifier('ReactDOM')
-          const importDefaultSpecifier = t.importDefaultSpecifier(identifier)
-          const importDeclaration = t.importDeclaration(
-            [importDefaultSpecifier],
-            t.stringLiteral('react-dom')
+          path.unshiftContainer(
+            'body',
+            template.ast(`import ReactDOM from "react-dom";`)
           )
-          path.unshiftContainer('body', importDeclaration)
         },
-      },
-      ExportDefaultDeclaration: {
-        enter(path: NodePath<ExportDefaultDeclaration>, state: State): void {
+        exit(path: NodePath<Program>, state): void {
           if (!path.scope.hasBinding('React')) {
             // if there's no React present,
             return
           }
+          if (exportDefaultDeclarationName === '') return
           const {
             opts: { root = 'app', hydrate = false },
           } = state
+          path.pushContainer(
+            'body',
+            template.ast(`if (typeof getStaticProps !== "undefined") {
+                (async function () {
+                  const data = await getStaticProps();
+                  ReactDOM.${
+                    hydrate ? 'hydrate' : 'render'
+                  }(React.createElement(${exportDefaultDeclarationName}, data.props), document.getElementById("${root}"));
+                })();
+              } else {
+                ReactDOM.${
+                  hydrate ? 'hydrate' : 'render'
+                }(React.createElement(${exportDefaultDeclarationName}), document.getElementById("${root}"));
+              }`)
+          )
+        },
+      },
+      ExportDefaultDeclaration: {
+        enter(path: NodePath<ExportDefaultDeclaration>): void {
           // Only render function component
-          if (path.node.declaration.type !== 'FunctionDeclaration') return
+          if (path.node.declaration.type !== 'FunctionDeclaration')
+            throw new Error('Only Function Component is supported')
 
           // Anonymous function
-          if (!path.node.declaration.id) return
+          if (!path.node.declaration.id)
+            throw new Error('Anonymous Function Component not supported')
 
-          // ReactDOM.render(<DefaultNamedExport />, document.getElementById('rootElementId'))
-          // ReactDOM.hydrate
-          /**
-           * if (typeof getStaticProps !== 'undefined') {
-           *  (async function () { const {props} = await getStaticProps(); ReactDOM.render(); })()
-           * } else {
-           *
-           * }
-           */
-
-          path.insertAfter(
-            t.ifStatement(
-              t.binaryExpression(
-                '!==',
-                t.UnaryExpression('typeof', t.identifier('getStaticProps')),
-                t.stringLiteral('undefined')
-              ),
-              t.blockStatement([
-                t.expressionStatement(
-                  t.CallExpression(
-                    t.functionExpression(
-                      null,
-                      [],
-                      t.blockStatement([
-                        t.variableDeclaration('const', [
-                          t.variableDeclarator(
-                            t.identifier('data'),
-                            t.awaitExpression(
-                              t.CallExpression(
-                                t.identifier('getStaticProps'),
-                                []
-                              )
-                            )
-                          ),
-                        ]),
-                        t.expressionStatement(
-                          t.CallExpression(
-                            t.memberExpression(
-                              t.identifier('ReactDOM'),
-                              t.identifier(
-                                hydrate === true ? 'hydrate' : 'render'
-                              )
-                            ),
-                            [
-                              t.CallExpression(
-                                t.memberExpression(
-                                  t.identifier('React'),
-                                  t.identifier('createElement')
-                                ),
-                                [
-                                  t.identifier(path.node.declaration.id.name),
-                                  t.memberExpression(
-                                    t.identifier('data'),
-                                    t.identifier('props')
-                                  ),
-                                ]
-                              ),
-                              t.CallExpression(
-                                t.memberExpression(
-                                  t.identifier('document'),
-                                  t.identifier('getElementById')
-                                ),
-                                [t.stringLiteral(root)]
-                              ),
-                            ]
-                          )
-                        ),
-                      ]),
-                      false,
-                      true
-                    ),
-                    []
-                  )
-                ),
-              ]),
-              t.blockStatement([
-                // else
-                t.expressionStatement(
-                  t.CallExpression(
-                    t.memberExpression(
-                      t.identifier('ReactDOM'),
-                      t.identifier(hydrate === true ? 'hydrate' : 'render')
-                    ),
-                    [
-                      t.CallExpression(
-                        t.memberExpression(
-                          t.identifier('React'),
-                          t.identifier('createElement')
-                        ),
-                        [t.identifier(path.node.declaration.id.name)]
-                      ),
-                      t.CallExpression(
-                        t.memberExpression(
-                          t.identifier('document'),
-                          t.identifier('getElementById')
-                        ),
-                        [t.stringLiteral(root)]
-                      ),
-                    ]
-                  )
-                ),
-              ])
-            )
-          )
+          // save for next
+          exportDefaultDeclarationName = path.node.declaration.id.name
         },
       },
     },

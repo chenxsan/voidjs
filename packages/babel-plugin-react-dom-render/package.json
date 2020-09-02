@@ -21,9 +21,9 @@
   },
   "homepage": "https://github.com/chenxsan/babel-plugin-react-dom-render#readme",
   "devDependencies": {
-    "@babel/core": "^7.8.6",
-    "@babel/traverse": "^7.8.6",
-    "@babel/types": "^7.8.6",
+    "@babel/core": "^7.11.5",
+    "@babel/traverse": "^7.11.5",
+    "@babel/types": "^7.11.5",
     "@types/babel__core": "^7.1.6"
   },
   "files": [
