@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.14.2
+
+### Patch Changes
+
+- bd3e416: upgrade @mdx-js/loader
+
 ## 0.14.1
 
 ### Patch Changes
