@@ -1,5 +1,11 @@
 # create-voidjs
 
+## 0.3.10
+
+### Patch Changes
+
+- effc55a: clean css
+
 ## 0.3.9
 
 ### Patch Changes
