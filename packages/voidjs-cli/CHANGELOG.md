@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.15.1
+
+### Patch Changes
+
+- clean experiments.asset as it's enabled by default
+
 ## 0.15.0
 
 ### Minor Changes
