@@ -25,7 +25,12 @@ const createBabelOptions = (pagesDir: string) => {
   return {
     presets: [
       '@babel/preset-env',
-      '@babel/preset-react',
+      [
+        '@babel/preset-react',
+        {
+          throwIfNamespace: false,
+        },
+      ],
       '@babel/preset-typescript',
     ],
     plugins: [

@@ -66,7 +66,12 @@ export const postcssPlugins = tailwindcssEnabled
 
 const babelPresets = [
   '@babel/preset-env',
-  '@babel/preset-react',
+  [
+    '@babel/preset-react',
+    {
+      throwIfNamespace: false,
+    },
+  ],
   '@babel/preset-typescript',
 ]
 
