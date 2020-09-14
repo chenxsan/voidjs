@@ -136,7 +136,14 @@ class ProdBuilder extends Builder {
         minimize: false,
       },
       output: {
-        ecmaVersion: 5, // I need ie 11 support :(
+        // @ts-ignore
+        environment: {
+          arrowFunction: false,
+          bigIntLiteral: false,
+          destructuring: false,
+          dynamicImport: false,
+          module: false,
+        }, // I need ie 11 support :(
         path: path.resolve(this.#outputPath),
         libraryTarget: 'commonjs2',
         filename: (pathData): string => {

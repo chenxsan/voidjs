@@ -1,5 +1,7 @@
 module.exports = {
-  purge: ['./pages/**/*.js', './components/**/*.js', './public/js/**/*.js'],
+  purge: {
+    content: ['./pages/**/*.js', './components/**/*.js', './public/js/**/*.js'],
+  },
   theme: {
     screens: {
       sm: '768px',
@@ -9,4 +11,8 @@ module.exports = {
   },
   variants: {},
   plugins: [],
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
+  },
 }

@@ -66,7 +66,12 @@ export const postcssPlugins = tailwindcssEnabled
 
 const babelPresets = [
   '@babel/preset-env',
-  '@babel/preset-react',
+  [
+    '@babel/preset-react',
+    {
+      throwIfNamespace: false,
+    },
+  ],
   '@babel/preset-typescript',
 ]
 
@@ -85,7 +90,7 @@ export const rules = [
             [
               '@babel/plugin-transform-runtime',
               {
-                regenerator: true
+                regenerator: true,
               },
             ],
           ],
@@ -144,8 +149,10 @@ export const rules = [
       {
         loader: 'postcss-loader',
         options: {
-          ident: 'postcss',
-          plugins: postcssPlugins,
+          postcssOptions: {
+            ident: 'postcss',
+            plugins: postcssPlugins,
+          },
         },
       },
       'sass-loader',

@@ -1,5 +1,12 @@
 # voidjs-cli
 
+## 0.15.0
+
+### Minor Changes
+
+- Upgrade webpack
+- Set throwIfNamespace to false
+
 ## 0.14.2
 
 ### Patch Changes
