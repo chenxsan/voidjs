@@ -55,7 +55,13 @@ export default function createWebpackConfig(
     mode: 'development',
     entry: (): EntryObject => createEntries(pagesDir, pages),
     output: {
-      ecmaVersion: 5, // I need ie 11 support :(
+      environment: {
+        arrowFunction: false,
+        bigIntLiteral: false,
+        destructuring: false,
+        dynamicImport: false,
+        module: false,
+      }, // I need ie 11 support :(
       publicPath: '/',
     },
     stats: 'minimal',
@@ -110,8 +116,10 @@ export default function createWebpackConfig(
             {
               loader: 'postcss-loader',
               options: {
-                ident: 'postcss',
-                plugins: postcssPlugins,
+                postcssOptions: {
+                  ident: 'postcss',
+                  plugins: postcssPlugins,
+                },
               },
             },
             'sass-loader',

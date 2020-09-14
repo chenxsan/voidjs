@@ -110,7 +110,14 @@ export default class ClientsCompiler {
           .join('-')]: entry,
       },
       output: {
-        ecmaVersion: 5, // I need ie 11 support :(
+        // @ts-ignore
+        environment: {
+          arrowFunction: false,
+          bigIntLiteral: false,
+          destructuring: false,
+          dynamicImport: false,
+          module: false,
+        }, // I need ie 11 support :(
         path: path.resolve(this.#outputPath),
         filename: '[name].[contenthash].js',
         chunkFilename: '[name]-[id].[contenthash].js',

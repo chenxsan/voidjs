@@ -85,7 +85,7 @@ export const rules = [
             [
               '@babel/plugin-transform-runtime',
               {
-                regenerator: true
+                regenerator: true,
               },
             ],
           ],
@@ -144,8 +144,10 @@ export const rules = [
       {
         loader: 'postcss-loader',
         options: {
-          ident: 'postcss',
-          plugins: postcssPlugins,
+          postcssOptions: {
+            ident: 'postcss',
+            plugins: postcssPlugins,
+          },
         },
       },
       'sass-loader',
