@@ -54,7 +54,6 @@ export default function createWebpackConfig(
 ): webpack.Configuration {
   return {
     experiments: {
-      asset: true,
       topLevelAwait: true,
     },
     mode: 'development',
