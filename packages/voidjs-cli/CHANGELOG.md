@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.16.0
+
+### Minor Changes
+
+- Support script tag in `<Helmet></Helmet>`
+
 ## 0.15.1
 
 ### Patch Changes
