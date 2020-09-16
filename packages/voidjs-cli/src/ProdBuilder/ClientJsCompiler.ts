@@ -148,7 +148,8 @@ export default class ClientsCompiler {
           filename: '[name].[contenthash].css',
         }),
         new WebpackAssetsManifest({
-          fileName: 'client-assets.json',
+          fileName:
+            relative.replace(/\.client\.(js|ts)$/, '.') + 'client-assets.json',
           generate: generateManifest,
         }),
         new PrettyPlugin(this.#config),
