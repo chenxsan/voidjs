@@ -5056,9 +5056,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001109":
-  version: 1.0.30001109
-  resolution: "caniuse-lite@npm:1.0.30001109"
-  checksum: 303bab088035d107a4797813ee6946f2d613013497e5ab8db5f63e685bcd9ec84b00624b0bc38dd565f17dbdcdeda11db27be69e17c141b9f2479eb67dd89711
+  version: 1.0.30001133
+  resolution: "caniuse-lite@npm:1.0.30001133"
+  checksum: 670240a2d3ab33cc8bbf53fc8efc8e35c91e4ff227290f23c8f24f1999c22bac96981dd390723b0cd7d6ec416ec9ee4fe2de4c9ff06825d0c579443f511eb9c4
   languageName: node
   linkType: hard
 
@@ -11686,12 +11686,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "prettier@npm:2.1.1"
+"prettier@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "prettier@npm:2.1.2"
   bin:
     prettier: bin-prettier.js
-  checksum: 420a807cda2d482388daa42379a7aaa1be629cb71f5792362a971a5ed1c6ff377d2e311818d24e9390a4a8a6eac3fda9ebe6975f2168efec893790c0497d8a93
+  checksum: bedc24c568efbcfe45f255558900777e2fabb36bf28ed4c22d2456eb22dfb012d12e566a46472ea5b857a4e9f263e888f7e316527d00bb58188f1820b0b0031a
   languageName: node
   linkType: hard
 
@@ -12836,14 +12836,14 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.26.10":
-  version: 1.26.10
-  resolution: "sass@npm:1.26.10"
+"sass@npm:^1.26.11":
+  version: 1.26.11
+  resolution: "sass@npm:1.26.11"
   dependencies:
     chokidar: ">=2.0.0 <4.0.0"
   bin:
     sass: sass.js
-  checksum: 001da3a0fa57087f92fc48f7fa9a0f832d6c0ac8a4377df485a555c9db4749bba3fe3da8e46eb015439cb4d40bc1add1f704523914152f5a18f2358bd58f51d9
+  checksum: edcc6127cdf8cc3640dc25f10e641daf5edf0ae853edaf87f948fbdf450743b500521cac77d7952cab87e0cba7b09c71912febde6974f821a1bc0f4905332a4a
   languageName: node
   linkType: hard
 
@@ -14786,11 +14786,11 @@ typescript@^4.0.3:
     pino: ^6.6.1
     pino-pretty: ^4.2.1
     postcss-loader: ^4.0.1
-    prettier: ^2.1.1
+    prettier: ^2.1.2
     react: ^16.13.1
     react-dom: ^16.13.1
     rimraf: ^3.0.2
-    sass: ^1.26.10
+    sass: ^1.26.11
     sass-loader: ^10.0.2
     schema-utils: ^2.7.1
     strip-ansi: 3.0.1
@@ -14832,7 +14832,7 @@ typescript@^4.0.3:
     eslint-plugin-react: ^7.20.6
     jest: ^26.4.2
     memfs: ^3.2.0
-    prettier: ^2.1.1
+    prettier: ^2.1.2
     ts-jest: ^26.4.0
     typescript: ^4.0.3
   languageName: unknown
