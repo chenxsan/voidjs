@@ -72,6 +72,7 @@ async function loadAllHtmlTags(
 
 export default class Ssr {
   hooks: {
+    // @ts-ignore
     [propName: string]: SyncHook
   }
   helmet?: HelmetData
