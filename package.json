@@ -11,7 +11,7 @@
     "@babel/plugin-proposal-private-methods": "^7.10.4",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-typescript": "^7.10.4",
-    "@changesets/cli": "^2.10.2",
+    "@changesets/cli": "^2.10.3",
     "@preconstruct/cli": "^1.1.27",
     "@types/jest": "^26.0.13",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
