@@ -57,15 +57,9 @@ export default function createWebpackConfig(
       topLevelAwait: true,
     },
     mode: 'development',
+    target: ['web', 'es5'], // I need ie 11 support :(
     entry: (): EntryObject => createEntries(pagesDir, pages),
     output: {
-      environment: {
-        arrowFunction: false,
-        bigIntLiteral: false,
-        destructuring: false,
-        dynamicImport: false,
-        module: false,
-      }, // I need ie 11 support :(
       publicPath: '/',
     },
     stats: 'minimal',

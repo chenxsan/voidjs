@@ -132,15 +132,8 @@ class ProdBuilder extends Builder {
       optimization: {
         minimize: false,
       },
+      target: ['web', 'es5'],
       output: {
-        // @ts-ignore
-        environment: {
-          arrowFunction: false,
-          bigIntLiteral: false,
-          destructuring: false,
-          dynamicImport: false,
-          module: false,
-        }, // I need ie 11 support :(
         path: path.resolve(this.#outputPath),
         libraryTarget: 'commonjs2',
         filename: (pathData): string => {
