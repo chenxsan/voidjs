@@ -1,5 +1,12 @@
 # voidjs-cli
 
+## 0.16.2
+
+### Patch Changes
+
+- upgrade deps
+- set `target` to `['web', 'es5']`
+
 ## 0.16.1
 
 ### Patch Changes
