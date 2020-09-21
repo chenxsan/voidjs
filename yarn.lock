@@ -2396,19 +2396,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/types@npm:^26.2.0":
-  version: 26.2.0
-  resolution: "@jest/types@npm:26.2.0"
-  dependencies:
-    "@types/istanbul-lib-coverage": ^2.0.0
-    "@types/istanbul-reports": ^1.1.1
-    "@types/node": "*"
-    "@types/yargs": ^15.0.0
-    chalk: ^4.0.0
-  checksum: 369e0123c9451480749fd516645df44e20818054b5cbb7538502751dfe4a88a691441b76df5fb1bda4b7116cb5023bc834141d64ae9d46c240d72417b5ea60a9
-  languageName: node
-  linkType: hard
-
 "@jest/types@npm:^26.3.0":
   version: 26.3.0
   resolution: "@jest/types@npm:26.3.0"
@@ -9263,20 +9250,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-util@npm:26.x":
-  version: 26.2.0
-  resolution: "jest-util@npm:26.2.0"
-  dependencies:
-    "@jest/types": ^26.2.0
-    "@types/node": "*"
-    chalk: ^4.0.0
-    graceful-fs: ^4.2.4
-    is-ci: ^2.0.0
-    micromatch: ^4.0.2
-  checksum: 5989debfaf93aeff084335b082ec38df4b2f0ae29f626c88e0300a49d0f407e30ffe238e1666464bde3b5d42e02f99912b43f2fbee71fe7b0111ddba2dd6fd92
-  languageName: node
-  linkType: hard
-
 "jest-util@npm:^25.1.0":
   version: 25.1.0
   resolution: "jest-util@npm:25.1.0"
@@ -9289,7 +9262,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-util@npm:^26.3.0":
+"jest-util@npm:^26.1.0, jest-util@npm:^26.3.0":
   version: 26.3.0
   resolution: "jest-util@npm:26.3.0"
   dependencies:
@@ -13040,6 +13013,15 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
+"serialize-javascript@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "serialize-javascript@npm:5.0.1"
+  dependencies:
+    randombytes: ^2.1.0
+  checksum: 97eef70a33c75e690b0c6aa2ffe622ecdfc888d3f181a5cf129e5778228dcd100febabc0f41ff793199ee79acd14cbbad0c69f1348a3893580fe424c4718889b
+  languageName: node
+  linkType: hard
+
 "serve-static@npm:1.14.1":
   version: 1.14.1
   resolution: "serve-static@npm:1.14.1"
@@ -13818,9 +13800,9 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^1.8.9":
-  version: 1.8.9
-  resolution: "tailwindcss@npm:1.8.9"
+"tailwindcss@npm:^1.8.10":
+  version: 1.8.10
+  resolution: "tailwindcss@npm:1.8.10"
   dependencies:
     "@fullhuman/postcss-purgecss": ^2.1.2
     autoprefixer: ^9.4.5
@@ -13847,7 +13829,7 @@ resolve@1.1.7:
   bin:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
-  checksum: 72f40bb4f65c3062d492f2cb1ea20bf1d205fb42d45cbdd1c11f045a87590700e8a6f823bd57e8d05717c81992262ea020b33f36ee2d96d89280d7c60d99043a
+  checksum: 89c0c8a227b677b4bb150cd6b1c2f37c1a30a0285165ff5b315a1fa0046430ebdf54ccba26c291bfe86c96be0d25c83365608ac8f182799fcdf2e442860a229e
   languageName: node
   linkType: hard
 
@@ -13933,7 +13915,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"terser-webpack-plugin@npm:^4.1.0, terser-webpack-plugin@npm:^4.2.0":
+"terser-webpack-plugin@npm:^4.1.0":
   version: 4.2.0
   resolution: "terser-webpack-plugin@npm:4.2.0"
   dependencies:
@@ -13949,6 +13931,25 @@ resolve@1.1.7:
   peerDependencies:
     webpack: ^4.0.0 || ^5.0.0
   checksum: 2e322629b717c207c0a936c3ca956bbb867c45d0bd02044d0ee757f13f125a79b005b480723f4f5ac5061a020bc170d4fe099be85a8b7943f77688f1bbda72e1
+  languageName: node
+  linkType: hard
+
+"terser-webpack-plugin@npm:^4.2.2":
+  version: 4.2.2
+  resolution: "terser-webpack-plugin@npm:4.2.2"
+  dependencies:
+    cacache: ^15.0.5
+    find-cache-dir: ^3.3.1
+    jest-worker: ^26.3.0
+    p-limit: ^3.0.2
+    schema-utils: ^2.7.1
+    serialize-javascript: ^5.0.1
+    source-map: ^0.6.1
+    terser: ^5.3.2
+    webpack-sources: ^1.4.3
+  peerDependencies:
+    webpack: ^4.0.0 || ^5.0.0
+  checksum: 9901bcb6eef18724b01b4bae85eb1ec08a9ab02903d3c1853134b34a42fabe3fbc0fb30afe53522eb7e8568fbf42e88d9593e813645cf316a33e7ecd34ec2be7
   languageName: node
   linkType: hard
 
@@ -13988,6 +13989,19 @@ resolve@1.1.7:
   bin:
     terser: bin/terser
   checksum: 383db380fec2beea487dc60321a867375c6505b3164ddb1b94d54d041d06f12f3170395127bd0fcc5e7a71824fa48f1d9b520f58761142ead82db6b0309052a9
+  languageName: node
+  linkType: hard
+
+"terser@npm:^5.3.2":
+  version: 5.3.2
+  resolution: "terser@npm:5.3.2"
+  dependencies:
+    commander: ^2.20.0
+    source-map: ~0.6.1
+    source-map-support: ~0.5.12
+  bin:
+    terser: bin/terser
+  checksum: 4de06e4c6ca0e01199a9beba4a6a1e7b76d3465e2cfcf6a7cb195badfdebace709aa687fa209fb6793fa30d74b935d3d1e68603d3d90774109e0f2037a954ae3
   languageName: node
   linkType: hard
 
@@ -14174,27 +14188,27 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^26.3.0":
-  version: 26.3.0
-  resolution: "ts-jest@npm:26.3.0"
+"ts-jest@npm:^26.4.0":
+  version: 26.4.0
+  resolution: "ts-jest@npm:26.4.0"
   dependencies:
     "@types/jest": 26.x
     bs-logger: 0.x
     buffer-from: 1.x
     fast-json-stable-stringify: 2.x
-    jest-util: 26.x
+    jest-util: ^26.1.0
     json5: 2.x
     lodash.memoize: 4.x
     make-error: 1.x
     mkdirp: 1.x
     semver: 7.x
-    yargs-parser: 18.x
+    yargs-parser: 20.x
   peerDependencies:
     jest: ">=26 <27"
     typescript: ">=3.8 <5.0"
   bin:
     ts-jest: cli.js
-  checksum: aa20f07590814fe6c587733cc0278da12e0f6ed08828ed2904671cf29d31b6d1fbb67320221ad2ac7396c369df1ee777bcec7c3dfda0e383968423e78b41bfe5
+  checksum: 1c3d1aad6d62d016eaad42fdaeb9592fed2c19b3ed11a284667c1f8cfc74e8b7fd707fea3af6ca361b26b4e850a7b51a7bc856748061f4256193f3c11dec0f3a
   languageName: node
   linkType: hard
 
@@ -14334,23 +14348,23 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-typescript@^4.0.2:
-  version: 4.0.2
-  resolution: "typescript@npm:4.0.2"
+typescript@^4.0.3:
+  version: 4.0.3
+  resolution: "typescript@npm:4.0.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: cc0e7806eee7997a1b4b2990badacc4a8d089893ed0a377f35c9658e2ac392503cb340d0187203ed82e36e427dda94b0fb7107e44a71cca99efac86be26e16ee
+  checksum: 5c892e132756a83d22030d7fb38be47cde27613f71d233dbe7faf79e4a92852c5146bfddcaf8c2da1a37d35ae8bf7b8c888fdcd763d5ad184cea6b21e7466838
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.0.2#builtin<compat/typescript>":
-  version: 4.0.2
-  resolution: "typescript@patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"
+"typescript@patch:typescript@^4.0.3#builtin<compat/typescript>":
+  version: 4.0.3
+  resolution: "typescript@patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5b02a2"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: b8b689ef994cce4fe59950d56ddfffce3c4bdda8edb85b72e752d4a6d27bf7df8a318e76ccde25cbe6e642058f2f4ccf47187db4b243bbc98278a2844db9461b
+  checksum: 72db87d09f728c83062d64b5e12ed52effb6278963b6bc5c006219b22c104e02b8ce80164261de554923d3c47d894a1ca937ed542328caccb83ebaedeae98a69
   languageName: node
   linkType: hard
 
@@ -14795,9 +14809,9 @@ typescript@^4.0.2:
     schema-utils: ^2.7.1
     strip-ansi: 3.0.1
     style-loader: ^1.2.1
-    tailwindcss: ^1.8.9
-    tapable: ^1.1.3
-    terser-webpack-plugin: ^4.2.0
+    tailwindcss: ^1.8.10
+    tapable: ^2.0.0
+    terser-webpack-plugin: ^4.2.2
     webpack: ^5.0.0-rc.0
     webpack-dev-middleware: next
     webpack-manifest-plugin: next
@@ -14833,8 +14847,8 @@ typescript@^4.0.2:
     jest: ^26.4.2
     memfs: ^3.2.0
     prettier: ^2.1.1
-    ts-jest: ^26.3.0
-    typescript: ^4.0.2
+    ts-jest: ^26.4.0
+    typescript: ^4.0.3
   languageName: unknown
   linkType: soft
 
@@ -15281,13 +15295,10 @@ typescript@^4.0.2:
   languageName: node
   linkType: hard
 
-"yargs-parser@npm:18.x":
-  version: 18.1.2
-  resolution: "yargs-parser@npm:18.1.2"
-  dependencies:
-    camelcase: ^5.0.0
-    decamelize: ^1.2.0
-  checksum: 500c5c4268fdbf8ba31ee97132f218b547607987714b1d543f44c7da78baf18ac84b0fa6270070d1e4ca40417a08e3a509073da80c3de4e5ccf076bce40dd85d
+"yargs-parser@npm:20.x":
+  version: 20.2.0
+  resolution: "yargs-parser@npm:20.2.0"
+  checksum: d707279bded5a5e1dec5ce8c22d8b9adadd8da1c2a3e0f87c297d13284973fdeb10de8d93df950465036a23fa98bc2c3d26e2d2fc4c9c75f1f6b24db65da489f
   languageName: node
   linkType: hard
 
