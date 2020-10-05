@@ -69,7 +69,7 @@
     "tailwindcss": "^1.8.10",
     "tapable": "^2.0.0",
     "terser-webpack-plugin": "^4.2.2",
-    "webpack": "^5.0.0-rc.0",
+    "webpack": "^5.0.0-rc.3",
     "webpack-dev-middleware": "next",
     "webpack-manifest-plugin": "next",
     "ws": "^7.3.1",
