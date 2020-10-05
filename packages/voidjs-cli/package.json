@@ -88,7 +88,7 @@
     "@types/rimraf": "^3.0.0",
     "@types/strip-ansi": "5.2.1",
     "@types/webpack-dev-middleware": "^3.7.2",
-    "@types/ws": "^7.2.6",
+    "@types/ws": "^7.2.7",
     "@types/yargs": "^15.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
