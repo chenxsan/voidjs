@@ -3,7 +3,7 @@
   "version": "0.1.5",
   "devDependencies": {
     "@types/react": "16.9.53",
-    "react": "^16.14.0",
+    "react": "^17.0.1",
     "react-helmet": "6.1.0"
   },
   "main": "dist/plugin-react-helmet.cjs.js",
