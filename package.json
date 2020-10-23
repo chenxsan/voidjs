@@ -47,6 +47,6 @@
     "semi": false
   },
   "resolutions": {
-    "postcss": "^8.1.3"
+    "postcss": "^8.1.3" // TODO remove it after tailwindcss upgrades its postcss dependency to 8
   }
 }
