@@ -5,12 +5,12 @@ const opts = {
   configFile: false,
   compact: true,
 }
-test('should import react-dom when React presented and default exported', () => {
-  const str = 'import React from "react";export default function App() {};'
+test('should import createElement and ReactDOM', () => {
+  const str = ''
   const result = transformSync(str, opts)
   if (!result) return
   expect(result.code).toContain(
-    'import ReactDOM from"react-dom";import React from"react";export default function App(){};if(typeof getStaticProps!=="undefined"){(async function(){const data=await getStaticProps();ReactDOM.render(React.createElement(App,data.props),document.getElementById("app"));})();}else{ReactDOM.render(React.createElement(App),document.getElementById("app"));}'
+    `import ReactDOM from"react-dom";import{createElement}from'react';`
   )
 })
 test('should throw with default class component', () => {
@@ -18,7 +18,7 @@ test('should throw with default class component', () => {
   expect(() => transformSync(str, opts)).toThrowError()
 })
 test('should hydrate', () => {
-  const str = 'import React from "react";export default function App() {}'
+  const str = 'export default function App() {}'
   const result = transformSync(str, {
     ...opts,
     plugins: [
@@ -33,14 +33,8 @@ test('should hydrate', () => {
   if (!result) return
   expect(result.code).toContain('ReactDOM.hydrate')
 })
-test('should not do anything if no React present', () => {
-  const str = 'export default function App() {}'
-  const result = transformSync(str, opts)
-  if (!result) return
-  expect(result.code).not.toContain('ReactDOM')
-})
 test('should test existence of getStaticProps', () => {
-  const str = `import React from 'react';export default function App() {}`
+  const str = `export default function App() {}`
   const result = transformSync(str, opts)
   if (!result) return
   expect(result.code).toContain('typeof getStaticProps')

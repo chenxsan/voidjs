@@ -4660,13 +4660,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"babel-plugin-react-require@npm:^3.1.3":
-  version: 3.1.3
-  resolution: "babel-plugin-react-require@npm:3.1.3"
-  checksum: eb42b7769dfedc92b9a3af8b70d659a9b480b834e64b69aa7cf60610d6908a0e0cbf8eebe8acab0ffbc76a84b6a7a6b34f082e21060de73ebc7c02c648ba39d6
-  languageName: node
-  linkType: hard
-
 "babel-preset-current-node-syntax@npm:^0.1.3":
   version: 0.1.3
   resolution: "babel-preset-current-node-syntax@npm:0.1.3"
@@ -14497,7 +14490,6 @@ typescript@^4.0.3:
     autoprefixer: ^10.0.1
     babel-loader: ^8.1.0
     babel-plugin-react-dom-render: ^1.1.1
-    babel-plugin-react-require: ^3.1.3
     css-loader: ^5.0.0
     csso-webpack-plugin: ^2.0.0-beta.1
     express: ^4.17.1

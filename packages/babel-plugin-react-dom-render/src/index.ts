@@ -13,27 +13,21 @@ export default function (babel: any): PluginObj<State> {
     visitor: {
       Program: {
         enter(path): void {
-          if (path.scope.hasBinding('ReactDOM')) {
-            // already there
-            return
+          if (!path.scope.hasBinding('createElement')) {
+            path.unshiftContainer(
+              'body',
+              template.ast(`import { createElement } from 'react';`)
+            )
           }
 
-          if (!path.scope.hasBinding('React')) {
-            // if there's no React present,
-            // why would u need ReactDOM
-            return
+          if (!path.scope.hasBinding('ReactDOM')) {
+            path.unshiftContainer(
+              'body',
+              template.ast(`import ReactDOM from "react-dom";`)
+            )
           }
-
-          path.unshiftContainer(
-            'body',
-            template.ast(`import ReactDOM from "react-dom";`)
-          )
         },
         exit(path, state): void {
-          if (!path.scope.hasBinding('React')) {
-            // if there's no React present,
-            return
-          }
           if (exportDefaultDeclarationName === '') return
           const {
             opts: { root = 'app', hydrate = false },
@@ -45,12 +39,12 @@ export default function (babel: any): PluginObj<State> {
                   const data = await getStaticProps();
                   ReactDOM.${
                     hydrate ? 'hydrate' : 'render'
-                  }(React.createElement(${exportDefaultDeclarationName}, data.props), document.getElementById("${root}"));
+                  }(createElement(${exportDefaultDeclarationName}, data.props), document.getElementById("${root}"));
                 })();
               } else {
                 ReactDOM.${
                   hydrate ? 'hydrate' : 'render'
-                }(React.createElement(${exportDefaultDeclarationName}), document.getElementById("${root}"));
+                }(createElement(${exportDefaultDeclarationName}), document.getElementById("${root}"));
               }`)
           )
         },

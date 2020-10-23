@@ -35,7 +35,6 @@ const createBabelOptions = (pagesDir: string) => {
       '@babel/preset-typescript',
     ],
     plugins: [
-      'react-require',
       [
         '@babel/plugin-transform-runtime',
         {
