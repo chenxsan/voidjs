@@ -70,6 +70,7 @@ const babelPresets = [
     '@babel/preset-react',
     {
       throwIfNamespace: false,
+      runtime: 'automatic',
     },
   ],
   '@babel/preset-typescript',
@@ -86,7 +87,6 @@ export const rules = [
         options: {
           presets: [...babelPresets],
           plugins: [
-            'react-require',
             [
               '@babel/plugin-transform-runtime',
               {
@@ -107,7 +107,6 @@ export const rules = [
         loader: 'babel-loader',
         options: {
           presets: [...babelPresets],
-          plugins: ['react-require'],
           cacheDirectory: true,
           cacheCompression: false,
         },

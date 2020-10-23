@@ -1,7 +1,4 @@
-import { PluginObj } from '@babel/core'
-import { Program, ExportDefaultDeclaration } from '@babel/types'
-
-import { NodePath } from '@babel/traverse'
+import type { PluginObj } from '@babel/core'
 
 interface State {
   opts: {
@@ -15,28 +12,22 @@ export default function (babel: any): PluginObj<State> {
   return {
     visitor: {
       Program: {
-        enter(path: NodePath<Program>): void {
-          if (path.scope.hasBinding('ReactDOM')) {
-            // already there
-            return
+        enter(path): void {
+          if (!path.scope.hasBinding('createElement')) {
+            path.unshiftContainer(
+              'body',
+              template.ast(`import { createElement } from 'react';`)
+            )
           }
 
-          if (!path.scope.hasBinding('React')) {
-            // if there's no React present,
-            // why would u need ReactDOM
-            return
+          if (!path.scope.hasBinding('ReactDOM')) {
+            path.unshiftContainer(
+              'body',
+              template.ast(`import ReactDOM from "react-dom";`)
+            )
           }
-
-          path.unshiftContainer(
-            'body',
-            template.ast(`import ReactDOM from "react-dom";`)
-          )
         },
-        exit(path: NodePath<Program>, state): void {
-          if (!path.scope.hasBinding('React')) {
-            // if there's no React present,
-            return
-          }
+        exit(path, state): void {
           if (exportDefaultDeclarationName === '') return
           const {
             opts: { root = 'app', hydrate = false },
@@ -48,18 +39,18 @@ export default function (babel: any): PluginObj<State> {
                   const data = await getStaticProps();
                   ReactDOM.${
                     hydrate ? 'hydrate' : 'render'
-                  }(React.createElement(${exportDefaultDeclarationName}, data.props), document.getElementById("${root}"));
+                  }(createElement(${exportDefaultDeclarationName}, data.props), document.getElementById("${root}"));
                 })();
               } else {
                 ReactDOM.${
                   hydrate ? 'hydrate' : 'render'
-                }(React.createElement(${exportDefaultDeclarationName}), document.getElementById("${root}"));
+                }(createElement(${exportDefaultDeclarationName}), document.getElementById("${root}"));
               }`)
           )
         },
       },
       ExportDefaultDeclaration: {
-        enter(path: NodePath<ExportDefaultDeclaration>): void {
+        enter(path): void {
           // Only render function component
           if (path.node.declaration.type !== 'FunctionDeclaration')
             throw new Error('Only Function Component is supported')

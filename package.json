@@ -6,25 +6,25 @@
   ],
   "author": "Sam Chen <chenxsan@gmail.com>",
   "devDependencies": {
-    "@babel/core": "^7.11.6",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/plugin-proposal-private-methods": "^7.10.4",
-    "@babel/preset-env": "^7.11.5",
-    "@babel/preset-typescript": "^7.10.4",
-    "@changesets/cli": "^2.10.3",
-    "@preconstruct/cli": "^1.1.27",
-    "@types/jest": "^26.0.14",
-    "@typescript-eslint/eslint-plugin": "^4.0.1",
-    "@typescript-eslint/parser": "^4.1.1",
-    "@yarnpkg/pnpify": "^2.2.1",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-private-methods": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-typescript": "^7.12.1",
+    "@changesets/cli": "^2.11.1",
+    "@preconstruct/cli": "^1.1.33",
+    "@types/jest": "^26.0.15",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
+    "@yarnpkg/pnpify": "^2.3.3",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.9.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-react": "^7.20.6",
-    "jest": "^26.4.2",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.14.0",
+    "eslint-plugin-react": "^7.21.5",
+    "jest": "^26.6.0",
     "memfs": "^3.2.0",
     "prettier": "^2.1.2",
-    "ts-jest": "^26.4.0",
+    "ts-jest": "^26.4.1",
     "typescript": "^4.0.3"
   },
   "scripts": {
@@ -47,6 +47,6 @@
     "semi": false
   },
   "resolutions": {
-    "@babel/parser": "^7.10.2"
+    "postcss": "^8.1.3"
   }
 }

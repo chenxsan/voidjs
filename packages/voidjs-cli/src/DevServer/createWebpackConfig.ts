@@ -29,12 +29,12 @@ const createBabelOptions = (pagesDir: string) => {
         '@babel/preset-react',
         {
           throwIfNamespace: false,
+          runtime: 'automatic',
         },
       ],
       '@babel/preset-typescript',
     ],
     plugins: [
-      'react-require',
       [
         '@babel/plugin-transform-runtime',
         {
