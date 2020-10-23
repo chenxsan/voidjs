@@ -29,6 +29,7 @@ const createBabelOptions = (pagesDir: string) => {
         '@babel/preset-react',
         {
           throwIfNamespace: false,
+          runtime: 'automatic',
         },
       ],
       '@babel/preset-typescript',

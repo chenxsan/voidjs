@@ -70,6 +70,7 @@ const babelPresets = [
     '@babel/preset-react',
     {
       throwIfNamespace: false,
+      runtime: 'automatic',
     },
   ],
   '@babel/preset-typescript',
