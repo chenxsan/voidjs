@@ -1,7 +1,4 @@
-import { PluginObj } from '@babel/core'
-import { Program, ExportDefaultDeclaration } from '@babel/types'
-
-import { NodePath } from '@babel/traverse'
+import type { PluginObj } from '@babel/core'
 
 interface State {
   opts: {
@@ -15,7 +12,7 @@ export default function (babel: any): PluginObj<State> {
   return {
     visitor: {
       Program: {
-        enter(path: NodePath<Program>): void {
+        enter(path): void {
           if (path.scope.hasBinding('ReactDOM')) {
             // already there
             return
@@ -32,7 +29,7 @@ export default function (babel: any): PluginObj<State> {
             template.ast(`import ReactDOM from "react-dom";`)
           )
         },
-        exit(path: NodePath<Program>, state): void {
+        exit(path, state): void {
           if (!path.scope.hasBinding('React')) {
             // if there's no React present,
             return
@@ -59,7 +56,7 @@ export default function (babel: any): PluginObj<State> {
         },
       },
       ExportDefaultDeclaration: {
-        enter(path: NodePath<ExportDefaultDeclaration>): void {
+        enter(path): void {
           // Only render function component
           if (path.node.declaration.type !== 'FunctionDeclaration')
             throw new Error('Only Function Component is supported')
