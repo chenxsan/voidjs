@@ -47,6 +47,6 @@
     "semi": false
   },
   "resolutions": {
-    "@babel/parser": "^7.10.2"
+    "postcss": "^8.1.3"
   }
 }
