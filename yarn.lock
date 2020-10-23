@@ -4739,7 +4739,7 @@ __metadata:
   dependencies:
     "@babel/core": ^7.12.3
     "@babel/traverse": ^7.11.5
-    "@babel/types": ^7.12.1
+    "@babel/types": ^7.11.5
     "@types/babel__core": ^7.1.9
   languageName: unknown
   linkType: soft
