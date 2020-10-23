@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.17.0
+
+### Minor Changes
+
+- enable new jsx runtime
+
 ## 0.16.2
 
 ### Patch Changes

@@ -16,6 +16,6 @@
     "@types/react-dom": "16.9.8",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "voidjs-cli": "0.16.2"
+    "voidjs-cli": "0.17.0"
   }
 }
