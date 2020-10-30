@@ -3124,7 +3124,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/json-schema@npm:*, @types/json-schema@npm:^7.0.5, @types/json-schema@npm:^7.0.6":
+"@types/json-schema@npm:*, @types/json-schema@npm:^7.0.6":
   version: 7.0.6
   resolution: "@types/json-schema@npm:7.0.6"
   checksum: 820cabe35ac915b93e38b0c01957e5c49d7d9f69251dddfbf39af0ff4fe24f6e08b39e55603e0d212dea7bcaa383b1218b58a738d1c02013dc22df06547ff238
@@ -10152,13 +10152,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mem@npm:^6.1.0":
-  version: 6.1.1
-  resolution: "mem@npm:6.1.1"
+"mem@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "mem@npm:8.0.0"
   dependencies:
     map-age-cleaner: ^0.1.3
-    mimic-fn: ^3.0.0
-  checksum: 0c7eddc0f39600270f116f1f36eccbaf4c38ad5e079ae4df252f7d8193eab98495bf5c5927db0750f20b0be5f6524e7b9efa4ea025dacef006fa3d5d34ab63f6
+    mimic-fn: ^3.1.0
+  checksum: 94ebfc25f369fdd3c926bf7772d252e18cb0022b1d063db11fcfc4990483642e8df478222e169452e76a065df4d0c396a64d6f6d8978cd9902e53e28b7970a47
   languageName: node
   linkType: hard
 
@@ -10316,7 +10316,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mimic-fn@npm:^3.0.0":
+"mimic-fn@npm:^3.1.0":
   version: 3.1.0
   resolution: "mimic-fn@npm:3.1.0"
   checksum: 873b65357a72a69a4d13745963d43518878ca8ea1d025bb5a8d973fd78877bbcb692c4993b80b65d418c68829518320359402c49dc239ea50ed1146722a5411e
@@ -12711,14 +12711,14 @@ resolve@^1.18.1:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.27.0":
-  version: 1.27.0
-  resolution: "sass@npm:1.27.0"
+"sass@npm:^1.28.0":
+  version: 1.28.0
+  resolution: "sass@npm:1.28.0"
   dependencies:
     chokidar: ">=2.0.0 <4.0.0"
   bin:
     sass: sass.js
-  checksum: db4342b13bbcc5e0f13c1d9139f31c48f9c5a03bdb1c8d8ef7b47d063f5c333a2b69642bd489501cd756f4d0d1da43ee77127938cf9743cc39839952319a705e
+  checksum: b4d718512e6eb05d44a2f679dcf593ff72f12b168851fc3bd37add5e142e7e36f04d98a908ed8f9e196f6aef1db09c6d3e6e5e947819c74df56bb24dd584c7b9
   languageName: node
   linkType: hard
 
@@ -12757,17 +12757,6 @@ resolve@^1.18.1:
     ajv: ^6.12.0
     ajv-keywords: ^3.4.1
   checksum: f41503bd6025c4ec77b7eacf98bf39799b9240e51e1f16881e71a90a9a39208f6d1489719acc59ae1b47aedcbcc8c66ceb09f23603e09ca6889c2521b2d9078f
-  languageName: node
-  linkType: hard
-
-"schema-utils@npm:^2.7.0":
-  version: 2.7.1
-  resolution: "schema-utils@npm:2.7.1"
-  dependencies:
-    "@types/json-schema": ^7.0.5
-    ajv: ^6.12.4
-    ajv-keywords: ^3.5.2
-  checksum: 3851bcc7e44a3f35d3ca96e460c598aa24cec9fe395b196395316a043dc111d25735a9a49b1a115e4b52d5ed0d8bbcfb9fe1bfd077610f192b613e020d3f3ef2
   languageName: node
   linkType: hard
 
@@ -14546,7 +14535,7 @@ typescript@^4.0.3:
     react: ^17.0.1
     react-dom: ^17.0.1
     rimraf: ^3.0.2
-    sass: ^1.27.0
+    sass: ^1.28.0
     sass-loader: ^10.0.4
     strip-ansi: 3.0.1
     style-loader: ^2.0.0
@@ -14554,7 +14543,7 @@ typescript@^4.0.3:
     tapable: ^2.0.0
     terser-webpack-plugin: ^5.0.0
     webpack: ^5.3.2
-    webpack-dev-middleware: next
+    webpack-dev-middleware: ^4.0.0
     webpack-manifest-plugin: next
     ws: ^7.3.1
     yargs: ^16.1.0
@@ -14678,18 +14667,18 @@ typescript@^4.0.3:
   languageName: node
   linkType: hard
 
-"webpack-dev-middleware@npm:next":
-  version: 4.0.0-rc.3
-  resolution: "webpack-dev-middleware@npm:4.0.0-rc.3"
+"webpack-dev-middleware@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "webpack-dev-middleware@npm:4.0.0"
   dependencies:
-    mem: ^6.1.0
+    mem: ^8.0.0
     memfs: ^3.2.0
     mime-types: ^2.1.27
     range-parser: ^1.2.1
-    schema-utils: ^2.7.0
+    schema-utils: ^3.0.0
   peerDependencies:
-    webpack: ^4.0.0
-  checksum: 60efbdd839858d77f193243b77e6d6cf0723774fd8a593141068755b78d425d6c8091381db62cb0f389d143cf565112cbe93bf30a3ee45b8bda1f4a4f5bcc7a3
+    webpack: ^4.0.0 || ^5.0.0
+  checksum: 9bc904c115fdc1a321f5fa7e5e91e93793fe7870efb3bb389c44eaa405d37ebce38ac6d61379900044727f08a7f535a33a80fe979b46fe0e0e52d9dcc9f84af0
   languageName: node
   linkType: hard
 
