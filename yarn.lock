@@ -3650,7 +3650,7 @@ __metadata:
     "@void-js/styles": 0.1.6
     prismjs: ^1.22.0
     react: ^17.0.1
-    react-app-polyfill: ^1.0.6
+    react-app-polyfill: ^2.0.0
     react-dom: ^17.0.1
     react-helmet: ^6.1.0
     voidjs-cli: ^0.17.0
@@ -5603,7 +5603,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:^3.5.0":
+"core-js@npm:^3.6.5":
   version: 3.6.5
   resolution: "core-js@npm:3.6.5"
   checksum: 9283348dd5be2f1d07feaf90e2336b3f00a2316e3d3c6d4f789c9a67bdd4d7b08ce1c88dca4e591340130056c6b412b0b74fae039f8e259206f1073f542e4e85
@@ -11803,7 +11803,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"promise@npm:^8.0.3":
+"promise@npm:^8.1.0":
   version: 8.1.0
   resolution: "promise@npm:8.1.0"
   dependencies:
@@ -11986,17 +11986,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-app-polyfill@npm:^1.0.6":
-  version: 1.0.6
-  resolution: "react-app-polyfill@npm:1.0.6"
+"react-app-polyfill@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "react-app-polyfill@npm:2.0.0"
   dependencies:
-    core-js: ^3.5.0
+    core-js: ^3.6.5
     object-assign: ^4.1.1
-    promise: ^8.0.3
+    promise: ^8.1.0
     raf: ^3.4.1
-    regenerator-runtime: ^0.13.3
-    whatwg-fetch: ^3.0.0
-  checksum: 94d24bf1d69a0cbb26d8adbb14ba600b29c7c5adc06c9f9c8337d0f8ee7358ee2c443d806f8ca96fdf002d7f37c1a5fae6a796f63164df44a4fc3996aeb2d71f
+    regenerator-runtime: ^0.13.7
+    whatwg-fetch: ^3.4.1
+  checksum: 96b8bb3bdeb5279ebb73622744dcaba75a2f48861e8353052cb758e33db850845b11fa7da87c52663a4e4ee9ed356069f6a1e42151a74f01dc24bbfbbc5ad79a
   languageName: node
   linkType: hard
 
@@ -12202,17 +12202,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regenerator-runtime@npm:^0.13.3":
-  version: 0.13.5
-  resolution: "regenerator-runtime@npm:0.13.5"
-  checksum: 8d8ee0eca26e0491085033caf2b1b95379c4db21e38d79cde52bbd4014a3865eee26ec0f4f958682e8600f185f2f5dbcd8c6685b9b9261639767929c19b5bcd2
-  languageName: node
-  linkType: hard
-
 "regenerator-runtime@npm:^0.13.4":
   version: 0.13.4
   resolution: "regenerator-runtime@npm:0.13.4"
   checksum: d6165e7ba67f28f813a28fc07aa0c771ae8df913a3277c0aa837957d72debc4f1df4f53a6e98636c1cc87c6ba643ce8c522eb36542bbc4234c645af9d992c7c2
+  languageName: node
+  linkType: hard
+
+"regenerator-runtime@npm:^0.13.7":
+  version: 0.13.7
+  resolution: "regenerator-runtime@npm:0.13.7"
+  checksum: 6ef567c662088b1b292214920cbd72443059298d477f72e1a37e0a113bafbfac9057cbfe35ae617284effc4b423493326a78561bbff7b04162c7949bdb9624e8
   languageName: node
   linkType: hard
 
@@ -14781,10 +14781,10 @@ typescript@^4.0.5:
   languageName: node
   linkType: hard
 
-"whatwg-fetch@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "whatwg-fetch@npm:3.0.0"
-  checksum: 56ffff2db0908b2180830c1c543b16b3cb93f07c771f15af9ce1a31f426c4b843e0a22cb0afd9de585d7583c07f4b84cb5dbf42fe22bcf6ad34f96103b456aaf
+"whatwg-fetch@npm:^3.4.1":
+  version: 3.4.1
+  resolution: "whatwg-fetch@npm:3.4.1"
+  checksum: 82a9a6431c3e92b4b089c27a1201219b0baaa4fb98dcd504cacbc740be61ae53bf8771f400b7fd80662efb30a47287accb0ddad2a5a6ecfe7283594fed457165
   languageName: node
   linkType: hard
 
