@@ -12,8 +12,8 @@
     "lib"
   ],
   "devDependencies": {
-    "@types/react": "16.9.53",
-    "@types/react-dom": "16.9.8",
+    "@types/react": "16.9.55",
+    "@types/react-dom": "16.9.9",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "voidjs-cli": "0.17.0"
