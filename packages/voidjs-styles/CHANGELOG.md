@@ -1,5 +1,11 @@
 # @void-js/styles
 
+## 0.1.7
+
+### Patch Changes
+
+- upgrade dependencies
+
 ## 0.1.6
 
 ### Patch Changes

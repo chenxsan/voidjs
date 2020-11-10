@@ -87,6 +87,12 @@ export default class ClientsCompiler {
     return {
       mode: 'production',
       target: ['web', 'es5'],
+      cache: {
+        type: 'filesystem',
+        buildDependencies: {
+          config: [__filename]
+        }
+      },
       optimization: {
         minimize: true,
         minimizer: [
