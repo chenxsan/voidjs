@@ -1,5 +1,11 @@
 # @void-js/plugin-react-helmet
 
+## 0.1.7
+
+### Patch Changes
+
+- upgrade deps
+
 ## 0.1.6
 
 ### Patch Changes
