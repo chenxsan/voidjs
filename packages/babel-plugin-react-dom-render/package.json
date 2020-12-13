@@ -26,5 +26,7 @@
     "@babel/types": "^7.12.10",
     "@types/babel__core": "^7.1.12"
   },
-  "files": ["dist"]
+  "files": [
+    "dist"
+  ]
 }

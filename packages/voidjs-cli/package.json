@@ -97,9 +97,9 @@
   },
   "preconstruct": {
     "entrypoints": [
-      ".",
-      "Client",
-      "devTemplate"
+      "index.ts",
+      "Client/index.ts",
+      "devTemplate/index.ts"
     ]
   }
 }
