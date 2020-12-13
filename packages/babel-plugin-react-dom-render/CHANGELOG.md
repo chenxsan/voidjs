@@ -1,5 +1,11 @@
 # babel-plugin-react-dom-render
 
+## 1.1.4
+
+### Patch Changes
+
+- upgrade deps
+
 ## 1.1.3
 
 ### Patch Changes

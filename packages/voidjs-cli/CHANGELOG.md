@@ -1,5 +1,13 @@
 # voidjs-cli
 
+## 0.17.2
+
+### Patch Changes
+
+- upgrade deps
+- Updated dependencies [undefined]
+  - babel-plugin-react-dom-render@1.1.4
+
 ## 0.17.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @void-js/styles
 
+## 0.1.8
+
+### Patch Changes
+
+- upgrade deps
+
 ## 0.1.7
 
 ### Patch Changes
