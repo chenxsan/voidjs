@@ -1,5 +1,11 @@
 # babel-plugin-react-dom-render
 
+## 1.1.5
+
+### Patch Changes
+
+- update package.json
+
 ## 1.1.4
 
 ### Patch Changes
