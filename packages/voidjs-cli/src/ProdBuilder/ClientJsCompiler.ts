@@ -1,8 +1,8 @@
 /**
  * Copyright 2020-present, Sam Chen.
- * 
+ *
  * Licensed under GPL-3.0-or-later
- * 
+ *
  * This file is part of voidjs.
 
     voidjs is free software: you can redistribute it and/or modify
@@ -24,7 +24,7 @@ import TerserJSPlugin from 'terser-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
-import WebpackAssetsManifest from 'webpack-manifest-plugin'
+import { WebpackAssetsManifest } from 'webpack-manifest-plugin'
 import { extensions, alias, rules, cwd } from '../config'
 import prettier from 'prettier'
 
@@ -90,8 +90,8 @@ export default class ClientsCompiler {
       cache: {
         type: 'filesystem',
         buildDependencies: {
-          config: [__filename]
-        }
+          config: [__filename],
+        },
       },
       optimization: {
         minimize: true,
