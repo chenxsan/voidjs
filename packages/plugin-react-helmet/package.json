@@ -2,7 +2,7 @@
   "name": "@void-js/plugin-react-helmet",
   "version": "0.1.6",
   "devDependencies": {
-    "@types/react": "16.9.56",
+    "@types/react": "17.0.0",
     "react": "^17.0.1",
     "react-helmet": "6.1.0"
   },
