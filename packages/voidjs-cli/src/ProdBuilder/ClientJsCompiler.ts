@@ -24,7 +24,7 @@ import TerserJSPlugin from 'terser-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
-import { WebpackAssetsManifestPlugin } from 'webpack-manifest-plugin'
+import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
 import { extensions, alias, rules, cwd } from '../config'
 import prettier from 'prettier'
 
@@ -146,7 +146,7 @@ export default class ClientsCompiler {
         new MiniCssExtractPlugin({
           filename: '[name].[contenthash].css',
         }),
-        new WebpackAssetsManifestPlugin({
+        new WebpackManifestPlugin({
           fileName:
             relative.replace(/\.client\.(js|ts)$/, '.') + 'client-assets.json',
           generate: generateManifest,

@@ -23,7 +23,7 @@ import * as path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
-import { WebpackAssetsManifestPlugin } from 'webpack-manifest-plugin'
+import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
 import deriveHtmlFilenameFromRelativePath from '../DevServer/deriveFilenameFromRelativePath'
 
 import ClientJsCompiler from './ClientJsCompiler'
@@ -159,7 +159,7 @@ class ProdBuilder extends Builder {
       },
       plugins: [
         new PersistDataPlugin(),
-        new WebpackAssetsManifestPlugin({
+        new WebpackManifestPlugin({
           fileName: 'assets.json',
           generate: generateManifest,
         }),
