@@ -1,5 +1,11 @@
 # @void-js/styles
 
+## 0.1.9
+
+### Patch Changes
+
+- update package.json
+
 ## 0.1.8
 
 ### Patch Changes

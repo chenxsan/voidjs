@@ -1,7 +1,7 @@
 {
   "name": "@void-js/styles",
-  "version": "0.1.8",
-  "main": "dist/styles.cjs.js",
+  "version": "0.1.9",
+  "main": "dist/void-js-styles.cjs.js",
   "scripts": {
     "dev": "voidjs dev",
     "watch": "sass src/index.scss lib/index.css --watch",
@@ -16,6 +16,6 @@
     "@types/react-dom": "17.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "voidjs-cli": "0.17.2"
+    "voidjs-cli": "0.17.3"
   }
 }
