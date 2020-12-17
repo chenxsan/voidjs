@@ -108,9 +108,6 @@ class DevServer extends Builder {
           if (!this.#pages.includes(src)) {
             // update pages' table
             this.#pages.push(src)
-            // @ts-ignore
-            // ts reports error because html-webpack-plugin uses types from @types/webpack
-            // while we have types from webpack 5
             newHtmlWebpackPlugin(pagesDir, src).apply(compiler)
             new InjectGlobalScriptsPlugin(
               this.config.globalScripts

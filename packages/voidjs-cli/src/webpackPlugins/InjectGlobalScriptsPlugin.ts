@@ -28,7 +28,6 @@ export default class InjectGlobalScriptsPlugin {
   }
   apply(compiler: webpack.Compiler): void {
     compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
-      // @ts-ignore
       HtmlWebpackPlugin.getHooks(compilation).alterAssetTagGroups.tapAsync(
         PLUGIN_NAME,
         (htmlPluginData, callback) => {

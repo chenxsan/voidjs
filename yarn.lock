@@ -3459,7 +3459,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/tapable@npm:*, @types/tapable@npm:^1.0.5":
+"@types/tapable@npm:*":
   version: 1.0.5
   resolution: "@types/tapable@npm:1.0.5"
   checksum: f87cd98a09be272dde705155097d0e02dfdd7fe98395ade968632ff7ee1f39839f03daee59da921345c2177d118f085dcb4e4e4d2d4bea801d354cc0f33a1d2d
@@ -3523,20 +3523,6 @@ __metadata:
     "@types/webpack-sources": "*"
     source-map: ^0.6.0
   checksum: defc9965e49f020433a3008600c9aca796ad5485faa492a0935daf9ba4a39ebca9e2f3b60a4e1e1ac3e3706ca3eb845b8c89a1038ab261b3b9f2de10f4a1605b
-  languageName: node
-  linkType: hard
-
-"@types/webpack@npm:^4.41.8":
-  version: 4.41.8
-  resolution: "@types/webpack@npm:4.41.8"
-  dependencies:
-    "@types/anymatch": "*"
-    "@types/node": "*"
-    "@types/tapable": "*"
-    "@types/uglify-js": "*"
-    "@types/webpack-sources": "*"
-    source-map: ^0.6.0
-  checksum: 411d95e0576d94b580be8fcd06098a8e3ef4e46a8569b280bec1250e63b5f8b7fd339b359e5e76619a3160d81635053705dd7e3ec2d103d6366cb8f14ac2cdbf
   languageName: node
   linkType: hard
 
@@ -3679,18 +3665,18 @@ __metadata:
   resolution: "@void-js/doc@workspace:packages/doc"
   dependencies:
     "@types/prismjs": 1.16.2
-    "@void-js/plugin-react-helmet": ^0.1.7
-    "@void-js/styles": 0.1.8
+    "@void-js/plugin-react-helmet": ^0.1.8
+    "@void-js/styles": 0.1.9
     prismjs: ^1.22.0
     react: ^17.0.1
     react-app-polyfill: ^2.0.0
     react-dom: ^17.0.1
     react-helmet: ^6.1.0
-    voidjs-cli: ^0.17.2
+    voidjs-cli: ^0.17.3
   languageName: unknown
   linkType: soft
 
-"@void-js/plugin-react-helmet@^0.1.7, @void-js/plugin-react-helmet@workspace:packages/plugin-react-helmet":
+"@void-js/plugin-react-helmet@^0.1.8, @void-js/plugin-react-helmet@workspace:packages/plugin-react-helmet":
   version: 0.0.0-use.local
   resolution: "@void-js/plugin-react-helmet@workspace:packages/plugin-react-helmet"
   dependencies:
@@ -3703,7 +3689,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@void-js/styles@0.1.8, @void-js/styles@workspace:packages/voidjs-styles":
+"@void-js/styles@0.1.9, @void-js/styles@workspace:packages/voidjs-styles":
   version: 0.0.0-use.local
   resolution: "@void-js/styles@workspace:packages/voidjs-styles"
   dependencies:
@@ -3711,7 +3697,7 @@ __metadata:
     "@types/react-dom": 17.0.0
     react: ^17.0.1
     react-dom: ^17.0.1
-    voidjs-cli: 0.17.2
+    voidjs-cli: 0.17.3
   languageName: unknown
   linkType: soft
 
@@ -4709,7 +4695,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-dom-render@^1.1.4, babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render":
+"babel-plugin-react-dom-render@^1.1.5, babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render":
   version: 0.0.0-use.local
   resolution: "babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render"
   dependencies:
@@ -7911,22 +7897,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-webpack-plugin@npm:^4.5.0":
-  version: 4.5.0
-  resolution: "html-webpack-plugin@npm:4.5.0"
+"html-webpack-plugin@npm:next":
+  version: 5.0.0-alpha.17
+  resolution: "html-webpack-plugin@npm:5.0.0-alpha.17"
   dependencies:
     "@types/html-minifier-terser": ^5.0.0
-    "@types/tapable": ^1.0.5
-    "@types/webpack": ^4.41.8
     html-minifier-terser: ^5.0.1
-    loader-utils: ^1.2.3
-    lodash: ^4.17.15
+    loader-utils: 2.0.0
+    lodash: ^4.17.20
     pretty-error: ^2.1.1
-    tapable: ^1.1.3
-    util.promisify: 1.0.0
+    tapable: 2.0.0
   peerDependencies:
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: df4dd38bd886aaac4cdcfa40f80fd35eb310810c8cad5bf1f7b8ca91550ad7d9f277c80dd4015fd2b0ef235d0384e9708b92a9c39f33d1b09090ca6fd8fdb53b
+    webpack: ^5.1.2
+  checksum: de1b37d43abf33d24cc520285ef612feb4e0a1a1c4e61bafb9798ae84ccb4d83846321a3ef0933f571e1ef405d3626a539ff0fd09241c790262e2c054271c97c
   languageName: node
   linkType: hard
 
@@ -9982,7 +9965,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loader-utils@npm:^1.2.3, loader-utils@npm:^1.4.0":
+"loader-utils@npm:^1.4.0":
   version: 1.4.0
   resolution: "loader-utils@npm:1.4.0"
   dependencies:
@@ -11035,7 +11018,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object.getownpropertydescriptors@npm:^2.0.3, object.getownpropertydescriptors@npm:^2.1.0":
+"object.getownpropertydescriptors@npm:^2.1.0":
   version: 2.1.0
   resolution: "object.getownpropertydescriptors@npm:2.1.0"
   dependencies:
@@ -13736,14 +13719,7 @@ resolve@^1.18.1:
   languageName: node
   linkType: hard
 
-"tapable@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "tapable@npm:1.1.3"
-  checksum: b2c2ab20260394b867fd249d8b6ab3e4645e00f9cce16b558b0de5a86291ef05f536f578744549d1618c9032c7f99bc1d6f68967e4aa11cb0dca4461dc4714bc
-  languageName: node
-  linkType: hard
-
-"tapable@npm:^2.0.0":
+"tapable@npm:2.0.0, tapable@npm:^2.0.0":
   version: 2.0.0
   resolution: "tapable@npm:2.0.0"
   checksum: e6321280f9ace1043b2d2e893b998454227f27da05e5e1f7c92a67752d6a87e2ca529aeb516f31a21c1a92d2532a77518423b7df7aaf7acd3a8df925f02b4c66
@@ -14458,16 +14434,6 @@ typescript@^4.1.3:
   languageName: node
   linkType: hard
 
-"util.promisify@npm:1.0.0":
-  version: 1.0.0
-  resolution: "util.promisify@npm:1.0.0"
-  dependencies:
-    define-properties: ^1.1.2
-    object.getownpropertydescriptors: ^2.0.3
-  checksum: 0dffbe1af61c9c034b5e7b411461e46c17c788d855fb02bcbf96cd0f603c086eb83160a3c878c4d69bede9a42118a7ce2b3cc05ed5a235e1c1c04c93bd5608e7
-  languageName: node
-  linkType: hard
-
 "util.promisify@npm:^1.0.0":
   version: 1.0.1
   resolution: "util.promisify@npm:1.0.1"
@@ -14595,7 +14561,7 @@ typescript@^4.1.3:
   languageName: node
   linkType: hard
 
-"voidjs-cli@0.17.2, voidjs-cli@^0.17.2, voidjs-cli@workspace:packages/voidjs-cli":
+"voidjs-cli@0.17.3, voidjs-cli@^0.17.3, voidjs-cli@workspace:packages/voidjs-cli":
   version: 0.0.0-use.local
   resolution: "voidjs-cli@workspace:packages/voidjs-cli"
   dependencies:
@@ -14622,14 +14588,14 @@ typescript@^4.1.3:
     "@types/yargs": ^15.0.11
     autoprefixer: ^10.1.0
     babel-loader: ^8.2.2
-    babel-plugin-react-dom-render: ^1.1.4
+    babel-plugin-react-dom-render: ^1.1.5
     css-loader: ^5.0.1
     csso-webpack-plugin: ^2.0.0-beta.1
     express: ^4.17.1
     file-loader: ^6.2.0
     fs-extra: ^9.0.1
     html-entities: ^1.3.1
-    html-webpack-plugin: ^4.5.0
+    html-webpack-plugin: next
     lodash.merge: ^4.6.2
     mini-css-extract-plugin: ^1.3.3
     pino: ^6.8.0
