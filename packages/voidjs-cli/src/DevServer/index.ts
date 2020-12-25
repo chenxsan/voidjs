@@ -27,11 +27,11 @@ import http from 'http'
 import isHtmlRequest from './isHtmlRequest'
 import findRawFile from './findRawFile'
 import createWebpackConfig from './createWebpackConfig'
-import newHtmlWebpackPlugin from './newHtmlWebpackPlugin'
 import watchCompilation from './watchCompilation'
 import createWebSocketServer from './createWebSocketServer'
 import Builder from '../Builder'
-import InjectGlobalScriptsPlugin from '../webpackPlugins/InjectGlobalScriptsPlugin'
+// import InjectGlobalScriptsPlugin from '../webpackPlugins/InjectGlobalScriptsPlugin'
+import HtmlPlugin from '../plugins/HtmlPlugin'
 
 export interface EntryObject {
   [index: string]:
@@ -45,7 +45,7 @@ export interface Server {
   start(): Promise<express.Application | void>
 }
 
-class DevServer extends Builder {
+export default class DevServer extends Builder {
   readonly #host: string
   readonly #port: number
   #pages: string[]
@@ -108,15 +108,12 @@ class DevServer extends Builder {
           if (!this.#pages.includes(src)) {
             // update pages' table
             this.#pages.push(src)
-            // @ts-ignore
-            // ts reports error because html-webpack-plugin uses types from @types/webpack
-            // while we have types from webpack 5
-            newHtmlWebpackPlugin(pagesDir, src).apply(compiler)
-            new InjectGlobalScriptsPlugin(
-              this.config.globalScripts
-                ? this.config.globalScripts.map((script) => script[1].src)
-                : []
-            ).apply(compiler)
+            new HtmlPlugin(pagesDir, src).apply(compiler)
+            // new InjectGlobalScriptsPlugin(
+            //   this.config.globalScripts
+            //     ? this.config.globalScripts.map((script) => script[1].src)
+            //     : []
+            // ).apply(compiler)
             devMiddlewareInstance.invalidate()
           }
         }
@@ -142,4 +139,3 @@ class DevServer extends Builder {
     return app
   }
 }
-export default DevServer

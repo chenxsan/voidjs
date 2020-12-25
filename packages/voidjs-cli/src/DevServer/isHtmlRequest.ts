@@ -19,7 +19,7 @@
     along with voidjs.  If not, see <https://www.gnu.org/licenses/>.
  */
 export default function isHtmlRequest(url: string): boolean {
-  if (url.endsWith('/')) return true;
-  if (/\.html$/.test(url)) return true;
-  return false;
+  if (url.endsWith('/')) return true
+  if (/\.html$/i.test(url)) return true
+  return false
 }

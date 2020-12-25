@@ -20,13 +20,14 @@
  */
 import path from 'path'
 import fs from 'fs-extra'
+export interface ClientEntry {
+  exists: boolean
+  clientEntry?: string
+}
 export default function hasClientEntry(
   pageEntry: string,
   exts = 'js,ts'.split(',')
-): {
-  exists: boolean
-  clientEntry?: string
-} {
+): ClientEntry {
   const { name, dir } = path.parse(pageEntry)
   for (let i = 0; i < exts.length; i++) {
     const ext = exts[i]
