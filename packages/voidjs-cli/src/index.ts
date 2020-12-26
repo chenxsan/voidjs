@@ -36,6 +36,11 @@ interface BuildCmdArgs {
   dest: string
 }
 
+// when `pages` not found
+// throw error
+const PAGE_ROOT_NOT_FOUND =
+  "Couldn't find a `pages` directory. Make sure you have it under the project root"
+
 yargs
   .scriptName('voidjs')
   .usage(`$0 <cmd> [args]`)
@@ -53,10 +58,22 @@ yargs
       },
     },
     async function (argv: DevCmdArgs) {
-      const { host, port } = argv
       const pagesDir = path.resolve(cwd, 'pages')
-      const server: Server = new DevServer(pagesDir, { host, port })
-      server.start()
+      if (!existsSync(pagesDir)) {
+        throw new Error(PAGE_ROOT_NOT_FOUND)
+      }
+
+      // we can customize host and port for dev server
+      // e.g., --port 4200 --host 0.0.0.0
+      const { host, port } = argv
+      const devServer: Server = new DevServer(pagesDir, { host, port })
+      const httpServer = await devServer.start()
+
+      // watch ctrl-c
+      process.on('SIGINT', function () {
+        logger.info('Caught interrupt signal')
+        httpServer.close()
+      })
     }
   )
   .command(
@@ -71,9 +88,7 @@ yargs
     function (argv: BuildCmdArgs) {
       const pagesDir = path.resolve(cwd, 'pages')
       if (!existsSync(pagesDir)) {
-        throw new Error(
-          "Couldn't find a `pages` directory. Make sure you have it under the project root"
-        )
+        throw new Error(PAGE_ROOT_NOT_FOUND)
       }
 
       const { dest } = argv

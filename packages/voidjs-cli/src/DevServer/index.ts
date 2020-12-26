@@ -22,15 +22,14 @@ import webpack from 'webpack'
 import * as path from 'path'
 import { logger, publicFolder } from '../config'
 import express from 'express'
-import devMiddleware from 'webpack-dev-middleware'
+import webpackDevMiddleware from 'webpack-dev-middleware'
 import http from 'http'
 import isHtmlRequest from './isHtmlRequest'
-import findRawFile from './findRawFile'
+import findSourceFile from './findSourceFile'
 import createWebpackConfig from './createWebpackConfig'
 import watchCompilation from './watchCompilation'
 import createWebSocketServer from './createWebSocketServer'
 import Builder from '../Builder'
-// import InjectGlobalScriptsPlugin from '../webpackPlugins/InjectGlobalScriptsPlugin'
 import HtmlPlugin from '../webpack-plugins/HtmlPlugin'
 
 export interface EntryObject {
@@ -41,28 +40,107 @@ export interface EntryObject {
         dependOn: string | string[]
       }
 }
+
 export interface Server {
-  start(): Promise<express.Application | void>
+  start(): Promise<http.Server>
 }
 
 export default class DevServer extends Builder {
   readonly #host: string
   readonly #port: number
-  #pages: string[]
-  #httpServer: http.Server
+
+  // collect activated pages
+  #activePages: string[]
 
   constructor(
     pagesDir: string,
     { host, port }: { host: string; port: number }
   ) {
     super(pagesDir)
+
     this.#host = host
     this.#port = port
-    this.#pages = []
+
+    this.#activePages = []
   }
 
-  private listen() {
-    this.#httpServer
+  public async start(): Promise<http.Server> {
+    // resolve voidjs.config.js
+    await this.resolveConfig()
+
+    const socketPath = '/__websocket'
+
+    const webpackConfig = createWebpackConfig(
+      this.#activePages,
+      this.pagesDir,
+      `${this.#host}:${this.#port}${socketPath}`
+    )
+    const compiler = webpack(webpackConfig)
+
+    const devMiddleware = webpackDevMiddleware(compiler)
+    const voidjsMiddleware = (pagesDir: string) => (
+      req: express.Request,
+      _res: express.Response,
+      next: express.NextFunction
+    ) => {
+      // requesting html page
+      if (isHtmlRequest(req.url)) {
+        // check if page does exit on disk
+        // FIXME what if req.url contains query
+        const page = findSourceFile(pagesDir, req.url)
+
+        if (page.exists) {
+          const src = page.src as string
+          if (!this.#activePages.includes(src)) {
+            this.#activePages.push(src)
+            new HtmlPlugin(pagesDir, src).apply(compiler)
+            devMiddleware.invalidate()
+          }
+        }
+      }
+      next()
+    }
+
+    const app = express()
+    /**
+     * rewrite html request
+     */
+    app.use(function (
+      req: express.Request,
+      _res: express.Response,
+      next: express.NextFunction
+    ) {
+      // we only want to rewrite url for html request
+      if (req.url.endsWith('/')) {
+        req.url = req.url + 'index.html'
+      } else {
+        // req.url contains no extension
+        if (!/\..+/.test(req.url)) {
+          req.url = req.url + '.html'
+        }
+      }
+      next()
+    })
+    app.use(voidjsMiddleware(this.pagesDir))
+    app.use(devMiddleware)
+
+    // serve statics from public folder.
+    app.use(express.static(path.join(this.pagesDir, '..', publicFolder)))
+
+    app.use(function (req, res, next) {
+      if (req.url.endsWith('.html')) {
+        // TODO we might list all pages available
+        return res.status(404).end('Page Not Found')
+      }
+      next()
+    })
+
+    const httpServer = http.createServer(app)
+    const wsServer = createWebSocketServer(httpServer, socketPath)
+
+    watchCompilation(compiler, wsServer)
+
+    return httpServer
       .listen(this.#port, this.#host, () => {
         const server = `http://${this.#host}:${this.#port}`
         console.log(`Listening on ${server}`)
@@ -73,69 +151,5 @@ export default class DevServer extends Builder {
         )
         throw err
       })
-  }
-
-  public async start(): Promise<express.Application | void> {
-    await this.resolveConfig()
-    const socketPath = '/__websocket'
-    const webpackConfig = createWebpackConfig(
-      this.#pages,
-      this.pagesDir,
-      `${this.#host}:${this.#port}${socketPath}`,
-      {
-        externals: this.config.globalScripts
-          ? this.config.globalScripts.reduce((acc, cur) => {
-              acc[cur[0]] = cur[1].global
-              return acc
-            }, {})
-          : [],
-      }
-    )
-    const compiler = webpack(webpackConfig)
-    const devMiddlewareInstance = devMiddleware(compiler)
-    const app = express()
-    const voidjsMiddleware = (pagesDir: string) => (
-      req: express.Request,
-      res: express.Response,
-      next: express.NextFunction
-    ) => {
-      if (isHtmlRequest(req.url)) {
-        // check if page does exit on disk
-        const page = findRawFile(pagesDir, req.url)
-
-        if (page.exists) {
-          const src = page.src as string
-          if (!this.#pages.includes(src)) {
-            // update pages' table
-            this.#pages.push(src)
-            new HtmlPlugin(pagesDir, src).apply(compiler)
-            // new InjectGlobalScriptsPlugin(
-            //   this.config.globalScripts
-            //     ? this.config.globalScripts.map((script) => script[1].src)
-            //     : []
-            // ).apply(compiler)
-            devMiddlewareInstance.invalidate()
-          }
-        }
-      }
-      next()
-    }
-    app.use(voidjsMiddleware(this.pagesDir))
-    app.use(devMiddlewareInstance)
-    const cwd = path.resolve(this.pagesDir, '..')
-    app.use(express.static(path.join(cwd, publicFolder))) // serve statics from public folder.
-    app.use(function (req, res, next) {
-      if (req.is('html')) {
-        return res.status(404).end('Page Not Found') // TODO list all pages
-      }
-      next()
-    })
-
-    this.#httpServer = http.createServer(app)
-    const wsServer = createWebSocketServer(this.#httpServer, socketPath)
-    watchCompilation(compiler, wsServer)
-    this.listen()
-
-    return app
   }
 }
