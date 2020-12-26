@@ -31,7 +31,7 @@ import watchCompilation from './watchCompilation'
 import createWebSocketServer from './createWebSocketServer'
 import Builder from '../Builder'
 // import InjectGlobalScriptsPlugin from '../webpackPlugins/InjectGlobalScriptsPlugin'
-import HtmlPlugin from '../plugins/HtmlPlugin'
+import HtmlPlugin from '../webpack-plugins/HtmlPlugin'
 
 export interface EntryObject {
   [index: string]:

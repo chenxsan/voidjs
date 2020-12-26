@@ -23,7 +23,7 @@ import * as path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
-import WebpackAssetsMap from '../plugins/webpack-assets-map/src/index'
+import WebpackAssetsMap from '../webpack-plugins/webpack-assets-map/src/index'
 import deriveHtmlFilenameFromRelativePath from '../DevServer/deriveFilenameFromRelativePath'
 
 import ClientJsCompiler from './ClientJsCompiler'
