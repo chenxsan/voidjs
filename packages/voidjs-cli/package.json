@@ -31,8 +31,7 @@
   "files": [
     "dist",
     "cli.js",
-    "Client",
-    "devTemplate"
+    "Client"
   ],
   "dependencies": {
     "@babel/core": "^7.12.10",
@@ -95,8 +94,7 @@
   "preconstruct": {
     "entrypoints": [
       "index.ts",
-      "Client/index.ts",
-      "devTemplate/index.ts"
+      "Client/index.ts"
     ]
   }
 }

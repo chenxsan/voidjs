@@ -1,4 +1,0 @@
-{
-  "main": "dist/voidjs-cli-devTemplate.cjs.js",
-  "module": "dist/voidjs-cli-devTemplate.esm.js"
-}

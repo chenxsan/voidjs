@@ -16,10 +16,7 @@ module.exports = {
   ],
   overrides: [
     {
-      test: [
-        './packages/voidjs/src/Client',
-        './packages/voidjs/src/devTemplate',
-      ],
+      test: ['./packages/voidjs/src/Client'],
       presets: [
         [
           '@babel/preset-env',
