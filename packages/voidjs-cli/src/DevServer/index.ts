@@ -30,7 +30,7 @@ import createWebpackConfig from './createWebpackConfig'
 import watchCompilation from './watchCompilation'
 import createWebSocketServer from './createWebSocketServer'
 import Builder from '../Builder'
-import HtmlPlugin from '../webpack-plugins/HtmlPlugin'
+import HtmlPlugin from '../webpack-plugins/HtmlPluginForDevServer'
 
 export interface EntryObject {
   [index: string]:
