@@ -57,6 +57,7 @@ const html = (pagesDir: string, pagePath: string, { title = '' } = {}) => {
     </html>
     `
 }
+const name = 'html'
 export default class HtmlPlugin {
   #pagesDir: string
   #pagePath: string
@@ -65,10 +66,10 @@ export default class HtmlPlugin {
     this.#pagePath = pagePath
   }
   apply(compiler: Compiler): void {
-    compiler.hooks.thisCompilation.tap('Html', (compilation: Compilation) => {
+    compiler.hooks.thisCompilation.tap(name, (compilation: Compilation) => {
       compilation.hooks.processAssets.tap(
         {
-          name: 'Html',
+          name: name,
           stage: Compilation.PROCESS_ASSETS_STAGE_ADDITIONAL,
         },
         () => {
