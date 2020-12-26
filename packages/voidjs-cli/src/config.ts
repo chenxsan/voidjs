@@ -121,22 +121,17 @@ export const rules = [
   },
   {
     test: /\.(png|svg|jpg|jpeg|gif)$/i,
-    loader: 'file-loader',
-    options: {
-      name: '[name].[contenthash].[ext]',
+    type: 'asset/resource',
+    generator: {
+      filename: '[name].[hash][ext][query]',
     },
   },
   {
     test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-    use: [
-      {
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-          outputPath: 'fonts/',
-        },
-      },
-    ],
+    type: 'asset/resource',
+    generator: {
+      filename: 'fonts/[name][ext]',
+    },
   },
   {
     test: /\.(sa|sc|c)ss$/i,

@@ -96,15 +96,10 @@ export default function createWebpackConfig(
         },
         {
           test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-          use: [
-            {
-              loader: 'file-loader', // TODO replace file-loader with asset module
-              options: {
-                name: '[name].[ext]',
-                outputPath: 'fonts/',
-              },
-            },
-          ],
+          type: 'asset/resource',
+          generator: {
+            filename: 'fonts/[name][ext]',
+          },
         },
         {
           test: /\.(sa|sc|c)ss$/i,

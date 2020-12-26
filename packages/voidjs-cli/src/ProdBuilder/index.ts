@@ -23,7 +23,7 @@ import * as path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
-import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
+import WebpackAssetsMap from '../plugins/webpack-assets-map/src/index'
 import deriveHtmlFilenameFromRelativePath from '../DevServer/deriveFilenameFromRelativePath'
 
 import ClientJsCompiler from './ClientJsCompiler'
@@ -49,27 +49,6 @@ import collectPages from '../collectFiles'
 import PersistDataPlugin from '../webpackPlugins/PersistDataPlugin'
 import RemoveAssetsPlugin from '../webpackPlugins/RemoveAssetsPlugin'
 import fs from 'fs-extra'
-
-export function generateManifest(
-  seed,
-  files,
-  entrypoints
-): {
-  files: {
-    [key: string]: string
-  }
-  entrypoints: {
-    [key: string]: string[]
-  }
-} {
-  return {
-    files: files.reduce(
-      (manifest, { name, path }) => ({ ...manifest, [name]: path }),
-      seed
-    ),
-    entrypoints,
-  }
-}
 
 const BEGIN = 'begin'
 const END = 'end'
@@ -102,6 +81,11 @@ class ProdBuilder extends Builder {
       .replace(new RegExp(`\\${path.extname(pagePath)}$`), '') // remove extname
   }
 
+  // FIXME we're building all pages together
+  // is it necessary?
+  // is it slow?
+  // what if we build them one by one?
+  // anyway to benchmark?
   createWebpackConfig(pages: string[]): webpack.Configuration {
     const entries = pages.reduce((acc, page) => {
       const pageEntryKey = this.normalizedPageEntry(page)
@@ -159,23 +143,24 @@ class ProdBuilder extends Builder {
       },
       plugins: [
         new PersistDataPlugin(),
-        new WebpackManifestPlugin({
-          fileName: 'assets.json',
-          generate: generateManifest,
-        }),
+        new WebpackAssetsMap(),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': '"production"',
         }),
+        // @ts-ignore
         new CssoWebpackPlugin({
           restructure: false,
         }),
+        // @ts-ignore
         ...htmlPlugins,
+        // @ts-ignore
         new RemoveAssetsPlugin(
           (filename) =>
             this.#pageEntries.indexOf(filename.replace('.html', '')) !== -1,
           (filename) =>
             logger.debug(`${filename} removed by RemoveAssetsPlugin`)
         ),
+        // @ts-ignore
         new MiniCssExtractPlugin({
           filename: '[name].[contenthash].css',
         }),

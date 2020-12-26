@@ -24,13 +24,12 @@ import TerserJSPlugin from 'terser-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
-import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
+import WebpackAssetsMap from '../plugins/webpack-assets-map/src/index'
 import { extensions, alias, rules, cwd } from '../config'
 import prettier from 'prettier'
 
 import collectPages from '../collectFiles'
 
-import { generateManifest } from './index'
 import { VoidjsConfig } from '../Builder'
 import { ASSET_PATH } from './index'
 
@@ -132,6 +131,7 @@ export default class ClientsCompiler {
           }))
         : [],
       plugins: [
+        // @ts-ignore
         new HtmlWebpackPlugin({
           template: path.resolve(this.#outputPath, outputHtml),
           filename: outputHtml,
@@ -140,18 +140,17 @@ export default class ClientsCompiler {
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': '"production"',
         }),
+        // @ts-ignore
         new CssoWebpackPlugin({
           restructure: false,
         }),
         new MiniCssExtractPlugin({
           filename: '[name].[contenthash].css',
         }),
-        new WebpackManifestPlugin({
-          fileName:
-            relative.replace(/\.client\.(js|ts)$/, '.') + 'client-assets.json',
-          generate: generateManifest,
-        }),
         new PrettyPlugin(this.#config),
+        new WebpackAssetsMap(
+          relative.replace(/\.client\.(js|ts)$/, '.') + 'client-assets.json'
+        ),
       ],
     }
   }
