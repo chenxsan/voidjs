@@ -70,8 +70,8 @@ class ProdBuilder extends Builder {
 
   constructor(pagesDir: string, outputPath: string) {
     super(pagesDir)
-    this.#outputPath = outputPath
 
+    this.#outputPath = outputPath
     this.#pageEntries = []
   }
 
@@ -240,18 +240,27 @@ class ProdBuilder extends Builder {
 
   async run(): Promise<void> {
     this.markBegin()
-    logger.info('Collecting pages...')
-    this.#pages = await collectPages(this.pagesDir, searchPageEntry)
 
+    // FIXME what if there're 1000 pages?
+    // well, let's see
+    logger.info('Collecting pages…')
+    this.#pages = await collectPages(this.pagesDir, searchPageEntry)
     logger.info(`${this.pageOrPages(this.#pages.length)} collected`)
 
     // resolve voidjs config
     await this.resolveConfig()
 
+    /**
+     * 1. we need to compile those page entries for server side rendering
+     * 2. we need to compile client entries
+     */
+
     const compiler = webpack(this.createWebpackConfig(this.#pages))
 
     compiler.run(async (err, stats) => {
       this.runCallback(err, stats)
+      // FIXME here we're compiling files to disk and run ssr against them
+      // I believe their should be some other ways
       await this.ssr()
       const clientJsCompiler = new ClientJsCompiler(
         this.pagesDir,
@@ -280,14 +289,20 @@ class ProdBuilder extends Builder {
 
 export default ProdBuilder
 
-export const exts = 'mjs,js,jsx,ts,tsx,md,mdx'
+// all those extensions are recognized as page entry
+export const supportedPageExtensions = 'mjs,js,jsx,ts,tsx,md,mdx'
 
-export function searchPageEntry(pagePath: string, extList = exts): boolean {
+export function searchPageEntry(
+  pagePath: string,
+  extList = supportedPageExtensions
+): boolean {
   const entryPattern = new RegExp(`.(${extList.split(',').join('|')})$`)
+  // files with patterns of `.mjs|.js|.jsx|.ts|.tsx|.md|.mdx`
   return (
     entryPattern.test(pagePath) &&
     extList
       .split(',')
+      // exclude all client entry
       .every((ext) => pagePath.includes(`.client.${ext}`) === false)
   )
 }

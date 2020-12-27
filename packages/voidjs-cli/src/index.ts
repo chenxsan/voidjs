@@ -94,10 +94,15 @@ yargs
       const { dest } = argv
       const outDir = path.resolve(cwd, dest)
 
+      // FIXME shall we check folder's content
+      // and ask user for confirmation?
+      logger.info(`Cleaning directory ${dest}…`)
+
       // Clean outDir first
       rimraf(outDir, async (err) => {
         if (err) return logger.error(err)
         // remove .voidjs folder
+        logger.info(`Cleaning caches under .voidjs…`)
         rimraf(path.resolve(cwd, '.voidjs'), async (err) => {
           if (err) return logger.error(err)
           const builder = new Builder(pagesDir, outDir)

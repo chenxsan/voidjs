@@ -8,6 +8,7 @@ module.exports = {
         },
       },
     ],
+    '@babel/preset-react', // we have tsx
     '@babel/preset-typescript',
   ],
   plugins: [
