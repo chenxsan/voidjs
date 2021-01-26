@@ -1,8 +1,8 @@
 /**
  * Copyright 2020-present, Sam Chen.
- * 
+ *
  * Licensed under GPL-3.0-or-later
- * 
+ *
  * This file is part of voidjs.
 
     voidjs is free software: you can redistribute it and/or modify
@@ -97,12 +97,20 @@ class WebpackAssetsMap {
             }
           }
 
+          // we need entrypoints data for server side rendering
+          const entrypoints = {}
+
+          for (const [key, entrypoint] of compilation.entrypoints) {
+            entrypoints[key] = entrypoint.getFiles()
+          }
+
           compilation.emitAsset(
             this.#filename,
             new sources.RawSource(
               JSON.stringify(
                 {
                   files: assetsMap,
+                  entrypoints,
                 },
                 null,
                 2
