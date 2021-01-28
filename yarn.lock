@@ -2160,21 +2160,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@changesets/git@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "@changesets/git@npm:1.0.5"
-  dependencies:
-    "@babel/runtime": ^7.4.4
-    "@changesets/errors": ^0.1.4
-    "@changesets/types": ^3.0.0
-    "@manypkg/get-packages": ^1.0.1
-    is-subdir: ^1.1.1
-    spawndamnit: ^2.0.0
-  checksum: 3a65e172d2176a4c4dd136a9f44e2593291912e8033ad58ccc96d7197a141b3892aaf8e9c6341fe6f9bd728720db06539047c952a44ce02ac2bb058cd647b102
-  languageName: node
-  linkType: hard
-
-"@changesets/git@npm:^1.1.0":
+"@changesets/git@npm:1.1.0":
   version: 1.1.0
   resolution: "@changesets/git@npm:1.1.0"
   dependencies:
