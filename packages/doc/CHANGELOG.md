@@ -1,5 +1,12 @@
 # @void-js/doc
 
+## 0.2.5
+
+### Patch Changes
+
+- aee9eb3: refactor
+- prepend publicPath
+
 ## 0.2.4
 
 ### Patch Changes

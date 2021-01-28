@@ -1,5 +1,18 @@
 # voidjs-cli
 
+## 0.18.0
+
+### Minor Changes
+
+- aee9eb3: refactor
+- prepend publicPath
+
+### Patch Changes
+
+- Updated dependencies [aee9eb3]
+- Updated dependencies [undefined]
+  - babel-plugin-react-dom-render@1.1.6
+
 ## 0.17.3
 
 ### Patch Changes

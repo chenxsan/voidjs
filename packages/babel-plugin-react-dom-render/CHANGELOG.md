@@ -1,5 +1,12 @@
 # babel-plugin-react-dom-render
 
+## 1.1.6
+
+### Patch Changes
+
+- aee9eb3: refactor
+- prepend publicPath
+
 ## 1.1.5
 
 ### Patch Changes

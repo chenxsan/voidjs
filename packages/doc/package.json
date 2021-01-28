@@ -10,11 +10,11 @@
     "react": "^17.0.1",
     "react-app-polyfill": "^2.0.0",
     "react-dom": "^17.0.1",
-    "voidjs-cli": "^0.17.3"
+    "voidjs-cli": "^0.18.0"
   },
   "dependencies": {
     "@void-js/styles": "0.1.9",
     "prismjs": "^1.23.0"
   },
-  "version": "0.2.4"
+  "version": "0.2.5"
 }
