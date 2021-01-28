@@ -1,8 +1,8 @@
 /**
  * Copyright 2020-present, Sam Chen.
- * 
+ *
  * Licensed under GPL-3.0-or-later
- * 
+ *
  * This file is part of voidjs.
 
     voidjs is free software: you can redistribute it and/or modify
@@ -20,8 +20,7 @@
  */
 
 import stripAnsi from 'strip-ansi'
-import { AllHtmlEntities } from 'html-entities'
-const entities = new AllHtmlEntities()
+import { encode } from 'html-entities'
 
 const overlay = document.createElement('div')
 
@@ -74,6 +73,6 @@ export default function report(errors: WebpackError[]): void {
       color: 'red',
     })
   )
-  overlay.appendChild(htmlElement(entities.encode(stripAnsi(message)), 'pre'))
+  overlay.appendChild(htmlElement(encode(stripAnsi(message)), 'pre'))
   document.body?.appendChild(overlay)
 }
