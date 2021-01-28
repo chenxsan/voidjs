@@ -206,16 +206,10 @@ class ProdBuilder extends Builder {
       }
       // serverCompiler outputs a .js and a .css
       // js for server side rendering
-      const css: string[] = entrypoints[templateName].filter(
-        (asset: string) => asset.endsWith('.css')
+      const css: string[] = entrypoints[templateName].filter((asset: string) =>
+        asset.endsWith('.css')
       )
-      ssr.run(
-        this.pagesDir,
-        templateName,
-        this.#outputPath,
-        this.config,
-        css
-      )
+      ssr.run(this.pagesDir, templateName, this.#outputPath, this.config, css)
     }
   }
 

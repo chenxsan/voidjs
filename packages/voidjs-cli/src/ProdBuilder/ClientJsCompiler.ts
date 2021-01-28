@@ -24,7 +24,7 @@ import TerserJSPlugin from 'terser-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
 import WebpackAssetsMap from '../webpack-plugins/webpack-assets-map/src/index'
-import { extensions, alias, rules, cwd } from '../config'
+import { extensions, alias, rules } from '../config'
 import HtmlPlugin from '../webpack-plugins/HtmlPluginForProduction'
 
 import collectPages from '../collectFiles'
@@ -66,7 +66,7 @@ export default class ClientsCompiler {
               test: /[\\/]node_modules[\\/]/,
               priority: 100,
               name: 'vendor',
-              chunks: 'all'
+              chunks: 'all',
             },
           },
         },

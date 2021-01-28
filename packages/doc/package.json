@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@void-js/styles": "0.1.9",
-    "prismjs": "^1.22.0"
+    "prismjs": "^1.23.0"
   },
   "version": "0.2.4"
 }
