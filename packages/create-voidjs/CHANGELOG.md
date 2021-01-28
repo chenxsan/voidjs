@@ -1,5 +1,12 @@
 # create-voidjs
 
+## 0.3.13
+
+### Patch Changes
+
+- aee9eb3: refactor
+- prepend publicPath
+
 ## 0.3.12
 
 ### Patch Changes

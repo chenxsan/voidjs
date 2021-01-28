@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-react-dom-render",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Render default React.js Component with ReactDOM.render",
   "main": "dist/babel-plugin-react-dom-render.cjs.js",
   "repository": {
@@ -22,9 +22,11 @@
   "homepage": "https://github.com/chenxsan/babel-plugin-react-dom-render#readme",
   "devDependencies": {
     "@babel/core": "^7.12.10",
-    "@babel/traverse": "^7.12.10",
-    "@babel/types": "^7.12.10",
+    "@babel/traverse": "^7.12.12",
+    "@babel/types": "^7.12.12",
     "@types/babel__core": "^7.1.12"
   },
-  "files": ["dist"]
+  "files": [
+    "dist"
+  ]
 }

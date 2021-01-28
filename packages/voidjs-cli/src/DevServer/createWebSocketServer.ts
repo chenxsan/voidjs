@@ -18,7 +18,7 @@ export default function createWebSocketServer(
   })
 
   wsServer.on('close', () => {
-    console.log('closed')
+    console.log('websocket server closed')
   })
 
   function cleanup(): void {

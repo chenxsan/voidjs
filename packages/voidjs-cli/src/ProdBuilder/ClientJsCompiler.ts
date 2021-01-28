@@ -21,55 +21,16 @@
 import webpack from 'webpack'
 import path from 'path'
 import TerserJSPlugin from 'terser-webpack-plugin'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
-import { WebpackManifestPlugin } from 'webpack-manifest-plugin'
-import { extensions, alias, rules, cwd } from '../config'
-import prettier from 'prettier'
+import WebpackAssetsMap from '../webpack-plugins/webpack-assets-map/src/index'
+import { extensions, alias, rules } from '../config'
+import HtmlPlugin from '../webpack-plugins/HtmlPluginForProduction'
 
 import collectPages from '../collectFiles'
 
-import { generateManifest } from './index'
 import { VoidjsConfig } from '../Builder'
 import { ASSET_PATH } from './index'
-
-class PrettyPlugin {
-  #options: VoidjsConfig
-  constructor(options: VoidjsConfig) {
-    this.#options = options
-  }
-  apply(compiler: webpack.Compiler): void {
-    // TODO compiler.hooks.compilation.tap
-    compiler.hooks.emit.tap('PrettyPlugin', (compilation) => {
-      if (!this.#options.html?.pretty) return
-      // TODO compilation.hooks.processAssets
-      Object.keys(compilation.assets).forEach((asset) => {
-        if (asset.endsWith('.html')) {
-          const html = compilation.assets[asset]
-          const source = html.source()
-          const prettyHtml = prettier.format(
-            Buffer.isBuffer(source) ? source.toString() : source,
-            {
-              parser: 'html',
-            }
-          )
-          compilation.assets[asset] = {
-            source: (): string => prettyHtml,
-            size: (): number => prettyHtml.length,
-          } as {
-            size(): number
-            source(): string | Buffer
-            buffer(): Buffer
-            map
-            sourceAndMap
-            updateHash
-          }
-        }
-      })
-    })
-  }
-}
 
 export default class ClientsCompiler {
   #pagesDir: string
@@ -81,9 +42,7 @@ export default class ClientsCompiler {
     this.#outputPath = outputPath
     this.#config = config
   }
-  createWebpackConfig(entry: string): webpack.Configuration {
-    const relative = path.relative(this.#pagesDir, entry)
-    const outputHtml = relative.replace(/\.client\.(js|ts)$/, '.html')
+  createWebpackConfig(entries: string[]): webpack.Configuration {
     return {
       mode: 'production',
       target: ['web', 'es5'],
@@ -103,16 +62,20 @@ export default class ClientsCompiler {
         ],
         splitChunks: {
           cacheGroups: {
-            vendors: path.resolve(cwd, 'node_modules'),
+            defaultVendors: {
+              test: /[\\/]node_modules[\\/]/,
+              priority: 100,
+              name: 'vendor',
+              chunks: 'all',
+            },
           },
         },
       },
-      entry: {
-        [relative
-          .replace(/\.client.*/, '')
-          .split(path.sep)
-          .join('-')]: entry,
-      },
+      entry: entries.reduce((acc, entry) => {
+        const relative = path.relative(this.#pagesDir, entry)
+        acc[relative.replace(/\.client.*/, '')] = entry
+        return acc
+      }, {}),
       output: {
         path: path.resolve(this.#outputPath),
         filename: '[name].[contenthash].js',
@@ -132,26 +95,18 @@ export default class ClientsCompiler {
           }))
         : [],
       plugins: [
-        new HtmlWebpackPlugin({
-          template: path.resolve(this.#outputPath, outputHtml),
-          filename: outputHtml,
-          minify: this.#config.html?.pretty ?? true,
-        }),
+        new HtmlPlugin(this.#outputPath, this.#config.html?.pretty),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': '"production"',
         }),
+        // @ts-ignore
         new CssoWebpackPlugin({
           restructure: false,
         }),
         new MiniCssExtractPlugin({
           filename: '[name].[contenthash].css',
         }),
-        new WebpackManifestPlugin({
-          fileName:
-            relative.replace(/\.client\.(js|ts)$/, '.') + 'client-assets.json',
-          generate: generateManifest,
-        }),
-        new PrettyPlugin(this.#config),
+        new WebpackAssetsMap('client-assets.json'),
       ],
     }
   }
@@ -161,10 +116,8 @@ export default class ClientsCompiler {
       (filename) =>
         filename.endsWith('.client.js') || filename.endsWith('.client.ts')
     )
-    const configs = this.#clients.map((client) =>
-      this.createWebpackConfig(client)
-    )
+    const config = this.createWebpackConfig(this.#clients)
     // return
-    webpack(configs).run(callback)
+    webpack(config).run(callback)
   }
 }

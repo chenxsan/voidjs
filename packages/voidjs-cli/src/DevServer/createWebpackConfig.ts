@@ -6,8 +6,10 @@ import type { EntryObject } from './index'
 
 const createDOMRenderRule = (pagesDir: string) => ({
   include: (filename: string): boolean => {
+    // entries under pagesDir
+    // exclude client entry
     return (
-      filename.startsWith(pagesDir) && filename.includes('.client.') === false // entries under pagesDir // exclude client entry
+      filename.startsWith(pagesDir) && filename.includes('.client.') === false
     )
   },
   plugins: [
@@ -28,10 +30,14 @@ const createBabelOptions = (pagesDir: string) => {
       [
         '@babel/preset-react',
         {
+          // we support usage like alpinejs
           throwIfNamespace: false,
+
+          // we support new jsx transform introduced in React 17
           runtime: 'automatic',
         },
       ],
+      // we support typescript
       '@babel/preset-typescript',
     ],
     plugins: [
@@ -47,22 +53,27 @@ const createBabelOptions = (pagesDir: string) => {
 }
 
 export default function createWebpackConfig(
-  pages: string[],
+  activePages: string[],
   pagesDir: string,
-  socketUrl: string,
-  options
+  socketUrl: string
 ): webpack.Configuration {
   return {
     experiments: {
       topLevelAwait: true,
     },
     mode: 'development',
-    target: ['web', 'es5'], // I need ie 11 support :(
-    entry: (): EntryObject => createEntries(pagesDir, pages),
+    // TODO should be configurable
+    // because people might not care ie 11 like me
+    target: ['web', 'es5'], // I need ie 11 support at the moment :(
+    // we use function for entry
+    // so it would be called every compilation
+    // see https://github.com/webpack/webpack/pull/10734#issuecomment-616198739
+    entry: (): EntryObject => createEntries(pagesDir, activePages),
     output: {
       publicPath: '/',
     },
-    stats: 'minimal',
+    // https://webpack.js.org/configuration/stats/#stats-presets
+    stats: 'normal',
     module: {
       rules: [
         {
@@ -96,15 +107,10 @@ export default function createWebpackConfig(
         },
         {
           test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-          use: [
-            {
-              loader: 'file-loader', // TODO replace file-loader with asset module
-              options: {
-                name: '[name].[ext]',
-                outputPath: 'fonts/',
-              },
-            },
-          ],
+          type: 'asset/resource',
+          generator: {
+            filename: 'fonts/[name][ext]',
+          },
         },
         {
           test: /\.(sa|sc|c)ss$/i,
@@ -136,6 +142,5 @@ export default function createWebpackConfig(
       }),
       new webpack.NoEmitOnErrorsPlugin(),
     ],
-    ...options,
   }
 }
