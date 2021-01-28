@@ -24,7 +24,6 @@ import path from 'path'
 import fs from 'fs-extra'
 import webpack from 'webpack'
 import prettier from 'prettier'
-import { compilation } from 'webpack'
 
 /**
  * html plugin for webpack
