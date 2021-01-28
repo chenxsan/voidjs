@@ -1,8 +1,8 @@
 /**
  * Copyright 2020-present, Sam Chen.
- * 
+ *
  * Licensed under GPL-3.0-or-later
- * 
+ *
  * This file is part of voidjs.
 
     voidjs is free software: you can redistribute it and/or modify
@@ -28,48 +28,8 @@ import { VoidjsConfig } from '../../Builder/index'
 
 import type { HelmetData } from 'react-helmet'
 
-import { HtmlTagObject } from 'html-webpack-plugin'
-import HtmlTags from 'html-webpack-plugin/lib/html-tags'
 import { SyncHook } from 'tapable'
 import hasClientEntry from '../../DevServer/hasClientEntry'
-const { htmlTagObjectToString } = HtmlTags
-interface HtmlTags {
-  headTags: HtmlTagObject[]
-  bodyTags: HtmlTagObject[]
-}
-async function loadHtmlTags(root: string, filename: string): Promise<HtmlTags> {
-  try {
-    const { headTags, bodyTags } = await import(path.resolve(root, filename))
-    return {
-      headTags,
-      bodyTags,
-    }
-  } catch (err) {
-    return {
-      headTags: [],
-      bodyTags: [],
-    }
-  }
-}
-
-async function loadAllHtmlTags(
-  root: string,
-  files: string[]
-): Promise<HtmlTags> {
-  return Promise.all(
-    files.map(async (file) => await loadHtmlTags(root, file))
-  ).then((values) =>
-    values.reduce(
-      (acc, cur) => {
-        acc['headTags'] = acc.headTags.concat(cur.headTags)
-        acc['bodyTags'] = acc.bodyTags.concat(cur.bodyTags)
-        return acc
-      },
-      { headTags: [], bodyTags: [] }
-    )
-  )
-}
-
 export default class Ssr {
   hooks: {
     // @ts-ignore
@@ -81,62 +41,38 @@ export default class Ssr {
       helmet: new SyncHook(),
     }
   }
+
   async run(
     pagesDir: string,
     templateName: string,
-    cacheRoot: string,
     outputPath: string,
-    voidjsConfig: VoidjsConfig
+    voidjsConfig: VoidjsConfig,
+    css: string[]
   ): Promise<void> {
-    const htmlTags = await loadAllHtmlTags(cacheRoot, [`${templateName}.json`])
-
-    let { headTags } = htmlTags
-    let { bodyTags } = htmlTags
-
-    if (voidjsConfig.globalScripts) {
-      headTags = (voidjsConfig.globalScripts.map((script) => {
-        const { global, ...others } = script[1]
-        return {
-          tagName: 'script',
-          voidTag: false,
-          attributes: {
-            ...others,
-          },
-        }
-      }) as HtmlTagObject[]).concat(headTags)
+    function getRelativePath(css: string) {
+      const from = path.join(outputPath, templateName, '..')
+      const to = path.join(outputPath, css)
+      return path.relative(from, to)
     }
-
-    // only include page entrypoint, so no need
-    bodyTags = []
-
+    // insert css into <head></head>
     let preloadStyles = ''
 
     if (voidjsConfig.html.preload.style) {
-      preloadStyles = headTags
-        .filter((tag) => tag.tagName === 'link')
-        .map((tag) => {
-          return `<link rel="preload" href="${tag.attributes.href}" as="${
-            tag.attributes.rel === 'stylesheet' ? 'style' : ''
-          }" />`
+      preloadStyles = css
+        .map((css) => {
+          return `<link rel="preload" href="${getRelativePath(
+            css
+          )}" as="style" />`
         })
         .join('')
     }
 
-    let preloadScripts = ''
-
-    if (voidjsConfig.html.preload.script) {
-      preloadScripts = bodyTags
-        .filter((tag) => tag.tagName === 'script')
-        .concat(headTags.filter((tag) => tag.tagName === 'script'))
-        .map((tag) => {
-          return `<link rel="preload" href="${tag.attributes.src}" as="script" />`
-        })
-        .join('')
-    }
-
-    const hd = headTags.map((tag) => htmlTagObjectToString(tag, true)).join('')
-
-    const bd = bodyTags.map((tag) => htmlTagObjectToString(tag, true)).join('')
+    // TODO maybe include it as <style />?
+    const hd = css
+      .map((css) => {
+        return `<link rel="stylesheet" href="${getRelativePath(css)}" />`
+      })
+      .join('')
 
     const appPath = `${path.resolve(outputPath, templateName + '.js')}`
     const { default: App, getStaticProps } = await import(appPath)
@@ -152,14 +88,24 @@ export default class Ssr {
 
     this.hooks.helmet.call()
 
+    const hasClientJs = hasClientEntry(path.join(pagesDir, templateName))
+
     let body: string
     if (this.helmet) {
-      body = `<!DOCTYPE html><html ${this.helmet.htmlAttributes.toString()}><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${this.helmet.title.toString()}${this.helmet.meta.toString()}${this.helmet.link.toString()}${this.helmet.script.toString()}${preloadStyles}${preloadScripts}${hd}</head><body>${html}${bd}</body></html>`
+      if (hasClientJs.exists === true) {
+        // add some placeholders for later replacement
+        body = `<!DOCTYPE html><html ${this.helmet.htmlAttributes.toString()}><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${this.helmet.title.toString()}${this.helmet.meta.toString()}${this.helmet.link.toString()}${this.helmet.script.toString()}${preloadStyles}<!-- preloadVoidJsClientStyle -->${hd}<!-- loadVoidJsClientStyle --></head><body>${html}<!-- loadVoidJsClientJs --></body></html>`
+      } else {
+        body = `<!DOCTYPE html><html ${this.helmet.htmlAttributes.toString()}><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${this.helmet.title.toString()}${this.helmet.meta.toString()}${this.helmet.link.toString()}${this.helmet.script.toString()}${preloadStyles}${hd}</head><body>${html}</body></html>`
+      }
     } else {
-      body = `<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${preloadStyles}${preloadScripts}${hd}</head><body>${html}${bd}</body></html>`
+      if (hasClientJs.exists === true) {
+        // add some placeholders for later replacement
+        body = `<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${preloadStyles}<!-- preloadVoidJsClientStyle -->${hd}<!-- loadVoidJsClientStyle --></head><body>${html}<!-- loadVoidJsClientJs --></body></html>`
+      } else {
+        body = `<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${preloadStyles}${hd}</head><body>${html}</body></html>`
+      }
     }
-
-    const hasClientJs = hasClientEntry(path.join(pagesDir, templateName))
 
     if (hasClientJs.exists === false) {
       if (voidjsConfig?.html?.pretty === true) {
