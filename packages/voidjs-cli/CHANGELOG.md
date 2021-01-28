@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.18.1
+
+### Patch Changes
+
+- fix a typescript typing error
+
 ## 0.18.0
 
 ### Minor Changes
