@@ -24,6 +24,7 @@ import path from 'path'
 import fs from 'fs-extra'
 import webpack from 'webpack'
 import prettier from 'prettier'
+import { compilation } from 'webpack'
 
 /**
  * html plugin for webpack
@@ -37,14 +38,18 @@ export default class HtmlPlugin {
     this.#pretty = pretty
   }
   apply(compiler: Compiler): void {
-    const getRelativePath = (css: string, templateName: string) => {
-      const from = path.join(this.#outputPath, templateName, '..')
-      const to = path.join(this.#outputPath, css)
-      return path.relative(from, to)
-    }
     compiler.hooks.thisCompilation.tap(
       PluginName,
       (compilation: Compilation) => {
+        const publicPath = compilation.outputOptions.publicPath
+
+        const getRelativePath = (css: string, templateName: string) => {
+          const from = path.join(this.#outputPath, templateName, '..')
+          const to = path.join(this.#outputPath, css)
+          return publicPath === 'auto'
+            ? ''
+            : publicPath + path.relative(from, to)
+        }
         compilation.hooks.processAdditionalAssets.tap(
           {
             name: PluginName,

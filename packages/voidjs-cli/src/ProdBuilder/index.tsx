@@ -195,11 +195,12 @@ class ProdBuilder extends Builder {
   }
 
   async ssr(): Promise<void> {
+    const publicPath = ASSET_PATH ?? this.config.assetPath
     const {
       default: { entrypoints },
     } = await import(path.join(this.#outputPath, 'assets.json'))
     for (const templateName of this.#pageEntries) {
-      const ssr = new ServerSideRender()
+      const ssr = new ServerSideRender(publicPath)
       // PluginHelmet enabled by default
       new PluginHelmet().apply(ssr)
       if (Array.isArray(this.config.plugins)) {

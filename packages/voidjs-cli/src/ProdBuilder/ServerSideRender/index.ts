@@ -35,8 +35,10 @@ export default class Ssr {
     // @ts-ignore
     [propName: string]: SyncHook
   }
+  #publicPath: string
   helmet?: HelmetData
-  constructor() {
+  constructor(publicPath) {
+    this.#publicPath = publicPath === 'auto' ? '' : publicPath
     this.hooks = {
       helmet: new SyncHook(),
     }
@@ -49,10 +51,10 @@ export default class Ssr {
     voidjsConfig: VoidjsConfig,
     css: string[]
   ): Promise<void> {
-    function getRelativePath(css: string) {
+    const getRelativePath = (css: string) => {
       const from = path.join(outputPath, templateName, '..')
       const to = path.join(outputPath, css)
-      return path.relative(from, to)
+      return `${this.#publicPath}${path.relative(from, to)}`
     }
     // insert css into <head></head>
     let preloadStyles = ''
