@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.18.2
+
+### Patch Changes
+
+- fix `TypeError: attempted to get private field on non-instance`
+
 ## 0.18.1
 
 ### Patch Changes
