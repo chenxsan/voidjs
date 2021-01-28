@@ -28,6 +28,7 @@ import ClientJsCompiler from './ClientJsCompiler'
 import ServerSideRender from './ServerSideRender/index'
 import normalizeAssetPath from './normalizeAssetPath'
 import Builder, { VoidjsConfig } from '../Builder'
+import PluginHelmet from '../webpack-plugins/helmet-plugin'
 
 import type { Stats } from 'webpack'
 
@@ -199,6 +200,8 @@ class ProdBuilder extends Builder {
     } = await import(path.join(this.#outputPath, 'assets.json'))
     for (const templateName of this.#pageEntries) {
       const ssr = new ServerSideRender()
+      // PluginHelmet enabled by default
+      new PluginHelmet().apply(ssr)
       if (Array.isArray(this.config.plugins)) {
         for (const plugin of this.config.plugins) {
           plugin.apply(ssr)
