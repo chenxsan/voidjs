@@ -67,7 +67,7 @@ export default function createWebpackConfig(
     experiments: {
       topLevelAwait: true,
     },
-    devtool: 'source-map',
+    devtool: 'eval',
     mode: 'development',
     // TODO should be configurable
     // because people might not care ie 11 like me
@@ -148,6 +148,9 @@ export default function createWebpackConfig(
         __WEBSOCKET__: JSON.stringify(socketUrl),
       }),
       new webpack.NoEmitOnErrorsPlugin(),
+      new webpack.ProgressPlugin({
+        profile: true,
+      }),
     ],
   }
 }
