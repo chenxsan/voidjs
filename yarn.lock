@@ -3004,19 +3004,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/babel__core@npm:^7.1.12":
-  version: 7.1.12
-  resolution: "@types/babel__core@npm:7.1.12"
-  dependencies:
-    "@babel/parser": ^7.1.0
-    "@babel/types": ^7.0.0
-    "@types/babel__generator": "*"
-    "@types/babel__template": "*"
-    "@types/babel__traverse": "*"
-  checksum: e2642b77b89af41254a19d85b6cc5b1096f9825aa2b6534d5426cee7fbf6d90cfeceb5c1621f233d32dc1925a9fe88c317e412f81a061cf7239dbd4e2dd413e4
-  languageName: node
-  linkType: hard
-
 "@types/babel__generator@npm:*":
   version: 7.6.1
   resolution: "@types/babel__generator@npm:7.6.1"
@@ -3040,6 +3027,16 @@ __metadata:
     "@babel/parser": ^7.1.0
     "@babel/types": ^7.0.0
   checksum: dd13bcf6f016866dba8310053302ac657de9966d85c67748d07ee385d07bdd8af56930ed4192c426b5118f43db268c17784bc6eb051ba94c5fcd50d5ca2db74f
+  languageName: node
+  linkType: hard
+
+"@types/babel__template@npm:^7":
+  version: 7.4.0
+  resolution: "@types/babel__template@npm:7.4.0"
+  dependencies:
+    "@babel/parser": ^7.1.0
+    "@babel/types": ^7.0.0
+  checksum: 7a81a59f85705e52e753e969e760ab2d9b740be540df355e7d52f7696979f93c4728c4c8b7871c995f043c64989a6b6f307001d47cc00fb90a8442236e58adbe
   languageName: node
   linkType: hard
 
@@ -4772,10 +4769,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render"
   dependencies:
-    "@babel/core": ^7.12.10
+    "@babel/template": ^7.12.7
     "@babel/traverse": ^7.12.12
     "@babel/types": ^7.12.12
-    "@types/babel__core": ^7.1.12
+    "@types/babel__template": ^7
   languageName: unknown
   linkType: soft
 
