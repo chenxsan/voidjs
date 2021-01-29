@@ -4,6 +4,7 @@ interface State {
   opts: {
     root?: string
     hydrate?: boolean
+    app?: boolean | string
   }
 }
 export default function (babel: any): PluginObj<State> {
@@ -30,21 +31,37 @@ export default function (babel: any): PluginObj<State> {
         exit(path, state): void {
           if (exportDefaultDeclarationName === '') return
           const {
-            opts: { root = 'app', hydrate = false },
+            opts: { root = 'app', hydrate = false, app = false },
           } = state
           path.pushContainer(
             'body',
             template.ast(`if (typeof getStaticProps !== "undefined") {
                 (async function () {
                   const data = await getStaticProps();
-                  ReactDOM.${
-                    hydrate ? 'hydrate' : 'render'
-                  }(createElement(${exportDefaultDeclarationName}, data.props), document.getElementById("${root}"));
+                  if (${!!app}) {
+                    import("${app}").then(({default: App}) => {
+                      ReactDOM.${
+                        hydrate ? 'hydrate' : 'render'
+                      }(createElement(App, {Component: ${exportDefaultDeclarationName}, pageProps: data.props}), document.getElementById("${root}"));
+                    });
+                  } else {
+                    ReactDOM.${
+                      hydrate ? 'hydrate' : 'render'
+                    }(createElement(${exportDefaultDeclarationName}, data.props), document.getElementById("${root}"));
+                  }
                 })();
               } else {
-                ReactDOM.${
-                  hydrate ? 'hydrate' : 'render'
-                }(createElement(${exportDefaultDeclarationName}), document.getElementById("${root}"));
+                if (${!!app}) {
+                  import("${app}").then(({default: App}) => {
+                    ReactDOM.${
+                      hydrate ? 'hydrate' : 'render'
+                    }(createElement(App, {Component: ${exportDefaultDeclarationName}, pageProps: {}}), document.getElementById("${root}"));
+                  });
+                } else {
+                  ReactDOM.${
+                    hydrate ? 'hydrate' : 'render'
+                  }(createElement(${exportDefaultDeclarationName}), document.getElementById("${root}"));
+                }
               }`)
           )
         },

@@ -1,8 +1,8 @@
 /**
  * Copyright 2020-present, Sam Chen.
- * 
+ *
  * Licensed under GPL-3.0-or-later
- * 
+ *
  * This file is part of voidjs.
 
     voidjs is free software: you can redistribute it and/or modify
@@ -31,6 +31,7 @@ import watchCompilation from './watchCompilation'
 import createWebSocketServer from './createWebSocketServer'
 import Builder from '../Builder'
 import HtmlPlugin from '../webpack-plugins/HtmlPluginForDevServer'
+import fs from 'fs-extra'
 
 export interface EntryObject {
   [index: string]:
@@ -64,6 +65,15 @@ export default class DevServer extends Builder {
     this.#activePages = []
   }
 
+  hasApp(): boolean {
+    return (
+      fs.existsSync(path.join(this.pagesDir, '_app.tsx')) ||
+      fs.existsSync(path.join(this.pagesDir, '_app.ts')) ||
+      fs.existsSync(path.join(this.pagesDir, '_app.js')) ||
+      fs.existsSync(path.join(this.pagesDir, '_app.jsx'))
+    )
+  }
+
   public async start(): Promise<http.Server> {
     // resolve voidjs.config.js
     await this.resolveConfig()
@@ -73,6 +83,7 @@ export default class DevServer extends Builder {
     const webpackConfig = createWebpackConfig(
       this.#activePages,
       this.pagesDir,
+      this.hasApp(),
       `${this.#host}:${this.#port}${socketPath}`
     )
     const compiler = webpack(webpackConfig)

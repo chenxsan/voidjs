@@ -1,9 +1,3 @@
-// polyfill for ie 11
-import 'react-app-polyfill/ie11'
-
-import 'prismjs/themes/prism-okaidia.css'
-import 'css/tailwind.css'
-import '@void-js/styles/lib/index.css'
 import logo from 'img/voidjs-logo.svg'
 import favicon from 'img/favicon.png'
 import Footer from '../components/Footer'

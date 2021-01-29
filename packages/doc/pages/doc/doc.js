@@ -11,6 +11,7 @@ export default function Doc() {
         <title>doc</title>
       </Helmet>
       <Docx />
+      <h2 className='font-serif'>Hello Void</h2>
     </div>
   )
 }

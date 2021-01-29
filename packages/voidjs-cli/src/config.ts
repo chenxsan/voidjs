@@ -1,8 +1,8 @@
 /**
  * Copyright 2020-present, Sam Chen.
- * 
+ *
  * Licensed under GPL-3.0-or-later
- * 
+ *
  * This file is part of voidjs.
 
     voidjs is free software: you can redistribute it and/or modify
@@ -23,6 +23,7 @@ import pino from 'pino'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import rehypePrism from '@mapbox/rehype-prism'
 import fs from 'fs-extra'
+import path from 'path'
 
 // FIXME weird bug on windows
 // it would resolve to voidjs\node_modules\@void-js\doc
@@ -75,8 +76,128 @@ const babelPresets = [
   ],
   '@babel/preset-typescript',
 ]
+export const getRules = (pagesDir: string, hasApp: boolean) => [
+  {
+    test: /\.(js|jsx|ts|tsx|mjs)$/i,
+    exclude: /node_modules/,
+    use: [
+      {
+        loader: 'babel-loader',
+        options: {
+          presets: [...babelPresets],
+          plugins: [
+            [
+              '@babel/plugin-transform-runtime',
+              {
+                regenerator: true,
+              },
+            ],
+          ],
+          // cacheDirectory: true,
+          // cacheCompression: false,
+          overrides: [
+            {
+              include: function (filename: string): boolean {
+                // entries under pagesDir
+                // exclude client entry
+                // exclude files prefixed with _
+                return (
+                  filename.startsWith(pagesDir) &&
+                  filename.includes('.client.') === false &&
+                  path.basename(filename).startsWith('_') === false
+                )
+              },
+              plugins: [
+                [
+                  'wrap-voidjs-app',
+                  {
+                    app: hasApp === true ? path.join(pagesDir, '_app') : hasApp,
+                  },
+                ],
+              ],
+            },
+          ],
+        },
+      },
+    ],
+  },
+  {
+    test: /\.(md|mdx)$/i,
+    use: [
+      {
+        loader: 'babel-loader',
+        options: {
+          presets: [...babelPresets],
+          // cacheDirectory: true,
+          // cacheCompression: false,
+          overrides: [
+            {
+              include: function (filename: string): boolean {
+                // entries under pagesDir
+                // exclude client entry
+                // exclude files prefixed with _
+                return (
+                  filename.startsWith(pagesDir) &&
+                  filename.includes('.client.') === false &&
+                  path.basename(filename).startsWith('_') === false
+                )
+              },
+              plugins: [
+                [
+                  'wrap-voidjs-app',
+                  {
+                    app: hasApp === true ? path.join(pagesDir, '_app') : hasApp,
+                  },
+                ],
+              ],
+            },
+          ],
+        },
+      },
+      {
+        loader: '@mdx-js/loader',
+        options: {
+          rehypePlugins: [rehypePrism],
+        },
+      },
+    ],
+  },
+  {
+    test: /\.(png|svg|jpg|jpeg|gif)$/i,
+    type: 'asset/resource',
+    generator: {
+      filename: '[name].[hash][ext][query]',
+    },
+  },
+  {
+    test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+    type: 'asset/resource',
+    generator: {
+      filename: 'fonts/[name][ext]',
+    },
+  },
+  {
+    test: /\.(sa|sc|c)ss$/i,
+    use: [
+      {
+        loader: MiniCssExtractPlugin.loader,
+      },
+      'css-loader',
+      {
+        loader: 'postcss-loader',
+        options: {
+          postcssOptions: {
+            ident: 'postcss',
+            plugins: postcssPlugins,
+          },
+        },
+      },
+      'sass-loader',
+    ],
+  },
+]
 
-// rules for webpack production mode
+// rules for client compiler
 export const rules = [
   {
     test: /\.(js|jsx|ts|tsx|mjs)$/i,

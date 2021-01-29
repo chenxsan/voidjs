@@ -14,7 +14,7 @@ Rendering the default React.js Component with `ReactDOM.render` for you.
       options: {
         presets: ['@babel/preset-env', '@babel/preset-react'],
         plugins: [
-          ['@react-dom-render', { hydrate: false, root: 'app' }]
+          ['react-dom-render', { hydrate: false, root: 'app' }]
         ]
       }
     }

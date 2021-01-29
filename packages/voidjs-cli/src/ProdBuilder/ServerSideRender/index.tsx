@@ -30,6 +30,7 @@ import type { HelmetData } from 'react-helmet'
 
 import { SyncHook } from 'tapable'
 import hasClientEntry from '../../DevServer/hasClientEntry'
+
 export default class Ssr {
   hooks: {
     // @ts-ignore
@@ -37,7 +38,7 @@ export default class Ssr {
   }
   #publicPath: string
   helmet?: HelmetData
-  constructor(publicPath) {
+  constructor(publicPath: string) {
     this.#publicPath = publicPath === 'auto' ? '' : publicPath
     this.hooks = {
       helmet: new SyncHook(),
@@ -56,6 +57,7 @@ export default class Ssr {
       const to = path.join(outputPath, css)
       return `${this.#publicPath}${path.relative(from, to)}`
     }
+
     // insert css into <head></head>
     let preloadStyles = ''
 
@@ -76,8 +78,14 @@ export default class Ssr {
       })
       .join('')
 
-    const appPath = `${path.resolve(outputPath, templateName + '.js')}`
-    const { default: App, getStaticProps } = await import(appPath)
+    const pagePath = `${path.resolve(outputPath, templateName + '.js')}`
+    const {
+      default: PageWithoutApp,
+      VoidJsPage: PageWithApp,
+      getStaticProps,
+    } = await import(pagePath)
+
+    const Page = PageWithApp ? PageWithApp : PageWithoutApp
 
     let props
 
@@ -86,7 +94,7 @@ export default class Ssr {
       props = staticProps.props
     }
 
-    const html = render(App, props)
+    const html: string = render(Page, props)
 
     this.hooks.helmet.call()
 
@@ -119,6 +127,6 @@ export default class Ssr {
 
     fs.outputFileSync(path.join(outputPath, templateName + '.html'), body)
 
-    fs.removeSync(appPath)
+    fs.removeSync(pagePath)
   }
 }

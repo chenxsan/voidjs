@@ -3,13 +3,17 @@ import { extensions, alias, postcssPlugins } from '../config'
 import rehypePrism from '@mapbox/rehype-prism'
 import createEntries from './createEntries'
 import type { EntryObject } from './index'
+import path from 'path'
 
-const createDOMRenderRule = (pagesDir: string) => ({
+const createDOMRenderRule = (pagesDir: string, hasApp: boolean) => ({
   include: (filename: string): boolean => {
     // entries under pagesDir
     // exclude client entry
+    // exclude files prefixed with _
     return (
-      filename.startsWith(pagesDir) && filename.includes('.client.') === false
+      filename.startsWith(pagesDir) &&
+      filename.includes('.client.') === false &&
+      path.basename(filename).startsWith('_') === false
     )
   },
   plugins: [
@@ -18,12 +22,13 @@ const createDOMRenderRule = (pagesDir: string) => ({
       {
         hydrate: false,
         root: 'voidjs-app',
+        app: hasApp === true ? path.join(pagesDir, '_app') : hasApp,
       },
     ],
   ],
 })
 
-const createBabelOptions = (pagesDir: string) => {
+const createBabelOptions = (pagesDir: string, hasApp: boolean) => {
   return {
     presets: [
       '@babel/preset-env',
@@ -48,19 +53,21 @@ const createBabelOptions = (pagesDir: string) => {
         },
       ],
     ],
-    overrides: [createDOMRenderRule(pagesDir)],
+    overrides: [createDOMRenderRule(pagesDir, hasApp)],
   }
 }
 
 export default function createWebpackConfig(
   activePages: string[],
   pagesDir: string,
+  hasApp: boolean,
   socketUrl: string
 ): webpack.Configuration {
   return {
     experiments: {
       topLevelAwait: true,
     },
+    devtool: 'source-map',
     mode: 'development',
     // TODO should be configurable
     // because people might not care ie 11 like me
@@ -82,7 +89,7 @@ export default function createWebpackConfig(
           use: [
             {
               loader: 'babel-loader',
-              options: createBabelOptions(pagesDir),
+              options: createBabelOptions(pagesDir, hasApp),
             },
           ],
         },
@@ -91,7 +98,7 @@ export default function createWebpackConfig(
           use: [
             {
               loader: 'babel-loader',
-              options: createBabelOptions(pagesDir),
+              options: createBabelOptions(pagesDir, hasApp),
             },
             {
               loader: '@mdx-js/loader',

@@ -33,7 +33,7 @@ import PluginHelmet from '../webpack-plugins/helmet-plugin'
 import type { Stats } from 'webpack'
 
 import {
-  rules,
+  getRules,
   extensions,
   alias,
   logger,
@@ -58,6 +58,15 @@ interface WebpackError {
 }
 
 export const ASSET_PATH = normalizeAssetPath()
+
+const hasApp = (pagesDir: string): boolean => {
+  return (
+    fs.existsSync(path.join(pagesDir, '_app.tsx')) ||
+    fs.existsSync(path.join(pagesDir, '_app.ts')) ||
+    fs.existsSync(path.join(pagesDir, '_app.js')) ||
+    fs.existsSync(path.join(pagesDir, '_app.jsx'))
+  )
+}
 
 class ProdBuilder extends Builder {
   #pages: string[]
@@ -93,14 +102,14 @@ class ProdBuilder extends Builder {
 
     return {
       externals: ['react-helmet', 'react', 'react-dom'],
-      mode: 'production',
+      mode: 'development',
       entry: {
         ...entries,
       },
       optimization: {
         minimize: false,
       },
-      target: ['web', 'es5'],
+      target: ['web'],
       output: {
         path: path.resolve(this.#outputPath),
         libraryTarget: 'commonjs2',
@@ -119,7 +128,7 @@ class ProdBuilder extends Builder {
         publicPath: ASSET_PATH ?? this.config.assetPath, // ASSET_PATH takes precedence over assetPath in voidjs.config.js
       },
       module: {
-        rules,
+        rules: getRules(this.pagesDir, hasApp(this.pagesDir)),
       },
       resolve: {
         extensions,
@@ -201,7 +210,7 @@ class ProdBuilder extends Builder {
       default: { entrypoints },
     } = await import(path.join(outputPath, 'assets.json'))
     for (const templateName of this.#pageEntries) {
-      const ssr = new ServerSideRender(publicPath)
+      const ssr = new ServerSideRender(publicPath ?? '')
       // PluginHelmet enabled by default
       new PluginHelmet().apply(ssr)
       if (Array.isArray(this.config.plugins)) {
@@ -267,6 +276,7 @@ class ProdBuilder extends Builder {
 
   cleanCache(): void {
     fs.removeSync(cacheRoot)
+    fs.removeSync(path.join(this.#outputPath, '_app.js'))
   }
 }
 
@@ -281,11 +291,13 @@ export function searchPageEntry(
 ): boolean {
   const entryPattern = new RegExp(`.(${extList.split(',').join('|')})$`)
   // files with patterns of `.mjs|.js|.jsx|.ts|.tsx|.md|.mdx`
+
   return (
     entryPattern.test(pagePath) &&
     extList
       .split(',')
       // exclude all client entry
-      .every((ext) => pagePath.includes(`.client.${ext}`) === false)
+      .every((ext) => pagePath.includes(`.client.${ext}`) === false) &&
+    path.basename(pagePath).startsWith('_') === false
   )
 }

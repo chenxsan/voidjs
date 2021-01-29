@@ -1,0 +1,5 @@
+{
+  "name": "babel-plugin-wrap-voidjs-app",
+  "main": "dist/babel-plugin-wrap-voidjs-app.cjs.js",
+  "version": "0.1.0"
+}
