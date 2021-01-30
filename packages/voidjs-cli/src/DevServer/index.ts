@@ -20,7 +20,7 @@
  */
 import webpack from 'webpack'
 import * as path from 'path'
-import { logger, publicFolder } from '../config'
+import { logger, publicFolder, socketPath } from '../config'
 import express from 'express'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import http from 'http'
@@ -31,7 +31,7 @@ import watchCompilation from './watchCompilation'
 import createWebSocketServer from './createWebSocketServer'
 import Builder from '../Builder'
 import HtmlPlugin from '../webpack-plugins/HtmlPluginForDevServer'
-import fs from 'fs-extra'
+import hasCustomApp from '../utils/hasCustomApp'
 
 export interface EntryObject {
   [index: string]:
@@ -49,9 +49,7 @@ export interface Server {
 export default class DevServer extends Builder {
   readonly #host: string
   readonly #port: number
-
-  // collect activated pages
-  #activePages: string[]
+  #activePages: string[] // collect activated pages
 
   constructor(
     pagesDir: string,
@@ -61,34 +59,21 @@ export default class DevServer extends Builder {
 
     this.#host = host
     this.#port = port
-
     this.#activePages = []
   }
 
-  hasApp(): boolean {
-    return (
-      fs.existsSync(path.join(this.pagesDir, '_app.tsx')) ||
-      fs.existsSync(path.join(this.pagesDir, '_app.ts')) ||
-      fs.existsSync(path.join(this.pagesDir, '_app.js')) ||
-      fs.existsSync(path.join(this.pagesDir, '_app.jsx'))
-    )
-  }
-
   public async start(): Promise<http.Server> {
-    // resolve voidjs.config.js
-    await this.resolveConfig()
-
-    const socketPath = '/__websocket'
-
     const webpackConfig = createWebpackConfig(
       this.#activePages,
       this.pagesDir,
-      this.hasApp(),
+      hasCustomApp(this.pagesDir),
       `${this.#host}:${this.#port}${socketPath}`
     )
-    const compiler = webpack(webpackConfig)
 
+    const compiler = webpack(webpackConfig)
     const devMiddleware = webpackDevMiddleware(compiler)
+
+    // append entry only when accessed
     const voidjsMiddleware = (pagesDir: string) => (
       req: express.Request,
       _res: express.Response,
@@ -99,12 +84,11 @@ export default class DevServer extends Builder {
         // check if page does exit on disk
         // FIXME what if req.url contains query
         const page = findSourceFile(pagesDir, req.url)
-
-        if (page.exists) {
-          const src = page.src as string
-          if (!this.#activePages.includes(src)) {
-            this.#activePages.push(src)
-            new HtmlPlugin(pagesDir, src).apply(compiler)
+        if (page.exists === true) {
+          const pageSrc = page.src as string
+          if (!this.#activePages.includes(pageSrc)) {
+            this.#activePages.push(pageSrc)
+            new HtmlPlugin(pagesDir, pageSrc).apply(compiler)
             devMiddleware.invalidate()
           }
         }
@@ -115,6 +99,7 @@ export default class DevServer extends Builder {
     const app = express()
     /**
      * rewrite html request
+     * TODO tests needed
      */
     app.use(function (
       req: express.Request,
@@ -132,6 +117,7 @@ export default class DevServer extends Builder {
       }
       next()
     })
+
     app.use(voidjsMiddleware(this.pagesDir))
     app.use(devMiddleware)
 

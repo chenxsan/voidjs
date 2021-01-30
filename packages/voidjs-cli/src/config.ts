@@ -24,6 +24,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import rehypePrism from '@mapbox/rehype-prism'
 import fs from 'fs-extra'
 import path from 'path'
+import isPageEntry from './utils/isPageEntry'
 
 // FIXME weird bug on windows
 // it would resolve to voidjs\node_modules\@void-js\doc
@@ -43,19 +44,25 @@ export const logger = pino({
 })
 
 const assetsRoot = 'static'
+
 export const alias = {
   img: resolve(cwd, `${assetsRoot}/img`),
   css: resolve(cwd, `${assetsRoot}/css`),
   js: resolve(cwd, `${assetsRoot}/js`),
 }
 export const publicFolder = 'public'
+export const socketPath = '/__websocket'
 
-export const extensions = ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.json']
+export const resolveExtensions = ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.json']
 
 export const performance: Performance = require('perf_hooks').performance
 export const PerformanceObserver = require('perf_hooks').PerformanceObserver
 
 export const cacheRoot: string = join(cwd, '.voidjs', 'cache')
+
+export const supportedImageExtensions = /\.(png|svg|jpg|jpeg|gif|avif|webp)$/i
+export const supportedFontExtensions = /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/
+export const supportedCssExtensions = /\.(sa|sc|c)ss$/i
 
 const tailwindcssEnabled: boolean = fs.existsSync(
   join(cwd, 'tailwind.config.js')
@@ -98,14 +105,7 @@ export const getRules = (pagesDir: string, hasApp: boolean) => [
           overrides: [
             {
               include: function (filename: string): boolean {
-                // entries under pagesDir
-                // exclude client entry
-                // exclude files prefixed with _
-                return (
-                  filename.startsWith(pagesDir) &&
-                  filename.includes('.client.') === false &&
-                  path.basename(filename).startsWith('_') === false
-                )
+                return isPageEntry(pagesDir, filename)
               },
               plugins: [
                 [
@@ -133,14 +133,7 @@ export const getRules = (pagesDir: string, hasApp: boolean) => [
           overrides: [
             {
               include: function (filename: string): boolean {
-                // entries under pagesDir
-                // exclude client entry
-                // exclude files prefixed with _
-                return (
-                  filename.startsWith(pagesDir) &&
-                  filename.includes('.client.') === false &&
-                  path.basename(filename).startsWith('_') === false
-                )
+                return isPageEntry(pagesDir, filename)
               },
               plugins: [
                 [
@@ -163,21 +156,21 @@ export const getRules = (pagesDir: string, hasApp: boolean) => [
     ],
   },
   {
-    test: /\.(png|svg|jpg|jpeg|gif)$/i,
+    test: supportedImageExtensions,
     type: 'asset/resource',
     generator: {
       filename: '[name].[hash][ext][query]',
     },
   },
   {
-    test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+    test: supportedFontExtensions,
     type: 'asset/resource',
     generator: {
       filename: 'fonts/[name][ext]',
     },
   },
   {
-    test: /\.(sa|sc|c)ss$/i,
+    test: supportedCssExtensions,
     use: [
       {
         loader: MiniCssExtractPlugin.loader,
@@ -241,21 +234,21 @@ export const rules = [
     ],
   },
   {
-    test: /\.(png|svg|jpg|jpeg|gif)$/i,
+    test: supportedImageExtensions,
     type: 'asset/resource',
     generator: {
       filename: '[name].[hash][ext][query]',
     },
   },
   {
-    test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+    test: supportedFontExtensions,
     type: 'asset/resource',
     generator: {
       filename: 'fonts/[name][ext]',
     },
   },
   {
-    test: /\.(sa|sc|c)ss$/i,
+    test: supportedCssExtensions,
     use: [
       {
         loader: MiniCssExtractPlugin.loader,

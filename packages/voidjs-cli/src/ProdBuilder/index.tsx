@@ -34,7 +34,7 @@ import type { Stats } from 'webpack'
 
 import {
   getRules,
-  extensions,
+  resolveExtensions,
   alias,
   logger,
   performance,
@@ -46,6 +46,7 @@ import {
 import collectPages from '../collectFiles'
 
 import fs from 'fs-extra'
+import hasCustomApp from '../utils/hasCustomApp'
 
 const BEGIN = 'begin'
 const END = 'end'
@@ -58,15 +59,6 @@ interface WebpackError {
 }
 
 export const ASSET_PATH = normalizeAssetPath()
-
-const hasApp = (pagesDir: string): boolean => {
-  return (
-    fs.existsSync(path.join(pagesDir, '_app.tsx')) ||
-    fs.existsSync(path.join(pagesDir, '_app.ts')) ||
-    fs.existsSync(path.join(pagesDir, '_app.js')) ||
-    fs.existsSync(path.join(pagesDir, '_app.jsx'))
-  )
-}
 
 class ProdBuilder extends Builder {
   #pages: string[]
@@ -128,10 +120,10 @@ class ProdBuilder extends Builder {
         publicPath: ASSET_PATH ?? this.config.assetPath, // ASSET_PATH takes precedence over assetPath in voidjs.config.js
       },
       module: {
-        rules: getRules(this.pagesDir, hasApp(this.pagesDir)),
+        rules: getRules(this.pagesDir, hasCustomApp(this.pagesDir)),
       },
       resolve: {
-        extensions,
+        extensions: resolveExtensions,
         alias,
       },
       plugins: [
@@ -146,6 +138,9 @@ class ProdBuilder extends Builder {
         // @ts-ignore
         new MiniCssExtractPlugin({
           filename: '[name].[contenthash].css',
+        }),
+        new webpack.ProgressPlugin({
+          profile: true,
         }),
       ],
     }
@@ -236,7 +231,7 @@ class ProdBuilder extends Builder {
     this.#pages = await collectPages(this.pagesDir, searchPageEntry)
     logger.info(`${this.pageOrPages(this.#pages.length)} collected`)
 
-    // resolve voidjs config
+    // resolve voidjs.config.js as this.config
     await this.resolveConfig()
 
     /**
