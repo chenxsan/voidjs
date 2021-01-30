@@ -8,7 +8,6 @@ export default function Doc() {
         <title>doc</title>
       </Helmet>
       <Docx />
-      <h2>Hello Void</h2>
     </div>
   )
 }
