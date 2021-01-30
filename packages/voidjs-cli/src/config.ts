@@ -25,6 +25,7 @@ import rehypePrism from '@mapbox/rehype-prism'
 import fs from 'fs-extra'
 import path from 'path'
 import isPageEntry from './utils/isPageEntry'
+import type { RuleSetRule } from 'webpack'
 
 // FIXME weird bug on windows
 // it would resolve to voidjs\node_modules\@void-js\doc
@@ -83,7 +84,7 @@ const babelPresets = [
   ],
   '@babel/preset-typescript',
 ]
-export const getRules = (pagesDir: string, hasApp: boolean) => [
+export const getRules = (pagesDir: string, hasApp: boolean): RuleSetRule[] => [
   {
     test: /\.(js|jsx|ts|tsx|mjs)$/i,
     exclude: /node_modules/,
@@ -191,7 +192,7 @@ export const getRules = (pagesDir: string, hasApp: boolean) => [
 ]
 
 // rules for client compiler
-export const rules = [
+export const rules: RuleSetRule[] = [
   {
     test: /\.(js|jsx|ts|tsx|mjs)$/i,
     exclude: /node_modules/,
