@@ -4794,6 +4794,13 @@ __metadata:
 "babel-plugin-wrap-voidjs-app@^0.1.0, babel-plugin-wrap-voidjs-app@workspace:packages/babel-plugin-wrap-voidjs-app":
   version: 0.0.0-use.local
   resolution: "babel-plugin-wrap-voidjs-app@workspace:packages/babel-plugin-wrap-voidjs-app"
+  dependencies:
+    "@babel/core": ^7.12.10
+    "@babel/template": ^7.12.7
+    "@babel/traverse": ^7.12.12
+    "@babel/types": ^7.12.12
+    "@types/babel__core": ^7
+    "@types/babel__template": ^7
   languageName: unknown
   linkType: soft
 
