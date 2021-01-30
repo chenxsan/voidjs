@@ -95,9 +95,13 @@ class ProdBuilder extends Builder {
     return {
       externals: ['react-helmet', 'react', 'react-dom'],
       mode: 'production',
-      cache: {
-        type: 'filesystem',
-      },
+      // TODO it's causing problem when set naively
+      // cache: {
+      //   type: 'filesystem',
+      //   buildDependencies: {
+      //     config: [__filename], // Make all dependencies of this file as build dependencies
+      //   },
+      // },
       entry: {
         ...entries,
       },
