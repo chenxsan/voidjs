@@ -1,22 +1,20 @@
 {
   "files": {
+    "doc/doc.css": "doc/doc.f1ddc54bbc49ec7cd9ff.css",
     "doc/doc.js": "doc/doc.js",
-    "doc/doc.css": "doc/doc.d7629860d864eeb8525e.css",
+    "index.css": "index.f1ddc54bbc49ec7cd9ff.css",
     "index.js": "index.js",
-    "index.css": "index.633cb8158fe5a9b6894b.css",
-    "doc/doc.html": "doc/doc.html",
-    "favicon.png": "favicon.123559ffcd6fdb61b6a843cde9904f6b.png",
-    "index.html": "index.html",
-    "voidjs-logo.svg": "voidjs-logo.de5a021a0c00bdaa81ca60834b52f990.svg"
+    "static/img/favicon.png": "favicon.123559ffcd6fdb61b6a8.png",
+    "static/img/voidjs-logo.svg": "voidjs-logo.de5a021a0c00bdaa81ca.svg"
   },
   "entrypoints": {
     "doc/doc": [
-      "doc/doc.js",
-      "doc/doc.d7629860d864eeb8525e.css"
+      "doc/doc.f1ddc54bbc49ec7cd9ff.css",
+      "doc/doc.js"
     ],
     "index": [
-      "index.js",
-      "index.633cb8158fe5a9b6894b.css"
+      "index.f1ddc54bbc49ec7cd9ff.css",
+      "index.js"
     ]
   }
 }
