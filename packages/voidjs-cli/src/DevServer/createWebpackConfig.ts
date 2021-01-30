@@ -71,6 +71,9 @@ export default function createWebpackConfig(
     experiments: {
       topLevelAwait: true,
     },
+    cache: {
+      type: 'filesystem',
+    },
     devtool: 'eval',
     mode: 'development',
     // TODO should be configurable
