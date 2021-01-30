@@ -94,7 +94,10 @@ class ProdBuilder extends Builder {
 
     return {
       externals: ['react-helmet', 'react', 'react-dom'],
-      mode: 'development',
+      mode: 'production',
+      cache: {
+        type: 'filesystem',
+      },
       entry: {
         ...entries,
       },

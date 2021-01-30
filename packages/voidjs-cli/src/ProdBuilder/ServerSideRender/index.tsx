@@ -89,7 +89,7 @@ export default class Ssr {
 
     let props
 
-    if (getStaticProps) {
+    if (typeof getStaticProps !== 'undefined') {
       const staticProps = await getStaticProps()
       props = staticProps.props
     }
