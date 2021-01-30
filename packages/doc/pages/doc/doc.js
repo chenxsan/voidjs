@@ -1,6 +1,3 @@
-import 'prismjs/themes/prism-okaidia.css'
-import 'css/tailwind.css'
-
 import Docx from '../../components/doc.md'
 import { Helmet } from 'react-helmet'
 
