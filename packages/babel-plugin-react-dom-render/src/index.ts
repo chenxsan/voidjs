@@ -15,6 +15,14 @@ interface Babel {
   template: typeof templateBuilder
 }
 
+const voidjsApp = 'VOID_JS_APP'
+
+export enum ComponentError {
+  functionComponentOnly = 'Only Function Component is supported',
+  namedFunctionComponentOnly = 'Anonymous Function Component is not supported',
+  reservedFunctionName = 'Reserved Component Name',
+}
+
 export default function (babel: Babel): { visitor: Visitor<State> } {
   const template = babel.template
   // store the declaration name of default export
@@ -26,7 +34,7 @@ export default function (babel: Babel): { visitor: Visitor<State> } {
           if (!path.scope.hasBinding('createElement')) {
             path.unshiftContainer(
               'body',
-              template.ast(`import { createElement } from 'react';`)
+              template.ast(`import { createElement } from "react";`)
             )
           }
 
@@ -54,8 +62,8 @@ export default function (babel: Babel): { visitor: Visitor<State> } {
                 (async function () {
                   const data = await getStaticProps();
                   if (${!!app}) {
-                    import("${app}").then(({default: App}) => {
-                      ${h}(createElement(App, {Component: ${exportDefaultDeclarationName}, pageProps: data.props}), ${container});
+                    import("${app}").then(({default: ${voidjsApp}}) => {
+                      ${h}(createElement(${voidjsApp}, {Component: ${exportDefaultDeclarationName}, pageProps: data.props}), ${container});
                     });
                   } else {
                     ${h}(createElement(${exportDefaultDeclarationName}, data.props), ${container});
@@ -63,8 +71,8 @@ export default function (babel: Babel): { visitor: Visitor<State> } {
                 })();
               } else {
                 if (${!!app}) {
-                  import("${app}").then(({default: App}) => {
-                    ${h}(createElement(App, {Component: ${exportDefaultDeclarationName}, pageProps: {}}), ${container});
+                  import("${app}").then(({default: ${voidjsApp}}) => {
+                    ${h}(createElement(${voidjsApp}, {Component: ${exportDefaultDeclarationName}, pageProps: {}}), ${container});
                   });
                 } else {
                   ${h}(createElement(${exportDefaultDeclarationName}), ${container});
@@ -75,15 +83,15 @@ export default function (babel: Babel): { visitor: Visitor<State> } {
       },
       ExportDefaultDeclaration: {
         enter(path): void {
-          // Only render function component
           if (path.node.declaration.type !== 'FunctionDeclaration')
-            throw new Error('Only Function Component is supported')
+            throw new Error(ComponentError.functionComponentOnly)
 
-          // Anonymous function
           if (!path.node.declaration.id)
-            throw new Error('Anonymous Function Component is not supported')
+            throw new Error(ComponentError.namedFunctionComponentOnly)
 
-          // save for next
+          if (path.node.declaration.id.name === voidjsApp)
+            throw new Error(ComponentError.reservedFunctionName)
+
           exportDefaultDeclarationName = path.node.declaration.id.name
         },
       },
