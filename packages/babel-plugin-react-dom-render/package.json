@@ -5,7 +5,8 @@
   "main": "dist/babel-plugin-react-dom-render.cjs.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chenxsan/babel-plugin-react-dom-render.git"
+    "url": "https://github.com/chenxsan/voidjs.git",
+    "directory": "packages/babel-plugin-react-dom-render"
   },
   "keywords": [
     "babel",
@@ -17,9 +18,8 @@
   "author": "Sam Chen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chenxsan/babel-plugin-react-dom-render/issues"
+    "url": "https://github.com/chenxsan/voidjs/issues"
   },
-  "homepage": "https://github.com/chenxsan/babel-plugin-react-dom-render#readme",
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/template": "^7.12.7",
