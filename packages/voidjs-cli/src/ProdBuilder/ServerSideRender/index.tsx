@@ -30,6 +30,7 @@ import type { HelmetData } from 'react-helmet'
 
 import { SyncHook } from 'tapable'
 import hasClientEntry from '../../DevServer/hasClientEntry'
+
 export default class Ssr {
   hooks: {
     // @ts-ignore
@@ -37,7 +38,7 @@ export default class Ssr {
   }
   #publicPath: string
   helmet?: HelmetData
-  constructor(publicPath) {
+  constructor(publicPath: string) {
     this.#publicPath = publicPath === 'auto' ? '' : publicPath
     this.hooks = {
       helmet: new SyncHook(),
@@ -56,6 +57,7 @@ export default class Ssr {
       const to = path.join(outputPath, css)
       return `${this.#publicPath}${path.relative(from, to)}`
     }
+
     // insert css into <head></head>
     let preloadStyles = ''
 
@@ -76,34 +78,49 @@ export default class Ssr {
       })
       .join('')
 
-    const appPath = `${path.resolve(outputPath, templateName + '.js')}`
-    const { default: App, getStaticProps } = await import(appPath)
+    const pagePath = `${path.resolve(outputPath, templateName + '.js')}`
+    const {
+      default: PageWithoutApp,
+      VoidJsPage: PageWithApp,
+      getStaticProps,
+    } = await import(pagePath)
+
+    const Page = PageWithApp ? PageWithApp : PageWithoutApp
 
     let props
 
-    if (getStaticProps) {
+    if (typeof getStaticProps !== 'undefined') {
       const staticProps = await getStaticProps()
       props = staticProps.props
     }
 
-    const html = render(App, props)
+    const html: string = render(Page, props)
 
     this.hooks.helmet.call()
 
     const hasClientJs = hasClientEntry(path.join(pagesDir, templateName))
 
     let body: string
+
+    // placeholder
+    const preloadVoidJsClientStyle = voidjsConfig.html.preload.style
+      ? '<!-- preloadVoidJsClientStyle -->'
+      : ''
+    // ditto
+    const preloadVoidJsClientScript = voidjsConfig.html.preload.script
+      ? '<!-- preloadVoidJsClientScript -->'
+      : ''
     if (this.helmet) {
       if (hasClientJs.exists === true) {
         // add some placeholders for later replacement
-        body = `<!DOCTYPE html><html ${this.helmet.htmlAttributes.toString()}><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${this.helmet.title.toString()}${this.helmet.meta.toString()}${this.helmet.link.toString()}${this.helmet.script.toString()}${preloadStyles}<!-- preloadVoidJsClientStyle -->${hd}<!-- loadVoidJsClientStyle --></head><body>${html}<!-- loadVoidJsClientJs --></body></html>`
+        body = `<!DOCTYPE html><html ${this.helmet.htmlAttributes.toString()}><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${this.helmet.title.toString()}${this.helmet.meta.toString()}${this.helmet.link.toString()}${this.helmet.script.toString()}${preloadStyles}${preloadVoidJsClientStyle}${preloadVoidJsClientScript}${hd}<!-- loadVoidJsClientStyle --></head><body>${html}<!-- loadVoidJsClientJs --></body></html>`
       } else {
         body = `<!DOCTYPE html><html ${this.helmet.htmlAttributes.toString()}><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${this.helmet.title.toString()}${this.helmet.meta.toString()}${this.helmet.link.toString()}${this.helmet.script.toString()}${preloadStyles}${hd}</head><body>${html}</body></html>`
       }
     } else {
       if (hasClientJs.exists === true) {
         // add some placeholders for later replacement
-        body = `<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${preloadStyles}<!-- preloadVoidJsClientStyle -->${hd}<!-- loadVoidJsClientStyle --></head><body>${html}<!-- loadVoidJsClientJs --></body></html>`
+        body = `<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${preloadStyles}${preloadVoidJsClientStyle}${preloadVoidJsClientScript}${hd}<!-- loadVoidJsClientStyle --></head><body>${html}<!-- loadVoidJsClientJs --></body></html>`
       } else {
         body = `<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${preloadStyles}${hd}</head><body>${html}</body></html>`
       }
@@ -119,6 +136,6 @@ export default class Ssr {
 
     fs.outputFileSync(path.join(outputPath, templateName + '.html'), body)
 
-    fs.removeSync(appPath)
+    fs.removeSync(pagePath)
   }
 }

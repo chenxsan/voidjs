@@ -33,19 +33,19 @@ import PluginHelmet from '../webpack-plugins/helmet-plugin'
 import type { Stats } from 'webpack'
 
 import {
-  rules,
-  extensions,
+  getRules,
+  resolveExtensions,
   alias,
   logger,
   performance,
   PerformanceObserver,
-  cacheRoot,
   publicFolder,
 } from '../config'
 
 import collectPages from '../collectFiles'
 
 import fs from 'fs-extra'
+import hasCustomApp from '../utils/hasCustomApp'
 
 const BEGIN = 'begin'
 const END = 'end'
@@ -94,13 +94,20 @@ class ProdBuilder extends Builder {
     return {
       externals: ['react-helmet', 'react', 'react-dom'],
       mode: 'production',
+      // TODO it's causing problem when set naively
+      // cache: {
+      //   type: 'filesystem',
+      //   buildDependencies: {
+      //     config: [__filename], // Make all dependencies of this file as build dependencies
+      //   },
+      // },
       entry: {
         ...entries,
       },
       optimization: {
         minimize: false,
       },
-      target: ['web', 'es5'],
+      target: ['web'],
       output: {
         path: path.resolve(this.#outputPath),
         libraryTarget: 'commonjs2',
@@ -119,10 +126,10 @@ class ProdBuilder extends Builder {
         publicPath: ASSET_PATH ?? this.config.assetPath, // ASSET_PATH takes precedence over assetPath in voidjs.config.js
       },
       module: {
-        rules,
+        rules: getRules(this.pagesDir, hasCustomApp(this.pagesDir)),
       },
       resolve: {
-        extensions,
+        extensions: resolveExtensions,
         alias,
       },
       plugins: [
@@ -134,9 +141,11 @@ class ProdBuilder extends Builder {
         new CssoWebpackPlugin({
           restructure: false,
         }),
-        // @ts-ignore
         new MiniCssExtractPlugin({
           filename: '[name].[contenthash].css',
+        }),
+        new webpack.ProgressPlugin({
+          profile: true,
         }),
       ],
     }
@@ -201,7 +210,7 @@ class ProdBuilder extends Builder {
       default: { entrypoints },
     } = await import(path.join(outputPath, 'assets.json'))
     for (const templateName of this.#pageEntries) {
-      const ssr = new ServerSideRender(publicPath)
+      const ssr = new ServerSideRender(publicPath ?? '')
       // PluginHelmet enabled by default
       new PluginHelmet().apply(ssr)
       if (Array.isArray(this.config.plugins)) {
@@ -227,7 +236,7 @@ class ProdBuilder extends Builder {
     this.#pages = await collectPages(this.pagesDir, searchPageEntry)
     logger.info(`${this.pageOrPages(this.#pages.length)} collected`)
 
-    // resolve voidjs config
+    // resolve voidjs.config.js as this.config
     await this.resolveConfig()
 
     /**
@@ -266,7 +275,9 @@ class ProdBuilder extends Builder {
   }
 
   cleanCache(): void {
-    fs.removeSync(cacheRoot)
+    if (hasCustomApp(this.pagesDir)) {
+      fs.removeSync(path.join(this.#outputPath, '_app.js'))
+    }
   }
 }
 
@@ -281,11 +292,13 @@ export function searchPageEntry(
 ): boolean {
   const entryPattern = new RegExp(`.(${extList.split(',').join('|')})$`)
   // files with patterns of `.mjs|.js|.jsx|.ts|.tsx|.md|.mdx`
+
   return (
     entryPattern.test(pagePath) &&
     extList
       .split(',')
       // exclude all client entry
-      .every((ext) => pagePath.includes(`.client.${ext}`) === false)
+      .every((ext) => pagePath.includes(`.client.${ext}`) === false) &&
+    path.basename(pagePath).startsWith('_') === false
   )
 }

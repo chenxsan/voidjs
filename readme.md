@@ -10,6 +10,11 @@ voidjs is designed for managing non-SPA HTML pages. It brings a lot of benefits 
 2. Manage html with **Components**, no more error-prone copy & paste
 3. Pre-built static HTML
 
+## Use cases
+
+1. You want to write some simple static html pages without any JavaScript or a few JavaScript Code.
+2. You want to write html templates for server side languages other than Node.js, e.g., PHP.
+
 ## License
 
 GPL-3.0

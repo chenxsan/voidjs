@@ -1,8 +1,8 @@
 /**
  * Copyright 2020-present, Sam Chen.
- * 
+ *
  * Licensed under GPL-3.0-or-later
- * 
+ *
  * This file is part of voidjs.
 
     voidjs is free software: you can redistribute it and/or modify
@@ -101,14 +101,9 @@ yargs
       // Clean outDir first
       rimraf(outDir, async (err) => {
         if (err) return logger.error(err)
-        // remove .voidjs folder
-        logger.info(`Cleaning caches under .voidjs…`)
-        rimraf(path.resolve(cwd, '.voidjs'), async (err) => {
-          if (err) return logger.error(err)
-          const builder = new Builder(pagesDir, outDir)
-          process.env['NODE_ENV'] = 'production'
-          await builder.run()
-        })
+        const builder = new Builder(pagesDir, outDir)
+        process.env['NODE_ENV'] = 'production'
+        await builder.run()
       })
     }
   )

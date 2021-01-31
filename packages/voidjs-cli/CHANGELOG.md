@@ -1,5 +1,18 @@
 # voidjs-cli
 
+## 0.19.0
+
+### Minor Changes
+
+- 4d28dfb: Support Custom App.
+
+### Patch Changes
+
+- Updated dependencies [4d28dfb]
+- Updated dependencies [4d28dfb]
+  - babel-plugin-wrap-voidjs-app@0.2.0
+  - babel-plugin-react-dom-render@1.2.0
+
 ## 0.18.2
 
 ### Patch Changes

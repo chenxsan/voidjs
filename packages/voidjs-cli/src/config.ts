@@ -1,8 +1,8 @@
 /**
  * Copyright 2020-present, Sam Chen.
- * 
+ *
  * Licensed under GPL-3.0-or-later
- * 
+ *
  * This file is part of voidjs.
 
     voidjs is free software: you can redistribute it and/or modify
@@ -23,6 +23,9 @@ import pino from 'pino'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import rehypePrism from '@mapbox/rehype-prism'
 import fs from 'fs-extra'
+import path from 'path'
+import isPageEntry from './utils/isPageEntry'
+import type { RuleSetRule } from 'webpack'
 
 // FIXME weird bug on windows
 // it would resolve to voidjs\node_modules\@void-js\doc
@@ -42,19 +45,23 @@ export const logger = pino({
 })
 
 const assetsRoot = 'static'
+
 export const alias = {
   img: resolve(cwd, `${assetsRoot}/img`),
   css: resolve(cwd, `${assetsRoot}/css`),
   js: resolve(cwd, `${assetsRoot}/js`),
 }
 export const publicFolder = 'public'
+export const socketPath = '/__websocket'
 
-export const extensions = ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.json']
+export const resolveExtensions = ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.json']
 
 export const performance: Performance = require('perf_hooks').performance
 export const PerformanceObserver = require('perf_hooks').PerformanceObserver
 
-export const cacheRoot: string = join(cwd, '.voidjs', 'cache')
+export const supportedImageExtensions = /\.(png|svg|jpg|jpeg|gif|avif|webp)$/i
+export const supportedFontExtensions = /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/
+export const supportedCssExtensions = /\.(sa|sc|c)ss$/i
 
 const tailwindcssEnabled: boolean = fs.existsSync(
   join(cwd, 'tailwind.config.js')
@@ -75,9 +82,115 @@ const babelPresets = [
   ],
   '@babel/preset-typescript',
 ]
+export const getRules = (pagesDir: string, hasApp: boolean): RuleSetRule[] => [
+  {
+    test: /\.(js|jsx|ts|tsx|mjs)$/i,
+    exclude: /node_modules/,
+    use: [
+      {
+        loader: 'babel-loader',
+        options: {
+          presets: [...babelPresets],
+          plugins: [
+            [
+              '@babel/plugin-transform-runtime',
+              {
+                regenerator: true,
+              },
+            ],
+          ],
+          // cacheDirectory: true,
+          // cacheCompression: false,
+          overrides: [
+            {
+              include: function (filename: string): boolean {
+                return isPageEntry(pagesDir, filename)
+              },
+              plugins: [
+                [
+                  'wrap-voidjs-app',
+                  {
+                    app: hasApp === true ? path.join(pagesDir, '_app') : hasApp,
+                  },
+                ],
+              ],
+            },
+          ],
+        },
+      },
+    ],
+  },
+  {
+    test: /\.(md|mdx)$/i,
+    use: [
+      {
+        loader: 'babel-loader',
+        options: {
+          presets: [...babelPresets],
+          // cacheDirectory: true,
+          // cacheCompression: false,
+          overrides: [
+            {
+              include: function (filename: string): boolean {
+                return isPageEntry(pagesDir, filename)
+              },
+              plugins: [
+                [
+                  'wrap-voidjs-app',
+                  {
+                    app: hasApp === true ? path.join(pagesDir, '_app') : hasApp,
+                  },
+                ],
+              ],
+            },
+          ],
+        },
+      },
+      {
+        loader: '@mdx-js/loader',
+        options: {
+          rehypePlugins: [rehypePrism],
+        },
+      },
+    ],
+  },
+  {
+    test: supportedImageExtensions,
+    type: 'asset/resource',
+    generator: {
+      filename: '[name].[hash][ext][query]',
+    },
+  },
+  {
+    test: supportedFontExtensions,
+    type: 'asset/resource',
+    generator: {
+      filename: 'fonts/[name][ext]',
+    },
+  },
+  {
+    test: supportedCssExtensions,
+    use: [
+      {
+        loader: MiniCssExtractPlugin.loader,
+      },
+      'css-loader',
+      {
+        loader: 'postcss-loader',
+        options: {
+          postcssOptions: {
+            ident: 'postcss',
+            plugins: postcssPlugins,
+          },
+        },
+      },
+      'sass-loader',
+    ],
+  },
+]
 
-// rules for webpack production mode
-export const rules = [
+// rules for client compiler
+export const rules: RuleSetRule[] = [
   {
     test: /\.(js|jsx|ts|tsx|mjs)$/i,
     exclude: /node_modules/,
@@ -120,21 +233,21 @@ export const rules = [
     ],
   },
   {
-    test: /\.(png|svg|jpg|jpeg|gif)$/i,
+    test: supportedImageExtensions,
     type: 'asset/resource',
     generator: {
       filename: '[name].[hash][ext][query]',
     },
   },
   {
-    test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+    test: supportedFontExtensions,
     type: 'asset/resource',
     generator: {
       filename: 'fonts/[name][ext]',
     },
   },
   {
-    test: /\.(sa|sc|c)ss$/i,
+    test: supportedCssExtensions,
     use: [
       {
         loader: MiniCssExtractPlugin.loader,

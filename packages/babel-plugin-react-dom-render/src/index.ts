@@ -1,13 +1,31 @@
-import type { PluginObj } from '@babel/core'
+import type { Visitor } from '@babel/traverse'
+import * as BabelTypes from '@babel/types'
+import templateBuilder from '@babel/template'
 
-interface State {
-  opts: {
-    root?: string
-    hydrate?: boolean
-  }
+interface PluginOptionsInterface {
+  root?: string // root container to mount the app
+  hydrate?: boolean // hydrate or render
+  app?: false | string // custom app available or not
 }
-export default function (babel: any): PluginObj<State> {
+interface State {
+  opts: PluginOptionsInterface
+}
+interface Babel {
+  types: typeof BabelTypes
+  template: typeof templateBuilder
+}
+
+const voidjsApp = 'VOID_JS_APP'
+
+export enum ComponentError {
+  functionComponentOnly = 'Only Function Component is supported',
+  namedFunctionComponentOnly = 'Anonymous Function Component is not supported',
+  reservedFunctionName = 'Reserved Component Name',
+}
+
+export default function (babel: Babel): { visitor: Visitor<State> } {
   const template = babel.template
+  // store the declaration name of default export
   let exportDefaultDeclarationName = ''
   return {
     visitor: {
@@ -16,7 +34,7 @@ export default function (babel: any): PluginObj<State> {
           if (!path.scope.hasBinding('createElement')) {
             path.unshiftContainer(
               'body',
-              template.ast(`import { createElement } from 'react';`)
+              template.ast(`import { createElement } from "react";`)
             )
           }
 
@@ -28,38 +46,52 @@ export default function (babel: any): PluginObj<State> {
           }
         },
         exit(path, state): void {
+          // no named default export found
           if (exportDefaultDeclarationName === '') return
+
           const {
-            opts: { root = 'app', hydrate = false },
+            opts: { root = 'app', hydrate = false, app = false },
           } = state
+
+          const h = `ReactDOM.${hydrate ? 'hydrate' : 'render'}`
+          const container = `document.getElementById("${root}")`
+
           path.pushContainer(
             'body',
             template.ast(`if (typeof getStaticProps !== "undefined") {
                 (async function () {
                   const data = await getStaticProps();
-                  ReactDOM.${
-                    hydrate ? 'hydrate' : 'render'
-                  }(createElement(${exportDefaultDeclarationName}, data.props), document.getElementById("${root}"));
+                  if (${!!app}) {
+                    import("${app}").then(({default: ${voidjsApp}}) => {
+                      ${h}(createElement(${voidjsApp}, {Component: ${exportDefaultDeclarationName}, pageProps: data.props}), ${container});
+                    });
+                  } else {
+                    ${h}(createElement(${exportDefaultDeclarationName}, data.props), ${container});
+                  }
                 })();
               } else {
-                ReactDOM.${
-                  hydrate ? 'hydrate' : 'render'
-                }(createElement(${exportDefaultDeclarationName}), document.getElementById("${root}"));
+                if (${!!app}) {
+                  import("${app}").then(({default: ${voidjsApp}}) => {
+                    ${h}(createElement(${voidjsApp}, {Component: ${exportDefaultDeclarationName}, pageProps: {}}), ${container});
+                  });
+                } else {
+                  ${h}(createElement(${exportDefaultDeclarationName}), ${container});
+                }
               }`)
           )
         },
       },
       ExportDefaultDeclaration: {
         enter(path): void {
-          // Only render function component
           if (path.node.declaration.type !== 'FunctionDeclaration')
-            throw new Error('Only Function Component is supported')
+            throw new Error(ComponentError.functionComponentOnly)
 
-          // Anonymous function
           if (!path.node.declaration.id)
-            throw new Error('Anonymous Function Component not supported')
+            throw new Error(ComponentError.namedFunctionComponentOnly)
 
-          // save for next
+          if (path.node.declaration.id.name === voidjsApp)
+            throw new Error(ComponentError.reservedFunctionName)
+
           exportDefaultDeclarationName = path.node.declaration.id.name
         },
       },

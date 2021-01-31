@@ -40,7 +40,8 @@
       "packages/voidjs-cli",
       "packages/plugin-react-helmet",
       "packages/voidjs-styles",
-      "packages/babel-plugin-react-dom-render"
+      "packages/babel-plugin-react-dom-render",
+      "packages/babel-plugin-wrap-voidjs-app"
     ]
   },
   "prettier": {

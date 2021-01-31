@@ -4,8 +4,6 @@ module.exports = {
   testEnvironment: 'node',
   testMatch: ['<rootDir>/packages/*/src/**/*.test.ts'],
   globals: {
-    'ts-jest': {
-      packageJson: 'package.json'
-    }
-  }
-};
+    'ts-jest': {},
+  },
+}

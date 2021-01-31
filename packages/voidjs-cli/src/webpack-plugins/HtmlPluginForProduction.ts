@@ -87,6 +87,19 @@ export default class HtmlPlugin {
               )[0]
 
               let newHtml = html.replace(
+                `<!-- preloadVoidJsClientScript -->`,
+                clientJs
+                  .map(
+                    (js) =>
+                      `<link rel="preload" href="${getRelativePath(
+                        js,
+                        key
+                      )}" as="script" />`
+                  )
+                  .join('')
+              )
+
+              newHtml = newHtml.replace(
                 `<!-- loadVoidJsClientJs -->`,
                 clientJs
                   .map(
