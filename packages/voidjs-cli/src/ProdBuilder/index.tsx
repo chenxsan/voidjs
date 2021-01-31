@@ -39,7 +39,6 @@ import {
   logger,
   performance,
   PerformanceObserver,
-  cacheRoot,
   publicFolder,
 } from '../config'
 
@@ -276,7 +275,6 @@ class ProdBuilder extends Builder {
   }
 
   cleanCache(): void {
-    fs.removeSync(cacheRoot)
     fs.removeSync(path.join(this.#outputPath, '_app.js'))
   }
 }
