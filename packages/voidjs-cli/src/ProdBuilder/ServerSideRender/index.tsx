@@ -101,17 +101,26 @@ export default class Ssr {
     const hasClientJs = hasClientEntry(path.join(pagesDir, templateName))
 
     let body: string
+
+    // placeholder
+    const preloadVoidJsClientStyle = voidjsConfig.html.preload.style
+      ? '<!-- preloadVoidJsClientStyle -->'
+      : ''
+    // ditto
+    const preloadVoidJsClientScript = voidjsConfig.html.preload.script
+      ? '<!-- preloadVoidJsClientScript -->'
+      : ''
     if (this.helmet) {
       if (hasClientJs.exists === true) {
         // add some placeholders for later replacement
-        body = `<!DOCTYPE html><html ${this.helmet.htmlAttributes.toString()}><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${this.helmet.title.toString()}${this.helmet.meta.toString()}${this.helmet.link.toString()}${this.helmet.script.toString()}${preloadStyles}<!-- preloadVoidJsClientStyle -->${hd}<!-- loadVoidJsClientStyle --></head><body>${html}<!-- loadVoidJsClientJs --></body></html>`
+        body = `<!DOCTYPE html><html ${this.helmet.htmlAttributes.toString()}><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${this.helmet.title.toString()}${this.helmet.meta.toString()}${this.helmet.link.toString()}${this.helmet.script.toString()}${preloadStyles}${preloadVoidJsClientStyle}${preloadVoidJsClientScript}${hd}<!-- loadVoidJsClientStyle --></head><body>${html}<!-- loadVoidJsClientJs --></body></html>`
       } else {
         body = `<!DOCTYPE html><html ${this.helmet.htmlAttributes.toString()}><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${this.helmet.title.toString()}${this.helmet.meta.toString()}${this.helmet.link.toString()}${this.helmet.script.toString()}${preloadStyles}${hd}</head><body>${html}</body></html>`
       }
     } else {
       if (hasClientJs.exists === true) {
         // add some placeholders for later replacement
-        body = `<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${preloadStyles}<!-- preloadVoidJsClientStyle -->${hd}<!-- loadVoidJsClientStyle --></head><body>${html}<!-- loadVoidJsClientJs --></body></html>`
+        body = `<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${preloadStyles}${preloadVoidJsClientStyle}${preloadVoidJsClientScript}${hd}<!-- loadVoidJsClientStyle --></head><body>${html}<!-- loadVoidJsClientJs --></body></html>`
       } else {
         body = `<!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /><meta name="generator" content="voidjs" />${preloadStyles}${hd}</head><body>${html}</body></html>`
       }
