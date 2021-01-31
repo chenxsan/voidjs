@@ -3780,7 +3780,7 @@ __metadata:
     react: ^17.0.1
     react-app-polyfill: ^2.0.0
     react-dom: ^17.0.1
-    voidjs-cli: ^0.18.0
+    voidjs-cli: ^0.19.0
   languageName: unknown
   linkType: soft
 
@@ -3805,7 +3805,7 @@ __metadata:
     "@types/react-dom": 17.0.0
     react: ^17.0.1
     react-dom: ^17.0.1
-    voidjs-cli: 0.18.2
+    voidjs-cli: 0.19.0
   languageName: unknown
   linkType: soft
 
@@ -4778,7 +4778,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-dom-render@^1.1.6, babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render":
+"babel-plugin-react-dom-render@^1.2.0, babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render":
   version: 0.0.0-use.local
   resolution: "babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render"
   dependencies:
@@ -4791,7 +4791,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"babel-plugin-wrap-voidjs-app@^0.1.0, babel-plugin-wrap-voidjs-app@workspace:packages/babel-plugin-wrap-voidjs-app":
+"babel-plugin-wrap-voidjs-app@^0.2.0, babel-plugin-wrap-voidjs-app@workspace:packages/babel-plugin-wrap-voidjs-app":
   version: 0.0.0-use.local
   resolution: "babel-plugin-wrap-voidjs-app@workspace:packages/babel-plugin-wrap-voidjs-app"
   dependencies:
@@ -14413,7 +14413,7 @@ typescript@^4.1.3:
   languageName: node
   linkType: hard
 
-"voidjs-cli@0.18.2, voidjs-cli@^0.18.0, voidjs-cli@workspace:packages/voidjs-cli":
+"voidjs-cli@0.19.0, voidjs-cli@^0.19.0, voidjs-cli@workspace:packages/voidjs-cli":
   version: 0.0.0-use.local
   resolution: "voidjs-cli@workspace:packages/voidjs-cli"
   dependencies:
@@ -14439,8 +14439,8 @@ typescript@^4.1.3:
     "@types/yargs": ^15.0.12
     autoprefixer: ^10.2.3
     babel-loader: ^8.2.2
-    babel-plugin-react-dom-render: ^1.1.6
-    babel-plugin-wrap-voidjs-app: ^0.1.0
+    babel-plugin-react-dom-render: ^1.2.0
+    babel-plugin-wrap-voidjs-app: ^0.2.0
     css-loader: ^5.0.1
     csso-webpack-plugin: ^2.0.0-beta.1
     express: ^4.17.1
