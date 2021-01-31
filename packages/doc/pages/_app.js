@@ -10,7 +10,10 @@ import 'prismjs/themes/prism-okaidia.css'
 // import '@void-js/styles/lib/index.css'
 import { MDXProvider } from '@mdx-js/react'
 const h2 = (props) => (
-  <h2 className="font-serif text-red-600 text-4xl mt-20" {...props} />
+  <h2
+    className="font-serif text-red-600 text-4xl mt-20 leading-tight"
+    {...props}
+  />
 )
 const p = (props) => <p className="text-base" {...props} />
 const ul = (props) => <ul className="list-disc text-base pl-5" {...props} />
