@@ -71,13 +71,14 @@ export default function createWebpackConfig(
     experiments: {
       topLevelAwait: true,
     },
-    // TODO disable for the moment as it might break things when set naively
-    // cache: {
-    //   type: 'filesystem',
-    //   buildDependencies: {
-    //     config: [__filename], // Make all dependencies of this file as build dependencies
-    //   },
-    // },
+    cache: {
+      type: 'filesystem',
+      buildDependencies: {
+        // https://github.com/webpack/changelog-v5/blob/master/guides/persistent-caching.md
+        pages: [path.resolve(pagesDir, path.sep)],
+        // FIXME might have bugs
+      },
+    },
     devtool: 'eval',
     mode: 'development',
     // TODO should be configurable
