@@ -275,7 +275,9 @@ class ProdBuilder extends Builder {
   }
 
   cleanCache(): void {
-    fs.removeSync(path.join(this.#outputPath, '_app.js'))
+    if (hasCustomApp(this.pagesDir)) {
+      fs.removeSync(path.join(this.#outputPath, '_app.js'))
+    }
   }
 }
 
