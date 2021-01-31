@@ -4,7 +4,7 @@ import Content from '../markdown/home.md'
 import { Helmet } from 'react-helmet'
 export default function Home(props) {
   return (
-    <div className="container mx-auto px-5 lg:px-0 ">
+    <div className="container mx-auto px-5 lg:px-0 pb-5">
       <Helmet>
         <html lang="en" />
         <title>{props.title}</title>
