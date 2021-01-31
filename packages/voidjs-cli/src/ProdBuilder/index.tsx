@@ -142,7 +142,6 @@ class ProdBuilder extends Builder {
         new CssoWebpackPlugin({
           restructure: false,
         }),
-        // @ts-ignore
         new MiniCssExtractPlugin({
           filename: '[name].[contenthash].css',
         }),
