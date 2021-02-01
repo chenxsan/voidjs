@@ -66,7 +66,6 @@ export default class ClientsCompiler {
               test: /[\\/]node_modules[\\/]/,
               priority: 100,
               name: 'vendor',
-              chunks: 'all',
             },
           },
         },
