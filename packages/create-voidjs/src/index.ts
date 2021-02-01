@@ -15,12 +15,14 @@ const program = new commander.Command(packageJson.name)
   .option('--use-npm', 'use npm instead of yarn', 'false')
   .option(
     '--template <path-to-template>',
-    'specify a template for the created project'
+    'specify a template for the created project',
+    'default'
   )
-  .allowUnknownOption()
-  .parse(process.argv)
+
+program.parse(process.argv)
 
 async function run(): Promise<void> {
-  await createApp(projectName, program.template, program.useNpm)
+  const { template, useNpm } = program.opts()
+  await createApp(projectName, template, useNpm)
 }
 run()
