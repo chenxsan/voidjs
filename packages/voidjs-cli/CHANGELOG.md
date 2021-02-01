@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.19.1
+
+### Patch Changes
+
+- Disable webpack cache
+
 ## 0.19.0
 
 ### Minor Changes
