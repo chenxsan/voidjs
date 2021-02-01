@@ -1,5 +1,11 @@
 # create-voidjs
 
+## 0.3.14
+
+### Patch Changes
+
+- Upgrade commander
+
 ## 0.3.13
 
 ### Patch Changes
