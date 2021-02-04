@@ -1,5 +1,12 @@
 # @void-js/doc
 
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies [undefined]
+  - @void-js/styles@0.1.10
+
 ## 0.2.5
 
 ### Patch Changes
