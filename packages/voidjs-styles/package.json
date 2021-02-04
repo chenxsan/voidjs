@@ -1,6 +1,6 @@
 {
   "name": "@void-js/styles",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "main": "dist/void-js-styles.cjs.js",
   "scripts": {
     "dev": "voidjs dev",
@@ -12,10 +12,10 @@
     "lib"
   ],
   "devDependencies": {
-    "@types/react": "17.0.0",
+    "@types/react": "17.0.1",
     "@types/react-dom": "17.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "voidjs-cli": "0.19.1"
+    "voidjs-cli": "0.19.2"
   }
 }

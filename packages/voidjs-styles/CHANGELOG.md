@@ -1,5 +1,11 @@
 # @void-js/styles
 
+## 0.1.10
+
+### Patch Changes
+
+- Update dependencies.
+
 ## 0.1.9
 
 ### Patch Changes

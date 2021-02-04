@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-react-dom-render",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Render default React.js Component with ReactDOM.render",
   "main": "dist/babel-plugin-react-dom-render.cjs.js",
   "repository": {
@@ -21,12 +21,12 @@
     "url": "https://github.com/chenxsan/voidjs/issues"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/template": "^7.12.7",
-    "@babel/traverse": "^7.12.12",
-    "@babel/types": "^7.12.12",
-    "@types/babel__core": "^7",
-    "@types/babel__template": "^7"
+    "@babel/core": "^7.12.13",
+    "@babel/template": "^7.12.13",
+    "@babel/traverse": "^7.12.13",
+    "@babel/types": "^7.12.13",
+    "@types/babel__core": "^7.1.12",
+    "@types/babel__template": "^7.4.0"
   },
   "files": [
     "dist"
