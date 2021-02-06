@@ -18,7 +18,7 @@
     You should have received a copy of the GNU General Public License
     along with voidjs.  If not, see <https://www.gnu.org/licenses/>.
  */
-import webpack from 'webpack'
+import webpack, { Compilation, Compiler } from 'webpack'
 import * as path from 'path'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
@@ -31,6 +31,26 @@ import Builder, { VoidjsConfig } from '../Builder'
 import PluginHelmet from '../webpack-plugins/helmet-plugin'
 
 import type { Stats } from 'webpack'
+
+// TODO to be removed after MultiStats get exported from webpack
+interface MultiStats {
+  stats: Stats[]
+  readonly hash: string
+  hasErrors(): boolean
+  hasWarnings(): boolean
+  toJson(
+    options?: any
+  ): {
+    children: any[]
+    version: any
+    hash: string
+    errors: any[]
+    warnings: any[]
+    errorsCount: number
+    warningsCount: number
+  }
+  toString(options?: any): string
+}
 
 import {
   getRules,
@@ -59,6 +79,29 @@ interface WebpackError {
 
 export const ASSET_PATH = normalizeAssetPath()
 
+class CleanSpaJs {
+  apply(compiler: Compiler) {
+    compiler.hooks.thisCompilation.tap(
+      'CleanSpaJs',
+      (compilation: Compilation) => {
+        compilation.hooks.processAssets.tap(
+          {
+            name: 'CleanSpaJs',
+            stage: Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE_COUNT,
+          },
+          () => {
+            compilation.getAssets().forEach((asset) => {
+              if (asset.name.endsWith('.spa.js')) {
+                compilation.deleteAsset(asset.name)
+              }
+            })
+          }
+        )
+      }
+    )
+  }
+}
+
 class ProdBuilder extends Builder {
   #pages: string[]
   #outputPath: string
@@ -83,7 +126,7 @@ class ProdBuilder extends Builder {
   // is it slow?
   // what if we build them one by one?
   // anyway to benchmark?
-  createWebpackConfig(pages: string[]): webpack.Configuration {
+  createWebpackConfig(pages: string[]): webpack.Configuration[] {
     const entries = pages.reduce((acc, page) => {
       const pageEntryKey = this.normalizedPageEntry(page)
       this.#pageEntries.push(pageEntryKey)
@@ -91,7 +134,59 @@ class ProdBuilder extends Builder {
       return acc
     }, {})
 
-    return {
+    // bundle assets like image, css
+    const client: webpack.Configuration = {
+      name: 'client',
+      mode: 'development',
+      // TODO it's causing problem when set naively
+      // cache: {
+      //   type: 'filesystem',
+      //   buildDependencies: {
+      //     config: [__filename], // Make all dependencies of this file as build dependencies
+      //   },
+      // },
+      entry: {
+        ...entries,
+      },
+      optimization: {
+        minimize: false, // we don't need the bundled js at all
+      },
+      target: ['web'],
+      output: {
+        path: path.resolve(this.#outputPath),
+        filename: '[name].spa.js', // TODO we don't care those spa js, should be removed
+        chunkFilename: '[name]-[id].spa.js', // template won't have dynamic imports
+        publicPath: ASSET_PATH ?? this.config.assetPath, // ASSET_PATH takes precedence over assetPath in voidjs.config.js
+      },
+      module: {
+        rules: getRules(this.pagesDir, hasCustomApp(this.pagesDir)),
+      },
+      resolve: {
+        extensions: resolveExtensions,
+        alias,
+      },
+      plugins: [
+        new WebpackAssetsMap(), // defaults to assets.json
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': '"production"',
+        }),
+        // @ts-ignore
+        new CssoWebpackPlugin({
+          restructure: false,
+        }),
+        new MiniCssExtractPlugin({
+          filename: '[name].[contenthash].css',
+        }),
+        new webpack.ProgressPlugin({
+          profile: true,
+        }),
+        new CleanSpaJs(),
+      ],
+    }
+
+    // bundle entries for server side rendering only
+    const server: webpack.Configuration = {
+      name: 'server',
       externals: ['react-helmet', 'react', 'react-dom'],
       mode: 'production',
       // TODO it's causing problem when set naively
@@ -106,8 +201,9 @@ class ProdBuilder extends Builder {
       },
       optimization: {
         minimize: false,
+        splitChunks: false,
       },
-      target: ['web'],
+      target: ['node'],
       output: {
         path: path.resolve(this.#outputPath),
         libraryTarget: 'commonjs2',
@@ -133,25 +229,19 @@ class ProdBuilder extends Builder {
         alias,
       },
       plugins: [
-        new WebpackAssetsMap(),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': '"production"',
-        }),
-        // @ts-ignore
-        new CssoWebpackPlugin({
-          restructure: false,
-        }),
-        new MiniCssExtractPlugin({
-          filename: '[name].[contenthash].css',
         }),
         new webpack.ProgressPlugin({
           profile: true,
         }),
       ],
     }
+
+    return [client, server]
   }
 
-  private runCallback(err?: WebpackError, stats?: Stats): void {
+  private runCallback(err?: WebpackError, stats?: MultiStats): void {
     if (err) {
       if (err.stack) {
         logger.error(err.stack)
