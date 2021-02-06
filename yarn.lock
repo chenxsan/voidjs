@@ -3865,7 +3865,6 @@ __metadata:
   resolution: "@void-js/doc@workspace:packages/doc"
   dependencies:
     "@types/prismjs": 1.16.2
-    "@void-js/styles": 0.1.10
     prismjs: ^1.23.0
     react: ^17.0.1
     react-app-polyfill: ^2.0.0
@@ -3887,7 +3886,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@void-js/styles@0.1.10, @void-js/styles@workspace:packages/voidjs-styles":
+"@void-js/styles@workspace:packages/voidjs-styles":
   version: 0.0.0-use.local
   resolution: "@void-js/styles@workspace:packages/voidjs-styles"
   dependencies:

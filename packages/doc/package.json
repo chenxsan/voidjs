@@ -13,7 +13,6 @@
     "voidjs-cli": "^0.19.2"
   },
   "dependencies": {
-    "@void-js/styles": "0.1.10",
     "prismjs": "^1.23.0"
   },
   "version": "0.2.6"
