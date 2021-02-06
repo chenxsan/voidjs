@@ -1,20 +1,16 @@
 {
   "files": {
-    "doc/doc.js": "doc/doc.js",
-    "doc/doc.css": "doc/doc.3eeda393d8655ea958cc.css",
-    "index.js": "index.js",
-    "index.css": "index.3eeda393d8655ea958cc.css",
+    "doc/doc.css": "doc/doc.9dc7460e70136288942a.css",
+    "index.css": "index.9dc7460e70136288942a.css",
     "static/img/favicon.png": "favicon.123559ffcd6fdb61b6a8.png",
     "static/img/voidjs-logo.svg": "voidjs-logo.de5a021a0c00bdaa81ca.svg"
   },
   "entrypoints": {
     "doc/doc": [
-      "doc/doc.js",
-      "doc/doc.3eeda393d8655ea958cc.css"
+      "doc/doc.9dc7460e70136288942a.css"
     ],
     "index": [
-      "index.js",
-      "index.3eeda393d8655ea958cc.css"
+      "index.9dc7460e70136288942a.css"
     ]
   }
 }
