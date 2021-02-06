@@ -5,9 +5,9 @@
 
 ## Use cases
 
-1. Writing html pages without JavaScript.
-2. Writing html pages with a few vanilla JavaScript.
-3. Writing html templates for server side languages other than Node.js, e.g., PHP.
+1. Write HTML pages without JavaScript.
+2. Write HTML pages with a few vanilla JavaScript.
+3. Write HTML templates for server side languages other than Node.js, e.g., PHP.
 
 ## Get started
 
