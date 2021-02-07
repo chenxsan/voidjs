@@ -6,8 +6,6 @@ import 'css/tailwind-components.css'
 import 'css/tailwind-utilities.css'
 import 'prismjs/themes/prism-okaidia.css'
 
-// TODO deprecate @void-js/styles as we can customize with mdx
-// import '@void-js/styles/lib/index.css'
 import { MDXProvider } from '@mdx-js/react'
 const h2 = (props) => (
   <h2
