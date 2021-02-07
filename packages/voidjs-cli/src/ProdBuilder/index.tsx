@@ -60,6 +60,7 @@ import {
   performance,
   PerformanceObserver,
   publicFolder,
+  assetsPath,
 } from '../config'
 
 import collectPages from '../collectFiles'
@@ -134,6 +135,8 @@ class ProdBuilder extends Builder {
       return acc
     }, {})
 
+    const outputPath = path.resolve(this.#outputPath, assetsPath)
+
     // bundle assets like image, css
     const client: webpack.Configuration = {
       name: 'client',
@@ -153,7 +156,7 @@ class ProdBuilder extends Builder {
       },
       target: ['web'],
       output: {
-        path: path.resolve(this.#outputPath),
+        path: outputPath,
         filename: '[name].spa.js', // TODO we don't care those spa js, should be removed
         chunkFilename: '[name]-[id].spa.js', // template won't have dynamic imports
         publicPath: ASSET_PATH ?? this.config.assetPath, // ASSET_PATH takes precedence over assetPath in voidjs.config.js
@@ -175,7 +178,9 @@ class ProdBuilder extends Builder {
           restructure: false,
         }),
         new MiniCssExtractPlugin({
-          filename: '[name].[contenthash].css',
+          // only one css should be enough,
+          // e.g. server.[contenthash].css
+          filename: 'server.[contenthash].css',
         }),
         new webpack.ProgressPlugin({
           profile: true,
@@ -205,7 +210,7 @@ class ProdBuilder extends Builder {
       },
       target: ['node'],
       output: {
-        path: path.resolve(this.#outputPath),
+        path: outputPath,
         libraryTarget: 'commonjs2',
         filename: (pathData): string => {
           if (pathData?.chunk?.name) {
@@ -298,7 +303,7 @@ class ProdBuilder extends Builder {
     const outputPath = this.#outputPath
     const {
       default: { entrypoints },
-    } = await import(path.join(outputPath, 'assets.json'))
+    } = await import(path.join(outputPath, assetsPath, 'assets.json'))
     for (const templateName of this.#pageEntries) {
       const ssr = new ServerSideRender(publicPath ?? '')
       // PluginHelmet enabled by default

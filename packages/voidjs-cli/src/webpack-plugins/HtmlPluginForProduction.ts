@@ -42,19 +42,15 @@ export default class HtmlPlugin {
       (compilation: Compilation) => {
         const publicPath = compilation.outputOptions.publicPath
 
-        const getRelativePath = (css: string, templateName: string) => {
-          const from = path.join(this.#outputPath, templateName, '..')
-          const to = path.join(this.#outputPath, css)
-          return publicPath === 'auto'
-            ? ''
-            : publicPath + path.relative(from, to)
+        const getAssetPath = (css: string) => {
+          return publicPath + css
         }
-        compilation.hooks.processAdditionalAssets.tap(
+        compilation.hooks.processAdditionalAssets.tapAsync(
           {
             name: PluginName,
             stage: Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE_INLINE,
           },
-          () => {
+          (_, callback) => {
             const entrypoints = {}
 
             for (const [key, entrypoint] of compilation.entrypoints) {
@@ -91,9 +87,8 @@ export default class HtmlPlugin {
                 clientJs
                   .map(
                     (js) =>
-                      `<link rel="preload" href="${getRelativePath(
-                        js,
-                        key
+                      `<link rel="preload" href="${getAssetPath(
+                        js
                       )}" as="script" />`
                   )
                   .join('')
@@ -102,28 +97,21 @@ export default class HtmlPlugin {
               newHtml = newHtml.replace(
                 `<!-- loadVoidJsClientJs -->`,
                 clientJs
-                  .map(
-                    (js) =>
-                      `<script src="${getRelativePath(js, key)}"></script>`
-                  )
+                  .map((js) => `<script src="${getAssetPath(js)}"></script>`)
                   .join('')
               )
               newHtml = newHtml.replace(
                 `<!-- preloadVoidJsClientStyle -->`,
                 css
-                  ? `<link rel="preload" href="${getRelativePath(
-                      css,
-                      key
+                  ? `<link rel="preload" href="${getAssetPath(
+                      css
                     )}" as="style" />`
                   : ''
               )
               newHtml = newHtml.replace(
                 `<!-- loadVoidJsClientStyle -->`,
                 css
-                  ? `<link rel="stylesheet" href="${getRelativePath(
-                      css,
-                      key
-                    )}" />`
+                  ? `<link rel="stylesheet" href="${getAssetPath(css)}" />`
                   : ''
               )
               if (this.#pretty === true) {
@@ -131,9 +119,16 @@ export default class HtmlPlugin {
                   parser: 'html',
                 })
               }
-              compilation.emitAsset(
-                `${key}.html`,
-                new webpack.sources.RawSource(newHtml)
+              // we can't let webpack handle it
+              // we want to control the output path of html ourself
+              // compilation.emitAsset(
+              //   `${key}.html`,
+              //   new webpack.sources.RawSource(newHtml)
+              // )
+              fs.outputFile(
+                path.join(this.#outputPath, key + '.html'),
+                newHtml,
+                callback
               )
             }
           }

@@ -24,7 +24,7 @@ import TerserJSPlugin from 'terser-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
 import WebpackAssetsMap from '../webpack-plugins/webpack-assets-map/src/index'
-import { resolveExtensions, alias, rules } from '../config'
+import { resolveExtensions, alias, rules, assetsPath } from '../config'
 import HtmlPlugin from '../webpack-plugins/HtmlPluginForProduction'
 
 import collectPages from '../collectFiles'
@@ -76,7 +76,7 @@ export default class ClientsCompiler {
         return acc
       }, {}),
       output: {
-        path: path.resolve(this.#outputPath),
+        path: path.resolve(this.#outputPath, assetsPath),
         filename: '[name].[contenthash].js',
         chunkFilename: '[name]-[id].[contenthash].js',
         publicPath: ASSET_PATH ?? this.#config.assetPath,
