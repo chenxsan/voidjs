@@ -30,7 +30,9 @@ const components = {
 export default function App({ Component, pageProps }) {
   return (
     <MDXProvider components={components}>
-      <Component {...pageProps} />
+      <div className="container mx-auto px-5 lg:px-0 pb-5 lg:mt-10">
+        <Component {...pageProps} />
+      </div>
     </MDXProvider>
   )
 }
