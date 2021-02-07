@@ -1,6 +1,11 @@
 module.exports = {
   purge: {
-    content: ['./pages/**/*.js', './components/**/*.js', './public/js/**/*.js'],
+    content: [
+      './pages/**/*.js',
+      './components/**/*.js',
+      './components/**/*.tsx',
+      './public/js/**/*.js',
+    ],
   },
   theme: {
     screens: {
