@@ -1,5 +1,4 @@
 import Content from '../markdown/home.md'
-import { Helmet } from 'react-helmet'
 import Navbar from '../components/Navbar'
 function Menu({ href, text }) {
   return (
@@ -15,10 +14,6 @@ function Menu({ href, text }) {
 export default function Home(props) {
   return (
     <>
-      <Helmet>
-        <title>{props.title}</title>
-        <meta name="description" content={props.description} />
-      </Helmet>
       <Navbar {...props} />
       <nav className="space-x-3">
         <Menu text="Guides" href="/guides/" />

@@ -73,6 +73,8 @@ export default function App({ Component, pageProps }) {
         <Helmet>
           <html lang="en" />
           <link rel="icon" type="image/png" href={favicon} />
+          <title>{pageProps.title}</title>
+          <meta name="description" content={pageProps.description} />
         </Helmet>
         <Component {...pageProps} />
       </div>
