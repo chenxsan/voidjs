@@ -1,5 +1,5 @@
 module.exports = {
   html: {
-    pretty: true
+    pretty: false
   }
 }

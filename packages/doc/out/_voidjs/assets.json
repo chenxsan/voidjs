@@ -1,0 +1,18 @@
+{
+  "files": {
+    "server.css": "server.076c7e70bc7fbedf9a91.css",
+    "static/img/voidjs-logo.svg": "voidjs-logo.de5a021a0c00bdaa81ca.svg",
+    "static/img/favicon.png": "favicon.123559ffcd6fdb61b6a8.png"
+  },
+  "entrypoints": {
+    "doc/doc": [
+      "server.076c7e70bc7fbedf9a91.css"
+    ],
+    "guides/index": [
+      "server.076c7e70bc7fbedf9a91.css"
+    ],
+    "index": [
+      "server.076c7e70bc7fbedf9a91.css"
+    ]
+  }
+}

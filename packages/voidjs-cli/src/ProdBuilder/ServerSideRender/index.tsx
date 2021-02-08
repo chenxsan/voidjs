@@ -30,6 +30,7 @@ import type { HelmetData } from 'react-helmet'
 
 import { SyncHook } from 'tapable'
 import hasClientEntry from '../../DevServer/hasClientEntry'
+import { assetsPath } from '../../config'
 
 export default class Ssr {
   hooks: {
@@ -52,10 +53,8 @@ export default class Ssr {
     voidjsConfig: VoidjsConfig,
     css: string[]
   ): Promise<void> {
-    const getRelativePath = (css: string) => {
-      const from = path.join(outputPath, templateName, '..')
-      const to = path.join(outputPath, css)
-      return `${this.#publicPath}${path.relative(from, to)}`
+    const getPublicPath = (css: string) => {
+      return `${this.#publicPath}${css}`
     }
 
     // insert css into <head></head>
@@ -64,7 +63,7 @@ export default class Ssr {
     if (voidjsConfig.html.preload.style) {
       preloadStyles = css
         .map((css) => {
-          return `<link rel="preload" href="${getRelativePath(
+          return `<link rel="preload" href="${getPublicPath(
             css
           )}" as="style" />`
         })
@@ -74,11 +73,15 @@ export default class Ssr {
     // TODO maybe include it as <style />?
     const hd = css
       .map((css) => {
-        return `<link rel="stylesheet" href="${getRelativePath(css)}" />`
+        return `<link rel="stylesheet" href="${getPublicPath(css)}" />`
       })
       .join('')
 
-    const pagePath = `${path.resolve(outputPath, templateName + '.js')}`
+    const pagePath = `${path.resolve(
+      outputPath,
+      assetsPath,
+      templateName + '.js'
+    )}`
     const {
       default: PageWithoutApp,
       VoidJsPage: PageWithApp,
@@ -134,6 +137,7 @@ export default class Ssr {
       }
     }
 
+    // TODO why not let webpack handle it?
     fs.outputFileSync(path.join(outputPath, templateName + '.html'), body)
 
     fs.removeSync(pagePath)

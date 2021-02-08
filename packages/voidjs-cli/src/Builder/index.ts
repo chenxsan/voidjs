@@ -35,7 +35,7 @@ export const defaultConfiguration = {
     },
   },
   plugins: [],
-  assetPath: '',
+  assetPath: '/_voidjs/',
 }
 const configuration = 'voidjs.config.js'
 

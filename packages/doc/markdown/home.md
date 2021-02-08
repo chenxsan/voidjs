@@ -1,13 +1,21 @@
-## System requirements
+## Why voidjs
 
-- Node.js 12 or later
-- macOS, Windows and Linux are supported
+voidjs is designed for managing non-SPA HTML pages. It brings a lot of benefits of webpack and React to non-SPA HTML pages developing.
+
+1. Better management of assets with webpack
+2. Manage html with Components, no more error-prone copy & paste
+3. Pre-built static HTML
 
 ## Use cases
 
 1. Write HTML pages without JavaScript.
 2. Write HTML pages with a few vanilla JavaScript.
 3. Write HTML templates for server side languages other than Node.js, e.g., PHP.
+
+## System requirements
+
+- Node.js 12 or later
+- macOS, Windows and Linux are supported
 
 ## Get started
 
@@ -19,11 +27,3 @@
   ```bash
   yarn create voidjs ./my-app
   ```
-
-## Development
-
-Run `npm run dev` under your newly created project.
-
-## Production
-
-Run `npm run build` under your project and voidjs will build the project to `out` directory.

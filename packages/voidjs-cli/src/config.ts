@@ -266,3 +266,5 @@ export const rules: RuleSetRule[] = [
     ],
   },
 ]
+// where in output.path to store assets
+export const assetsPath = '_voidjs'
