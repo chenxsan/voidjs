@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.19.4
+
+### Patch Changes
+
+- Customize syntax highlighting
+
 ## 0.19.3
 
 ### Patch Changes
