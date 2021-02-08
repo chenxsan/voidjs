@@ -1,4 +1,3 @@
-import favicon from 'img/favicon.png'
 import Content from '../markdown/home.md'
 import { Helmet } from 'react-helmet'
 import Navbar from '../components/Navbar'
@@ -17,10 +16,8 @@ export default function Home(props) {
   return (
     <>
       <Helmet>
-        <html lang="en" />
         <title>{props.title}</title>
         <meta name="description" content={props.description} />
-        <link rel="icon" type="image/png" href={favicon} />
       </Helmet>
       <Navbar {...props} />
       <nav className="space-x-3">
