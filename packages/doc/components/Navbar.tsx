@@ -8,6 +8,8 @@ export default function Navbar(): React.ReactElement {
           <img
             src={logo}
             alt="voidjs logo"
+            width={588}
+            height={588}
             className="mr-3 w-10 h-10 capitalize"
           />
         </a>
