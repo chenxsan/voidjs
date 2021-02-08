@@ -21,7 +21,6 @@
 import { resolve, join } from 'path'
 import pino from 'pino'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import rehypePrism from '@mapbox/rehype-prism'
 import fs from 'fs-extra'
 import path from 'path'
 import isPageEntry from './utils/isPageEntry'
@@ -148,9 +147,7 @@ export const getRules = (pagesDir: string, hasApp: boolean): RuleSetRule[] => [
       },
       {
         loader: '@mdx-js/loader',
-        options: {
-          rehypePlugins: [rehypePrism],
-        },
+        options: {},
       },
     ],
   },
@@ -226,9 +223,7 @@ export const rules: RuleSetRule[] = [
       },
       {
         loader: '@mdx-js/loader',
-        options: {
-          rehypePlugins: [rehypePrism],
-        },
+        options: {},
       },
     ],
   },
