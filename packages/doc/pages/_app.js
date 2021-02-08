@@ -53,7 +53,7 @@ const code = ({ children, className, ...others }) => (
 
 // link
 const a = (props) => (
-  <a className="text-blue-500 hover:text-blue-700" {...props} />
+  <a className="text-blue-700 hover:text-red-700 hover:underline" {...props} />
 )
 const components = {
   h2,

@@ -4,7 +4,7 @@ function Menu({ href, text }) {
   return (
     <a
       href={href}
-      className="text-blue-700 hover:text-blue-900 hover:underline transition-colors duration-200 text-base"
+      className="text-blue-700 hover:text-red-700 hover:underline transition-colors duration-200 text-base"
     >
       {text}
     </a>
