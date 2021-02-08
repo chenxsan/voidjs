@@ -1,5 +1,7 @@
 // polyfill for ie 11
 import 'react-app-polyfill/ie11'
+import { Helmet } from 'react-helmet'
+import favicon from 'img/favicon.png'
 
 import 'css/tailwind-base.css'
 import 'css/tailwind-components.css'
@@ -51,7 +53,7 @@ const code = ({ children, className, ...others }) => (
 
 // link
 const a = (props) => (
-  <a className="text-blue-500 hover:text-blue-700" {...props} />
+  <a className="text-blue-700 hover:text-red-700 hover:underline" {...props} />
 )
 const components = {
   h2,
@@ -68,6 +70,12 @@ export default function App({ Component, pageProps }) {
   return (
     <MDXProvider components={components}>
       <div className="container mx-auto px-5 lg:px-0 pb-10 lg:mt-10">
+        <Helmet>
+          <html lang="en" />
+          <link rel="icon" type="image/png" href={favicon} />
+          <title>{pageProps.title}</title>
+          <meta name="description" content={pageProps.description} />
+        </Helmet>
         <Component {...pageProps} />
       </div>
     </MDXProvider>

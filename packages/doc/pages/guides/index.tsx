@@ -12,6 +12,9 @@ export default function Guides(props: Props): React.ReactElement {
 }
 export async function getStaticProps(): Promise {
   return {
-    props: {},
+    props: {
+      title: 'Guides for voidjs',
+      description: 'How to get started with voidjs, features, etc.',
+    },
   }
 }
