@@ -7,7 +7,6 @@ import {
   supportedFontExtensions,
   supportedCssExtensions,
 } from '../config'
-import rehypePrism from '@mapbox/rehype-prism'
 import createEntries from './createEntries'
 import path from 'path'
 import isPageEntry from '../utils/isPageEntry'
@@ -107,9 +106,7 @@ export default function createWebpackConfig(
             babelLoader,
             {
               loader: '@mdx-js/loader',
-              options: {
-                rehypePlugins: [rehypePrism], // support code highlighting
-              },
+              options: {},
             },
           ],
         },

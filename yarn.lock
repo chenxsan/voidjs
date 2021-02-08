@@ -2785,17 +2785,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mapbox/rehype-prism@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "@mapbox/rehype-prism@npm:0.5.0"
-  dependencies:
-    hast-util-to-string: ^1.0.3
-    refractor: ^3.0.0
-    unist-util-visit: ^2.0.2
-  checksum: 8480a8d23e354e68ad33ed9acb8dbcdd2407cdb07637661941c3fda2ebc9d77082bdcf76c6bb862fe43626c6c432ace3acddf28b440f2eb3f67f3e402df46aa7
-  languageName: node
-  linkType: hard
-
 "@mdx-js/loader@npm:^1.6.22":
   version: 1.6.22
   resolution: "@mdx-js/loader@npm:1.6.22"
@@ -3512,7 +3501,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prismjs@npm:1.16.2":
+"@types/prismjs@npm:*, @types/prismjs@npm:1.16.2":
   version: 1.16.2
   resolution: "@types/prismjs@npm:1.16.2"
   checksum: 7b443b7e6a0ace5cdf08f2179a3d2ebc047ce7aee3cfbfacc992b511b8df7148d7ad96e80852a73a6fe3c1ac9e88e04c02f29e65b9a0da36fd335298dbe7f385
@@ -3575,6 +3564,15 @@ __metadata:
     "@types/prop-types": "*"
     csstype: ^3.0.2
   checksum: 5b490728c5210ea20b20377dd8c69b12ba7283058788d431d8b35ff4d18d03aa3a0f0cc6fe83691c8b9707d3e7ee8e9aae4e50d3989e094c907030d045d0e4e2
+  languageName: node
+  linkType: hard
+
+"@types/refractor@npm:^3":
+  version: 3.0.0
+  resolution: "@types/refractor@npm:3.0.0"
+  dependencies:
+    "@types/prismjs": "*"
+  checksum: b56713b47105a5be24444834e6391b722c6f939b69a08407a7e8748dd1d8d98e0baff28ca3f271e6b27dbf44ee6883090b83d892555fbbd0042103e2aaf934a7
   languageName: node
   linkType: hard
 
@@ -3865,10 +3863,13 @@ __metadata:
   resolution: "@void-js/doc@workspace:packages/doc"
   dependencies:
     "@types/prismjs": 1.16.2
+    "@types/refractor": ^3
     prismjs: ^1.23.0
     react: ^17.0.1
     react-app-polyfill: ^2.0.0
     react-dom: ^17.0.1
+    react-refractor: ^2.1.4
+    refractor: ^3.3.1
     voidjs-cli: ^0.19.2
   languageName: unknown
   linkType: soft
@@ -7862,13 +7863,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hast-util-to-string@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "hast-util-to-string@npm:1.0.3"
-  checksum: bf467217daa1b9faf5ecf11c67becaebbc504149a97921d9ef753da1b1cc8746912f6d83db354d478ab6479b8ae1d1332fe173ec63f5b70dee0d9f3d23580bdd
-  languageName: node
-  linkType: hard
-
 "hastscript@npm:^5.0.0":
   version: 5.1.2
   resolution: "hastscript@npm:5.1.2"
@@ -7878,6 +7872,19 @@ __metadata:
     property-information: ^5.0.0
     space-separated-tokens: ^1.0.0
   checksum: 4d2d5b37c1455ef7b9de77043c8388af7f05cfc7ab176160ae9927ae4a684b2768ae971decc7d63ea77c1e3c13aeff5218f9b0477d1842774e7b7a9a097598e8
+  languageName: node
+  linkType: hard
+
+"hastscript@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "hastscript@npm:6.0.0"
+  dependencies:
+    "@types/hast": ^2.0.0
+    comma-separated-tokens: ^1.0.0
+    hast-util-parse-selector: ^2.0.0
+    property-information: ^5.0.0
+    space-separated-tokens: ^1.0.0
+  checksum: c801a859137b7b0092235e50b5c9927c8e0ddbfc4739f4da5bf20170821be6bd883744a11ed2a3909d00d24964632892118913b3b13b02601018035da8b00b52
   languageName: node
   linkType: hard
 
@@ -11751,7 +11758,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prismjs@npm:^1.23.0":
+"prismjs@npm:^1.23.0, prismjs@npm:~1.23.0":
   version: 1.23.0
   resolution: "prismjs@npm:1.23.0"
   dependencies:
@@ -11760,18 +11767,6 @@ __metadata:
     clipboard:
       optional: true
   checksum: 9d55785f1ea68e2a2e6b0a5ea1241811ed986182af76053ecf50245521414597d70b17dc5804a7ad961dfd459e6883a89ad3f86bb064ac3484e3ef24b7891f4f
-  languageName: node
-  linkType: hard
-
-"prismjs@npm:~1.20.0":
-  version: 1.20.0
-  resolution: "prismjs@npm:1.20.0"
-  dependencies:
-    clipboard: ^2.0.0
-  dependenciesMeta:
-    clipboard:
-      optional: true
-  checksum: b4cb8bdd48a18421e8eabf936ad38a33254250a7d8576d05a2286fbae8d07ef2b2a92a3c22f5e61fa9ba72eeff3d246326274138470f4c98d7a06adcfee4dcae
   languageName: node
   linkType: hard
 
@@ -11843,7 +11838,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.7.2":
+"prop-types@npm:^15.6.1, prop-types@npm:^15.7.2":
   version: 15.7.2
   resolution: "prop-types@npm:15.7.2"
   dependencies:
@@ -12052,6 +12047,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-refractor@npm:^2.1.4":
+  version: 2.1.4
+  resolution: "react-refractor@npm:2.1.4"
+  dependencies:
+    prop-types: ^15.6.1
+    refractor: ^3.3.0
+    unist-util-filter: ^2.0.2
+    unist-util-visit-parents: ^3.0.2
+  peerDependencies:
+    react: ">=15.0.0"
+  checksum: 80e4484818341d91183612104229019bd70591ea2e5c1c7954d5525d05f56fc9630e7bb2d8b5b03d4ac401e9415eca3cf39c4b803e2b8614eadd3233ca04a589
+  languageName: node
+  linkType: hard
+
 "react-side-effect@npm:^2.1.0":
   version: 2.1.0
   resolution: "react-side-effect@npm:2.1.0"
@@ -12170,14 +12179,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"refractor@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "refractor@npm:3.0.0"
+"refractor@npm:^3.3.0, refractor@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "refractor@npm:3.3.1"
   dependencies:
-    hastscript: ^5.0.0
+    hastscript: ^6.0.0
     parse-entities: ^2.0.0
-    prismjs: ~1.20.0
-  checksum: 1cd1f3dfb9cf71a14bc82a850251980a51fd9749689b4ad76924a00becd345c0019788fd2953d15aa51dcce354abb215de5550f197f2631e3552f22b8b3bd081
+    prismjs: ~1.23.0
+  checksum: de632f0f594e17809255a8188d63b87533e6e4889f6c59e7e79c63183714e45af33500f88168139adeb494c52af662d5dcb0dd0e126392a138077bc1a30550a5
   languageName: node
   linkType: hard
 
@@ -14183,6 +14192,15 @@ typescript@^4.1.3:
   languageName: node
   linkType: hard
 
+"unist-util-filter@npm:^2.0.2":
+  version: 2.0.3
+  resolution: "unist-util-filter@npm:2.0.3"
+  dependencies:
+    unist-util-is: ^4.0.0
+  checksum: 9d197b57a723a30f3cdd769499ce2e80410190c3d2a4e539414142b334fd75e1f2bae2161f2ca932372d4b677e27fb7c53feb14b9afaffe7474e6ebaafefd285
+  languageName: node
+  linkType: hard
+
 "unist-util-generated@npm:^1.0.0":
   version: 1.1.5
   resolution: "unist-util-generated@npm:1.1.5"
@@ -14241,6 +14259,16 @@ typescript@^4.1.3:
   languageName: node
   linkType: hard
 
+"unist-util-visit-parents@npm:^3.0.2":
+  version: 3.1.1
+  resolution: "unist-util-visit-parents@npm:3.1.1"
+  dependencies:
+    "@types/unist": ^2.0.0
+    unist-util-is: ^4.0.0
+  checksum: c4be09729dde324e25d7e6bf2eadf14e6023cf46a383ae4cc5bcdec3fd3c0dd9943a4a0b15842f2e2e8ce180dab0c138033f044579560d1a5b797a7f477223af
+  languageName: node
+  linkType: hard
+
 "unist-util-visit@npm:2.0.3":
   version: 2.0.3
   resolution: "unist-util-visit@npm:2.0.3"
@@ -14252,7 +14280,7 @@ typescript@^4.1.3:
   languageName: node
   linkType: hard
 
-"unist-util-visit@npm:^2.0.0, unist-util-visit@npm:^2.0.2":
+"unist-util-visit@npm:^2.0.0":
   version: 2.0.2
   resolution: "unist-util-visit@npm:2.0.2"
   dependencies:
@@ -14460,7 +14488,6 @@ typescript@^4.1.3:
     "@babel/preset-env": ^7.12.13
     "@babel/preset-react": ^7.12.13
     "@babel/preset-typescript": ^7.12.13
-    "@mapbox/rehype-prism": ^0.5.0
     "@mdx-js/loader": ^1.6.22
     "@types/babel__plugin-transform-runtime": ^7.9.1
     "@types/express": ^4.17.11

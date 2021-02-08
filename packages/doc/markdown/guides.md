@@ -10,20 +10,7 @@ export default function IndexPage() {
 
 Note that Class Component is not permitted on purpose, and do not use any React hooks as React in voidjs serves as template only, all behaviors controlled by JavaScript should be delegate to client side JavaScript.
 
-## Client side JavaScript
-
-If you need a little Client side JavaScript code, create a new file, and name it like `index.client.js`:
-
-```js filename=pages/index.client.js
-import $ from 'jquery'
-$(function () {
-  $('body').css('color', 'blue')
-})
-```
-
-Make sure you follow the naming convention of `[page].client.js`, otherwise it won't work as you expected.
-
-## \_app.js
+### \_app.js
 
 Once we have many pages, we might want to share the common parts. voidjs supports a customized app where you can share your code among pages.
 
@@ -49,10 +36,33 @@ export default function App({ Component, pageProps }) {
 }
 ```
 
+## Client side JavaScript
+
+If you need a little Client side JavaScript code, create a new file, and name it like `index.client.js`:
+
+```js filename=pages/index.client.js
+import $ from 'jquery'
+$(function () {
+  $('body').css('color', 'blue')
+})
+```
+
+Make sure you follow the naming convention of `[page].client.js`, otherwise it won't work as you expected.
+
 ## TypeScript
 
 voidjs has TypeScript support baked-in, which means you can use `.tsx` for your pages, and `.ts` for your client side JavaScript.
 
-## markdown
+```tsx filename=pages/index.tsx
+import React from 'react'
+interface Props {
+  title: string
+}
+export default function IndexPage(props: Props): React.ReactElement {
+  return <div>{props.title}</div>
+}
+```
 
-You can use markdown as well. Just create a new `.md` or `.mdx` file and import it into your page. Everything should work out-of-the-box.
+## Markdown
+
+voidjs has built-in support for [MDX](https://mdxjs.com/), which means you can use markdown as well. Just create a new `.md` or `.mdx` file and import it into your page. Everything should work out-of-the-box.
