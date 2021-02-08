@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.19.3
+
+### Patch Changes
+
+- 2a80f2a: fix publicPath bug
+
 ## 0.19.2
 
 ### Patch Changes
