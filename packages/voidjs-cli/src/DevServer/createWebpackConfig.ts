@@ -10,6 +10,7 @@ import {
 import createEntries from './createEntries'
 import path from 'path'
 import isPageEntry from '../utils/isPageEntry'
+import gfm from 'remark-gfm'
 
 import type { RuleSetRule, Configuration } from 'webpack'
 
@@ -105,8 +106,11 @@ export default function createWebpackConfig(
           use: [
             babelLoader,
             {
-              loader: '@mdx-js/loader',
-              options: {},
+              loader: 'xdm/webpack.cjs',
+              options: {
+                providerImportSource: '@mdx-js/react',
+                remarkPlugins: [gfm],
+              },
             },
           ],
         },
