@@ -40,7 +40,6 @@ const ol = (props) => <ul className="list-decimal text-base pl-5" {...props} />
 const li = (props) => <li className="pl-2" {...props} />
 
 // codes
-const inlineCode = (props) => <code className="bg-gray-200 px-2" {...props} />
 const pre = (props) => <div className="text-base bg-gray-900" {...props} />
 const code = (props) => {
   const { children, className, ...others } = props
@@ -66,7 +65,6 @@ const components = {
   h3,
   ul,
   ol,
-  inlineCode,
   p,
   pre,
   code,
