@@ -13,7 +13,7 @@
     "@babel/preset-react": "^7.12.13",
     "@babel/preset-typescript": "^7.12.13",
     "@changesets/cli": "^2.14.0",
-    "@preconstruct/cli": "^2.0.2",
+    "@preconstruct/cli": "^2.0.4",
     "@types/jest": "^26.0.20",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
