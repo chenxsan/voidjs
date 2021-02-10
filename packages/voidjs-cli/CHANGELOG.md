@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.20.0
+
+### Minor Changes
+
+- Replace @mdx-js/loader with xdm
+
 ## 0.19.4
 
 ### Patch Changes
