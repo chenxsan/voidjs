@@ -25,6 +25,7 @@ import fs from 'fs-extra'
 import path from 'path'
 import isPageEntry from './utils/isPageEntry'
 import type { RuleSetRule } from 'webpack'
+import gfm from 'remark-gfm'
 
 // FIXME weird bug on windows
 // it would resolve to voidjs\node_modules\@void-js\doc
@@ -146,8 +147,11 @@ export const getRules = (pagesDir: string, hasApp: boolean): RuleSetRule[] => [
         },
       },
       {
-        loader: '@mdx-js/loader',
-        options: {},
+        loader: 'xdm/webpack.cjs',
+        options: {
+          providerImportSource: '@mdx-js/react',
+          remarkPlugins: [gfm],
+        },
       },
     ],
   },
@@ -222,8 +226,11 @@ export const rules: RuleSetRule[] = [
         },
       },
       {
-        loader: '@mdx-js/loader',
-        options: {},
+        loader: 'xdm/webpack.cjs',
+        options: {
+          providerImportSource: '@mdx-js/react',
+          remarkPlugins: [gfm],
+        },
       },
     ],
   },

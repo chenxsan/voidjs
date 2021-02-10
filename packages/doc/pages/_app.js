@@ -42,14 +42,20 @@ const li = (props) => <li className="pl-2" {...props} />
 // codes
 const inlineCode = (props) => <code className="bg-gray-200 px-2" {...props} />
 const pre = (props) => <div className="text-base bg-gray-900" {...props} />
-const code = ({ children, className, ...others }) => (
-  <Refractor
-    className=""
-    language={className.replace(/^language-/, '')}
-    value={children}
-    {...others}
-  />
-)
+const code = (props) => {
+  const { children, className, ...others } = props
+  if (typeof className !== 'undefined') {
+    return (
+      <Refractor
+        className=""
+        value={children}
+        language={className.replace(/^language-/, '')}
+        {...others}
+      />
+    )
+  }
+  return <code className="bg-gray-200 px-2" {...props} />
+}
 
 // link
 const a = (props) => (
