@@ -1,5 +1,11 @@
 # @void-js/plugin-react-helmet
 
+## 0.1.10
+
+### Patch Changes
+
+- Upgrade dependencies.
+
 ## 0.1.9
 
 ### Patch Changes

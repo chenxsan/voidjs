@@ -1,6 +1,6 @@
 {
   "name": "voidjs-cli",
-  "version": "0.20.0",
+  "version": "0.20.1",
   "description": "Manage non-SPA pages with webpack and React.js",
   "main": "dist/voidjs-cli.cjs.js",
   "module": "dist/voidjs-cli.esm.js",
@@ -42,8 +42,8 @@
     "@mdx-js/react": "^1.6.22",
     "autoprefixer": "^10.2.4",
     "babel-loader": "^8.2.2",
-    "babel-plugin-react-dom-render": "^1.2.1",
-    "babel-plugin-wrap-voidjs-app": "^0.2.1",
+    "babel-plugin-react-dom-render": "^1.2.2",
+    "babel-plugin-wrap-voidjs-app": "^0.2.2",
     "css-loader": "^5.0.2",
     "csso-webpack-plugin": "^2.0.0-beta.1",
     "express": "^4.17.1",
