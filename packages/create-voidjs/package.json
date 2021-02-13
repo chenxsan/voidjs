@@ -1,6 +1,6 @@
 {
   "name": "create-voidjs",
-  "version": "0.3.14",
+  "version": "0.3.15",
   "description": "Create voidjs project",
   "main": "dist/create-voidjs.cjs.js",
   "module": "dist/create-voidjs.esm.js",
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.2",
-    "@types/fs-extra": "^9.0.6"
+    "@types/fs-extra": "^9.0.7"
   },
   "files": [
     "cli.js",

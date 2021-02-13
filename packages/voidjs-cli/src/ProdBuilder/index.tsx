@@ -33,7 +33,7 @@ import PluginHelmet from '../webpack-plugins/helmet-plugin'
 import type { Stats } from 'webpack'
 
 // TODO to be removed after MultiStats get exported from webpack
-interface MultiStats {
+export interface MultiStats {
   stats: Stats[]
   readonly hash: string
   hasErrors(): boolean
@@ -246,7 +246,7 @@ class ProdBuilder extends Builder {
     return [client, server]
   }
 
-  private runCallback(err?: WebpackError, stats?: MultiStats): void {
+  private runCallback(err?: WebpackError, stats?: any): void {
     if (err) {
       if (err.stack) {
         logger.error(err.stack)

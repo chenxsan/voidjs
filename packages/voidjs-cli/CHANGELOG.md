@@ -1,5 +1,14 @@
 # voidjs-cli
 
+## 0.20.1
+
+### Patch Changes
+
+- Upgrade dependencies.
+- Updated dependencies [undefined]
+  - babel-plugin-react-dom-render@1.2.2
+  - babel-plugin-wrap-voidjs-app@0.2.2
+
 ## 0.20.0
 
 ### Minor Changes
