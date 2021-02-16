@@ -21,8 +21,8 @@
 import visit from 'unist-util-visit'
 import type { Node, Parent } from 'unist'
 interface ExtendNode extends Node {
-  lang?: string
-  meta?: string
+  lang?: string | null
+  meta: string | null
 }
 export default function remarkCodeBlockMeta(options) {
   return function transformer(tree): void {
@@ -30,18 +30,17 @@ export default function remarkCodeBlockMeta(options) {
       tree,
       'code',
       function visitor(node: ExtendNode, index, parent: Parent): void {
-        const lang = node.lang ?? ''
-        if (lang !== '') {
+        const { lang, meta } = node
+        if (lang !== null) {
           node.data = {
             hProperties: {
               dataLanguage: lang,
             },
           }
         }
-        if (typeof node.meta !== 'undefined') {
-          console.log(node.meta)
+        if (meta !== null) {
           const params = new URLSearchParams(
-            node.meta
+            meta
               .split(' ')
               .filter((s) => s !== '')
               .map((s) => s.trim())
@@ -78,7 +77,7 @@ export default function remarkCodeBlockMeta(options) {
             })
           }
           // nullify meta
-          node.meta = undefined
+          node.meta = null
         }
       }
     )
