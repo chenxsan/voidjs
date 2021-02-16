@@ -42,7 +42,7 @@ const div = (props) => {
       return (
         <div
           {...props}
-          className="bg-gradient-to-r from-red-600 to-yellow-400 mt-2"
+          className="bg-gradient-to-r from-red-600 to-yellow-400 my-2"
         />
       )
     }
