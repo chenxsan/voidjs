@@ -8,6 +8,7 @@ import 'css/tailwind-components.css'
 import 'css/tailwind-utilities.css'
 import Refractor from 'react-refractor'
 import 'prismjs/themes/prism-okaidia.css'
+import 'css/styles.css'
 
 import { MDXProvider } from '@mdx-js/react'
 
@@ -46,7 +47,7 @@ const div = (props) => {
       )
     }
     if (className === 'remark-code-block-meta__filename') {
-      return <div {...props} className="text-white pl-3 pt-2 text-lg" />
+      return <div {...props} className="text-white pl-3 py-1 text-lg" />
     }
   }
   return <div {...props} />
