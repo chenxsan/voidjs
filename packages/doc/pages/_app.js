@@ -33,6 +33,24 @@ const h3 = (props) => (
   />
 )
 const p = (props) => <p className="text-base" {...props} />
+const div = (props) => {
+  const { className } = props
+  if (typeof className !== 'undefined') {
+    // customize class for code block meta
+    if (className === 'remark-code-block-meta') {
+      return (
+        <div
+          {...props}
+          className="bg-gradient-to-r from-red-600 to-yellow-400 mt-2"
+        />
+      )
+    }
+    if (className === 'remark-code-block-meta__filename') {
+      return <div {...props} className="text-white pl-3 pt-2 text-lg" />
+    }
+  }
+  return <div {...props} />
+}
 
 // lists
 const ul = (props) => <ul className="list-disc text-base pl-5" {...props} />
@@ -40,7 +58,9 @@ const ol = (props) => <ul className="list-decimal text-base pl-5" {...props} />
 const li = (props) => <li className="pl-2" {...props} />
 
 // codes
-const pre = (props) => <div className="text-base bg-gray-900" {...props} />
+const pre = (props) => {
+  return <div className="text-base bg-gray-900" {...props} />
+}
 const code = (props) => {
   const { children, className, ...others } = props
   if (typeof className !== 'undefined') {
@@ -66,6 +86,7 @@ const components = {
   ul,
   ol,
   p,
+  div,
   pre,
   code,
   a,
