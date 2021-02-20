@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.21.0
+
+### Minor Changes
+
+- Support filename for code
+
 ## 0.20.2
 
 ### Patch Changes
