@@ -38,16 +38,7 @@ const summary = (props) => (
   <summary {...props} className="my-2 cursor-pointer text-gray-900" />
 )
 const details = (props) => {
-  return (
-    <details
-      {...props}
-      onClick={(e) => {
-        e.preventDefault()
-      }}
-    >
-      {props.children}
-    </details>
-  )
+  return <details {...props}>{props.children}</details>
 }
 
 // lists
