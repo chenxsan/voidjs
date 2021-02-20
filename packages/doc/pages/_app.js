@@ -34,23 +34,20 @@ const h3 = (props) => (
   />
 )
 const p = (props) => <p className="text-base" {...props} />
-const div = (props) => {
-  const { className } = props
-  if (typeof className !== 'undefined') {
-    // customize class for code block meta
-    if (className === 'remark-code-block-meta') {
-      return (
-        <div
-          {...props}
-          className="bg-gradient-to-r from-red-600 to-yellow-400 my-2"
-        />
-      )
-    }
-    if (className === 'remark-code-block-meta__filename') {
-      return <div {...props} className="text-white pl-3 py-1 text-lg" />
-    }
-  }
-  return <div {...props} />
+const summary = (props) => (
+  <summary {...props} className="my-2 cursor-pointer text-gray-900" />
+)
+const details = (props) => {
+  return (
+    <details
+      {...props}
+      onClick={(e) => {
+        e.preventDefault()
+      }}
+    >
+      {props.children}
+    </details>
+  )
 }
 
 // lists
@@ -87,10 +84,11 @@ const components = {
   ul,
   ol,
   p,
-  div,
   pre,
   code,
   a,
+  summary,
+  details,
 }
 export default function App({ Component, pageProps }) {
   return (

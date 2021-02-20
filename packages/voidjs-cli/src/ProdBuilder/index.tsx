@@ -18,7 +18,7 @@
     You should have received a copy of the GNU General Public License
     along with voidjs.  If not, see <https://www.gnu.org/licenses/>.
  */
-import webpack, { Compilation, Compiler } from 'webpack'
+import webpack, { Compilation, Compiler, MultiStats } from 'webpack'
 import * as path from 'path'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
@@ -29,28 +29,6 @@ import ServerSideRender from './ServerSideRender/index'
 import normalizeAssetPath from './normalizeAssetPath'
 import Builder, { VoidjsConfig } from '../Builder'
 import PluginHelmet from '../webpack-plugins/helmet-plugin'
-
-import type { Stats } from 'webpack'
-
-// TODO to be removed after MultiStats get exported from webpack
-export interface MultiStats {
-  stats: Stats[]
-  readonly hash: string
-  hasErrors(): boolean
-  hasWarnings(): boolean
-  toJson(
-    options?: any
-  ): {
-    children: any[]
-    version: any
-    hash: string
-    errors: any[]
-    warnings: any[]
-    errorsCount: number
-    warningsCount: number
-  }
-  toString(options?: any): string
-}
 
 import {
   getRules,
@@ -246,7 +224,7 @@ class ProdBuilder extends Builder {
     return [client, server]
   }
 
-  private runCallback(err?: WebpackError, stats?: any): void {
+  private runCallback(err?: WebpackError, stats?: MultiStats): void {
     if (err) {
       if (err.stack) {
         logger.error(err.stack)
@@ -261,15 +239,19 @@ class ProdBuilder extends Builder {
     if (!stats) return
 
     const info = stats.toJson()
-    if (stats.hasErrors()) {
-      info.errors.forEach((err: { message: string }) =>
-        logger.error(err.message)
-      )
+    if (stats.hasErrors() && typeof info !== 'undefined') {
+      if (typeof info.errors !== 'undefined') {
+        info.errors.forEach((err: { message: string }) =>
+          logger.error(err.message)
+        )
+      }
     }
-    if (stats.hasWarnings()) {
-      info.warnings.forEach((warning: { message: string }) =>
-        logger.warn(warning.message)
-      )
+    if (stats.hasWarnings() && typeof info !== 'undefined') {
+      if (typeof info.warnings !== 'undefined') {
+        info.warnings.forEach((warning: { message: string }) =>
+          logger.warn(warning.message)
+        )
+      }
     }
   }
   // measure end
@@ -341,7 +323,7 @@ class ProdBuilder extends Builder {
 
     const serverCompiler = webpack(this.createWebpackConfig(this.#pages))
 
-    serverCompiler.run(async (err, stats) => {
+    serverCompiler.run(async (err, stats: MultiStats) => {
       this.runCallback(err, stats)
       // FIXME here we're compiling files to disk and run ssr against them
       await this.ssr()

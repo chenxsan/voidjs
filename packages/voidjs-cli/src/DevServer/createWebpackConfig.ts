@@ -11,7 +11,7 @@ import createEntries from './createEntries'
 import path from 'path'
 import isPageEntry from '../utils/isPageEntry'
 import gfm from 'remark-gfm'
-import codeBlockMeta from '../remark-plugins/code-block-meta'
+import remarkCodeMeta from 'remark-code-meta'
 
 import type { RuleSetRule, Configuration } from 'webpack'
 
@@ -110,7 +110,7 @@ export default function createWebpackConfig(
               loader: 'xdm/webpack.cjs',
               options: {
                 providerImportSource: '@mdx-js/react',
-                remarkPlugins: [gfm, codeBlockMeta],
+                remarkPlugins: [gfm, remarkCodeMeta],
               },
             },
           ],
