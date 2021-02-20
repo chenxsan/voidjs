@@ -6424,6 +6424,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"esbuild-loader@npm:^2.9.2":
+  version: 2.9.2
+  resolution: "esbuild-loader@npm:2.9.2"
+  dependencies:
+    esbuild: ^0.8.42
+    joycon: ^2.2.5
+    json5: ^2.2.0
+    loader-utils: ^2.0.0
+    type-fest: ^0.20.2
+    webpack-sources: ^2.2.0
+  peerDependencies:
+    webpack: ^4.40.0 || ^5.0.0
+  checksum: a1251dab1ed72f68ce9b50a2b58ffef83594627f1bbf8fc53a098525166d1413f22374eeb966bac2848bc61fbf9f593f170c44e23786ae38f64ff5e5a5ff6724
+  languageName: node
+  linkType: hard
+
+"esbuild@npm:^0.8.42":
+  version: 0.8.49
+  resolution: "esbuild@npm:0.8.49"
+  bin:
+    esbuild: bin/esbuild
+  checksum: bd7ae436f89e82adc7a9c2843ef8290640ca41f7b75b9e70ff952204f028ef59f49d5fc3df911d00e01b227728452da2425006539e38e631ff613ea3b1371ece
+  languageName: node
+  linkType: hard
+
 "escalade@npm:^3.1.0, escalade@npm:^3.1.1":
   version: 3.1.1
   resolution: "escalade@npm:3.1.1"
@@ -9631,6 +9656,17 @@ __metadata:
   bin:
     json5: lib/cli.js
   checksum: ca20dbb73c4ccb7c9cd8ec5d9c6f005294e25868d435825f147dde58a8f1fc5fe9397d3afcd12d26f765fe14d4b35add81f1bc5fece33c6b1c8d1a69625a43e8
+  languageName: node
+  linkType: hard
+
+"json5@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "json5@npm:2.2.0"
+  dependencies:
+    minimist: ^1.2.5
+  bin:
+    json5: lib/cli.js
+  checksum: 07b1f90c2801dc52df2b0ac8d606cc400a85cda79130e754780fa2ab9805d0fb85a0e61b6a5cdd68e88e5d0c8f9109ec415af08283175556cdccaa8563853908
   languageName: node
   linkType: hard
 
@@ -14149,6 +14185,13 @@ resolve@^1.18.1:
   languageName: node
   linkType: hard
 
+"type-fest@npm:^0.20.2":
+  version: 0.20.2
+  resolution: "type-fest@npm:0.20.2"
+  checksum: 1f887bc6150e632fb772fd28e33c22a4ab036c6f484fa9ac2e2115f6cae9d62bba7ca0368e3332b539d85bd2c8391c7bff22ad410abcbc9ab3774d61e250b210
+  languageName: node
+  linkType: hard
+
 "type-fest@npm:^0.6.0":
   version: 0.6.0
   resolution: "type-fest@npm:0.6.0"
@@ -14581,6 +14624,7 @@ typescript@^4.1.5:
     babel-plugin-wrap-voidjs-app: ^0.2.3
     css-loader: ^5.0.2
     csso-webpack-plugin: ^2.0.0-beta.1
+    esbuild-loader: ^2.9.2
     express: ^4.17.1
     fs-extra: ^9.1.0
     html-entities: ^2.1.0
@@ -14748,7 +14792,7 @@ typescript@^4.1.5:
   languageName: node
   linkType: hard
 
-"webpack-sources@npm:^2.1.1":
+"webpack-sources@npm:^2.1.1, webpack-sources@npm:^2.2.0":
   version: 2.2.0
   resolution: "webpack-sources@npm:2.2.0"
   dependencies:

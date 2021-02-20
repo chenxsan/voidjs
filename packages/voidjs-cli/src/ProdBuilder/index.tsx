@@ -29,6 +29,7 @@ import ServerSideRender from './ServerSideRender/index'
 import normalizeAssetPath from './normalizeAssetPath'
 import Builder, { VoidjsConfig } from '../Builder'
 import PluginHelmet from '../webpack-plugins/helmet-plugin'
+import { ESBuildPlugin } from 'esbuild-loader'
 
 import {
   getRules,
@@ -164,6 +165,7 @@ class ProdBuilder extends Builder {
           profile: true,
         }),
         new CleanSpaJs(),
+        new ESBuildPlugin(),
       ],
     }
 
@@ -218,6 +220,7 @@ class ProdBuilder extends Builder {
         new webpack.ProgressPlugin({
           profile: true,
         }),
+        new ESBuildPlugin(),
       ],
     }
 
