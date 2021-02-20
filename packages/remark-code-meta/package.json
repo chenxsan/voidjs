@@ -9,5 +9,12 @@
   "devDependencies": {
     "remark": "^13.0.0",
     "remark-html": "^13.0.1"
-  }
+  },
+  "keywords": [
+    "remark",
+    "remark-plugin",
+    "markdown",
+    "plugin",
+    "unified"
+  ]
 }
