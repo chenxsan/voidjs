@@ -1,6 +1,6 @@
 {
   "name": "create-voidjs",
-  "version": "0.3.15",
+  "version": "0.3.16",
   "description": "Create voidjs project",
   "main": "dist/create-voidjs.cjs.js",
   "module": "dist/create-voidjs.esm.js",
@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^4.1.0",
-    "commander": "^7.0.0",
+    "commander": "^7.1.0",
     "cross-spawn": "^7.0.3",
     "fs-extra": "^9.1.0"
   },
