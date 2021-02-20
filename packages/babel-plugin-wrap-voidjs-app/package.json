@@ -1,7 +1,7 @@
 {
   "name": "babel-plugin-wrap-voidjs-app",
   "main": "dist/babel-plugin-wrap-voidjs-app.cjs.js",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "devDependencies": {
     "@babel/core": "^7.12.17",
     "@babel/template": "^7.12.13",
