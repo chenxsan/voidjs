@@ -126,7 +126,7 @@ export const getRules = (pagesDir: string, hasApp: boolean): RuleSetRule[] => {
       use: [
         babelLoader,
         {
-          loader: 'esbuild-loader',
+          loader: 'esbuild-typescript-loader',
           options: {
             loader: 'ts',
           },
@@ -139,7 +139,7 @@ export const getRules = (pagesDir: string, hasApp: boolean): RuleSetRule[] => {
       use: [
         babelLoader,
         {
-          loader: 'esbuild-loader',
+          loader: 'esbuild-typescript-loader',
           options: {
             loader: 'tsx',
           },
@@ -246,7 +246,7 @@ export const rules: RuleSetRule[] = [
     use: [
       babelLoader,
       {
-        loader: 'esbuild-loader',
+        loader: 'esbuild-typescript-loader',
         options: {
           loader: 'ts',
         },
@@ -259,7 +259,7 @@ export const rules: RuleSetRule[] = [
     use: [
       babelLoader,
       {
-        loader: 'esbuild-loader',
+        loader: 'esbuild-typescript-loader',
         options: {
           loader: 'tsx',
         },

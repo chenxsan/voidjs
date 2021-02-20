@@ -12,7 +12,6 @@ import path from 'path'
 import isPageEntry from '../utils/isPageEntry'
 import gfm from 'remark-gfm'
 import remarkCodeMeta from 'remark-code-meta'
-import { ESBuildPlugin } from 'esbuild-loader'
 
 import type { RuleSetRule, Configuration } from 'webpack'
 
@@ -107,7 +106,7 @@ export default function createWebpackConfig(
           use: [
             babelLoader,
             {
-              loader: 'esbuild-loader',
+              loader: 'esbuild-typescript-loader',
               options: {
                 loader: 'ts',
               },
@@ -120,7 +119,7 @@ export default function createWebpackConfig(
           use: [
             babelLoader,
             {
-              loader: 'esbuild-loader',
+              loader: 'esbuild-typescript-loader',
               options: {
                 loader: 'tsx',
               },
@@ -183,7 +182,6 @@ export default function createWebpackConfig(
       new webpack.ProgressPlugin({
         profile: true, // enable profiling
       }),
-      new ESBuildPlugin(),
     ],
   }
 }

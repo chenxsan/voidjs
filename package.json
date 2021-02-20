@@ -41,7 +41,8 @@
       "packages/plugin-react-helmet",
       "packages/babel-plugin-react-dom-render",
       "packages/babel-plugin-wrap-voidjs-app",
-      "packages/remark-code-meta"
+      "packages/remark-code-meta",
+      "packages/esbuild-typescript-loader"
     ]
   },
   "prettier": {
