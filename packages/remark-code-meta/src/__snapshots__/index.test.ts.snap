@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`remarkCodeMeta should customize className 1`] = `
+"<details class=\\"voidjs\\" open><summary class=\\"voidjs__filename\\">index.js</summary><pre><code class=\\"language-js\\" data-language=\\"js\\">const answer = 42;
+</code></pre></details>
+"
+`;
+
+exports[`remarkCodeMeta should customize useDetails 1`] = `
+"<div class=\\"remark-code-meta\\" open><div class=\\"remark-code-meta__filename\\">index.js</div><pre><code class=\\"language-js\\" data-language=\\"js\\">const answer = 42;
+</code></pre></div>
+"
+`;
+
+exports[`remarkCodeMeta should transform code with meta 1`] = `
+"<details class=\\"remark-code-meta\\" open><summary class=\\"remark-code-meta__filename\\">index.js</summary><pre><code class=\\"language-js\\" data-language=\\"js\\">const answer = 42;
+</code></pre></details>
+"
+`;

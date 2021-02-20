@@ -8,6 +8,7 @@ import 'css/tailwind-components.css'
 import 'css/tailwind-utilities.css'
 import Refractor from 'react-refractor'
 import 'prismjs/themes/prism-okaidia.css'
+import 'css/styles.css'
 
 import { MDXProvider } from '@mdx-js/react'
 
@@ -33,6 +34,12 @@ const h3 = (props) => (
   />
 )
 const p = (props) => <p className="text-base" {...props} />
+const summary = (props) => (
+  <summary {...props} className="my-2 cursor-pointer text-gray-900" />
+)
+const details = (props) => {
+  return <details {...props}>{props.children}</details>
+}
 
 // lists
 const ul = (props) => <ul className="list-disc text-base pl-5" {...props} />
@@ -40,7 +47,9 @@ const ol = (props) => <ul className="list-decimal text-base pl-5" {...props} />
 const li = (props) => <li className="pl-2" {...props} />
 
 // codes
-const pre = (props) => <div className="text-base bg-gray-900" {...props} />
+const pre = (props) => {
+  return <div className="text-base bg-gray-900" {...props} />
+}
 const code = (props) => {
   const { children, className, ...others } = props
   if (typeof className !== 'undefined') {
@@ -69,6 +78,8 @@ const components = {
   pre,
   code,
   a,
+  summary,
+  details,
 }
 export default function App({ Component, pageProps }) {
   return (

@@ -3644,7 +3644,7 @@ __metadata:
     react-dom: ^17.0.1
     react-refractor: ^2.1.4
     refractor: ^3.3.1
-    voidjs-cli: ^0.20.0
+    voidjs-cli: ^0.21.0
   languageName: unknown
   linkType: soft
 
@@ -4618,7 +4618,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-dom-render@^1.2.1, babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render":
+"babel-plugin-react-dom-render@^1.2.2, babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render":
   version: 0.0.0-use.local
   resolution: "babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render"
   dependencies:
@@ -4631,7 +4631,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"babel-plugin-wrap-voidjs-app@^0.2.1, babel-plugin-wrap-voidjs-app@workspace:packages/babel-plugin-wrap-voidjs-app":
+"babel-plugin-wrap-voidjs-app@^0.2.2, babel-plugin-wrap-voidjs-app@workspace:packages/babel-plugin-wrap-voidjs-app":
   version: 0.0.0-use.local
   resolution: "babel-plugin-wrap-voidjs-app@workspace:packages/babel-plugin-wrap-voidjs-app"
   dependencies:
@@ -7606,10 +7606,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hast-util-is-element@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "hast-util-is-element@npm:1.1.0"
+  checksum: fb8241c9a0ef166f4fc812f30148573e80db44f0c99dedbcff69016800edcb7c9383abf0789d8cd1389c0ec8a75efd078bbdb75254db9aec6cb5d599c7672244
+  languageName: node
+  linkType: hard
+
 "hast-util-parse-selector@npm:^2.0.0":
   version: 2.2.4
   resolution: "hast-util-parse-selector@npm:2.2.4"
   checksum: affd2e8d834305c3fe495b499d063fb84c697d467b22e225d7598c24e1b987af5e44957f9af43f6f80074b8e8d34728836f3e348049575016735a8d623c4f947
+  languageName: node
+  linkType: hard
+
+"hast-util-sanitize@npm:^3.0.0":
+  version: 3.0.2
+  resolution: "hast-util-sanitize@npm:3.0.2"
+  dependencies:
+    xtend: ^4.0.0
+  checksum: 4189e9b1b1e6a0f918efc5388ccce91da492a4932ad82e3c861d9b1e0ad16e3486c51addcbd6f7eb5af4e50099259fc6e691f851916d3cf2329696698bfecc94
   languageName: node
   linkType: hard
 
@@ -7626,6 +7642,24 @@ __metadata:
     unist-util-position: ^3.1.0
     zwitch: ^1.0.0
   checksum: 2736d52c9358b32618ccb329660aaeb1c04c36869c496b6e7ccdad72da5bc227ec74b19cfc12e1b0c2e7d5c1b9fbca1083084f28759a37d7623a9adc0a03a828
+  languageName: node
+  linkType: hard
+
+"hast-util-to-html@npm:^7.0.0":
+  version: 7.1.2
+  resolution: "hast-util-to-html@npm:7.1.2"
+  dependencies:
+    ccount: ^1.0.0
+    comma-separated-tokens: ^1.0.0
+    hast-util-is-element: ^1.0.0
+    hast-util-whitespace: ^1.0.0
+    html-void-elements: ^1.0.0
+    property-information: ^5.0.0
+    space-separated-tokens: ^1.0.0
+    stringify-entities: ^3.0.1
+    unist-util-is: ^4.0.0
+    xtend: ^4.0.0
+  checksum: b48dae90937b50776c31711eac81f474a389514c706280cde81087e7e5e5e791acdfd89528b3a7b0fba4beb8955c91918f022d4a7a3fd2c9439125195ab1d2e8
   languageName: node
   linkType: hard
 
@@ -7692,6 +7726,13 @@ __metadata:
   version: 3.1.0
   resolution: "html-tags@npm:3.1.0"
   checksum: 0f87b0f46d6064e5cd705f2accd869b0d28fe251b1260663ad527641497f4a1ed5a0a0a56ac9619c20b57c67862726ec9e62d4de0630bf836e1342e777b299c1
+  languageName: node
+  linkType: hard
+
+"html-void-elements@npm:^1.0.0":
+  version: 1.0.5
+  resolution: "html-void-elements@npm:1.0.5"
+  checksum: 62cb426bd3fee67f027b43f994d19003b3df8426d38f820f7fccddf9eba7fca502f6f3ee306432c8ed4e81439764cd45c2f304ea7e9e3374c682a3771e357696
   languageName: node
   linkType: hard
 
@@ -12342,6 +12383,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"remark-code-meta@^0.2.0, remark-code-meta@workspace:packages/remark-code-meta":
+  version: 0.0.0-use.local
+  resolution: "remark-code-meta@workspace:packages/remark-code-meta"
+  dependencies:
+    remark: ^13.0.0
+    remark-html: ^13.0.1
+    unist-util-visit: ^2.0.3
+  languageName: unknown
+  linkType: soft
+
 "remark-gfm@npm:^1.0.0":
   version: 1.0.0
   resolution: "remark-gfm@npm:1.0.0"
@@ -12349,6 +12400,17 @@ __metadata:
     mdast-util-gfm: ^0.1.0
     micromark-extension-gfm: ^0.3.0
   checksum: c3f5d2e7d9ebe808297236e04c7c544b303d97749a221c95ded56f3e466099eca62b9bbda1d46431702e61edfea5de06c19c65632b59c5f89eca048858b6893b
+  languageName: node
+  linkType: hard
+
+"remark-html@npm:^13.0.1":
+  version: 13.0.1
+  resolution: "remark-html@npm:13.0.1"
+  dependencies:
+    hast-util-sanitize: ^3.0.0
+    hast-util-to-html: ^7.0.0
+    mdast-util-to-hast: ^10.0.0
+  checksum: b59c71adad63bbfd627d3c6052b5200a131d6787357caf665bbe2ad6136f13232244de6cea7d637e76fd72c027747347e525cd2f2fb8e4d9dedb5530585d1e37
   languageName: node
   linkType: hard
 
@@ -12367,6 +12429,26 @@ __metadata:
   dependencies:
     mdast-util-to-hast: ^10.0.0
   checksum: a74e51b2a98aa0c73508d5d1f5b31acd91c7ee3efc8d3c6d17be8c0ddfce10ab5117e6c236495a60f6dd7a50bb4dec11ae2f7f2cdf53fb971c5722e1e762489b
+  languageName: node
+  linkType: hard
+
+"remark-stringify@npm:^9.0.0":
+  version: 9.0.1
+  resolution: "remark-stringify@npm:9.0.1"
+  dependencies:
+    mdast-util-to-markdown: ^0.6.0
+  checksum: 34f5807981f59d6878f4dc5b67c8af908c5736886cc4f7d959e583c8dcb47d7693f09253510a46fdb1d60d3dbb2551f815666c433473bb38cd495df2abfecdcd
+  languageName: node
+  linkType: hard
+
+"remark@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "remark@npm:13.0.0"
+  dependencies:
+    remark-parse: ^9.0.0
+    remark-stringify: ^9.0.0
+    unified: ^9.1.0
+  checksum: eac686868cbf71a59a24e3b5a5946439ce124dbc6b26bb5da5197ad1eaf91290950fef46eb4a7ffecd7fcf17bb84ae0d1a4e2719b15fbeaf2372e059a0b81572
   languageName: node
   linkType: hard
 
@@ -13426,7 +13508,7 @@ resolve@^1.18.1:
   languageName: node
   linkType: hard
 
-"stringify-entities@npm:^3.1.0":
+"stringify-entities@npm:^3.0.1, stringify-entities@npm:^3.1.0":
   version: 3.1.0
   resolution: "stringify-entities@npm:3.1.0"
   dependencies:
@@ -14106,7 +14188,7 @@ typescript@^4.1.5:
   languageName: node
   linkType: hard
 
-"unified@npm:^9.0.0":
+"unified@npm:^9.0.0, unified@npm:^9.1.0":
   version: 9.2.0
   resolution: "unified@npm:9.2.0"
   dependencies:
@@ -14222,6 +14304,17 @@ typescript@^4.1.5:
     unist-util-is: ^4.0.0
     unist-util-visit-parents: ^3.0.0
   checksum: 9e1dfe3fbf0937b90ea4b95229c44fd9e76644d4375af92db0f593b58fe0c49b04f1b596c31f7751ef154c5dfa42189f5e7a09875ba90931db366b8606e63092
+  languageName: node
+  linkType: hard
+
+"unist-util-visit@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "unist-util-visit@npm:2.0.3"
+  dependencies:
+    "@types/unist": ^2.0.0
+    unist-util-is: ^4.0.0
+    unist-util-visit-parents: ^3.0.0
+  checksum: 7af837673e377693cf4c7bd966d5e088b52bd4a9c6e92f9b16ae5760a31243f627fbf3432ada6541e2b9091b8096007cb22aa8439cbbf04613898773743302d3
   languageName: node
   linkType: hard
 
@@ -14406,7 +14499,7 @@ typescript@^4.1.5:
   languageName: node
   linkType: hard
 
-"voidjs-cli@^0.20.0, voidjs-cli@workspace:packages/voidjs-cli":
+"voidjs-cli@^0.21.0, voidjs-cli@workspace:packages/voidjs-cli":
   version: 0.0.0-use.local
   resolution: "voidjs-cli@workspace:packages/voidjs-cli"
   dependencies:
@@ -14432,8 +14525,8 @@ typescript@^4.1.5:
     "@types/yargs": ^16.0.0
     autoprefixer: ^10.2.4
     babel-loader: ^8.2.2
-    babel-plugin-react-dom-render: ^1.2.1
-    babel-plugin-wrap-voidjs-app: ^0.2.1
+    babel-plugin-react-dom-render: ^1.2.2
+    babel-plugin-wrap-voidjs-app: ^0.2.2
     css-loader: ^5.0.2
     csso-webpack-plugin: ^2.0.0-beta.1
     express: ^4.17.1
@@ -14448,6 +14541,7 @@ typescript@^4.1.5:
     react: ^17.0.1
     react-dom: ^17.0.1
     react-helmet: ^6.1.0
+    remark-code-meta: ^0.2.0
     remark-gfm: ^1.0.0
     rimraf: ^3.0.2
     sass: ^1.32.7
@@ -14457,7 +14551,7 @@ typescript@^4.1.5:
     tailwindcss: ^1.9.6
     tapable: ^2.2.0
     terser-webpack-plugin: ^5.1.1
-    webpack: ^5.21.2
+    webpack: ^5.23.0
     webpack-dev-middleware: ^4.1.0
     ws: ^7.4.3
     xdm: ^1.1.0
@@ -14612,9 +14706,9 @@ typescript@^4.1.5:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.21.2":
-  version: 5.21.2
-  resolution: "webpack@npm:5.21.2"
+"webpack@npm:^5.23.0":
+  version: 5.23.0
+  resolution: "webpack@npm:5.23.0"
   dependencies:
     "@types/eslint-scope": ^3.7.0
     "@types/estree": ^0.0.46
@@ -14644,7 +14738,7 @@ typescript@^4.1.5:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 0f8ec63a22a9c6a347e97e6a511f87d00f0f20abf7b62b8147de84325396f5192202e3c83f8fbad95fa7f9c35604e5a3cb5264f7ae58009ba5d9520dce04a76b
+  checksum: eace31deaec4e59051308c91a00dee4fca02242c72f4b1929948616dff03715680ec65d61e67dfd18726eb1be49a863d98a0149a0f62c8a253dbfba3b8fac4a6
   languageName: node
   linkType: hard
 
