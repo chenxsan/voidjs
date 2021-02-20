@@ -11,7 +11,7 @@
     "@babel/plugin-proposal-private-methods": "^7.12.13",
     "@babel/preset-env": "^7.12.16",
     "@babel/preset-react": "^7.12.13",
-    "@babel/preset-typescript": "^7.12.16",
+    "@babel/preset-typescript": "^7.12.17",
     "@changesets/cli": "^2.14.1",
     "@preconstruct/cli": "^2.0.4",
     "@types/jest": "^26.0.20",
