@@ -4670,7 +4670,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-dom-render@^1.2.2, babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render":
+"babel-plugin-react-dom-render@^1.2.3, babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render":
   version: 0.0.0-use.local
   resolution: "babel-plugin-react-dom-render@workspace:packages/babel-plugin-react-dom-render"
   dependencies:
@@ -4683,7 +4683,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"babel-plugin-wrap-voidjs-app@^0.2.2, babel-plugin-wrap-voidjs-app@workspace:packages/babel-plugin-wrap-voidjs-app":
+"babel-plugin-wrap-voidjs-app@^0.2.3, babel-plugin-wrap-voidjs-app@workspace:packages/babel-plugin-wrap-voidjs-app":
   version: 0.0.0-use.local
   resolution: "babel-plugin-wrap-voidjs-app@workspace:packages/babel-plugin-wrap-voidjs-app"
   dependencies:
@@ -14577,8 +14577,8 @@ typescript@^4.1.5:
     "@types/yargs": ^16.0.0
     autoprefixer: ^10.2.4
     babel-loader: ^8.2.2
-    babel-plugin-react-dom-render: ^1.2.2
-    babel-plugin-wrap-voidjs-app: ^0.2.2
+    babel-plugin-react-dom-render: ^1.2.3
+    babel-plugin-wrap-voidjs-app: ^0.2.3
     css-loader: ^5.0.2
     csso-webpack-plugin: ^2.0.0-beta.1
     express: ^4.17.1
