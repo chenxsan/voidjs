@@ -1,6 +1,6 @@
 # esbuild-typescript-loader
 
-A webpack loader to transform TypeScript with [esbuild](https://esbuild.github.io/).
+A simple webpack loader to transform TypeScript with [esbuild](https://esbuild.github.io/), and only transform TypeScript.
 
 ```js
 module.exports = {
@@ -15,6 +15,7 @@ module.exports = {
             loader: 'esbuild-typescript-loader',
             options: {
               loader: 'ts',
+              sourcemap: true
             },
           },
         ],
@@ -28,6 +29,7 @@ module.exports = {
             loader: 'esbuild-typescript-loader',
             options: {
               loader: 'tsx',
+              sourcemap: false
             },
           },
         ],

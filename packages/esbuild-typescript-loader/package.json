@@ -12,9 +12,18 @@
   },
   "dependencies": {
     "esbuild": "^0.8.49",
-    "loader-utils": "^2.0.0"
+    "loader-utils": "^2.0.0",
+    "schema-utils": "^3.0.0"
   },
   "devDependencies": {
     "@types/loader-utils": "^2"
-  }
+  },
+  "keywords": [
+    "esbuild",
+    "webpack",
+    "loader",
+    "typescript",
+    "ts",
+    "tsx"
+  ]
 }
