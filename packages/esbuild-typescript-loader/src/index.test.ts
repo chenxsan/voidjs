@@ -20,6 +20,15 @@ function webpackCompiler(fixture: string, options = {}): Promise<Stats> {
             },
           ],
         },
+        {
+          test: /\.tsx$/,
+          use: [
+            {
+              loader: path.resolve(__dirname, 'index.ts'),
+              options,
+            },
+          ],
+        },
       ],
     },
   })
@@ -35,11 +44,19 @@ function webpackCompiler(fixture: string, options = {}): Promise<Stats> {
   })
 }
 describe('esbuild TypeScript Loader', () => {
-  it('should transform TypeScript', async () => {
+  it('should transform ts', async () => {
     const stats = await webpackCompiler('example.ts')
     const modules = stats.toJson({ source: true }).modules ?? []
     const output = modules[0].source
     expect(output).toContain('const a = 42;')
+    expect(output).toMatchSnapshot()
+  })
+  it('should transform tsx', async () => {
+    const stats = await webpackCompiler('example.tsx', {
+      loader: 'tsx',
+    })
+    const modules = stats.toJson({ source: true }).modules ?? []
+    const output = modules[0].source
     expect(output).toMatchSnapshot()
   })
 })
