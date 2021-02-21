@@ -2,6 +2,10 @@
 
 exports[`esbuild TypeScript Loader should transform TypeScript 1`] = `
 "const a = 42;
-export {a};
+const user = {
+  name: \\"Hayes\\",
+  id: 0
+};
+export {a, user};
 "
 `;
