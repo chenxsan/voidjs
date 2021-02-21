@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.22.2
+
+### Patch Changes
+
+- Remove tailwindcss from voidjs
+
 ## 0.22.1
 
 ### Patch Changes
