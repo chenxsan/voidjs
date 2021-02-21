@@ -1,0 +1,39 @@
+{
+  "name": "esbuild-typescript-loader",
+  "version": "0.1.2",
+  "main": "dist/esbuild-typescript-loader.cjs.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chenxsan/voidjs.git",
+    "directory": "packages/esbuild-typescript-loader"
+  },
+  "bugs": {
+    "url": "https://github.com/chenxsan/voidjs/issues"
+  },
+  "dependencies": {
+    "esbuild": "^0.8.49",
+    "loader-utils": "^2.0.0",
+    "schema-utils": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/loader-utils": "^2",
+    "memfs": "^3.2.0",
+    "webpack": "^5.23.0"
+  },
+  "keywords": [
+    "esbuild",
+    "webpack",
+    "loader",
+    "typescript",
+    "ts",
+    "tsx"
+  ],
+  "author": {
+    "email": "chenxsan@gmail.com",
+    "name": "Sam Chen"
+  },
+  "license": "MIT",
+  "files": [
+    "dist"
+  ]
+}

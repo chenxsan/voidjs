@@ -43,8 +43,6 @@ const createBabelOptions = (pagesDir: string, hasCustomApp: boolean) => {
           runtime: 'automatic',
         },
       ],
-      // we support typescript
-      '@babel/preset-typescript',
     ],
     plugins: [
       [
@@ -98,9 +96,35 @@ export default function createWebpackConfig(
     module: {
       rules: [
         {
-          test: /\.(mjs|js|jsx|ts|tsx)$/i,
+          test: /\.(mjs|js|jsx)$/i,
           exclude: [/node_modules/],
           use: [babelLoader],
+        },
+        {
+          test: /\.ts$/i,
+          exclude: [/node_modules/],
+          use: [
+            babelLoader,
+            {
+              loader: 'esbuild-typescript-loader',
+              options: {
+                loader: 'ts',
+              },
+            },
+          ],
+        },
+        {
+          test: /\.tsx$/i,
+          exclude: [/node_modules/],
+          use: [
+            babelLoader,
+            {
+              loader: 'esbuild-typescript-loader',
+              options: {
+                loader: 'tsx',
+              },
+            },
+          ],
         },
         {
           test: /\.(mdx|md)$/,

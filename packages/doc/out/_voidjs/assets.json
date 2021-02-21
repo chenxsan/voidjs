@@ -1,18 +1,18 @@
 {
   "files": {
-    "server.css": "server.bca1b6c7735bca4921bd.css",
-    "static/img/voidjs-logo.svg": "voidjs-logo.de5a021a0c00bdaa81ca.svg",
-    "static/img/favicon.png": "favicon.123559ffcd6fdb61b6a8.png"
+    "server.css": "server.524e8d18c25af7d58fc1.css",
+    "static/img/favicon.png": "favicon.123559ffcd6fdb61b6a8.png",
+    "static/img/voidjs-logo.svg": "voidjs-logo.de5a021a0c00bdaa81ca.svg"
   },
   "entrypoints": {
     "doc/doc": [
-      "server.bca1b6c7735bca4921bd.css"
+      "server.524e8d18c25af7d58fc1.css"
     ],
     "guides/index": [
-      "server.bca1b6c7735bca4921bd.css"
+      "server.524e8d18c25af7d58fc1.css"
     ],
     "index": [
-      "server.bca1b6c7735bca4921bd.css"
+      "server.524e8d18c25af7d58fc1.css"
     ]
   }
 }

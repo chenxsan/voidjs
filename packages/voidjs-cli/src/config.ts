@@ -81,136 +81,187 @@ const babelPresets = [
       runtime: 'automatic',
     },
   ],
-  '@babel/preset-typescript',
 ]
-export const getRules = (pagesDir: string, hasApp: boolean): RuleSetRule[] => [
-  {
-    test: /\.(js|jsx|ts|tsx|mjs)$/i,
-    exclude: /node_modules/,
-    use: [
-      {
-        loader: 'babel-loader',
-        options: {
-          presets: [...babelPresets],
+export const getRules = (pagesDir: string, hasApp: boolean): RuleSetRule[] => {
+  const babelLoader = {
+    loader: 'babel-loader',
+    options: {
+      presets: [...babelPresets],
+      plugins: [
+        [
+          '@babel/plugin-transform-runtime',
+          {
+            regenerator: true,
+          },
+        ],
+      ],
+      // cacheDirectory: true,
+      // cacheCompression: false,
+      overrides: [
+        {
+          include: function (filename: string): boolean {
+            return isPageEntry(pagesDir, filename)
+          },
           plugins: [
             [
-              '@babel/plugin-transform-runtime',
+              'wrap-voidjs-app',
               {
-                regenerator: true,
+                app: hasApp === true ? path.join(pagesDir, '_app') : hasApp,
               },
             ],
           ],
-          // cacheDirectory: true,
-          // cacheCompression: false,
-          overrides: [
-            {
-              include: function (filename: string): boolean {
-                return isPageEntry(pagesDir, filename)
-              },
-              plugins: [
-                [
-                  'wrap-voidjs-app',
-                  {
-                    app: hasApp === true ? path.join(pagesDir, '_app') : hasApp,
-                  },
-                ],
-              ],
-            },
-          ],
         },
-      },
-    ],
-  },
-  {
-    test: /\.(md|mdx)$/i,
-    use: [
-      {
-        loader: 'babel-loader',
-        options: {
-          presets: [...babelPresets],
-          // cacheDirectory: true,
-          // cacheCompression: false,
-          overrides: [
-            {
-              include: function (filename: string): boolean {
-                return isPageEntry(pagesDir, filename)
-              },
-              plugins: [
-                [
-                  'wrap-voidjs-app',
-                  {
-                    app: hasApp === true ? path.join(pagesDir, '_app') : hasApp,
-                  },
-                ],
-              ],
-            },
-          ],
-        },
-      },
-      {
-        loader: 'xdm/webpack.cjs',
-        options: {
-          providerImportSource: '@mdx-js/react',
-          remarkPlugins: [gfm, remarkCodeMeta],
-        },
-      },
-    ],
-  },
-  {
-    test: supportedImageExtensions,
-    type: 'asset/resource',
-    generator: {
-      filename: '[name].[hash][ext][query]',
+      ],
     },
-  },
-  {
-    test: supportedFontExtensions,
-    type: 'asset/resource',
-    generator: {
-      filename: 'fonts/[name][ext]',
+  }
+  return [
+    {
+      test: /\.(js|jsx|mjs)$/i,
+      exclude: /node_modules/,
+      use: [babelLoader],
     },
-  },
-  {
-    test: supportedCssExtensions,
-    use: [
-      {
-        loader: MiniCssExtractPlugin.loader,
-      },
-      'css-loader',
-      {
-        loader: 'postcss-loader',
-        options: {
-          postcssOptions: {
-            ident: 'postcss',
-            plugins: postcssPlugins,
+    {
+      test: /\.ts$/i,
+      exclude: [/node_modules/],
+      use: [
+        babelLoader,
+        {
+          loader: 'esbuild-typescript-loader',
+          options: {
+            loader: 'ts',
           },
         },
+      ],
+    },
+    {
+      test: /\.tsx$/i,
+      exclude: [/node_modules/],
+      use: [
+        babelLoader,
+        {
+          loader: 'esbuild-typescript-loader',
+          options: {
+            loader: 'tsx',
+          },
+        },
+      ],
+    },
+    {
+      test: /\.(md|mdx)$/i,
+      use: [
+        {
+          loader: 'babel-loader',
+          options: {
+            presets: [...babelPresets],
+            // cacheDirectory: true,
+            // cacheCompression: false,
+            overrides: [
+              {
+                include: function (filename: string): boolean {
+                  return isPageEntry(pagesDir, filename)
+                },
+                plugins: [
+                  [
+                    'wrap-voidjs-app',
+                    {
+                      app:
+                        hasApp === true ? path.join(pagesDir, '_app') : hasApp,
+                    },
+                  ],
+                ],
+              },
+            ],
+          },
+        },
+        {
+          loader: 'xdm/webpack.cjs',
+          options: {
+            providerImportSource: '@mdx-js/react',
+            remarkPlugins: [gfm, remarkCodeMeta],
+          },
+        },
+      ],
+    },
+    {
+      test: supportedImageExtensions,
+      type: 'asset/resource',
+      generator: {
+        filename: '[name].[hash][ext][query]',
       },
-      'sass-loader',
+    },
+    {
+      test: supportedFontExtensions,
+      type: 'asset/resource',
+      generator: {
+        filename: 'fonts/[name][ext]',
+      },
+    },
+    {
+      test: supportedCssExtensions,
+      use: [
+        {
+          loader: MiniCssExtractPlugin.loader,
+        },
+        'css-loader',
+        {
+          loader: 'postcss-loader',
+          options: {
+            postcssOptions: {
+              ident: 'postcss',
+              plugins: postcssPlugins,
+            },
+          },
+        },
+        'sass-loader',
+      ],
+    },
+  ]
+}
+const babelLoader = {
+  loader: 'babel-loader',
+  options: {
+    presets: [...babelPresets],
+    plugins: [
+      [
+        '@babel/plugin-transform-runtime',
+        {
+          regenerator: true,
+        },
+      ],
     ],
+    cacheDirectory: true,
+    cacheCompression: false,
   },
-]
-
+}
 // rules for client compiler
 export const rules: RuleSetRule[] = [
   {
-    test: /\.(js|jsx|ts|tsx|mjs)$/i,
+    test: /\.(js|jsx|mjs)$/i,
     exclude: /node_modules/,
+    use: [babelLoader],
+  },
+  {
+    test: /\.ts$/i,
+    exclude: [/node_modules/],
     use: [
+      babelLoader,
       {
-        loader: 'babel-loader',
+        loader: 'esbuild-typescript-loader',
         options: {
-          presets: [...babelPresets],
-          plugins: [
-            [
-              '@babel/plugin-transform-runtime',
-              {
-                regenerator: true,
-              },
-            ],
-          ],
-          cacheDirectory: true,
-          cacheCompression: false,
+          loader: 'ts',
+        },
+      },
+    ],
+  },
+  {
+    test: /\.tsx$/i,
+    exclude: [/node_modules/],
+    use: [
+      babelLoader,
+      {
+        loader: 'esbuild-typescript-loader',
+        options: {
+          loader: 'tsx',
         },
       },
     ],

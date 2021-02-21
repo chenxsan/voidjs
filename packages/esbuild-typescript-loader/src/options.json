@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "loader": {
+      "description": "Change how a given input file is interpreted.",
+      "type": "string",
+      "enum": ["ts", "tsx"]
+    },
+    "sourcemap": {
+      "description": "Generate source map.",
+      "type": "boolean"
+    },
+    "target": {
+      "description": "Target environment for the generated JavaScript code",
+      "type": "string",
+      "enum": [
+        "chrome",
+        "firefox",
+        "safari",
+        "edge",
+        "node",
+        "es6",
+        "es2016",
+        "es2017",
+        "es2018",
+        "es2019",
+        "es2020",
+        "esnext"
+      ]
+    }
+  }
+}
