@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`esbuild TypeScript Loader should transform TypeScript 1`] = `
+"const a = 42;
+export {a};
+"
+`;
