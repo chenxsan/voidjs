@@ -115,10 +115,27 @@ class ProdBuilder extends Builder {
 
     const outputPath = path.resolve(this.#outputPath, assetsPath)
 
+    const commonConfiguration: webpack.Configuration = {
+      mode: 'production',
+      entry: entries,
+      module: {
+        rules: getRules(this.pagesDir, hasCustomApp(this.pagesDir)),
+        parser: {
+          javascript: {
+            url: 'relative',
+          },
+        },
+      },
+      resolve: {
+        extensions: resolveExtensions,
+        alias,
+      },
+    }
+
     // bundle assets like image, css
     const client: webpack.Configuration = {
+      ...commonConfiguration,
       name: 'client',
-      mode: 'development',
       // TODO it's causing problem when set naively
       // cache: {
       //   type: 'filesystem',
@@ -126,9 +143,6 @@ class ProdBuilder extends Builder {
       //     config: [__filename], // Make all dependencies of this file as build dependencies
       //   },
       // },
-      entry: {
-        ...entries,
-      },
       optimization: {
         minimize: false, // we don't need the bundled js at all
       },
@@ -138,13 +152,6 @@ class ProdBuilder extends Builder {
         filename: '[name].spa.js', // TODO we don't care those spa js, should be removed
         chunkFilename: '[name]-[id].spa.js', // template won't have dynamic imports
         publicPath: ASSET_PATH ?? this.config.assetPath, // ASSET_PATH takes precedence over assetPath in voidjs.config.js
-      },
-      module: {
-        rules: getRules(this.pagesDir, hasCustomApp(this.pagesDir)),
-      },
-      resolve: {
-        extensions: resolveExtensions,
-        alias,
       },
       plugins: [
         new WebpackAssetsMap(), // defaults to assets.json
@@ -169,9 +176,9 @@ class ProdBuilder extends Builder {
 
     // bundle entries for server side rendering only
     const server: webpack.Configuration = {
+      ...commonConfiguration,
       name: 'server',
       externals: ['react-helmet', 'react', 'react-dom'],
-      mode: 'production',
       // TODO it's causing problem when set naively
       // cache: {
       //   type: 'filesystem',
@@ -179,9 +186,6 @@ class ProdBuilder extends Builder {
       //     config: [__filename], // Make all dependencies of this file as build dependencies
       //   },
       // },
-      entry: {
-        ...entries,
-      },
       optimization: {
         minimize: false,
         splitChunks: false,
@@ -203,13 +207,6 @@ class ProdBuilder extends Builder {
         },
         chunkFilename: '[name]-[id].[contenthash].js',
         publicPath: ASSET_PATH ?? this.config.assetPath, // ASSET_PATH takes precedence over assetPath in voidjs.config.js
-      },
-      module: {
-        rules: getRules(this.pagesDir, hasCustomApp(this.pagesDir)),
-      },
-      resolve: {
-        extensions: resolveExtensions,
-        alias,
       },
       plugins: [
         new webpack.DefinePlugin({
