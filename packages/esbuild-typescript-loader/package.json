@@ -32,5 +32,8 @@
     "email": "chenxsan@gmail.com",
     "name": "Sam Chen"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "files": [
+    "dist"
+  ]
 }
