@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.23.0
+
+### Minor Changes
+
+- Add new URL() syntax support
+
 ## 0.22.2
 
 ### Patch Changes
