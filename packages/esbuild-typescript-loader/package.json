@@ -25,5 +25,10 @@
     "typescript",
     "ts",
     "tsx"
-  ]
+  ],
+  "author": {
+    "email": "chenxsan@gmail.com",
+    "name": "Sam Chen"
+  },
+  "license": "MIT"
 }
