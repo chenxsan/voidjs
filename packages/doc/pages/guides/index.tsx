@@ -1,8 +1,7 @@
 import React from 'react'
 import Navbar from '../../components/Navbar'
 import Body from '../../markdown/guides.md'
-interface Props {}
-export default function Guides(props: Props): React.ReactElement {
+export default function Guides(): React.ReactElement {
   return (
     <>
       <Navbar />
@@ -10,7 +9,13 @@ export default function Guides(props: Props): React.ReactElement {
     </>
   )
 }
-export async function getStaticProps(): Promise {
+interface StaticProps {
+  props: {
+    title: string
+    description: string
+  }
+}
+export async function getStaticProps(): Promise<StaticProps> {
   return {
     props: {
       title: 'Guides for voidjs',
