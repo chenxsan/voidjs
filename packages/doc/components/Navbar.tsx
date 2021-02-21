@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from 'img/voidjs-logo.svg'
+const logo = new URL('img/voidjs-logo.svg', import.meta.url)
 export default function Navbar(): React.ReactElement {
   return (
     <>
