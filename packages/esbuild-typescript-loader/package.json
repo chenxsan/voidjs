@@ -10,6 +10,7 @@
   "bugs": {
     "url": "https://github.com/chenxsan/voidjs/issues"
   },
+  "homepage": "https://github.com/chenxsan/voidjs/tree/master/packages/esbuild-typescript-loader",
   "dependencies": {
     "esbuild": "^0.8.49",
     "loader-utils": "^2.0.0",
