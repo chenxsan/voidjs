@@ -6381,7 +6381,7 @@ __metadata:
   resolution: "esbuild-typescript-loader@workspace:packages/esbuild-typescript-loader"
   dependencies:
     "@types/loader-utils": ^2
-    esbuild: ^0.8.49
+    esbuild: ^0.8.50
     loader-utils: ^2.0.0
     memfs: ^3.2.0
     schema-utils: ^3.0.0
@@ -6389,12 +6389,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"esbuild@npm:^0.8.49":
-  version: 0.8.49
-  resolution: "esbuild@npm:0.8.49"
+"esbuild@npm:^0.8.50":
+  version: 0.8.50
+  resolution: "esbuild@npm:0.8.50"
   bin:
     esbuild: bin/esbuild
-  checksum: bd7ae436f89e82adc7a9c2843ef8290640ca41f7b75b9e70ff952204f028ef59f49d5fc3df911d00e01b227728452da2425006539e38e631ff613ea3b1371ece
+  checksum: eb3cedf4819dc608912f50287d4386595305f9519c0d49a93f304c308896eddad007b43f3d8340aabdf170510d4fc4c2708ab32af9ea39a59cf34a56e82ee536
   languageName: node
   linkType: hard
 

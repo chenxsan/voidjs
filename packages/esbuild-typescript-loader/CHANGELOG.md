@@ -1,5 +1,11 @@
 # esbuild-typescript-loader
 
+## 0.1.4
+
+### Patch Changes
+
+- Upgrade esbuild
+
 ## 0.1.3
 
 ### Patch Changes
