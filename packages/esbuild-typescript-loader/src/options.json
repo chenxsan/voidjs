@@ -12,7 +12,7 @@
       "type": "boolean"
     },
     "target": {
-      "description": "Target environment for the generated JavaScript code",
+      "description": "Target environment for the generated JavaScript code.",
       "type": "string",
       "enum": [
         "chrome",
