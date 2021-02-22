@@ -18,9 +18,7 @@ A simple webpack loader to transform TypeScript with [esbuild](https://esbuild.g
 
 - `target`
 
-  Target environment for the generated JavaScript code.
-
-  - Type: `"chrome"|"firefox"|"safari"|"edge"|"node"|"es6"|"es2016"|"es2017"|"es2018"|"es2019"|"es2020"|"esnext"`
+  [Target environment](https://esbuild.github.io/api/#target) for the generated JavaScript code.
 
 ## Example
 
