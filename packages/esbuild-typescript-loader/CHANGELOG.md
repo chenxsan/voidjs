@@ -1,5 +1,11 @@
 # esbuild-typescript-loader
 
+## 0.1.3
+
+### Patch Changes
+
+- Set homepage
+
 ## 0.1.2
 
 ### Patch Changes

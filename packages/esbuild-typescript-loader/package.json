@@ -1,6 +1,6 @@
 {
   "name": "esbuild-typescript-loader",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "dist/esbuild-typescript-loader.cjs.js",
   "repository": {
     "type": "git",
