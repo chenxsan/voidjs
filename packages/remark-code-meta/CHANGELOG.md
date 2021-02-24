@@ -1,5 +1,11 @@
 # remark-code-meta
 
+## 0.2.5
+
+### Patch Changes
+
+- Set files info
+
 ## 0.2.4
 
 ### Patch Changes
