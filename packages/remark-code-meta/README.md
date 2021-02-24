@@ -30,6 +30,14 @@ import remarkCodeMeta from 'remark-code-meta'
 remark().use(remarkCodeMeta, {})
 ```
 
+Or
+
+```js
+const remark = require('remark')
+const { default: remarkCodeMeta } = require('remark-code-meta')
+remark().use(remarkCodeMeta, {})
+```
+
 ## Options
 
 | Option     | Type    | Default              | Description                      |
