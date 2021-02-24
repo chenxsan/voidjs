@@ -29,9 +29,7 @@ describe('resolveConfig', () => {
       {
         './pages/index.js': 'var a = 1;',
         './out/tmp': '',
-        './voidjs.config.js': `module.exports=${JSON.stringify(
-          voidjsConfig
-        )}`,
+        './voidjs.config.js': `module.exports=${JSON.stringify(voidjsConfig)}`,
       },
       '/app'
     )
