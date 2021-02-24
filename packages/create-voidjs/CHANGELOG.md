@@ -1,5 +1,11 @@
 # create-voidjs
 
+## 0.3.17
+
+### Patch Changes
+
+- Format template
+
 ## 0.3.16
 
 ### Patch Changes
