@@ -37,9 +37,9 @@
     "prettier": "prettier --write packages/**/*.{js,ts,tsx,md,json}"
   },
   "husky": {
-    "hooks": {
-      "pre-commit": "npm run prettier"
-    }
+    ".{js,ts,tsx,md,json}": [
+      "prettier --write"
+    ]
   },
   "preconstruct": {
     "packages": [
