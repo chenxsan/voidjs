@@ -2,7 +2,7 @@
   "name": "remark-code-meta",
   "description": "remark plugin to support filename for code",
   "main": "dist/remark-code-meta.cjs.js",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "license": "MIT",
   "dependencies": {
     "unist-util-visit": "^2.0.3"
@@ -17,5 +17,14 @@
     "markdown",
     "plugin",
     "unified"
-  ]
+  ],
+  "homepage": "https://github.com/chenxsan/voidjs/tree/master/packages/remark-code-meta",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chenxsan/voidjs.git",
+    "directory": "packages/remark-code-meta"
+  },
+  "bugs": {
+    "url": "https://github.com/chenxsan/voidjs/issues"
+  }
 }

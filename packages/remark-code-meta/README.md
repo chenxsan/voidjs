@@ -2,6 +2,8 @@
 
 A remark plugin to support `filename` for markdown code block.
 
+Before:
+
 <pre>
 ```js filename=pages/index.js
 export default function IndexPage() {
@@ -10,6 +12,8 @@ export default function IndexPage() {
 ```
 </pre>
 
+After:
+
 <details open>
   <summary>pages/index.js</summary>
 <pre>
@@ -17,3 +21,18 @@ export default function IndexPage() {
   <span>return</span> <span>&lt;</span>div<span>&gt;</span>hello voidjs<span>&lt;</span><span>/</span>div<span>&gt;</span>
 <span>}</span></code></pre>
 </details>
+
+## Usage
+
+```js
+import remark from 'remark'
+import remarkCodeMeta from 'remark-code-meta'
+remark().use(remarkCodeMeta, {})
+```
+
+## Options
+
+| Option     | Type    | Default              | Description                      |
+| ---------- | ------- | -------------------- | -------------------------------- |
+| useDetails | boolean | `true`               | use `details`/`summary` elements |
+| className  | string  | `'remark-code-meta'` | class to add to element          |

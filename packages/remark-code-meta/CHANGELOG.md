@@ -1,5 +1,11 @@
 # remark-code-meta
 
+## 0.2.3
+
+### Patch Changes
+
+- Update readme
+
 ## 0.2.2
 
 ### Patch Changes
