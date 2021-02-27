@@ -1,7 +1,6 @@
 import deriveEntryKeyFromRelativePath from './deriveEntryKeyFromRelativePath'
 import hasClientEntry from './hasClientEntry'
-// TODO import from webpack when it's exported
-import type { EntryObject } from '.'
+import type { EntryObject } from 'webpack'
 
 const socketClient = `${require.resolve('../Client')}`
 export default function createEntries(
