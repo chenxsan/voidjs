@@ -33,16 +33,6 @@ import Builder from '../Builder'
 import HtmlPlugin from '../webpack-plugins/HtmlPluginForDevServer'
 import hasCustomApp from '../utils/hasCustomApp'
 
-// TODO to be removed after webpack export EntryObject typing
-export interface EntryObject {
-  [index: string]:
-    | [string, ...string[]]
-    | {
-        import: string | string[]
-        dependOn: string | string[]
-      }
-}
-
 export interface Server {
   start(): Promise<http.Server>
 }
