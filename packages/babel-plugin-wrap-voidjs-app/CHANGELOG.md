@@ -1,5 +1,16 @@
 # babel-plugin-wrap-voidjs-app
 
+## 0.2.4
+
+### Patch Changes
+
+- The below usage is supported now:
+
+  ```js
+  function a() {}
+  export default a
+  ```
+
 ## 0.2.3
 
 ### Patch Changes
