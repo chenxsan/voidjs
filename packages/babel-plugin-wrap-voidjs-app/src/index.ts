@@ -65,18 +65,38 @@ export default function (
       ExportDefaultDeclaration: {
         enter(path) {
           // Only render function component
-          if (path.node.declaration.type !== 'FunctionDeclaration')
-            throw new Error(ComponentError.functionComponentOnly)
+          if (path.node.declaration.type !== 'FunctionDeclaration') {
+            if (path.node.declaration.type === 'Identifier') {
+              if (path.scope.hasBinding(path.node.declaration.name)) {
+                if (
+                  path.scope.getBinding(path.node.declaration.name)?.path.node
+                    .type === 'FunctionDeclaration'
+                ) {
+                  exportDefaultDeclarationName = path.node.declaration.name
+                } else {
+                  // that Identifier is not defined as FunctionDeclaration
+                  // should throw
+                  throw new Error(ComponentError.functionComponentOnly)
+                }
+              } else {
+                throw new Error(ComponentError.functionComponentOnly)
+              }
+            } else {
+              throw new Error(ComponentError.functionComponentOnly)
+            }
+          }
 
-          // Anonymous function
-          if (!path.node.declaration.id)
-            throw new Error(ComponentError.namedFunctionComponentOnly)
+          if (path.node.declaration.type === 'FunctionDeclaration') {
+            // Anonymous function
+            if (!path.node.declaration.id)
+              throw new Error(ComponentError.namedFunctionComponentOnly)
 
-          if (path.node.declaration.id.name === voidjsPage)
-            throw new Error(ComponentError.reservedFunctionName)
+            if (path.node.declaration.id.name === voidjsPage)
+              throw new Error(ComponentError.reservedFunctionName)
 
-          // save for next
-          exportDefaultDeclarationName = path.node.declaration.id.name
+            // save for next
+            exportDefaultDeclarationName = path.node.declaration.id.name
+          }
         },
       },
     },
