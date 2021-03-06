@@ -27,6 +27,41 @@ export default function (babel: Babel): { visitor: Visitor<State> } {
   const template = babel.template
   // store the declaration name of default export
   let exportDefaultDeclarationName = ''
+
+  const defaultVisitor: Visitor = {
+    ExportDefaultDeclaration: {
+      enter(path): void {
+        if (path.node.declaration.type !== 'FunctionDeclaration') {
+          if (path.node.declaration.type === 'Identifier') {
+            if (path.scope.hasBinding(path.node.declaration.name)) {
+              if (path.scope.getBinding(path.node.declaration.name)?.path.node.type === 'FunctionDeclaration') {
+                exportDefaultDeclarationName = path.node.declaration.name
+              } else {
+                // that Identifier is not defined as FunctionDeclaration
+                // should throw
+                throw new Error(ComponentError.functionComponentOnly)
+              }
+
+            } else {
+              throw new Error(ComponentError.functionComponentOnly)
+            }
+          } else {
+            throw new Error(ComponentError.functionComponentOnly)
+          }
+        }
+
+        if (path.node.declaration.type === 'FunctionDeclaration') {
+          if (!path.node.declaration.id)
+            throw new Error(ComponentError.namedFunctionComponentOnly)
+
+          if (path.node.declaration.id.name === voidjsApp)
+            throw new Error(ComponentError.reservedFunctionName)
+
+          exportDefaultDeclarationName = path.node.declaration.id.name
+        }
+      },
+    },
+  }
   return {
     visitor: {
       Program: {
@@ -44,6 +79,7 @@ export default function (babel: Babel): { visitor: Visitor<State> } {
               template.ast(`import ReactDOM from "react-dom";`)
             )
           }
+          path.traverse(defaultVisitor)
         },
         exit(path, state): void {
           // no named default export found
@@ -79,20 +115,6 @@ export default function (babel: Babel): { visitor: Visitor<State> } {
                 }
               }`)
           )
-        },
-      },
-      ExportDefaultDeclaration: {
-        enter(path): void {
-          if (path.node.declaration.type !== 'FunctionDeclaration')
-            throw new Error(ComponentError.functionComponentOnly)
-
-          if (!path.node.declaration.id)
-            throw new Error(ComponentError.namedFunctionComponentOnly)
-
-          if (path.node.declaration.id.name === voidjsApp)
-            throw new Error(ComponentError.reservedFunctionName)
-
-          exportDefaultDeclarationName = path.node.declaration.id.name
         },
       },
     },
