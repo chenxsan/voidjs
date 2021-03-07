@@ -1,5 +1,15 @@
 # voidjs-cli
 
+## 0.23.4
+
+### Patch Changes
+
+- Upgrade deps
+- Updated dependencies [undefined]
+  - babel-plugin-react-dom-render@1.2.5
+  - babel-plugin-wrap-voidjs-app@0.2.5
+  - esbuild-typescript-loader@0.1.6
+
 ## 0.23.3
 
 ### Patch Changes
