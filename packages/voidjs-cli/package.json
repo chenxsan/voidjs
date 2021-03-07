@@ -1,6 +1,6 @@
 {
   "name": "voidjs-cli",
-  "version": "0.23.1",
+  "version": "0.23.2",
   "description": "Manage non-SPA pages with webpack and React.js",
   "main": "dist/voidjs-cli.cjs.js",
   "module": "dist/voidjs-cli.esm.js",
@@ -57,7 +57,7 @@
     "postcss-loader": "^5.0.0",
     "prettier": "^2.2.1",
     "react-helmet": "^6.1.0",
-    "remark-code-meta": "^0.2.0",
+    "remark-code-meta": "^0.3.0",
     "remark-gfm": "^1.0.0",
     "rimraf": "^3.0.2",
     "sass": "^1.32.8",

@@ -1,5 +1,6 @@
 import visit from 'unist-util-visit'
 import type { Node, Parent } from 'unist'
+import splitter from './splitter'
 interface N extends Node {
   lang: string | null
   meta: string | null
@@ -24,15 +25,20 @@ export default function remarkCodeMeta(options: Options = {}): RemarkPlugin {
       }
     }
     if (meta !== null) {
-      const params = new URLSearchParams(
-        meta
-          .split(' ')
-          .filter((s) => s !== '')
-          .map((s) => s.trim())
-          .join('&')
-      )
+      const params = splitter(meta)
+        ?.filter((s) => s !== '')
+        .map((s) => s.trim())
+        .reduce((acc, item) => {
+          const index = item.indexOf('=')
+          acc[item.substring(0, index)] = item
+            .substring(index + 1)
+            .replace(/"(.+)"/, '$1')
+            .replace(/'(.+)'/, '$1')
+          return acc
+        }, {})
       if (typeof parent === 'undefined') return
-      if (params.has('filename')) {
+      if (typeof params === 'undefined') return
+      if (params['filename']) {
         // wrap node in a div
         parent.children.splice(index, 1, {
           type: 'paragraph',
@@ -55,7 +61,7 @@ export default function remarkCodeMeta(options: Options = {}): RemarkPlugin {
               children: [
                 {
                   type: 'text',
-                  value: params.get('filename'),
+                  value: params['filename'],
                 },
               ],
             },

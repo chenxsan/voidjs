@@ -1,5 +1,12 @@
 # voidjs-cli
 
+## 0.23.2
+
+### Patch Changes
+
+- Updated dependencies [undefined]
+  - remark-code-meta@0.3.0
+
 ## 0.23.1
 
 ### Patch Changes

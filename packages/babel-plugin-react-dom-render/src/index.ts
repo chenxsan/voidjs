@@ -34,14 +34,16 @@ export default function (babel: Babel): { visitor: Visitor<State> } {
         if (path.node.declaration.type !== 'FunctionDeclaration') {
           if (path.node.declaration.type === 'Identifier') {
             if (path.scope.hasBinding(path.node.declaration.name)) {
-              if (path.scope.getBinding(path.node.declaration.name)?.path.node.type === 'FunctionDeclaration') {
+              if (
+                path.scope.getBinding(path.node.declaration.name)?.path.node
+                  .type === 'FunctionDeclaration'
+              ) {
                 exportDefaultDeclarationName = path.node.declaration.name
               } else {
                 // that Identifier is not defined as FunctionDeclaration
                 // should throw
                 throw new Error(ComponentError.functionComponentOnly)
               }
-
             } else {
               throw new Error(ComponentError.functionComponentOnly)
             }

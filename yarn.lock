@@ -12421,7 +12421,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-code-meta@^0.2.0, remark-code-meta@workspace:packages/remark-code-meta":
+"remark-code-meta@^0.3.0, remark-code-meta@workspace:packages/remark-code-meta":
   version: 0.0.0-use.local
   resolution: "remark-code-meta@workspace:packages/remark-code-meta"
   dependencies:
@@ -14615,7 +14615,7 @@ typescript@^4.1.5:
     react: ^17.0.1
     react-dom: ^17.0.1
     react-helmet: ^6.1.0
-    remark-code-meta: ^0.2.0
+    remark-code-meta: ^0.3.0
     remark-gfm: ^1.0.0
     rimraf: ^3.0.2
     sass: ^1.32.8
