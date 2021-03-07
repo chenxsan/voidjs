@@ -215,6 +215,9 @@ class ProdBuilder extends Builder {
         new webpack.ProgressPlugin({
           profile: true,
         }),
+        new MiniCssExtractPlugin({
+          filename: 'ssr.css',
+        }),
       ],
     }
 
