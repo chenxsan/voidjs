@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.23.1
+
+### Patch Changes
+
+- Upgrade dependencies
+
 ## 0.23.0
 
 ### Minor Changes

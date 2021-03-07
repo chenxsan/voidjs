@@ -25,6 +25,16 @@ describe('validate component name', () => {
       ComponentError.reservedFunctionName
     )
   })
+  test('should not throw with literal function', () => {
+    const code = 'function a() {}; export default a;'
+    expect(() => transformSync(code, opts)).not.toThrow()
+  })
+  test('should throw with literal array', () => {
+    const code = 'const a = []; export default a;'
+    expect(() => transformSync(code, opts)).toThrowError(
+      ComponentError.functionComponentOnly
+    )
+  })
 })
 test('should import createElement and ReactDOM', () => {
   const code = ''
@@ -33,6 +43,7 @@ test('should import createElement and ReactDOM', () => {
   expect(result.code).toContain(
     `import ReactDOM from"react-dom";import{createElement}from"react";`
   )
+  expect(result.code).toMatchSnapshot()
 })
 test('should use hydrate', () => {
   const code = 'export default function App() {}'

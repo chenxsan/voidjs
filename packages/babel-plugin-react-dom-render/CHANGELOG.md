@@ -1,5 +1,16 @@
 # babel-plugin-react-dom-render
 
+## 1.2.4
+
+### Patch Changes
+
+- The below usage is supported now:
+
+  ```js
+  function a() {}
+  export default a
+  ```
+
 ## 1.2.3
 
 ### Patch Changes
