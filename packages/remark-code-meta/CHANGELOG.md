@@ -1,5 +1,11 @@
 # remark-code-meta
 
+## 0.3.0
+
+### Minor Changes
+
+- Support whitespace in filename
+
 ## 0.2.5
 
 ### Patch Changes
