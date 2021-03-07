@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.23.3
+
+### Patch Changes
+
+- Support async in mdx
+
 ## 0.23.2
 
 ### Patch Changes
