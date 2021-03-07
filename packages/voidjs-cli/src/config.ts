@@ -153,6 +153,14 @@ export const getRules = (pagesDir: string, hasApp: boolean): RuleSetRule[] => {
           loader: 'babel-loader',
           options: {
             presets: [...babelPresets],
+            plugins: [
+              [
+                '@babel/plugin-transform-runtime',
+                {
+                  regenerator: true,
+                },
+              ],
+            ],
             // cacheDirectory: true,
             // cacheCompression: false,
             overrides: [

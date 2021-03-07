@@ -3,3 +3,12 @@
 After you created a voidjs App, run `yarn dev` to get development server running.
 
 [home](/)
+
+export async function getStaticProps() {
+  return {
+    props: {
+      title: 'Getting started',
+      description: 'test',
+    },
+  }
+}
