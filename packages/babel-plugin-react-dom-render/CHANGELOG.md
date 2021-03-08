@@ -1,5 +1,11 @@
 # babel-plugin-react-dom-render
 
+## 1.3.0
+
+### Minor Changes
+
+- Support frontmatter in mdx
+
 ## 1.2.5
 
 ### Patch Changes
