@@ -6,12 +6,11 @@ import {
   supportedImageExtensions,
   supportedFontExtensions,
   supportedCssExtensions,
+  xdmLoader,
 } from '../config'
 import createEntries from './createEntries'
 import path from 'path'
 import isPageEntry from '../utils/isPageEntry'
-import gfm from 'remark-gfm'
-import remarkCodeMeta from 'remark-code-meta'
 
 import type { RuleSetRule, Configuration } from 'webpack'
 
@@ -128,16 +127,7 @@ export default function createWebpackConfig(
         },
         {
           test: /\.(mdx|md)$/,
-          use: [
-            babelLoader,
-            {
-              loader: 'xdm/webpack.cjs',
-              options: {
-                providerImportSource: '@mdx-js/react',
-                remarkPlugins: [gfm, remarkCodeMeta],
-              },
-            },
-          ],
+          use: [babelLoader, xdmLoader],
         },
         {
           test: supportedImageExtensions,

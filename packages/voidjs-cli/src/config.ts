@@ -27,6 +27,8 @@ import isPageEntry from './utils/isPageEntry'
 import type { RuleSetRule } from 'webpack'
 import gfm from 'remark-gfm'
 import remarkCodeMeta from 'remark-code-meta'
+import frontmatter from 'remark-frontmatter'
+import { remarkMdxFrontmatter } from 'remark-mdx-frontmatter'
 
 // FIXME weird bug on windows
 // it would resolve to voidjs\node_modules\@void-js\doc
@@ -68,6 +70,18 @@ const tailwindcssEnabled: boolean = fs.existsSync(
   join(cwd, 'tailwind.config.js')
 )
 
+export const xdmLoader = {
+  loader: 'xdm/webpack.cjs',
+  options: {
+    providerImportSource: '@mdx-js/react',
+    remarkPlugins: [
+      gfm,
+      frontmatter,
+      [remarkMdxFrontmatter, { name: 'frontmatter' }], // we'll inject `export const frontmatter = {}`
+      remarkCodeMeta,
+    ],
+  },
+}
 export const postcssPlugins = tailwindcssEnabled
   ? [require('tailwindcss'), require('autoprefixer')]
   : [require('autoprefixer')]
@@ -181,13 +195,7 @@ export const getRules = (pagesDir: string, hasApp: boolean): RuleSetRule[] => {
             ],
           },
         },
-        {
-          loader: 'xdm/webpack.cjs',
-          options: {
-            providerImportSource: '@mdx-js/react',
-            remarkPlugins: [gfm, remarkCodeMeta],
-          },
-        },
+        xdmLoader,
       ],
     },
     {
@@ -285,13 +293,7 @@ export const rules: RuleSetRule[] = [
           cacheCompression: false,
         },
       },
-      {
-        loader: 'xdm/webpack.cjs',
-        options: {
-          providerImportSource: '@mdx-js/react',
-          remarkPlugins: [gfm, remarkCodeMeta],
-        },
-      },
+      xdmLoader,
     ],
   },
   {
