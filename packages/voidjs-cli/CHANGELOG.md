@@ -1,5 +1,16 @@
 # voidjs-cli
 
+## 0.24.0
+
+### Minor Changes
+
+- Support frontmatter in mdx
+
+### Patch Changes
+
+- Updated dependencies [undefined]
+  - babel-plugin-react-dom-render@1.3.0
+
 ## 0.23.4
 
 ### Patch Changes

@@ -86,6 +86,7 @@ export default class Ssr {
       default: PageWithoutApp,
       VoidJsPage: PageWithApp,
       getStaticProps,
+      frontmatter = {},
     } = await import(pagePath)
 
     const Page = PageWithApp ? PageWithApp : PageWithoutApp
@@ -94,7 +95,9 @@ export default class Ssr {
 
     if (typeof getStaticProps !== 'undefined') {
       const staticProps = await getStaticProps()
-      props = staticProps.props
+      props = { ...frontmatter, ...staticProps.props }
+    } else {
+      props = frontmatter
     }
 
     const html: string = render(Page, props)

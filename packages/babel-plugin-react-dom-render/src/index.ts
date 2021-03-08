@@ -96,24 +96,25 @@ export default function (babel: Babel): { visitor: Visitor<State> } {
 
           path.pushContainer(
             'body',
-            template.ast(`if (typeof getStaticProps !== "undefined") {
+            template.ast(`const __frontmatter__ = typeof frontmatter !== 'undefined' ? frontmatter : {}; if (typeof getStaticProps !== "undefined") {
                 (async function () {
                   const data = await getStaticProps();
+                  const pageProps = Object.assign(__frontmatter__, data.props)
                   if (${!!app}) {
                     import("${app}").then(({default: ${voidjsApp}}) => {
-                      ${h}(createElement(${voidjsApp}, {Component: ${exportDefaultDeclarationName}, pageProps: data.props}), ${container});
+                      ${h}(createElement(${voidjsApp}, {Component: ${exportDefaultDeclarationName}, pageProps: pageProps}), ${container});
                     });
                   } else {
-                    ${h}(createElement(${exportDefaultDeclarationName}, data.props), ${container});
+                    ${h}(createElement(${exportDefaultDeclarationName}, pageProps), ${container});
                   }
                 })();
               } else {
                 if (${!!app}) {
                   import("${app}").then(({default: ${voidjsApp}}) => {
-                    ${h}(createElement(${voidjsApp}, {Component: ${exportDefaultDeclarationName}, pageProps: {}}), ${container});
+                    ${h}(createElement(${voidjsApp}, {Component: ${exportDefaultDeclarationName}, pageProps: __frontmatter__}), ${container});
                   });
                 } else {
-                  ${h}(createElement(${exportDefaultDeclarationName}), ${container});
+                  ${h}(createElement(${exportDefaultDeclarationName}, __frontmatter__), ${container});
                 }
               }`)
           )
