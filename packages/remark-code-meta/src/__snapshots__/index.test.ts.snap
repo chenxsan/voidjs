@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`remarkCodeMeta filename and open should transform code with open set to false 1`] = `
+"<details class=\\"remark-code-meta\\"><summary class=\\"remark-code-meta__filename\\">index.js</summary><pre><code class=\\"language-js\\" data-language=\\"js\\">const answer = 42;
+</code></pre></details>
+"
+`;
+
 exports[`remarkCodeMeta filename with whitespace should transform code with meta 1`] = `
 "<details class=\\"remark-code-meta\\" open><summary class=\\"remark-code-meta__filename\\">C:\\\\code meta\\\\index.js</summary><pre><code class=\\"language-js\\" data-language=\\"js\\">const answer = 42;
 </code></pre></details>
@@ -13,7 +19,7 @@ exports[`remarkCodeMeta filename without whitespace should customize className 1
 `;
 
 exports[`remarkCodeMeta filename without whitespace should customize useDetails 1`] = `
-"<div class=\\"remark-code-meta\\" open><div class=\\"remark-code-meta__filename\\">index.js</div><pre><code class=\\"language-js\\" data-language=\\"js\\">const answer = 42;
+"<div class=\\"remark-code-meta\\"><div class=\\"remark-code-meta__filename\\">index.js</div><pre><code class=\\"language-js\\" data-language=\\"js\\">const answer = 42;
 </code></pre></div>
 "
 `;

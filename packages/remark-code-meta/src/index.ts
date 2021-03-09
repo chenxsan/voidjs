@@ -39,6 +39,17 @@ export default function remarkCodeMeta(options: Options = {}): RemarkPlugin {
       if (typeof parent === 'undefined') return
       if (typeof params === 'undefined') return
       if (params['filename']) {
+        let open: { open?: boolean }
+        if (useDetails) {
+          open = { open: true }
+        } else {
+          open = {}
+        }
+        if (params['open'] && params['open'] === 'false') {
+          open = {
+            open: false,
+          }
+        }
         // wrap node in a div
         parent.children.splice(index, 1, {
           type: 'paragraph',
@@ -46,7 +57,7 @@ export default function remarkCodeMeta(options: Options = {}): RemarkPlugin {
             hName: useDetails ? 'details' : 'div',
             hProperties: {
               className: className,
-              open: true,
+              ...open,
             },
           },
           children: [

@@ -67,4 +67,23 @@ const answer = 42;
       })
     })
   })
+
+  describe('filename and open', () => {
+    const transform = (callback: Callback, options = {}) => {
+      remark().use(remarkCodeMeta, options).use(remarkHTML).process(
+        `
+\`\`\`js filename=index.js open=false
+const answer = 42;
+\`\`\``,
+        callback
+      )
+    }
+    test('should transform code with open set to false', () => {
+      transform(function (err, { contents }) {
+        expect(err).toBeNull()
+        expect(contents).not.toContain('open')
+        expect(contents).toMatchSnapshot()
+      })
+    })
+  })
 })
