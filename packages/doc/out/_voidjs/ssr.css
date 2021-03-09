@@ -668,6 +668,10 @@ video {
   padding-left: 0.5rem
 }
 
+.pb-5 {
+  padding-bottom: 1.25rem
+}
+
 .pl-5 {
   padding-left: 1.25rem
 }
@@ -678,6 +682,10 @@ video {
 
 .pb-10 {
   padding-bottom: 2.5rem
+}
+
+.static {
+  position: static
 }
 
 * {

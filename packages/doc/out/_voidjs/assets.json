@@ -1,17 +1,17 @@
 {
   "files": {
-    "server.css": "server.c775ab522fc936426cb7.css",
+    "server.css": "server.0b5fda4fced3f5b1822d.css",
     "static/img/favicon.png": "favicon.123559ffcd6fdb61b6a8.png"
   },
   "entrypoints": {
     "doc/doc": [
-      "server.c775ab522fc936426cb7.css"
+      "server.0b5fda4fced3f5b1822d.css"
     ],
     "guides/index": [
-      "server.c775ab522fc936426cb7.css"
+      "server.0b5fda4fced3f5b1822d.css"
     ],
     "index": [
-      "server.c775ab522fc936426cb7.css"
+      "server.0b5fda4fced3f5b1822d.css"
     ]
   }
 }
