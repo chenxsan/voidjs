@@ -1,5 +1,12 @@
 # voidjs-cli
 
+## 0.24.1
+
+### Patch Changes
+
+- Updated dependencies
+  - remark-code-meta@0.4.0
+
 ## 0.24.0
 
 ### Minor Changes
@@ -8,7 +15,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [undefined]
+- Updated dependencies
   - babel-plugin-react-dom-render@1.3.0
 
 ## 0.23.4
@@ -16,7 +23,7 @@
 ### Patch Changes
 
 - Upgrade deps
-- Updated dependencies [undefined]
+- Updated dependencies
   - babel-plugin-react-dom-render@1.2.5
   - babel-plugin-wrap-voidjs-app@0.2.5
   - esbuild-typescript-loader@0.1.6
@@ -31,7 +38,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [undefined]
+- Updated dependencies
   - remark-code-meta@0.3.0
 
 ## 0.23.1
@@ -69,7 +76,7 @@
 ### Patch Changes
 
 - Upgrade dependencies
-- Updated dependencies [undefined]
+- Updated dependencies
   - babel-plugin-react-dom-render@1.2.3
   - babel-plugin-wrap-voidjs-app@0.2.3
 
@@ -83,7 +90,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [undefined]
+- Updated dependencies
   - remark-code-meta@0.2.0
 
 ## 0.20.1
@@ -91,7 +98,7 @@
 ### Patch Changes
 
 - Upgrade dependencies.
-- Updated dependencies [undefined]
+- Updated dependencies
   - babel-plugin-react-dom-render@1.2.2
   - babel-plugin-wrap-voidjs-app@0.2.2
 
@@ -118,7 +125,7 @@
 ### Patch Changes
 
 - Update dependencies.
-- Updated dependencies [undefined]
+- Updated dependencies
   - babel-plugin-react-dom-render@1.2.1
   - babel-plugin-wrap-voidjs-app@0.2.1
 
@@ -163,7 +170,7 @@
 ### Patch Changes
 
 - Updated dependencies [aee9eb3]
-- Updated dependencies [undefined]
+- Updated dependencies
   - babel-plugin-react-dom-render@1.1.6
 
 ## 0.17.3
@@ -171,7 +178,7 @@
 ### Patch Changes
 
 - update package.json
-- Updated dependencies [undefined]
+- Updated dependencies
   - babel-plugin-react-dom-render@1.1.5
 
 ## 0.17.2
@@ -179,7 +186,7 @@
 ### Patch Changes
 
 - upgrade deps
-- Updated dependencies [undefined]
+- Updated dependencies
   - babel-plugin-react-dom-render@1.1.4
 
 ## 0.17.1
@@ -187,7 +194,7 @@
 ### Patch Changes
 
 - upgrade dependencies
-- Updated dependencies [undefined]
+- Updated dependencies
   - babel-plugin-react-dom-render@1.1.3
 
 ## 0.17.0
@@ -239,7 +246,7 @@
 ### Patch Changes
 
 - update dependencies
-- Updated dependencies [undefined]
+- Updated dependencies
   - babel-plugin-react-dom-render@1.1.1
 
 ## 0.14.0
@@ -250,7 +257,7 @@
 
 ### Patch Changes
 
-- Updated dependencies [undefined]
+- Updated dependencies
   - babel-plugin-react-dom-render@1.1.0
 
 ## 0.13.0

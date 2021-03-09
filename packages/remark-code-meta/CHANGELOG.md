@@ -1,5 +1,11 @@
 # remark-code-meta
 
+## 0.4.0
+
+### Minor Changes
+
+- Support `open` state
+
 ## 0.3.0
 
 ### Minor Changes

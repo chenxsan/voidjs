@@ -1,6 +1,6 @@
 # remark-code-meta
 
-A remark plugin to support `filename` for markdown code block.
+A remark plugin to support meta like `filename` for markdown code block.
 
 Before:
 
@@ -44,3 +44,10 @@ remark().use(remarkCodeMeta, {})
 | ---------- | ------- | -------------------- | -------------------------------- |
 | useDetails | boolean | `true`               | use `details`/`summary` elements |
 | className  | string  | `'remark-code-meta'` | class to add to element          |
+
+## Supported meta fields
+
+| Meta     | Type    | Default | Description                                                                                              |
+| -------- | ------- | ------- | -------------------------------------------------------------------------------------------------------- |
+| filename | string  | -       | use `details`/`summary` elements                                                                         |
+| open     | boolean | `true`  | set [`open`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details#attributes) for `details` |
