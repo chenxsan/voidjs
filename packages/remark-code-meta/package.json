@@ -2,7 +2,7 @@
   "name": "remark-code-meta",
   "description": "remark plugin to support filename for code",
   "main": "dist/remark-code-meta.cjs.js",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "license": "MIT",
   "dependencies": {
     "unist-util-visit": "^2.0.3"
