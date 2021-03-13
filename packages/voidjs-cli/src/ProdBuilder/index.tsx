@@ -193,7 +193,9 @@ class ProdBuilder extends Builder {
       target: ['node'],
       output: {
         path: outputPath,
-        libraryTarget: 'commonjs2',
+        library: {
+          type: 'commonjs2',
+        },
         filename: (pathData): string => {
           if (pathData?.chunk?.name) {
             if (entries[pathData?.chunk?.name]) {

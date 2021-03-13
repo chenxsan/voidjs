@@ -6,7 +6,7 @@ export default function Navbar(): React.ReactElement {
       <h1 className="flex text-4xl leading-none justify-start pt-6 lg:text-4xl font-bold font-serif">
         <a href="/">
           <img
-            src={logo}
+            src={logo.href}
             alt="voidjs logo"
             width={588}
             height={588}
