@@ -56,6 +56,8 @@ export default class HtmlPlugin {
             for (const [key, entrypoint] of compilation.entrypoints) {
               entrypoints[key] = entrypoint.getFiles()
             }
+
+            const promises: Promise<void>[] = []
             for (const key in entrypoints) {
               const template = path.join(this.#outputPath, `${key}.html`)
               const html = fs.readFileSync(template, 'utf8')
@@ -125,12 +127,14 @@ export default class HtmlPlugin {
               //   `${key}.html`,
               //   new webpack.sources.RawSource(newHtml)
               // )
-              fs.outputFile(
-                path.join(this.#outputPath, key + '.html'),
-                newHtml,
-                callback
+              promises.push(
+                fs.outputFile(
+                  path.join(this.#outputPath, key + '.html'),
+                  newHtml
+                )
               )
             }
+            Promise.all(promises).then(() => callback(null), callback)
           }
         )
       }
