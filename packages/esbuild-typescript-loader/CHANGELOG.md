@@ -1,5 +1,11 @@
 # esbuild-typescript-loader
 
+## 0.1.7
+
+### Patch Changes
+
+- 2e1f12d: Upgrade webpack
+
 ## 0.1.6
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # voidjs-cli
 
+## 0.24.3
+
+### Patch Changes
+
+- 2e1f12d: Upgrade webpack
+- Fix callback called multiple times bug
+- Updated dependencies [2e1f12d]
+  - esbuild-typescript-loader@0.1.7
+
 ## 0.24.2
 
 ### Patch Changes
