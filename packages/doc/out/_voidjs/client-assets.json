@@ -1,12 +1,12 @@
 {
   "files": {
     "index.css": "index.fa5cf43eff14c0d3c3c4.css",
-    "index.js": "index.74a316b4596de48c067b.js"
+    "index.js": "index.23507aed77a630325b10.js"
   },
   "entrypoints": {
     "index": [
       "index.fa5cf43eff14c0d3c3c4.css",
-      "index.74a316b4596de48c067b.js"
+      "index.23507aed77a630325b10.js"
     ]
   }
 }

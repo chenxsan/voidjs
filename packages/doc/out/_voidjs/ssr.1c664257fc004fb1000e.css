@@ -584,6 +584,11 @@ video {
   height: 2.5rem
 }
 
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem
+}
+
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem
@@ -711,9 +716,19 @@ video {
   color: rgba(220, 38, 38, var(--tw-text-opacity))
 }
 
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgba(59, 130, 246, var(--tw-text-opacity))
+}
+
 .text-blue-700 {
   --tw-text-opacity: 1;
   color: rgba(29, 78, 216, var(--tw-text-opacity))
+}
+
+.hover\:text-red-500:hover {
+  --tw-text-opacity: 1;
+  color: rgba(239, 68, 68, var(--tw-text-opacity))
 }
 
 .hover\:text-red-700:hover {
