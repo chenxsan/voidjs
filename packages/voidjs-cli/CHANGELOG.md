@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.24.2
+
+### Patch Changes
+
+- Fix multiple css sharing a same name
+
 ## 0.24.1
 
 ### Patch Changes

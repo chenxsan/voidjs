@@ -218,7 +218,7 @@ class ProdBuilder extends Builder {
           profile: true,
         }),
         new MiniCssExtractPlugin({
-          filename: 'ssr.css',
+          filename: 'ssr.[contenthash].css',
         }),
       ],
     }
