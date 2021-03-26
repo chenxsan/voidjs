@@ -6,6 +6,7 @@
     "build": "voidjs build"
   },
   "devDependencies": {
+    "@tailwindcss/jit": "^0.1.8",
     "@types/prismjs": "1.16.3",
     "@types/refractor": "^3.0.0",
     "react": "^17.0.1",
@@ -14,7 +15,7 @@
     "react-refractor": "^2.1.4",
     "refractor": "^3.3.1",
     "tailwindcss": "^2.0.3",
-    "voidjs-cli": "^0.24.0"
+    "voidjs-cli": "^0.25.0"
   },
   "dependencies": {
     "prismjs": "^1.23.0"

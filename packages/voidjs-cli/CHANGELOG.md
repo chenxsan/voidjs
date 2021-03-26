@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.25.0
+
+### Minor Changes
+
+- Support tailwindcss/jit
+
 ## 0.24.3
 
 ### Patch Changes

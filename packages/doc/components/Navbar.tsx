@@ -10,12 +10,12 @@ export default function Navbar(): React.ReactElement {
             alt="voidjs logo"
             width={588}
             height={588}
-            className="mr-3 w-10 h-10 capitalize"
+            className="mr-3 w-10 h-10"
           />
         </a>
         {'voidjs'}
       </h1>
-      <h2 className="flex justify-start text-sm pt-0 leading-tight font-normal my-2">
+      <h2 className="flex justify-start text-sm pt-0 leading-tight font-normal my-2 top-[-200px]">
         {'Manage non-SPA pages with webpack and React'}
       </h2>
     </>
