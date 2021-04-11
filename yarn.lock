@@ -3663,7 +3663,7 @@ __metadata:
     react-refractor: ^2.1.4
     refractor: ^3.3.1
     tailwindcss: latest
-    voidjs-cli: ^0.25.0
+    voidjs-cli: ^0.26.0
   languageName: unknown
   linkType: soft
 
@@ -6404,7 +6404,7 @@ __metadata:
   resolution: "esbuild-typescript-loader@workspace:packages/esbuild-typescript-loader"
   dependencies:
     "@types/loader-utils": ^2.0.1
-    esbuild: ^0.8.56
+    esbuild: ^0.11.7
     loader-utils: ^2.0.0
     memfs: ^3.2.0
     schema-utils: ^3.0.0
@@ -6412,12 +6412,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"esbuild@npm:^0.8.56":
-  version: 0.8.56
-  resolution: "esbuild@npm:0.8.56"
+"esbuild@npm:^0.11.7":
+  version: 0.11.7
+  resolution: "esbuild@npm:0.11.7"
   bin:
     esbuild: bin/esbuild
-  checksum: d6500c634a6d80b51f9a6bfe55be47f1cc84e3ac3e1c503752a9334b02b7d2d94261bc0e794b8bc546a0a8d892ead10bd767b359fc31704c337f872f3f9f7e8f
+  checksum: 9dd088c97182cc3c4ece2832c4233c5ca6f1b5e0eb9f168bda44f3c3b8665e97de24496328e418f42f343e677b8d1c8cdbb5a118f66ff36dae3be51f65374faf
   languageName: node
   linkType: hard
 
@@ -14759,7 +14759,7 @@ typescript@^4.2.3:
   languageName: node
   linkType: hard
 
-"voidjs-cli@^0.25.0, voidjs-cli@workspace:packages/voidjs-cli":
+"voidjs-cli@^0.26.0, voidjs-cli@workspace:packages/voidjs-cli":
   version: 0.0.0-use.local
   resolution: "voidjs-cli@workspace:packages/voidjs-cli"
   dependencies:
