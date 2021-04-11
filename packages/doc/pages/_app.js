@@ -95,14 +95,14 @@ export default function App({ Component, pageProps }) {
         <div className="text-xs mt-10">
           Built upon{' '}
           <a
-            className="text-blue-500 hover:text-red-500 hover:underline"
+            className="text-blue-600 hover:text-red-500 hover:underline"
             href="https://github.com/chenxsan/voidjs/tree/master/packages/doc"
           >
             voidjs
           </a>{' '}
           by{' '}
           <a
-            className="text-blue-500 hover:text-red-500 hover:underline"
+            className="text-blue-600 hover:text-red-500 hover:underline"
             href="https://github.com/chenxsan"
           >
             Sam Chen

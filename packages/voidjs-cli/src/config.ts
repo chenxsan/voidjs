@@ -83,18 +83,8 @@ export const xdmLoader = {
   },
 }
 
-let tailwindJit = false
-try {
-  require('@tailwindcss/jit')
-  tailwindJit = true
-} catch (_err) {}
 export const postcssPlugins = tailwindcssEnabled
-  ? [
-      tailwindJit === true
-        ? require('@tailwindcss/jit')
-        : require('tailwindcss'),
-      require('autoprefixer'),
-    ]
+  ? [require('tailwindcss'), require('autoprefixer')]
   : [require('autoprefixer')]
 
 const babelPresets = [
