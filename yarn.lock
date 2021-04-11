@@ -6408,7 +6408,7 @@ __metadata:
     loader-utils: ^2.0.0
     memfs: ^3.2.0
     schema-utils: ^3.0.0
-    webpack: ^5.25.0
+    webpack: ^5.31.2
   languageName: unknown
   linkType: soft
 
@@ -14813,7 +14813,7 @@ typescript@^4.2.3:
     style-loader: ^2.0.0
     tapable: ^2.2.0
     terser-webpack-plugin: ^5.1.1
-    webpack: ^5.25.0
+    webpack: ^5.31.2
     webpack-dev-middleware: ^4.1.0
     ws: ^7.4.4
     xdm: ^1.5.0
@@ -14969,9 +14969,9 @@ typescript@^4.2.3:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.25.0":
-  version: 5.25.0
-  resolution: "webpack@npm:5.25.0"
+"webpack@npm:^5.31.2":
+  version: 5.31.2
+  resolution: "webpack@npm:5.31.2"
   dependencies:
     "@types/eslint-scope": ^3.7.0
     "@types/estree": ^0.0.46
@@ -15001,7 +15001,7 @@ typescript@^4.2.3:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: d80832dddef57b1f64647749ff1c78388ad875f7e9e63e614cee6b62da84853f6bb0150a50684ef7cdd4982adc5381994b44b166101dd68bed78d862bff7fab4
+  checksum: 954c4b4fad1b5f910100916935881f72fad126c86bfbe7338914e2f34d4b10d1eb03771603a7e84c104f13a21c0b0f670aade7a3053f67a8c3e6d58a3d102845
   languageName: node
   linkType: hard
 
