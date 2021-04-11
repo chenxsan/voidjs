@@ -6566,9 +6566,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^7.21.0":
-  version: 7.21.0
-  resolution: "eslint@npm:7.21.0"
+"eslint@npm:^7.24.0":
+  version: 7.24.0
+  resolution: "eslint@npm:7.24.0"
   dependencies:
     "@babel/code-frame": 7.12.11
     "@eslint/eslintrc": ^0.4.0
@@ -6587,7 +6587,7 @@ __metadata:
     file-entry-cache: ^6.0.1
     functional-red-black-tree: ^1.0.1
     glob-parent: ^5.0.0
-    globals: ^12.1.0
+    globals: ^13.6.0
     ignore: ^4.0.6
     import-fresh: ^3.0.0
     imurmurhash: ^0.1.4
@@ -6595,7 +6595,7 @@ __metadata:
     js-yaml: ^3.13.1
     json-stable-stringify-without-jsonify: ^1.0.1
     levn: ^0.4.1
-    lodash: ^4.17.20
+    lodash: ^4.17.21
     minimatch: ^3.0.4
     natural-compare: ^1.4.0
     optionator: ^0.9.1
@@ -6609,7 +6609,7 @@ __metadata:
     v8-compile-cache: ^2.0.3
   bin:
     eslint: bin/eslint.js
-  checksum: aa8fd50cddc4ab259e2d0ff8f43f0601060543c12e335d76ee074bf25ad02a885bea9d48a367de736d3bdb871de7eb62e6d67930c0173cc46280ddd0f236e740
+  checksum: 8130aacc3698a730ba8fa10ac9e1436151181c34cad265c21c97708e62dba714b6f3cc4cb7a1d343918da3d35a5913505ccf53cfbdc1fa8d62d326b7e35b7aae
   languageName: node
   linkType: hard
 
@@ -7556,6 +7556,15 @@ fsevents@~2.3.1:
   dependencies:
     type-fest: ^0.8.1
   checksum: 9df75e1f0ef801281023a7932d1b12e1a71217dbe9d789f342b41ba9fa70181c85b496ef897577223c7e271a964d092cade1b9058e7a49be6aab0fdc9713a090
+  languageName: node
+  linkType: hard
+
+"globals@npm:^13.6.0":
+  version: 13.8.0
+  resolution: "globals@npm:13.8.0"
+  dependencies:
+    type-fest: ^0.20.2
+  checksum: de85e5dc899ebd77414cc026e806d0bfd2c102ba23d08a2516c960a5e324433d3f1c124465a35b5b1d948448a7008bad85f823a9bcd8d54664d8a0cbcaab0091
   languageName: node
   linkType: hard
 
@@ -14336,6 +14345,13 @@ resolve@^1.18.1:
   languageName: node
   linkType: hard
 
+"type-fest@npm:^0.20.2":
+  version: 0.20.2
+  resolution: "type-fest@npm:0.20.2"
+  checksum: 1f887bc6150e632fb772fd28e33c22a4ab036c6f484fa9ac2e2115f6cae9d62bba7ca0368e3332b539d85bd2c8391c7bff22ad410abcbc9ab3774d61e250b210
+  languageName: node
+  linkType: hard
+
 "type-fest@npm:^0.6.0":
   version: 0.6.0
   resolution: "type-fest@npm:0.6.0"
@@ -14843,7 +14859,7 @@ typescript@^4.2.3:
     "@typescript-eslint/parser": ^4.16.1
     "@yarnpkg/pnpify": ^2.4.0
     babel-eslint: ^10.1.0
-    eslint: ^7.21.0
+    eslint: ^7.24.0
     eslint-config-prettier: ^8.1.0
     eslint-plugin-react: ^7.22.0
     husky: 4.3.8
