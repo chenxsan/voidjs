@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.26.0
+
+### Minor Changes
+
+- Deprecate @tailwindcss/jit
+
 ## 0.25.0
 
 ### Minor Changes
