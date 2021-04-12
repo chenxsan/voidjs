@@ -3125,6 +3125,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/estree-jsx@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "@types/estree-jsx@npm:0.0.1"
+  dependencies:
+    "@types/estree": "*"
+  checksum: dda16fe89f8d317bba79df28246cbb451b44bc247e6b13e3fb106df76bbafca4818512a71ababd9cc7dbbf4aea71ede29ca9b402418c50379aa0becc23354c1b
+  languageName: node
+  linkType: hard
+
 "@types/estree@npm:*":
   version: 0.0.42
   resolution: "@types/estree@npm:0.0.42"
@@ -3299,7 +3308,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/loader-utils@npm:^2.0.2":
+"@types/loader-utils@npm:^2.0.0, @types/loader-utils@npm:^2.0.2":
   version: 2.0.2
   resolution: "@types/loader-utils@npm:2.0.2"
   dependencies:
@@ -5369,10 +5378,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"character-entities-html4@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "character-entities-html4@npm:2.0.0"
+  checksum: 79ce3a03b83728870e949b89de95a6b04929c4f56a54019dff6b4d2f7f3fdbc0c9ff987664b331185e884a35f20470404cfafc7096b693201ff3f3834ee3e725
+  languageName: node
+  linkType: hard
+
 "character-entities-legacy@npm:^1.0.0":
   version: 1.1.4
   resolution: "character-entities-legacy@npm:1.1.4"
   checksum: bb1e426146681405edaaf349ac045533c8a2540958c824e90b7c2286bdbf1a4706c0b524983f5e0f2bee776bdf29cadb1240af60c02d192b24e3e227f2c84bca
+  languageName: node
+  linkType: hard
+
+"character-entities-legacy@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "character-entities-legacy@npm:2.0.0"
+  checksum: b16b9f716ff6478895f0c06904867f3a0628dc3c35d4d7ad453ebc4bc83a9bae3f3ff0ceb73700ed0f1fcbea7c79887fd2fd730e7eb117cc30ce4d6f2ab6ee11
   languageName: node
   linkType: hard
 
@@ -6895,13 +6918,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"estree-util-build-jsx@npm:^1.1.0":
-  version: 1.1.1
-  resolution: "estree-util-build-jsx@npm:1.1.1"
+"estree-util-build-jsx@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "estree-util-build-jsx@npm:2.0.0"
   dependencies:
-    estree-util-is-identifier-name: ^1.0.0
-    estree-walker: ^2.0.0
-  checksum: a9720d55a8b59716922be5f5eee2e6326e1b56b1319111147d2785d6f2641ffdc8ea500703232ab8cc9ea06f5143a72706a27ec5592a75a5239172dbff6a8b62
+    "@types/estree-jsx": ^0.0.1
+    estree-util-is-identifier-name: ^2.0.0
+    estree-walker: ^3.0.0
+  checksum: 3a7b79e4c647d0b40e5c5fdfb7d8de7a42f5c54f716271e865da4cd7d0efb7bcd5b998a6276eceb9ca4337ae7bdd94d5d1538d36b82f702ef60112799d3c21e5
   languageName: node
   linkType: hard
 
@@ -6916,6 +6940,13 @@ __metadata:
   version: 1.1.0
   resolution: "estree-util-is-identifier-name@npm:1.1.0"
   checksum: af7043149ada77790898da8f8e875af2775b5288c4ca80b0275b9cde0ba20c095720d598ca59862cc13d3cc52f7c97943cb991c2dc4227a1a855e7dda44ac279
+  languageName: node
+  linkType: hard
+
+"estree-util-is-identifier-name@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "estree-util-is-identifier-name@npm:2.0.0"
+  checksum: 0c802eac55e9372cc7b084841e68009c8fe5d2facb61ffd51b1c4cd4cb38d3e0f965e1a2c1836e1be28bb28a3ea54bedc57b077f7b1203e45a5d8558a11ab04c
   languageName: node
   linkType: hard
 
@@ -6935,7 +6966,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"estree-walker@npm:^2.0.0, estree-walker@npm:^2.0.1":
+"estree-walker@npm:^2.0.1":
   version: 2.0.1
   resolution: "estree-walker@npm:2.0.1"
   checksum: 51ae3892e256162f942b6cc433f9fe313c30ffc71c9b07099168383fe211ef001a50f1df543ea8ed0753eb768079e0c1a0712540b228bbe3b544260fd113017d
@@ -14106,6 +14137,16 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"stringify-entities@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "stringify-entities@npm:4.0.0"
+  dependencies:
+    character-entities-html4: ^2.0.0
+    character-entities-legacy: ^2.0.0
+  checksum: 3807d0d36f6f9bc01d88b8fc8fda8fb95d21b899be052a66a9ca8742c68c7d928de85dd63438c043b5417c7904d7b4f1072d5f47277f25cf4731c7e53e82e6d0
+  languageName: node
+  linkType: hard
+
 "strip-ansi@npm:*, strip-ansi@npm:^6.0.0":
   version: 6.0.0
   resolution: "strip-ansi@npm:6.0.0"
@@ -15197,7 +15238,7 @@ typescript@^4.2.3:
     webpack: ^5.31.2
     webpack-dev-middleware: ^4.1.0
     ws: ^7.4.4
-    xdm: ^1.5.0
+    xdm: ^1.7.0
     yargs: ^16.2.0
   peerDependencies:
     react: ">=16.4.2"
@@ -15601,15 +15642,16 @@ typescript@^4.2.3:
   languageName: node
   linkType: hard
 
-"xdm@npm:^1.5.0":
-  version: 1.5.0
-  resolution: "xdm@npm:1.5.0"
+"xdm@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "xdm@npm:1.7.0"
   dependencies:
     "@rollup/pluginutils": ^4.0.0
+    "@types/loader-utils": ^2.0.0
     astring: ^1.6.0
     deasync: ^0.1.0
-    estree-util-build-jsx: ^1.1.0
-    estree-util-is-identifier-name: ^1.0.0
+    estree-util-build-jsx: ^2.0.0
+    estree-util-is-identifier-name: ^2.0.0
     estree-walker: ^3.0.0
     hast-util-to-estree: ^1.2.0
     loader-utils: ^2.0.0
@@ -15619,14 +15661,14 @@ typescript@^4.2.3:
     periscopic: ^3.0.0
     remark-parse: ^9.0.0
     remark-rehype: ^8.0.0
-    stringify-entities: ^3.1.0
+    stringify-entities: ^4.0.0
     unified: ^9.0.0
     unist-builder: ^2.0.0
     unist-util-position-from-estree: ^1.0.0
     unist-util-stringify-position: ^2.0.0
     unist-util-visit: ^2.0.0
     vfile: ^4.0.0
-  checksum: 40ab780719b445a87d3b420ade0673b64631145102cd9d60cfacfddd4d7c7c3d55343b366ecfe102e1745980370a6e4e1d3f006a59a7942e58df6874b6f7b7bd
+  checksum: 094d036700404926fba3b316398500ac4310c7a6fdd0593e3c201a73770098e928c817e90f28571a61b71b5614a32736b4b2a42a8e9a5aa69734d9afd91a65d3
   languageName: node
   linkType: hard
 
