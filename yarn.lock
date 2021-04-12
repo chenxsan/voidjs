@@ -8112,10 +8112,10 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"html-entities@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "html-entities@npm:2.1.0"
-  checksum: c057cd7424be0cc8baf62f592d3692c063bf9d01e55608d695718136fd01a91f969c17d460be21e5640ce3775a9ba3b082461c785726ab99e4bdd13054d5c7d6
+"html-entities@npm:^2.3.2":
+  version: 2.3.2
+  resolution: "html-entities@npm:2.3.2"
+  checksum: a0bcdfdb2326d8943d43d4f5f794769f666d335f7795e82ac5140154970d82a8a1be082725bd53e18c8727821713e7d124982ed9a3463db9b0159b58bc6eff42
   languageName: node
   linkType: hard
 
@@ -12008,19 +12008,19 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"pino@npm:^6.11.1":
-  version: 6.11.1
-  resolution: "pino@npm:6.11.1"
+"pino@npm:^6.11.2":
+  version: 6.11.2
+  resolution: "pino@npm:6.11.2"
   dependencies:
     fast-redact: ^3.0.0
     fast-safe-stringify: ^2.0.7
     flatstr: ^1.0.12
     pino-std-serializers: ^3.1.0
-    quick-format-unescaped: ^4.0.1
+    quick-format-unescaped: 4.0.1
     sonic-boom: ^1.0.2
   bin:
-    pino: bin.js
-  checksum: ba8a3a63369d5e6974508eb6ef5917437f11c4368958c3e720a797e50a004b64ab890594d5fd9cb63f096d4229b38565d949dac8ba6da858614ccc7571e6312b
+    pino: ./bin.js
+  checksum: e854d37d659080c6f96c4030a279b44a25cc1550b8ca6aee0c9a62420773c2771090cfec96587aa917d4c82a2d1744d52e63d9d9135d4c410f9d30438069a013
   languageName: node
   linkType: hard
 
@@ -12103,9 +12103,9 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"postcss-loader@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "postcss-loader@npm:5.1.0"
+"postcss-loader@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "postcss-loader@npm:5.2.0"
   dependencies:
     cosmiconfig: ^7.0.0
     klona: ^2.0.4
@@ -12113,7 +12113,7 @@ fsevents@~2.3.1:
   peerDependencies:
     postcss: ^7.0.0 || ^8.0.1
     webpack: ^5.0.0
-  checksum: 266feaa1d958871a00f3eb5d1e1d54d7cac105e85d7c7f494404161a3d77d3edbb128c32ea2f263c76baeff015e56e9067e5c0bd44f63b52976bd30c973909e1
+  checksum: 669232a256aa44a08f37122f7645a4979f8ec9f87c387596e4970c39da96d1ae12cec077e915314d09262dcd584fc12592920298b21b1b6cbb562adadc3ce516
   languageName: node
   linkType: hard
 
@@ -12483,7 +12483,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"quick-format-unescaped@npm:^4.0.1":
+"quick-format-unescaped@npm:4.0.1":
   version: 4.0.1
   resolution: "quick-format-unescaped@npm:4.0.1"
   checksum: 0935e55e0aaaf789baa080768e822694bc0a497a3170fd35bf2b1aee2a953cf3b5a24e9d29a70dbe7bdc72534c6e1be917ab5c599d587ce0425c98293d8cc1c7
@@ -15214,12 +15214,12 @@ typescript@^4.2.4:
     esbuild-typescript-loader: ^0.2.0
     express: ^4.17.1
     fs-extra: ^9.1.0
-    html-entities: ^2.1.0
+    html-entities: ^2.3.2
     lodash.merge: ^4.6.2
     mini-css-extract-plugin: ^1.4.1
-    pino: ^6.11.1
+    pino: ^6.11.2
     pino-pretty: ^4.7.1
-    postcss-loader: ^5.1.0
+    postcss-loader: ^5.2.0
     prettier: ^2.2.1
     react: ^17.0.2
     react-dom: ^17.0.2
