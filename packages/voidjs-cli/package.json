@@ -36,7 +36,7 @@
   "dependencies": {
     "@babel/core": "^7.13.8",
     "@babel/plugin-transform-runtime": "^7.13.9",
-    "@babel/preset-env": "^7.13.9",
+    "@babel/preset-env": "^7.14.0",
     "@babel/preset-react": "^7.12.13",
     "@babel/preset-typescript": "^7.13.0",
     "@mdx-js/react": "^1.6.22",
