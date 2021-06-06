@@ -7,7 +7,7 @@
     "@babel/template": "^7.12.13",
     "@babel/traverse": "^7.14.2",
     "@babel/types": "^7.14.4",
-    "@types/babel__core": "^7.1.12",
+    "@types/babel__core": "^7.1.14",
     "@types/babel__template": "^7.4.0"
   }
 }
