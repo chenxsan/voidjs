@@ -27,6 +27,7 @@
     "jest": "^27.0.4",
     "memfs": "^3.2.0",
     "prettier": "^2.2.1",
+    "serve": "^11.3.2",
     "start-server-and-test": "^1.12.5",
     "ts-jest": "^27.0.2",
     "typescript": "^4.2.3"
@@ -37,9 +38,11 @@
     "dev": "preconstruct dev",
     "build": "preconstruct build",
     "prettier": "prettier --write packages/**/*.{js,ts,tsx,md,json}",
-    "start-doc-server": "cd packages/doc && npm run dev",
+    "start-doc-dev-server": "cd packages/doc && npm run dev",
+    "start-doc-prod-server": "cd packages/doc && npm run build && serve out -l localhost:8080",
     "cypress:run": "cypress run",
-    "ci": "start-server-and-test start-doc-server http://localhost:8080 cypress:run"
+    "ci:dev": "start-server-and-test start-doc-dev-server http://localhost:8080 cypress:run",
+    "ci:prod": "start-server-and-test start-doc-prod-server http://localhost:8080 cypress:run"
   },
   "husky": {
     ".{js,ts,tsx,md,json}": [

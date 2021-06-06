@@ -18,4 +18,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn
       - run: yarn test
-      - run: yarn ci
+      - run: yarn ci:dev
+      - run: yarn ci:prod
