@@ -39,7 +39,7 @@
     "build": "preconstruct build",
     "prettier": "prettier --write packages/**/*.{js,ts,tsx,md,json}",
     "start-doc-dev-server": "cd packages/doc && npm run dev",
-    "start-doc-prod-server": "cd packages/doc && npm run build && serve out -l localhost:8080",
+    "start-doc-prod-server": "cd packages/doc && npm run build && serve out -l 8080",
     "cypress:run": "cypress run",
     "ci:dev": "start-server-and-test start-doc-dev-server http://localhost:8080 cypress:run",
     "ci:prod": "start-server-and-test start-doc-prod-server http://localhost:8080 cypress:run"
