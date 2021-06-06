@@ -18,4 +18,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn
       - run: yarn test
-      - run: yarn ci:dev
+      - run: yarn start-doc-dev-server
