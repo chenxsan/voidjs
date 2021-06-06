@@ -19,6 +19,7 @@
     "@typescript-eslint/parser": "^4.16.1",
     "@yarnpkg/pnpify": "^2.4.0",
     "babel-eslint": "^10.1.0",
+    "cypress": "latest",
     "eslint": "^7.24.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-react": "^7.23.2",
