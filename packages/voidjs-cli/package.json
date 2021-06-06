@@ -86,7 +86,7 @@
     "@types/react-helmet": "^6.1.0",
     "@types/rimraf": "^3.0.0",
     "@types/strip-ansi": "5.2.1",
-    "@types/webpack-dev-middleware": "^4.1.0",
+    "@types/webpack-dev-middleware": "^5.0.0",
     "@types/ws": "^7.4.0",
     "@types/yargs": "^16.0.0",
     "react": "^17.0.1",
