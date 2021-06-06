@@ -3,10 +3,10 @@
   "main": "dist/babel-plugin-wrap-voidjs-app.cjs.js",
   "version": "0.2.5",
   "devDependencies": {
-    "@babel/core": "^7.13.8",
+    "@babel/core": "^7.14.3",
     "@babel/template": "^7.12.13",
-    "@babel/traverse": "^7.13.0",
-    "@babel/types": "^7.13.0",
+    "@babel/traverse": "^7.14.2",
+    "@babel/types": "^7.14.4",
     "@types/babel__core": "^7.1.12",
     "@types/babel__template": "^7.4.0"
   }
