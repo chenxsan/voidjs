@@ -1,5 +1,11 @@
 # babel-plugin-react-dom-render
 
+## 1.3.1
+
+### Patch Changes
+
+- Update babel
+
 ## 1.3.0
 
 ### Minor Changes

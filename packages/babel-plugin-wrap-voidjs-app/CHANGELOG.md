@@ -1,5 +1,11 @@
 # babel-plugin-wrap-voidjs-app
 
+## 0.2.6
+
+### Patch Changes
+
+- Update babel
+
 ## 0.2.5
 
 ### Patch Changes
