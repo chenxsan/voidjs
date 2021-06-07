@@ -2,7 +2,7 @@
   "name": "@void-js/doc",
   "private": true,
   "scripts": {
-    "dev": "node ../voidjs-cli/cli.js dev --port 8080",
+    "dev": "node ../voidjs-cli/cli.js dev",
     "build": "node ../voidjs-cli/cli.js build"
   },
   "devDependencies": {
