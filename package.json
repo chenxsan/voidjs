@@ -19,6 +19,7 @@
     "@typescript-eslint/parser": "^4.16.1",
     "@yarnpkg/pnpify": "^2.4.0",
     "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.3",
     "cypress": "latest",
     "eslint": "^7.24.0",
     "eslint-config-prettier": "^8.1.0",
@@ -39,7 +40,7 @@
     "build": "preconstruct build",
     "prettier": "prettier --write packages/**/*.{js,ts,tsx,md,json}",
     "start-doc-prod-server": "cd packages/doc && npm run build && serve out -l 8080",
-    "ci:dev": "start-server-and-test 'cd packages/doc && ../voidjs-cli/cli.js dev' http://localhost:8080 'cypress run'",
+    "ci:dev": "cross-env start-server-and-test 'cd packages/doc && ../voidjs-cli/cli.js dev' http://localhost:8080 'cypress run'",
     "ci:prod": "start-server-and-test start-doc-prod-server http://localhost:8080 'cypress run'"
   },
   "husky": {
