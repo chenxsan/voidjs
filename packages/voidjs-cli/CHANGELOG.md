@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.26.4
+
+### Patch Changes
+
+- Fix resolution bug for Windows
+
 ## 0.26.3
 
 ### Patch Changes
