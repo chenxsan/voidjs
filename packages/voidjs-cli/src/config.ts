@@ -53,6 +53,7 @@ export const alias = {
   img: resolve(cwd, `${assetsRoot}/img`),
   css: resolve(cwd, `${assetsRoot}/css`),
   js: resolve(cwd, `${assetsRoot}/js`),
+  _app: resolve(cwd, `pages/_app`),
 }
 export const publicFolder = 'public'
 export const socketPath = '/__websocket'
@@ -121,7 +122,7 @@ export const getRules = (pagesDir: string, hasApp: boolean): RuleSetRule[] => {
             [
               'wrap-voidjs-app',
               {
-                app: hasApp === true ? './_app' : hasApp,
+                app: hasApp === true ? '_app' : hasApp,
               },
             ],
           ],
@@ -187,7 +188,7 @@ export const getRules = (pagesDir: string, hasApp: boolean): RuleSetRule[] => {
                   [
                     'wrap-voidjs-app',
                     {
-                      app: hasApp === true ? './_app' : hasApp,
+                      app: hasApp === true ? '_app' : hasApp,
                     },
                   ],
                 ],
