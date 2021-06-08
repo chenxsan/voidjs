@@ -121,7 +121,7 @@ export const getRules = (pagesDir: string, hasApp: boolean): RuleSetRule[] => {
             [
               'wrap-voidjs-app',
               {
-                app: hasApp === true ? path.join(pagesDir, '_app') : hasApp,
+                app: hasApp === true ? './_app' : hasApp,
               },
             ],
           ],
@@ -187,8 +187,7 @@ export const getRules = (pagesDir: string, hasApp: boolean): RuleSetRule[] => {
                   [
                     'wrap-voidjs-app',
                     {
-                      app:
-                        hasApp === true ? path.join(pagesDir, '_app') : hasApp,
+                      app: hasApp === true ? './_app' : hasApp,
                     },
                   ],
                 ],

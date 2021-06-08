@@ -22,7 +22,7 @@ const createDOMRenderRule = (pagesDir: string, hasCustomApp: boolean) => ({
       {
         hydrate: false,
         root: 'voidjs-app',
-        app: hasCustomApp === true ? path.join(pagesDir, '_app') : hasCustomApp,
+        app: hasCustomApp === true ? './_app' : hasCustomApp,
       },
     ],
   ],
