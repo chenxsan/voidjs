@@ -18,5 +18,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn
       - run: yarn test
-      - run: yarn workspace @void-js/doc dev --port 8080
       - run: yarn ci:dev
