@@ -21,7 +21,7 @@
     "babel-eslint": "^10.1.0",
     "cypress": "latest",
     "eslint": "^7.24.0",
-    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.23.2",
     "husky": "4.3.8",
     "jest": "^27.0.4",
