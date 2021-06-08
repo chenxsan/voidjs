@@ -39,7 +39,7 @@
     "build": "preconstruct build",
     "prettier": "prettier --write packages/**/*.{js,ts,tsx,md,json}",
     "ci:dev": "start-server-and-test 'yarn workspace @void-js/doc dev --port 8080' http://localhost:8080 'cypress run'",
-    "ci:prod": "start-server-and-test 'yarn workspace @void-js/doc build && serve out -l 8080' http://localhost:8080 'cypress run'"
+    "ci:prod": "start-server-and-test 'yarn workspace @void-js/doc build && serve packages/doc/out -l 8080' http://localhost:8080 'cypress run'"
   },
   "husky": {
     ".{js,ts,tsx,md,json}": [
