@@ -104,6 +104,7 @@ export default class ClientsCompiler {
         }),
         new MiniCssExtractPlugin({
           filename: '[name].[contenthash].css',
+          experimentalUseImportModule: true,
         }),
         new WebpackAssetsMap('client-assets.json'),
       ],

@@ -166,6 +166,7 @@ class ProdBuilder extends Builder {
           // only one css should be enough,
           // e.g. server.[contenthash].css
           filename: 'server.[contenthash].css',
+          experimentalUseImportModule: true,
         }),
         new webpack.ProgressPlugin({
           profile: true,
@@ -219,6 +220,7 @@ class ProdBuilder extends Builder {
         }),
         new MiniCssExtractPlugin({
           filename: 'ssr.[contenthash].css',
+          experimentalUseImportModule: true,
         }),
       ],
     }
