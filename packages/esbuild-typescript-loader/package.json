@@ -12,13 +12,13 @@
   },
   "homepage": "https://github.com/chenxsan/voidjs/tree/master/packages/esbuild-typescript-loader",
   "dependencies": {
-    "esbuild": "^0.11.7",
+    "esbuild": "^0.12.7",
     "loader-utils": "^2.0.0",
     "schema-utils": "^3.0.0"
   },
   "devDependencies": {
-    "@types/loader-utils": "^2.0.1",
-    "memfs": "^3.2.0",
+    "@types/loader-utils": "^2.0.2",
+    "memfs": "^3.2.2",
     "webpack": "^5.38.1"
   },
   "keywords": [
