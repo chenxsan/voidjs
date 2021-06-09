@@ -14,7 +14,7 @@
     "react-refractor": "^2.1.4",
     "refractor": "^4.0.0",
     "tailwindcss": "^2.1.4",
-    "voidjs-cli": "^0.26.0"
+    "voidjs-cli": "^0.27.0"
   },
   "dependencies": {
     "prismjs": "^1.23.0"
