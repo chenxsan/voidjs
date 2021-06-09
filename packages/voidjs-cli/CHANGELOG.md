@@ -1,5 +1,13 @@
 # voidjs-cli
 
+## 0.26.5
+
+### Patch Changes
+
+- Update dependencies
+- Updated dependencies [undefined]
+  - esbuild-typescript-loader@0.2.1
+
 ## 0.26.4
 
 ### Patch Changes

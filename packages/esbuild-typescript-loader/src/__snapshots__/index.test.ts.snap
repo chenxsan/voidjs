@@ -6,7 +6,7 @@ const user = {
   name: \\"Hayes\\",
   id: 0
 };
-export {a, user};
+export { a, user };
 "
 `;
 

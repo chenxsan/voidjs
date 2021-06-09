@@ -1,9 +1,9 @@
 {
   "name": "@void-js/plugin-react-helmet",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "devDependencies": {
-    "@types/react": "17.0.2",
-    "react": "^17.0.1",
+    "@types/react": "17.0.9",
+    "react": "^17.0.2",
     "react-helmet": "6.1.0"
   },
   "main": "dist/void-js-plugin-react-helmet.cjs.js",

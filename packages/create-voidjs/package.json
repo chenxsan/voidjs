@@ -1,6 +1,6 @@
 {
   "name": "create-voidjs",
-  "version": "0.3.18",
+  "version": "0.3.19",
   "description": "Create voidjs project",
   "main": "dist/create-voidjs.cjs.js",
   "module": "dist/create-voidjs.esm.js",
@@ -14,14 +14,14 @@
   "author": "Sam Chen <chenxsan@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^4.1.0",
-    "commander": "^7.1.0",
+    "chalk": "^4.1.1",
+    "commander": "^7.2.0",
     "cross-spawn": "^7.0.3",
     "fs-extra": "^9.1.0"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.2",
-    "@types/fs-extra": "^9.0.8"
+    "@types/fs-extra": "^9.0.11"
   },
   "files": [
     "cli.js",
