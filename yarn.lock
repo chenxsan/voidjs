@@ -3631,7 +3631,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prismjs@npm:1.16.5":
+"@types/prismjs@npm:1.16.5, @types/prismjs@npm:^1.0.0":
   version: 1.16.5
   resolution: "@types/prismjs@npm:1.16.5"
   checksum: d1588de566078442cc8ae05aab5d3a020ab0a55492bfa5307a2e397d3c2139ee40b0399a67bd17cde902e2ff98d3d11080f0f1b6c4ee4beebe5a3d2f8e4fd282
@@ -4057,7 +4057,7 @@ __metadata:
     react-app-polyfill: ^2.0.0
     react-dom: ^17.0.2
     react-refractor: ^2.1.4
-    refractor: ^3.3.1
+    refractor: ^4.0.0
     tailwindcss: ^2.1.4
     voidjs-cli: ^0.26.0
   languageName: unknown
@@ -5820,6 +5820,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"character-entities-legacy@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "character-entities-legacy@npm:2.0.0"
+  checksum: b16b9f716ff6478895f0c06904867f3a0628dc3c35d4d7ad453ebc4bc83a9bae3f3ff0ceb73700ed0f1fcbea7c79887fd2fd730e7eb117cc30ce4d6f2ab6ee11
+  languageName: node
+  linkType: hard
+
 "character-entities@npm:^1.0.0":
   version: 1.2.4
   resolution: "character-entities@npm:1.2.4"
@@ -5827,10 +5834,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"character-entities@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "character-entities@npm:2.0.0"
+  checksum: f2c7ced2452a05756d143131fc00fa465bd5c3267a6a70b590a9baf583b097b51ea2931e69714ae9dc137c1865c0d7b544cb8b3f0724c58ff1651989d9baadbc
+  languageName: node
+  linkType: hard
+
 "character-reference-invalid@npm:^1.0.0":
   version: 1.1.4
   resolution: "character-reference-invalid@npm:1.1.4"
   checksum: 82d8ce7828536cc7e097594a0414c09a70356312f4e9dfe88af7fe8c3b14efea8e4cf16fae0bcbb95d76fdf5ef6b44a42f75d0998aa7894558cf1affa2a66b3a
+  languageName: node
+  linkType: hard
+
+"character-reference-invalid@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "character-reference-invalid@npm:2.0.0"
+  checksum: 975aeac698ed9b1d4a7e34cf2d219f44d0dcce1f1ad6222922c8e73eff3b8f1e96cf379c7b880267135e0c52ff9983c65e33d39bf8a05e839b73dff1e8a4767c
   languageName: node
   linkType: hard
 
@@ -8907,6 +8928,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hast-util-parse-selector@npm:^3.0.0":
+  version: 3.1.0
+  resolution: "hast-util-parse-selector@npm:3.1.0"
+  dependencies:
+    "@types/hast": ^2.0.0
+  checksum: 4b0d534999886f3cf3505cdff908876191d663dd91c165c92a2935ce454d51b2a7861ac4b920133a58376f5f0b52a63148bb07c0e4b4cc2e07456056d8303850
+  languageName: node
+  linkType: hard
+
 "hast-util-sanitize@npm:^3.0.0":
   version: 3.0.2
   resolution: "hast-util-sanitize@npm:3.0.2"
@@ -8978,6 +9008,19 @@ __metadata:
     property-information: ^5.0.0
     space-separated-tokens: ^1.0.0
   checksum: c801a859137b7b0092235e50b5c9927c8e0ddbfc4739f4da5bf20170821be6bd883744a11ed2a3909d00d24964632892118913b3b13b02601018035da8b00b52
+  languageName: node
+  linkType: hard
+
+"hastscript@npm:^7.0.0":
+  version: 7.0.1
+  resolution: "hastscript@npm:7.0.1"
+  dependencies:
+    "@types/hast": ^2.0.0
+    comma-separated-tokens: ^2.0.0
+    hast-util-parse-selector: ^3.0.0
+    property-information: ^6.0.0
+    space-separated-tokens: ^2.0.0
+  checksum: 28afb27d9012f60ee01d5a74ff0b66c8186c6377ff7f2e2342723d0ead49db231266ca1bb6b872b600c7255fa68edf32eeffcca2b681189f97464abfd99aaebd
   languageName: node
   linkType: hard
 
@@ -9353,6 +9396,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-alphabetical@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "is-alphabetical@npm:2.0.0"
+  checksum: 142abc8d286febe1685b4ac76cf713c4a23987fbd962d0cb1b00b79022fa06c307bf8d0b5cff23f40d908f839d8c660e01175fb02b27669cd9d4cd5ff454db46
+  languageName: node
+  linkType: hard
+
 "is-alphanumerical@npm:^1.0.0":
   version: 1.0.4
   resolution: "is-alphanumerical@npm:1.0.4"
@@ -9360,6 +9410,16 @@ __metadata:
     is-alphabetical: ^1.0.0
     is-decimal: ^1.0.0
   checksum: d97ec38a74117d147f7feaa46e43f2fdd6075a6650d8b5c44357e7854462068525c9a8cc079943b9e06fb8e182d0262b5f38cf9c79a4138f12f069a52ec1e56b
+  languageName: node
+  linkType: hard
+
+"is-alphanumerical@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "is-alphanumerical@npm:2.0.0"
+  dependencies:
+    is-alphabetical: ^2.0.0
+    is-decimal: ^2.0.0
+  checksum: c92830edc4ea93a95fe5407f3814ee46ac970f14620f34c2cd059b9ea2b2951d5c4493c745600febb7ac532e4825fe79abb3f6b5cfd918973117df0b273e63d2
   languageName: node
   linkType: hard
 
@@ -9507,6 +9567,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-decimal@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "is-decimal@npm:2.0.0"
+  checksum: 87d8158c6f12cc78b52d24762a91b30e035fadf4ca32f2f0d75223d8962a8a45b88c6132df1d80b29c9594734e7dc6c3c90b3902f8a0d118ceaf9d3367b4414f
+  languageName: node
+  linkType: hard
+
 "is-descriptor@npm:^0.1.0":
   version: 0.1.6
   resolution: "is-descriptor@npm:0.1.6"
@@ -9627,6 +9694,13 @@ __metadata:
   version: 1.0.4
   resolution: "is-hexadecimal@npm:1.0.4"
   checksum: 653c1d0115196e97ed20177393cff833fbdfdbed3d28abdffbfd0fe50b9c62bf7e76ee56a9a47fec84f30ca0d40256fd065a71a65b0ed32fc77650b39c8c9295
+  languageName: node
+  linkType: hard
+
+"is-hexadecimal@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "is-hexadecimal@npm:2.0.0"
+  checksum: 7c2c3a065d007ba2cbd94df1cd8ba70d3d021be93bcfc668ad0b334f591ae373068ac602701af952cec4aff0e344204f1eb85c68ea7e1d9b1908374abd47b4a3
   languageName: node
   linkType: hard
 
@@ -13091,6 +13165,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"parse-entities@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "parse-entities@npm:3.0.0"
+  dependencies:
+    character-entities: ^2.0.0
+    character-entities-legacy: ^2.0.0
+    character-reference-invalid: ^2.0.0
+    is-alphanumerical: ^2.0.0
+    is-decimal: ^2.0.0
+    is-hexadecimal: ^2.0.0
+  checksum: 0a37ebb3e498fa2cfe5465241c5725e882afa12867071a30ae11b6e50823406bbd2a06d688ee4b722690327176af27757ffe3be9012d3d7b2a3e395fce6c9f21
+  languageName: node
+  linkType: hard
+
 "parse-glob@npm:^3.0.4":
   version: 3.0.4
   resolution: "parse-glob@npm:3.0.4"
@@ -14124,7 +14212,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"refractor@npm:^3.3.0, refractor@npm:^3.3.1":
+"refractor@npm:^3.3.0":
   version: 3.3.1
   resolution: "refractor@npm:3.3.1"
   dependencies:
@@ -14132,6 +14220,19 @@ __metadata:
     parse-entities: ^2.0.0
     prismjs: ~1.23.0
   checksum: de632f0f594e17809255a8188d63b87533e6e4889f6c59e7e79c63183714e45af33500f88168139adeb494c52af662d5dcb0dd0e126392a138077bc1a30550a5
+  languageName: node
+  linkType: hard
+
+"refractor@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "refractor@npm:4.0.0"
+  dependencies:
+    "@types/hast": ^2.0.0
+    "@types/prismjs": ^1.0.0
+    hastscript: ^7.0.0
+    parse-entities: ^3.0.0
+    prismjs: ~1.23.0
+  checksum: 59363468636fedb569f3144ccafba7c6e305fedd154137ec7cedee3545ff189f619bb248edb6a93835156155dcd2eef7312ed48d4cd18a7e41c69993d33eaccd
   languageName: node
   linkType: hard
 
