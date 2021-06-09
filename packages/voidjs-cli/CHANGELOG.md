@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.27.0
+
+### Minor Changes
+
+- enable experimentalUseImportModule for mini-css-extract-plugin
+
 ## 0.26.5
 
 ### Patch Changes
