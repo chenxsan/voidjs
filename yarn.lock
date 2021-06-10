@@ -3716,12 +3716,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^17.0.6":
-  version: 17.0.6
-  resolution: "@types/react-dom@npm:17.0.6"
+"@types/react-dom@npm:^17.0.7":
+  version: 17.0.7
+  resolution: "@types/react-dom@npm:17.0.7"
   dependencies:
     "@types/react": "*"
-  checksum: baf0e2ea405768ccfe30399c1d2d5bc35d48023c6d67394b0c9a8179e51ff3d5e0363e7166114195ea275f97611aae9d8d0163a2813c7a3f1e95ef99f8070390
+  checksum: 97df2088b5e1e1d3c6bf2ff6e4f8536bcd788cc7baeb49d912184923e4bee63d155d9821f15c4f36a6b89afe043f892d20015063a39a67aebf14dbc8998a1ccf
   languageName: node
   linkType: hard
 
@@ -3744,14 +3744,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:17.0.9, @types/react@npm:^17.0.9":
-  version: 17.0.9
-  resolution: "@types/react@npm:17.0.9"
+"@types/react@npm:17.0.11, @types/react@npm:^17.0.11":
+  version: 17.0.11
+  resolution: "@types/react@npm:17.0.11"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 12f1962a317cad805bd6fcd1da3ac1a58a782db28e522bdded163f1bdfc8388f8a110d200a6925cccbf3d442e1325199ce5da710f11ee73f0f140c6734fea127
+  checksum: ed2b57e44e8da99b13a7b0cd7d9d9159e3113a5160e25c9deae4f577cfb87f05103b54bb0e9722f48a7db3ddb3a836ade12b971bbc338d397b719886fb81efff
   languageName: node
   linkType: hard
 
@@ -4124,7 +4124,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@void-js/plugin-react-helmet@workspace:packages/plugin-react-helmet"
   dependencies:
-    "@types/react": 17.0.9
+    "@types/react": 17.0.11
     react: ^17.0.2
     react-helmet: 6.1.0
   peerDependencies:
@@ -6601,7 +6601,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:latest":
+"cypress@npm:^7.5.0":
   version: 7.5.0
   resolution: "cypress@npm:7.5.0"
   dependencies:
@@ -7304,7 +7304,7 @@ __metadata:
   resolution: "esbuild-typescript-loader@workspace:packages/esbuild-typescript-loader"
   dependencies:
     "@types/loader-utils": ^2.0.2
-    esbuild: ^0.12.7
+    esbuild: ^0.12.8
     loader-utils: ^2.0.0
     memfs: ^3.2.2
     schema-utils: ^3.0.0
@@ -7312,12 +7312,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"esbuild@npm:^0.12.7":
-  version: 0.12.7
-  resolution: "esbuild@npm:0.12.7"
+"esbuild@npm:^0.12.8":
+  version: 0.12.8
+  resolution: "esbuild@npm:0.12.8"
   bin:
     esbuild: bin/esbuild
-  checksum: fa8ac782c10dbaf8486b9926de726525977b3280b4204c32a247abe244cd05f02bd4fd37a2091e8170adcc651075f10616b65aabd8ba3e6e14fb680306fdcf62
+  checksum: 91ad2c8ddb8a3b0b1746e41e09684ab9415fa77aa39b0a07b45e9041cfb8825353e11ae2f4cefb53189f8c5a40edc372aa8cb8093e48d782635576f518a1b662
   languageName: node
   linkType: hard
 
@@ -16907,8 +16907,8 @@ typescript@^4.2.3:
     "@types/mini-css-extract-plugin": ^1.4.3
     "@types/node": ^15.12.2
     "@types/prettier": ^2.2.3
-    "@types/react": ^17.0.9
-    "@types/react-dom": ^17.0.6
+    "@types/react": ^17.0.11
+    "@types/react-dom": ^17.0.7
     "@types/react-helmet": ^6.1.1
     "@types/rimraf": ^3.0.0
     "@types/strip-ansi": 5.2.1
@@ -16975,7 +16975,7 @@ typescript@^4.2.3:
     "@typescript-eslint/parser": ^4.26.1
     "@yarnpkg/pnpify": ^3.0.0-rc.6
     babel-eslint: ^10.1.0
-    cypress: latest
+    cypress: ^7.5.0
     eslint: ^7.28.0
     eslint-config-prettier: ^8.3.0
     eslint-plugin-react: ^7.24.0
