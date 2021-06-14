@@ -71,7 +71,7 @@
     "webpack": "^5.38.1",
     "webpack-dev-middleware": "^5.0.0",
     "ws": "^7.4.6",
-    "xdm": "^1.11.0",
+    "xdm": "^1.11.1",
     "yargs": "^17.0.1"
   },
   "devDependencies": {
