@@ -65,27 +65,29 @@ export default class DevServer extends Builder {
     const devMiddleware = webpackDevMiddleware(compiler)
 
     // append entry only when accessed
-    const voidjsMiddleware = (pagesDir: string) => (
-      req: express.Request,
-      _res: express.Response,
-      next: express.NextFunction
-    ) => {
-      // requesting html page
-      if (isHtmlRequest(req.url)) {
-        // check if page does exit on disk
-        // FIXME what if req.url contains query
-        const page = findSourceFile(pagesDir, req.url)
-        if (page.exists === true) {
-          const pageSrc = page.src as string
-          if (!this.#activePages.includes(pageSrc)) {
-            this.#activePages.push(pageSrc)
-            new HtmlPlugin(pagesDir, pageSrc).apply(compiler)
-            devMiddleware.invalidate()
+    const voidjsMiddleware =
+      (pagesDir: string) =>
+      (
+        req: express.Request,
+        _res: express.Response,
+        next: express.NextFunction
+      ) => {
+        // requesting html page
+        if (isHtmlRequest(req.url)) {
+          // check if page does exit on disk
+          // FIXME what if req.url contains query
+          const page = findSourceFile(pagesDir, req.url)
+          if (page.exists === true) {
+            const pageSrc = page.src as string
+            if (!this.#activePages.includes(pageSrc)) {
+              this.#activePages.push(pageSrc)
+              new HtmlPlugin(pagesDir, pageSrc).apply(compiler)
+              devMiddleware.invalidate()
+            }
           }
         }
+        next()
       }
-      next()
-    }
 
     const app = express()
     /**

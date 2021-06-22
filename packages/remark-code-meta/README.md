@@ -49,5 +49,5 @@ remark().use(remarkCodeMeta, {})
 
 | Meta     | Type    | Default | Description                                                                                              |
 | -------- | ------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| filename | string  | -       | set the filename                                                                        |
+| filename | string  | -       | set the filename                                                                                         |
 | open     | boolean | `true`  | set [`open`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details#attributes) for `details` |

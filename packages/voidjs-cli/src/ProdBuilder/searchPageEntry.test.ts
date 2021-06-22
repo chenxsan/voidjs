@@ -1,4 +1,6 @@
 import { searchPageEntry } from './index'
+import { describe, expect } from '@jest/globals'
+
 const exts = 'mjs,js,jsx,ts,tsx,md,mdx'
 const clientSuffix = '.client'
 describe('searchPageEntry', () => {

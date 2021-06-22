@@ -1,6 +1,7 @@
 import { transformSync } from '@babel/core'
 import { ComponentError } from '.'
 import plug from './index'
+import { describe, test, expect } from '@jest/globals'
 const opts = {
   plugins: [plug],
   configFile: false,

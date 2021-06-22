@@ -1,4 +1,6 @@
 import fn from './deriveFilenameFromRelativePath'
+import { test, expect } from '@jest/globals'
+
 test('should return index.html', () => {
   expect(fn('/root/pages', '/root/pages/index.js')).toBe('index.html')
 })

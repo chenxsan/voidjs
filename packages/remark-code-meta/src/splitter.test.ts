@@ -1,4 +1,5 @@
 import fn from './splitter'
+import { describe, it, expect } from '@jest/globals'
 describe('splitter', () => {
   it('should return null', () => {
     expect(fn(``)).toBeNull()

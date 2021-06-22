@@ -1,6 +1,7 @@
 import path from 'path'
 import webpack, { Stats } from 'webpack'
 import { createFsFromVolume, Volume } from 'memfs'
+import { describe, it, expect } from '@jest/globals'
 function webpackCompiler(fixture: string, options = {}): Promise<Stats> {
   const compiler = webpack({
     context: __dirname,

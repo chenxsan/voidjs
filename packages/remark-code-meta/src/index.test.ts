@@ -1,6 +1,7 @@
 import remarkCodeMeta from './index'
 import remark from 'remark'
 import remarkHTML from 'remark-html'
+import { describe, test, expect } from '@jest/globals'
 interface Callback {
   (err: Error, { contents: string }): void
 }
@@ -10,13 +11,16 @@ interface Callback {
 describe('remarkCodeMeta', () => {
   describe('filename without whitespace', () => {
     const transform = (callback: Callback, options = {}) => {
-      remark().use(remarkCodeMeta, options).use(remarkHTML).process(
-        `
+      remark()
+        .use(remarkCodeMeta, options)
+        .use(remarkHTML)
+        .process(
+          `
 \`\`\`js filename=index.js
 const answer = 42;
 \`\`\``,
-        callback
-      )
+          callback
+        )
     }
     test('should transform code with meta', () => {
       transform(function (err, { contents }) {
@@ -52,13 +56,16 @@ const answer = 42;
   })
   describe('filename with whitespace', () => {
     const transform = (callback: Callback, options = {}) => {
-      remark().use(remarkCodeMeta, options).use(remarkHTML).process(
-        `
+      remark()
+        .use(remarkCodeMeta, options)
+        .use(remarkHTML)
+        .process(
+          `
 \`\`\`js filename="C:\\code meta\\index.js"
 const answer = 42;
 \`\`\``,
-        callback
-      )
+          callback
+        )
     }
     test('should transform code with meta', () => {
       transform(function (err, { contents }) {
@@ -70,13 +77,16 @@ const answer = 42;
 
   describe('filename and open', () => {
     const transform = (callback: Callback, options = {}) => {
-      remark().use(remarkCodeMeta, options).use(remarkHTML).process(
-        `
+      remark()
+        .use(remarkCodeMeta, options)
+        .use(remarkHTML)
+        .process(
+          `
 \`\`\`js filename=index.js open=false
 const answer = 42;
 \`\`\``,
-        callback
-      )
+          callback
+        )
     }
     test('should transform code with open set to false', () => {
       transform(function (err, { contents }) {
