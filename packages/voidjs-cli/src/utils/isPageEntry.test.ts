@@ -1,6 +1,7 @@
 import isPageEntry from './isPageEntry'
 import path from 'path'
 const pagesDir = path.join('/root/path/to/pages')
+import { describe, it, expect } from '@jest/globals'
 describe('isPageEntry', () => {
   it('should return true for page', () => {
     expect(isPageEntry(pagesDir, path.join(pagesDir, 'index.js'))).toBe(true)

@@ -1,6 +1,8 @@
 import hasClientEntry from './hasClientEntry'
 import path from 'path'
 import { vol } from 'memfs'
+
+import { expect, describe, beforeEach, afterEach } from '@jest/globals'
 jest.mock('fs')
 describe('hasClientEntry', () => {
   beforeEach(() => {

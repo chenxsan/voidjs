@@ -20,9 +20,7 @@ export enum ComponentError {
   reservedFunctionName = 'Reserved Component Name',
 }
 
-export default function (
-  babel: Babel
-): {
+export default function (babel: Babel): {
   visitor: Visitor<State>
 } {
   const template = babel.template

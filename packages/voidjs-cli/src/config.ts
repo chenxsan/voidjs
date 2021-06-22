@@ -64,7 +64,8 @@ export const performance: Performance = require('perf_hooks').performance
 export const PerformanceObserver = require('perf_hooks').PerformanceObserver
 
 export const supportedImageExtensions = /\.(png|svg|jpg|jpeg|gif|avif|webp)$/i
-export const supportedFontExtensions = /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/
+export const supportedFontExtensions =
+  /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/
 export const supportedCssExtensions = /\.(sa|sc|c)ss$/i
 
 const tailwindcssEnabled: boolean = fs.existsSync(

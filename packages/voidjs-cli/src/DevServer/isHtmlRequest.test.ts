@@ -1,4 +1,5 @@
 import fn from './isHtmlRequest'
+import { it, expect } from '@jest/globals'
 
 it('should return true with /', () => {
   expect(fn('/')).toBe(true)

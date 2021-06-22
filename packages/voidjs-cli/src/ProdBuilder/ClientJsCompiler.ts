@@ -43,6 +43,7 @@ export default class ClientsCompiler {
     this.#config = config
   }
   createWebpackConfig(entries: string[]): webpack.Configuration {
+    // @ts-ignore
     return {
       mode: 'production',
       target: ['web', 'es5'],
@@ -93,6 +94,7 @@ export default class ClientsCompiler {
             [script[0]]: script[1].global,
           }))
         : [],
+      // @ts-ignore
       plugins: [
         new HtmlPlugin(this.#outputPath, this.#config.html?.pretty),
         new webpack.DefinePlugin({
@@ -102,6 +104,7 @@ export default class ClientsCompiler {
         new CssoWebpackPlugin({
           restructure: false,
         }),
+        // @ts-ignore
         new MiniCssExtractPlugin({
           filename: '[name].[contenthash].css',
           experimentalUseImportModule: true,

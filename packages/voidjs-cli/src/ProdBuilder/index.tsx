@@ -18,7 +18,12 @@
     You should have received a copy of the GNU General Public License
     along with voidjs.  If not, see <https://www.gnu.org/licenses/>.
  */
-import webpack, { Compilation, Compiler, MultiStats } from 'webpack'
+import webpack, {
+  Compilation,
+  Compiler,
+  MultiStats,
+  WebpackPluginInstance,
+} from 'webpack'
 import * as path from 'path'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
@@ -133,6 +138,7 @@ class ProdBuilder extends Builder {
     }
 
     // bundle assets like image, css
+    // @ts-ignore
     const client: webpack.Configuration = {
       ...commonConfiguration,
       name: 'client',
@@ -153,6 +159,7 @@ class ProdBuilder extends Builder {
         chunkFilename: '[name]-[id].spa.js', // template won't have dynamic imports
         publicPath: ASSET_PATH ?? this.config.assetPath, // ASSET_PATH takes precedence over assetPath in voidjs.config.js
       },
+      // @ts-ignore
       plugins: [
         new WebpackAssetsMap(), // defaults to assets.json
         new webpack.DefinePlugin({
@@ -162,6 +169,7 @@ class ProdBuilder extends Builder {
         new CssoWebpackPlugin({
           restructure: false,
         }),
+        // @ts-ignore
         new MiniCssExtractPlugin({
           // only one css should be enough,
           // e.g. server.[contenthash].css
@@ -218,6 +226,7 @@ class ProdBuilder extends Builder {
         new webpack.ProgressPlugin({
           profile: true,
         }),
+        // @ts-ignore
         new MiniCssExtractPlugin({
           filename: 'ssr.[contenthash].css',
           experimentalUseImportModule: true,
