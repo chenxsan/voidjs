@@ -3674,10 +3674,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:^2.1.5, @types/prettier@npm:^2.2.3":
+"@types/prettier@npm:^2.1.5":
   version: 2.2.3
   resolution: "@types/prettier@npm:2.2.3"
   checksum: b7e80288f9f776caca84391a7a217b8baac6b4fce00bb9701af69299d465cb8faf17466f0af0803970c74d2c191767ca729a6d21a2f7e2ce552d1ef6cc0d653a
+  languageName: node
+  linkType: hard
+
+"@types/prettier@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "@types/prettier@npm:2.3.0"
+  checksum: 7c1ef16234220519d52b8a154723caf5c5dc9d5eaa85bfe06e367ba57472dab7f7fdac1ca7c29d9010d58f74f3b5235a9f8bad0111d9bad74018eb8141371e7e
   languageName: node
   linkType: hard
 
@@ -13420,17 +13427,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-loader@npm:^5.3.0":
-  version: 5.3.0
-  resolution: "postcss-loader@npm:5.3.0"
+"postcss-loader@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "postcss-loader@npm:6.1.0"
   dependencies:
     cosmiconfig: ^7.0.0
     klona: ^2.0.4
-    semver: ^7.3.4
+    semver: ^7.3.5
   peerDependencies:
     postcss: ^7.0.0 || ^8.0.1
     webpack: ^5.0.0
-  checksum: fd7a1a673b0e8f238392b3d449f2727767522febb2f60bfc9bb5cd4e373b07ba8df621f4e2fad92bf085765dcdea0f049497ae799ce1c9f1a592820275cc7e65
+  checksum: 4b85ab6c56668a4e17ddc5fb617cae4c63813c2d630769a5a510af7d5667c10c9668c51c56dbde67b9d56eda1db8d5746af8929d8962fee287ffb54631d013cd
   languageName: node
   linkType: hard
 
@@ -14810,9 +14817,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sass-loader@npm:^12.0.0":
-  version: 12.0.0
-  resolution: "sass-loader@npm:12.0.0"
+"sass-loader@npm:^12.1.0":
+  version: 12.1.0
+  resolution: "sass-loader@npm:12.1.0"
   dependencies:
     klona: ^2.0.4
     neo-async: ^2.6.2
@@ -14828,18 +14835,18 @@ resolve@^2.0.0-next.3:
       optional: true
     sass:
       optional: true
-  checksum: c873781a273c3cd068d5ecaa92f6bde8044c0e22e1294f63bce88b15d2256171903d9d728c2d95462a230e4abf8eecaaba7fa9826e7620314fc6c42d8b5f269e
+  checksum: 75f523e64ce00f495d0a510ecd9719f8ea3be128a295e0c9b8fb33029a355b7842729c0900b4f05605fa97d8dfc87a9a627ae2ec9ff1b39c21612cdb00a967f2
   languageName: node
   linkType: hard
 
-"sass@npm:^1.34.1":
-  version: 1.34.1
-  resolution: "sass@npm:1.34.1"
+"sass@npm:^1.35.0":
+  version: 1.35.1
+  resolution: "sass@npm:1.35.1"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
   bin:
     sass: sass.js
-  checksum: 5feb6de5ee50440da1764756b4ccd3060f6b091453579a2ab2854a9d7f6ff5b03dce01cd5bbe2d9cf916a68a581fc15203b66a9d3dc4b95709541ec43fd9eaca
+  checksum: ceeb2ebd09f8c058e71ce9b35b7dc0af8800ff2a87d52d9efe8d0f10e6649200065b7526f07326b52d6946c0d57997e13d96985fa826926edf8b1e31a839c000
   languageName: node
   linkType: hard
 
@@ -16906,7 +16913,7 @@ typescript@^4.3.2:
     "@types/mdx-js__react": ^1.5.3
     "@types/mini-css-extract-plugin": ^1.4.3
     "@types/node": ^15.12.2
-    "@types/prettier": ^2.2.3
+    "@types/prettier": ^2.3.0
     "@types/react": ^17.0.11
     "@types/react-dom": ^17.0.7
     "@types/react-helmet": ^6.1.1
@@ -16929,7 +16936,7 @@ typescript@^4.3.2:
     mini-css-extract-plugin: ^1.6.0
     pino: ^6.11.3
     pino-pretty: ^5.0.2
-    postcss-loader: ^5.3.0
+    postcss-loader: ^6.1.0
     prettier: ^2.3.1
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -16939,8 +16946,8 @@ typescript@^4.3.2:
     remark-gfm: ^1.0.0
     remark-mdx-frontmatter: ^1.0.1
     rimraf: ^3.0.2
-    sass: ^1.34.1
-    sass-loader: ^12.0.0
+    sass: ^1.35.0
+    sass-loader: ^12.1.0
     strip-ansi: 3.0.1
     style-loader: ^2.0.0
     tapable: ^2.2.0
@@ -16948,7 +16955,7 @@ typescript@^4.3.2:
     webpack: ^5.38.1
     webpack-dev-middleware: ^5.0.0
     ws: ^7.4.6
-    xdm: ^1.11.0
+    xdm: ^1.11.1
     yargs: ^17.0.1
   peerDependencies:
     react: ">=16.4.2"
@@ -17366,9 +17373,9 @@ typescript@^4.3.2:
   languageName: node
   linkType: hard
 
-"xdm@npm:^1.11.0":
-  version: 1.11.0
-  resolution: "xdm@npm:1.11.0"
+"xdm@npm:^1.11.1":
+  version: 1.11.1
+  resolution: "xdm@npm:1.11.1"
   dependencies:
     "@rollup/pluginutils": ^4.0.0
     "@types/estree-jsx": ^0.0.1
@@ -17395,7 +17402,7 @@ typescript@^4.3.2:
   dependenciesMeta:
     deasync:
       optional: true
-  checksum: 80fd8bde2ee4279435141bb75cc423a6f53fad780c5cd390d2c502eb1898a2008a17d0a6f442354fb92bad0be6fdf710a5d6d4df21d29eb2a7d6ca6930e392eb
+  checksum: 047b223a55a20f7a73aab9b5d1584410004c217a5baf4fa4c6e4c29023d2ffaad9915144740c05b7b44553d12c25859c5ab2d1c513dffd64bcaf3812d57b12bc
   languageName: node
   linkType: hard
 
