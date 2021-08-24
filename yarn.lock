@@ -12710,16 +12710,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mini-css-extract-plugin@npm:^1.6.2":
-  version: 1.6.2
-  resolution: "mini-css-extract-plugin@npm:1.6.2"
+"mini-css-extract-plugin@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "mini-css-extract-plugin@npm:2.2.0"
   dependencies:
-    loader-utils: ^2.0.0
-    schema-utils: ^3.0.0
-    webpack-sources: ^1.1.0
+    schema-utils: ^3.1.0
   peerDependencies:
-    webpack: ^4.4.0 || ^5.0.0
-  checksum: 53c162db80f2b58dcc1e85a2e1b52ffed73d3184ed5b8a037786d8562fbecf1b936397ea3873f3375356f8a6def27ec97867f9938356358d369d2a9e20a30718
+    webpack: ^5.0.0
+  checksum: 07fe9afd94fc8750039f0f2072f60833accd59d9ba65f1849421759a46608db627ec672b8775813c0964a73297910557b25e57a55b61b7d2ee0216f49e7fcfd1
   languageName: node
   linkType: hard
 
@@ -13804,13 +13802,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pino-pretty@npm:^5.1.3":
-  version: 5.1.3
-  resolution: "pino-pretty@npm:5.1.3"
+"pino-pretty@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "pino-pretty@npm:6.0.0"
   dependencies:
     "@hapi/bourne": ^2.0.0
     args: ^5.0.1
-    chalk: ^4.0.0
+    colorette: ^1.3.0
     dateformat: ^4.5.1
     fast-safe-stringify: ^2.0.7
     jmespath: ^0.15.0
@@ -13822,7 +13820,7 @@ __metadata:
     strip-json-comments: ^3.1.1
   bin:
     pino-pretty: bin.js
-  checksum: 838eeb2104ba42e25657e1ef0505b94ee141a1ea5b9353cf89c4a224dc58c86dfc73461e03d2b6ee6ac974da62cd536c3983869cc1f207f20554538f91328c61
+  checksum: 865a5ee324c9ad62c9662677ff0f1e13f9b4d75ed3b701678f87304d377d825b1f08b7f351caaec529dc376edfaf77e414c48abde80a484f565a88f7d36681b8
   languageName: node
   linkType: hard
 
@@ -15368,14 +15366,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.38.0":
-  version: 1.38.0
-  resolution: "sass@npm:1.38.0"
+"sass@npm:^1.38.1":
+  version: 1.38.1
+  resolution: "sass@npm:1.38.1"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
   bin:
     sass: sass.js
-  checksum: ce6da83497f56daab29bc9ed316cbfd18111c1c0afa466912e8c7815c8f006620595b8d3c5db632e9f09366691c2d8fc5f8faa8eb9532ae3bd0364c2ae7c6a93
+  checksum: 20f90b009742ee302e4d9f74c885bceff7aaaa4bcf948235acc408d28c744757398de402b5ca1e5eb2d2fe9e4eb330b641fc45a66feadda089b5a3afd2bc15d8
   languageName: node
   linkType: hard
 
@@ -17514,9 +17512,9 @@ typescript@^4.3.5:
     fs-extra: ^9.1.0
     html-entities: ^2.3.2
     lodash.merge: ^4.6.2
-    mini-css-extract-plugin: ^1.6.2
+    mini-css-extract-plugin: ^2.2.0
     pino: ^6.13.1
-    pino-pretty: ^5.1.3
+    pino-pretty: ^6.0.0
     postcss-loader: ^6.1.1
     prettier: ^2.3.2
     react: ^17.0.2
@@ -17527,7 +17525,7 @@ typescript@^4.3.5:
     remark-gfm: ^1.0.0
     remark-mdx-frontmatter: ^1.0.1
     rimraf: ^3.0.2
-    sass: ^1.38.0
+    sass: ^1.38.1
     sass-loader: ^12.1.0
     strip-ansi: 3.0.1
     style-loader: ^3.2.1
@@ -17687,7 +17685,7 @@ typescript@^4.3.5:
   languageName: node
   linkType: hard
 
-"webpack-sources@npm:^1.0.1, webpack-sources@npm:^1.1.0":
+"webpack-sources@npm:^1.0.1":
   version: 1.4.3
   resolution: "webpack-sources@npm:1.4.3"
   dependencies:
