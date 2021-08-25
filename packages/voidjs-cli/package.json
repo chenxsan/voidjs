@@ -48,7 +48,7 @@
     "csso-webpack-plugin": "^2.0.0-beta.3",
     "esbuild-typescript-loader": "^0.2.1",
     "express": "^4.17.1",
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.0.0",
     "html-entities": "^2.3.2",
     "lodash.merge": "^4.6.2",
     "mini-css-extract-plugin": "^2.2.0",
