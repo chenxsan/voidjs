@@ -45,6 +45,9 @@ export default class ClientsCompiler {
   createWebpackConfig(entries: string[]): webpack.Configuration {
     // @ts-ignore
     return {
+      experiments: {
+        buildHttp: true,
+      },
       mode: 'production',
       target: ['web', 'es5'],
       // cache: {

@@ -44,6 +44,7 @@ import {
   PerformanceObserver,
   publicFolder,
   assetsPath,
+  cwd,
 } from '../config'
 
 import collectPages from '../collectFiles'
@@ -122,6 +123,11 @@ class ProdBuilder extends Builder {
 
     const commonConfiguration: webpack.Configuration = {
       mode: 'production',
+      experiments: {
+        buildHttp: {
+          lockfileLocation: path.resolve(cwd, 'webpack.lock'),
+        },
+      },
       entry: entries,
       module: {
         rules: getRules(this.pagesDir, hasCustomApp(this.pagesDir)),

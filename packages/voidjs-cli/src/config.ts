@@ -136,6 +136,9 @@ export const getRules = (pagesDir: string, hasApp: boolean): RuleSetRule[] => {
       test: /\.(js|jsx|mjs)$/i,
       exclude: /node_modules/,
       use: [babelLoader],
+      resolve: {
+        fullySpecified: false,
+      },
     },
     {
       test: /\.ts$/i,
