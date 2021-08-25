@@ -1,5 +1,11 @@
 # create-voidjs
 
+## 0.3.20
+
+### Patch Changes
+
+- Upgrade deps
+
 ## 0.3.19
 
 ### Patch Changes

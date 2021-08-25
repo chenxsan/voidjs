@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.28.0
+
+### Minor Changes
+
+- Support buildHttp
+
 ## 0.27.0
 
 ### Minor Changes

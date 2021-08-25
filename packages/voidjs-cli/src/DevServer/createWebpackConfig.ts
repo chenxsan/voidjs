@@ -68,6 +68,7 @@ export default function createWebpackConfig(
   return {
     experiments: {
       topLevelAwait: true,
+      buildHttp: true,
     },
     // TODO disable at the moment as I'm not yet wrap my head around it
     // cache: {
@@ -98,6 +99,9 @@ export default function createWebpackConfig(
           test: /\.(mjs|js|jsx)$/i,
           exclude: [/node_modules/],
           use: [babelLoader],
+          resolve: {
+            fullySpecified: false,
+          },
         },
         {
           test: /\.ts$/i,

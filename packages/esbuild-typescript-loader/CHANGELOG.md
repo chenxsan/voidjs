@@ -1,5 +1,11 @@
 # esbuild-typescript-loader
 
+## 0.2.2
+
+### Patch Changes
+
+- Upgrade deps
+
 ## 0.2.1
 
 ### Patch Changes
