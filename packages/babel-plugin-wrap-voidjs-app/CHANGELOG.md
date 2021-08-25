@@ -1,5 +1,11 @@
 # babel-plugin-wrap-voidjs-app
 
+## 0.2.7
+
+### Patch Changes
+
+- Upgrade deps
+
 ## 0.2.6
 
 ### Patch Changes
