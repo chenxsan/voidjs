@@ -4283,7 +4283,7 @@ __metadata:
     react-refractor: ^2.1.4
     refractor: ^4.1.1
     tailwindcss: ^2.2.7
-    voidjs-cli: ^0.27.0
+    voidjs-cli: ^0.28.0
   languageName: unknown
   linkType: soft
 
@@ -17388,7 +17388,7 @@ typescript@^4.3.5:
   languageName: node
   linkType: hard
 
-"voidjs-cli@^0.27.0, voidjs-cli@workspace:packages/voidjs-cli":
+"voidjs-cli@^0.28.0, voidjs-cli@workspace:packages/voidjs-cli":
   version: 0.0.0-use.local
   resolution: "voidjs-cli@workspace:packages/voidjs-cli"
   dependencies:
