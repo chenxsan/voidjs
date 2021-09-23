@@ -5,7 +5,7 @@
   "version": "0.4.1",
   "license": "MIT",
   "dependencies": {
-    "unist-util-visit": "^2.0.3"
+    "unist-util-visit": "^4.1.0"
   },
   "devDependencies": {
     "remark": "^13.0.0",
