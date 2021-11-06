@@ -227,6 +227,7 @@ class ProdBuilder extends Builder {
         publicPath: ASSET_PATH ?? this.config.assetPath, // ASSET_PATH takes precedence over assetPath in voidjs.config.js
       },
       plugins: [
+        new WebpackAssetsMap('server-assets.json'),
         new webpack.DefinePlugin({
           'process.env.NODE_ENV': '"production"',
         }),
