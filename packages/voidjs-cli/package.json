@@ -68,7 +68,7 @@
     "style-loader": "^3.2.1",
     "tapable": "^2.2.0",
     "terser-webpack-plugin": "^5.1.4",
-    "webpack": "^5.51.1",
+    "webpack": "^5.62.1",
     "webpack-dev-middleware": "^5.0.0",
     "ws": "^8.2.0",
     "xdm": "^1.12.2",

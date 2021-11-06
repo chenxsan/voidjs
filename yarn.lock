@@ -7504,6 +7504,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"enhanced-resolve@npm:^5.8.3":
+  version: 5.8.3
+  resolution: "enhanced-resolve@npm:5.8.3"
+  dependencies:
+    graceful-fs: ^4.2.4
+    tapable: ^2.2.0
+  checksum: 71d33904bd335ecf480341ceabb500458f4836187458d278014e3e5c9dd5487c5a176cd280cc55d783c8c3231aea1d4e72b32f0bd1e8928807e39c0154835b47
+  languageName: node
+  linkType: hard
+
 "enquirer@npm:^2.3.0, enquirer@npm:^2.3.5":
   version: 2.3.5
   resolution: "enquirer@npm:2.3.5"
@@ -7651,10 +7661,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-module-lexer@npm:^0.7.1":
-  version: 0.7.1
-  resolution: "es-module-lexer@npm:0.7.1"
-  checksum: 3bc1416512f44343c88bbfb7d1685c11a3cb9aca6090a552b04e9bd802d778ae66aa076f2d4cd5f707061d3264ac3ff2b6a45a55f0f139a966190e57ab497571
+"es-module-lexer@npm:^0.9.0":
+  version: 0.9.3
+  resolution: "es-module-lexer@npm:0.9.3"
+  checksum: e55280100e7bdd4652b14c70b6e4472cf60a841987e04af7df6bd1ce4ed4be58adca7b786096627b4b31a04c0cd0d9a0299ea4bd0100f62282ac7b06a2074af6
   languageName: node
   linkType: hard
 
@@ -7678,7 +7688,7 @@ __metadata:
     loader-utils: ^2.0.0
     memfs: ^3.2.2
     schema-utils: ^3.1.1
-    webpack: ^5.51.1
+    webpack: ^5.62.1
   languageName: unknown
   linkType: soft
 
@@ -17442,7 +17452,7 @@ typescript@^4.3.5:
     style-loader: ^3.2.1
     tapable: ^2.2.0
     terser-webpack-plugin: ^5.1.4
-    webpack: ^5.51.1
+    webpack: ^5.62.1
     webpack-dev-middleware: ^5.0.0
     ws: ^8.2.0
     xdm: ^1.12.2
@@ -17659,9 +17669,9 @@ typescript@^4.3.5:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.51.1":
-  version: 5.51.1
-  resolution: "webpack@npm:5.51.1"
+"webpack@npm:^5.62.1":
+  version: 5.62.1
+  resolution: "webpack@npm:5.62.1"
   dependencies:
     "@types/eslint-scope": ^3.7.0
     "@types/estree": ^0.0.50
@@ -17672,8 +17682,8 @@ typescript@^4.3.5:
     acorn-import-assertions: ^1.7.6
     browserslist: ^4.14.5
     chrome-trace-event: ^1.0.2
-    enhanced-resolve: ^5.8.0
-    es-module-lexer: ^0.7.1
+    enhanced-resolve: ^5.8.3
+    es-module-lexer: ^0.9.0
     eslint-scope: 5.1.1
     events: ^3.2.0
     glob-to-regexp: ^0.4.1
@@ -17692,7 +17702,7 @@ typescript@^4.3.5:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: a134d4087b000b2815c0f6ce9bd5d08b5b1d4831f0b43694bcbfc56cf8ee8bdf1d55b52b0941162ddba7d112352b39eaeff5afa040fb828522d92937bf8fd3b4
+  checksum: e8272fbb3a78a5763f7ff0e32159bfbf16d17246690832a647ba668c3495b3d02c9849b65558f5e87e7c1ea98acdb9fe442f2da98e65be62991961b4cc52b9ad
   languageName: node
   linkType: hard
 

@@ -125,6 +125,7 @@ class ProdBuilder extends Builder {
       mode: 'production',
       experiments: {
         buildHttp: {
+          allowedUris: [() => true],
           lockfileLocation: path.resolve(cwd, 'webpack.lock'),
         },
       },

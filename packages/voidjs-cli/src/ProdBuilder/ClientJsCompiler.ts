@@ -46,7 +46,7 @@ export default class ClientsCompiler {
     // @ts-ignore
     return {
       experiments: {
-        buildHttp: true,
+        buildHttp: [() => true],
       },
       mode: 'production',
       target: ['web', 'es5'],
