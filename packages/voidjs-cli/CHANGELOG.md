@@ -1,5 +1,11 @@
 # voidjs-cli
 
+## 0.28.1
+
+### Patch Changes
+
+- Upgrade webpack
+
 ## 0.28.0
 
 ### Minor Changes

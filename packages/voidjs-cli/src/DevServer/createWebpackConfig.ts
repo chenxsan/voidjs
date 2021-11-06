@@ -68,7 +68,7 @@ export default function createWebpackConfig(
   return {
     experiments: {
       topLevelAwait: true,
-      buildHttp: true,
+      buildHttp: [() => true],
     },
     // TODO disable at the moment as I'm not yet wrap my head around it
     // cache: {
