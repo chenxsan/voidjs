@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "remark": "^13.0.0",
-    "remark-html": "^13.0.1"
+    "remark-html": "^15.0.1"
   },
   "keywords": [
     "remark",
